@@ -1,9 +1,11 @@
 const router = require('express').Router();
-// const Controller = require('./controller');
+const Controller = require('./controller');
 
-router.get('/', async (req, res, next) => {
+router.get('/all-data', async (req,res,next) => {
   try {
-    res.render('index', { title: 'Welcome to Chino Loan Website API' });
+    console.log('hello inside all-data');
+    console.log(Controller.getAllData('Prime Bank','General Saving'));
+    res.render('index');
   } catch (e) { next(e); }
 });
 
