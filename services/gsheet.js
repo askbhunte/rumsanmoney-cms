@@ -4,14 +4,14 @@ const config = require("config");
 const credsPath = "../config/googlespreadsheet.json";
 
 class GSheet {
-  constructor() { } 
+  constructor() {
+  }
   async getData() {
-    const doc = new GoogleSpreadsheet("1ZKT3ZcdA8z4beFWJ87huHhPxbaCQZwMjm12cSc-efCw");
+    let doc = new GoogleSpreadsheet("1ZKT3ZcdA8z4beFWJ87huHhPxbaCQZwMjm12cSc-efCw");
     await doc.useServiceAccountAuth(require(credsPath));
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0];
     await sheet.loadHeaderRow();
-    //const header = sheet.headerValues;
     let rows = await sheet.getRows();
     let data = [];
     for (let i = 0; i < rows.length; i++) {
@@ -26,13 +26,13 @@ class GSheet {
         objData["minimum_balance"] = rows[i]["Minimum Balance"];
         objData["conditions"] = rows[i].Conditions;
         objData["Url"] = rows[i].Url;
-        data.push(objData);
+        data.push(objData);        
     }
     return data;
   }
 
   async getLookup(){
-    const doc = new GoogleSpreadsheet("1ZKT3ZcdA8z4beFWJ87huHhPxbaCQZwMjm12cSc-efCw");
+    const doc = new GoogleSpreadsheet("1ZKT3ZcdA8z4beFWJ87huHhPxbaCQZwMjm12cSc-efCw"); 
     await doc.useServiceAccountAuth(require(credsPath));
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[1];
@@ -45,7 +45,7 @@ class GSheet {
         objData["bank_name"] = rows[i]["Bank Names"];
         objData["account_type"] = rows[i]["Account type"];
         data.push(objData);
-  }
+    }
   return data;
 }
 }

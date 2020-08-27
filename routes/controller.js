@@ -1,32 +1,35 @@
 const GSheet = require('../services/gsheet');
 
 class Controller {
-    async getAllData(bankName,productType) {
-        let data = await GSheet.getData();
-        console.log('hi');
-        console.log(data);
-        console.log('hi');
-        console.log(bankName,productType);
+    async getAllData(bankName, productType) {
+        try{
+            let data = await GSheet.getData();
         if(bankName){
             data = data.filter(el => {
                 return el.bank_name == bankName;
             }); 
-            console.log(data);
+            
         }
         if(productType){
             data = data.filter(el => {
                 return el.product_type == productType;
             }); 
-            console.log(data);
-        }            
-                 
-       // console.log(data);
+           
+        }
         return data;
+        }
+        catch (error) {
+            return {};
+        }
     }
 
     async getLookup() {
-        let data = await GSheet.getLookup();
-        return data;
+        try {
+            let data = await GSheet.getLookup();
+            return data;
+        } catch (error) {
+            return {};
+        }
     }
 }
 module.exports = new Controller();
