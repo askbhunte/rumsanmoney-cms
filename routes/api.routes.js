@@ -10,4 +10,5 @@ router.get('/all-data', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
+
 module.exports = router;

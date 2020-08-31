@@ -24,5 +24,26 @@ class Controller {
       return { msg: error };
     }
   }
+
+  async compareBanks(bank_one, bank_two, bank_three) {
+    try {
+      const allData = await this.getAllData();
+      let data = [];
+      if (bank_one) {
+        data.push(allData.filter((el) => el.bank_id === bank_one));
+      }
+      if (bank_two) {
+        data.push(allData.filter((el) => el.bank_id === bank_two));
+      }
+      if (bank_three) {
+        data.push(allData.filter((el) => el.bank_id === bank_three));
+      }
+      
+      return data;
+    } catch (error) {
+      return { msg: error };
+    }
+  }
+  
 }
 module.exports = new Controller();

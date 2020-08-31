@@ -118,7 +118,7 @@
       <div class="loan-card">
         <div class="row">
           <div class="col-md-3 first">
-            <h4>Prime Home Loan</h3>
+            <h4>Prime super max bachat khata</h3>
               <div class="img-container">
                 <img src="/img/primebank.png">
               </div>
@@ -148,7 +148,7 @@
             <button type="button" class="btn btn-primary">Apply now</button>
             <button type="button" class="btn btn-primary">learn more</button>
             <div class="custom-checkbox">
-              <input type="checkbox" id="" value="Prime Bank">
+              <input type="checkbox" id="0ed05a36-2f73-4bdc-bf87-1142f299b126" value="">
               <p class="mb-0 ml-3">Select to compare </p>
             </div>
           </div>
@@ -156,9 +156,9 @@
         <hr>
         <div class="row">
           <div class="col-md-3 first">
-            <h4>Sunrise Home Loan</h3>
+            <h4>Prime general payroll a/c</h3>
               <div class="img-container">
-                <img src="/img/sunrisebank.jpg">
+                <img src="/img/primebank.png">
               </div>
 
           </div>
@@ -187,7 +187,46 @@
             <button type="button" class="btn btn-primary">Apply now</button>
             <button type="button" class="btn btn-primary">learn more</button>
             <div class="custom-checkbox">
-              <input type="checkbox" id="" value="Sunrise Bank">
+              <input type="checkbox" id="0aca4966-f9c1-4df4-bad7-125d0c6e413c" value="">
+              <p class="mb-0 ml-3">Select to compare </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-3 first">
+            <h4>Prime surakshit bachat khata</h3>
+              <div class="img-container">
+                <img src="/img/primebank.png">
+              </div>
+
+          </div>
+          <div class="col-md-6 second">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident ipsa numquam eveniet repudiandae
+              sapiente aliquid consequatur dolores dolor alias nobis laboriosam, accusantium deleniti incidunt beatae
+              itaque deserunt quas. Consectetur!
+            </p>
+            <div class="interest_rate">
+              <p>
+                Interest Rate</br>
+              </p>
+              <ul>
+                <li class="interest_rate_add"> 15 %</li>
+              </ul>
+            </div>
+            <div class="tenure">
+              <p>Tenure</p>
+              <ul>
+                <li>Maximum upto 20 years</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 third">
+            <button type="button" class="btn btn-primary">Apply now</button>
+            <button type="button" class="btn btn-primary">learn more</button>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="18fc0cbd-6e8e-412c-815f-b98b497df326" value="">
               <p class="mb-0 ml-3">Select to compare </p>
             </div>
           </div>
@@ -226,12 +265,11 @@
             </div>            
           </div> 
           <div class ="col-md-3 d-flex align-items-center">
-            <a href="/compare" class = "btn btn-primary">              
+            <a href="/compare" class = "btn btn-primary" id="compare_button">              
               Compare              
             </a>          
           </div> 
-        </div>
-        
+        </div>        
       </div>
     </div>
     
@@ -255,13 +293,20 @@
     $('#compare-div').hide();
   
   $('input[type=checkbox]').change(function(){
-    
-    if($(this).is(':checked')) {
-      console.log(this)
+    if($(this).is(':checked')) {      
       $('#compare-div').show();     
     } else {
       $('#compare-div').hide();
     }
+  });
+
+  $('#compare_button').on('click',()=>{
+    id =[];
+    id[0] = "0ed05a36-2f73-4bdc-bf87-1142f299b126";
+    id[1] = "0aca4966-f9c1-4df4-bad7-125d0c6e413c";
+    id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";
+    $.post('/api/v1/compare',{id : id})  ;
+
   });
 </script>
   </body>
