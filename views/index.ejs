@@ -11,6 +11,9 @@
     <link rel='stylesheet' href='/css/custom.css'/>
   </head>
   <body>
+    <button id="reveal" class = "btn" style ="position: fixed; top:0; left:0;z-index: 1;">
+      click me to toggle
+    </button>
     <div>
       <div class = "container">
         <div class ="row">
@@ -49,7 +52,7 @@
     <div class="custom-category">
       <div class = "container">
          
-        <div class ="row">
+        <div class ="row mb-2">
           <div class="col-md-7">
             <h3 class ="custom-color" style="font-weight:600; margin:0;">Choose a category</h3>
           </div>         
@@ -170,8 +173,7 @@
       </disv>
     </div>
 
-    <div class = "container">
-
+    <div class = "container loan-container">
       <section class="custom-category">
         <div class="sort-bar">        
             <a class=" dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -217,7 +219,7 @@
               <button type="button" class="btn btn-primary">Apply now</button>   
               <button type="button" class="btn btn-primary">learn more</button>  
               <div class ="custom-checkbox">
-                <input type="checkbox" id="" value=""><p class="mb-0 ml-3">Select to compare </p>
+                <input type="checkbox" id="" value="Prime Home Loan"><p class="mb-0 ml-3">Select to compare </p>
               </div>
             </div>
           </div>      
@@ -253,14 +255,53 @@
               <button type="button" class="btn btn-primary">Apply now</button>   
               <button type="button" class="btn btn-primary">learn more</button>  
               <div class ="custom-checkbox">
-                <input type="checkbox" id="" value=""><p class="mb-0 ml-3">Select to compare </p>
+                <input type="checkbox" id="" value="2Prime Home Loan"><p class="mb-0 ml-3">Select to compare </p>
               </div>
             </div>
           </div>
           <hr>
         </div>
-      </section>
+      </section>    
     </div>  
+    <div id="compare-div" class="compare-popup fixed-bottom">
+      <div class= "container">
+        <h3>
+          Compare Loans
+        </h3>
+        <div class = "row">
+          <div class ="col-md-3">
+            <div class ="compare-footer-card">
+              <div class = "compare-footer-img-container">
+                <img src = "/img/primesquare.png">
+              </div>
+              <h4>Prime Bank</h4>
+            </div>
+          </div> 
+          <div class ="col-md-3">
+            <div class ="compare-footer-card">
+              <div class = "compare-footer-img-container">
+                <img src = "/img/sunrisesquare.png">
+              </div>
+              <h4>Sunrise Bank</h4>
+            </div>            
+          </div> 
+          <div class ="col-md-3">
+            <div class ="compare-footer-card">
+              <div class = "compare-footer-img-container">
+                <img src = "" alt="add an item">                
+              </div>
+              <h4>Add a bank loan</h4>
+            </div>            
+          </div> 
+          <div class ="col-md-3 d-flex align-items-center">
+            <a href="/compare" class = "btn btn-primary">              
+              Compare              
+            </a>          
+          </div> 
+        </div>
+        
+      </div>
+    </div>
     
 
     <!--   Core JS Files   -->
@@ -276,5 +317,19 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 <script src="/materialui/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+
+<script>
+  $('#reveal').on('click',()=>{
+    $('#compare-div').toggle();});
+
+  let compareArr = [];
+  $('input[name=checkbox]').change(function(){
+    if($(this).is(':checked')) {
+        console.log('hello');
+    } else {
+        console.log('not checked');
+    }
+  });
+</script>
   </body>
 </html>
