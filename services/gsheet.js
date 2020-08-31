@@ -17,6 +17,7 @@ class GSheet {
     const data = [];
     for (let i = 0; i < rows.length; i++) {
       const objData = {};
+      objData.bank_id = rows[i]['Bank Id'];
       objData.bank_name = rows[i].Bank;
       objData.product_name = rows[i]['Product Name'];
       objData.product_type = rows[i]['Product Type'];

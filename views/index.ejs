@@ -101,7 +101,6 @@
   </div>
 
   <div class="container loan-container">
-
     <section class="custom-category">
       <div class="sort-bar mt-2">
         <a class=" dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -123,7 +122,6 @@
               <div class="img-container">
                 <img src="/img/primebank.png">
               </div>
-
           </div>
           <div class="col-md-6 second">
             <p>
@@ -150,7 +148,7 @@
             <button type="button" class="btn btn-primary">Apply now</button>
             <button type="button" class="btn btn-primary">learn more</button>
             <div class="custom-checkbox">
-              <input type="checkbox" id="" value="">
+              <input type="checkbox" id="" value="Prime Bank">
               <p class="mb-0 ml-3">Select to compare </p>
             </div>
           </div>
@@ -158,9 +156,9 @@
         <hr>
         <div class="row">
           <div class="col-md-3 first">
-            <h4>Prime Home Loan</h3>
+            <h4>Sunrise Home Loan</h3>
               <div class="img-container">
-                <img src="/img/primebank.png">
+                <img src="/img/sunrisebank.jpg">
               </div>
 
           </div>
@@ -189,7 +187,7 @@
             <button type="button" class="btn btn-primary">Apply now</button>
             <button type="button" class="btn btn-primary">learn more</button>
             <div class="custom-checkbox">
-              <input type="checkbox" id="" value="">
+              <input type="checkbox" id="" value="Sunrise Bank">
               <p class="mb-0 ml-3">Select to compare </p>
             </div>
           </div>
@@ -206,23 +204,23 @@
           <div class ="col-md-3">
             <div class ="compare-footer-card">
               <div class = "compare-footer-img-container">
-                <img src = "/img/primesquare.png">
+                <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
               </div>
-              <h4>Prime Bank</h4>
-            </div>
+              <h4>Add a bank loan</h4>
+            </div>   
           </div> 
           <div class ="col-md-3">
             <div class ="compare-footer-card">
               <div class = "compare-footer-img-container">
-                <img src = "/img/sunrisesquare.png">
+                <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
               </div>
-              <h4>Sunrise Bank</h4>
-            </div>            
+              <h4>Add a bank loan</h4>
+            </div>             
           </div> 
           <div class ="col-md-3">
             <div class ="compare-footer-card">
               <div class = "compare-footer-img-container">
-                <img src = "" alt="add an item">                
+                <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
               </div>
               <h4>Add a bank loan</h4>
             </div>            
@@ -253,15 +251,16 @@
 <script src="/materialui/assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 
 <script>
-  $('#reveal').on('click',()=>{
-    $('#compare-div').toggle();});
-
-  let compareArr = [];
-  $('input[name=checkbox]').change(function(){
+ 
+    $('#compare-div').hide();
+  
+  $('input[type=checkbox]').change(function(){
+    
     if($(this).is(':checked')) {
-        console.log('hello');
+      console.log(this)
+      $('#compare-div').show();     
     } else {
-        console.log('not checked');
+      $('#compare-div').hide();
     }
   });
 </script>
