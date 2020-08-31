@@ -1,265 +1,198 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  
-    <title><%= title %></title>    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="/materialui/assets/css/material-kit.css" rel="stylesheet"/>   
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    
-    <link rel='stylesheet' href='/css/custom.css'/>
-  </head>
-  <body>
-    <button id="reveal" class = "btn" style ="position: fixed; top:0; left:0;z-index: 1;">
-      click me to toggle
-    </button>
-    <div>
-      <div class = "container">
-        <div class ="row">
-          <div class="col-md-7">  
-            <img src ="/img/bhunte.png" style="width: 50px;">
-          </div>          
-          <div class="col-md-5 placeholder  ">   
-            <button type="button" class="btn btn-primary ml-3">Sign Up</button>         
-            <button type="button" class="btn btn-primary mr-3">Log In</button>                
-          </div>
-        </div>
-      </div>      
-    </div>
-    
-    <nav class="navbar navbar-expand-lg bg-primary">
-      <div class="container">        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="navbar-toggler-icon"></span>
-        <span class="navbar-toggler-icon"></span>
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="javascript:;">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:;">About Us</a>
-            </li> 
-          </ul>
+
+<head>
+  <%- include('_layouts/header') %>
+</head>
+
+<body>
+  <%- include('_layouts/navbar') %>
+
+  <div class="custom-category">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="custom-color" style="font-weight:600; margin:0;">Choose a category</h3>
         </div>
       </div>
-    </nav>
 
-    <div class="custom-category">
-      <div class = "container">
-         
-        <div class ="row mb-2">
-          <div class="col-md-7">
-            <h3 class ="custom-color" style="font-weight:600; margin:0;">Choose a category</h3>
-          </div>         
-          <div class="col-md-5 search-bar">    
-            <div>            
-              <input type="text" placeholder="Search the category">  
-              <button type="submit" class="btn btn-white btn-just-icon btn-round">
-                <i class="material-icons">search</i>
-              </button> 
-            </div>                      
-          </div>
-        </div>          
-        
-        <div class= "row">
-          <div class="col-md-1 m-0">
-            <a class="btn btn-primary"  style="width: 100%; margin:0;"href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-          </div>
-          <div class="col-md-10">
+      <div class="row mt-3">
+        <div class="col-md-1 mt-2">
+          <a class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example" data-slide="prev"><i
+              class="fa fa-chevron-left"></i></a>
+        </div>
+        <div class="col-md-10">
 
-            <!--Carousel Wrapper-->
-            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">      
+          <!--Carousel Wrapper-->
+          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-              <!--Slides-->
-              <div class="carousel-inner" role="listbox">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
 
-                <!--First slide-->
-                <div class="carousel-item active">
+              <!--First slide-->
+              <div class="carousel-item active">
 
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Home Loan</a>                 
-                        </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">home</i> Home Loan</a>
                     </div>
-                    <div class="col-md-3">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Auto Loan</a>                
-                        </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">
+                          directions_car</i> Auto Loan</a>
                     </div>
-                    <div class="col-md-3">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Educational Loan</a>               
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Educational Loan</a>               
-                        </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">
+                          school
+                        </i> Educational Loan</a>
                     </div>
                   </div>
 
                 </div>
-                <!--/.First slide-->
 
-                <!--Second slide-->
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Home Loan</a>                 
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Auto Loan</a>                
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Educational Loan</a>               
-                        </div>
+              </div>
+              <!--/.First slide-->
+              <div class="carousel-item">
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">
+                          business</i> SME Loan</a>
                     </div>
                   </div>
-                  
-                </div>
-                <!--/.Second slide-->
-
-                <!--Third slide-->
-                <div class="carousel-item"> 
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Home Loan</a>                 
-                        </div>
+                  <div class="col-md-4">
+                    <div class="card bg-light my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">money</i> Loan against Shares</a>
                     </div>
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Auto Loan</a>                
-                        </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a href><i class="material-icons">agriculture</i> Agriculture Loan</a>
                     </div>
-                    <div class="col-md-4">
-                      <div class="card my-2" style="text-align: center;">                
-                        <a href>Educational Loan</a>               
-                        </div>
-                    </div>
-                  </div>      
+                  </div>
 
                 </div>
-                <!--/.Third slide-->
-
               </div>
-              <!--/.Slides-->
-
             </div>
-            <!--/.Carousel Wrapper-->
-
+            <!--/.Slides-->
 
           </div>
-          <div class="col-md-1 m-0">
-            <a class="btn btn-primary"  style="width: 100%; margin:0;"href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-          </div>                
+          <!--/.Carousel Wrapper-->
 
 
         </div>
-         
+        <div class="col-md-1 mt-2">
+          <a class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example" data-slide="next"><i
+              class="fa fa-chevron-right"></i></a>
+        </div>
+
+
       </div>
-       
-      </disv>
+
     </div>
 
-    <div class = "container loan-container">
-      <section class="custom-category">
-        <div class="sort-bar">        
-            <a class=" dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sort By
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="javascript:;">Interest Rate (Low to High)</a>
-              <a class="dropdown-item" href="javascript:;">Interest Rate (High to Low)</a>
-              <a class="dropdown-item" href="javascript:;">Minimum Balance (Low to High)</a>
-              <a class="dropdown-item" href="javascript:;">Minimum Balance (High to Low)</a>
-            </div>          
+    </disv>
+  </div>
+
+  <div class="container">
+
+    <section class="custom-category">
+      <div class="sort-bar mt-2">
+        <a class=" dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="javascript:;">Interest Rate (Low to High)</a>
+          <a class="dropdown-item" href="javascript:;">Interest Rate (High to Low)</a>
+          <a class="dropdown-item" href="javascript:;">Minimum Balance (Low to High)</a>
+          <a class="dropdown-item" href="javascript:;">Minimum Balance (High to Low)</a>
         </div>
-        <hr class="mt-0">
-        <div class ="loan-card">
-          <div class = "row">
-            <div class = "col-md-3 first">
-              <h4>Prime Home Loan</h3>
-              <div class ="img-container">
-                <img src ="/img/primebank.png">
+      </div>
+      <hr class="mt-0">
+      <div class="loan-card">
+        <div class="row">
+          <div class="col-md-3 first">
+            <h4>Prime Home Loan</h3>
+              <div class="img-container">
+                <img src="/img/primebank.png">
               </div>
-              
-            </div>
-            <div class = "col-md-6 second" >
+
+          </div>
+          <div class="col-md-6 second">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident ipsa numquam eveniet repudiandae
+              sapiente aliquid consequatur dolores dolor alias nobis laboriosam, accusantium deleniti incidunt beatae
+              itaque deserunt quas. Consectetur!
+            </p>
+            <div class="interest_rate">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident ipsa numquam eveniet repudiandae sapiente aliquid consequatur dolores dolor alias nobis laboriosam, accusantium deleniti incidunt beatae itaque deserunt quas. Consectetur!
+                Interest Rate</br>
               </p>
-              <div class ="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> 15 %</li>
-                </ul>
-              </div>
-              <div class="tenure">
-                <p>Tenure</p>
-                <ul>
-                  <li>Maximum upto 20 years</li>
-                </ul>
-              </div>
+              <ul>
+                <li class="interest_rate_add"> 15 %</li>
+              </ul>
             </div>
-            <div class = "col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>   
-              <button type="button" class="btn btn-primary">learn more</button>  
-              <div class ="custom-checkbox">
-                <input type="checkbox" id="" value="Prime Home Loan"><p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>      
-          <hr>   
-          <div class = "row">
-            <div class = "col-md-3 first">
-              <h4>Prime Home Loan</h3>
-              <div class ="img-container">
-                <img src ="/img/primebank.png">
-              </div>
-              
-            </div>
-            <div class = "col-md-6 second" >
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident ipsa numquam eveniet repudiandae sapiente aliquid consequatur dolores dolor alias nobis laboriosam, accusantium deleniti incidunt beatae itaque deserunt quas. Consectetur!
-              </p>
-              <div class ="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> 15 %</li>
-                </ul>
-              </div>
-              <div class="tenure">
-                <p>Tenure</p>
-                <ul>
-                  <li>Maximum upto 20 years</li>
-                </ul>
-              </div>
-            </div>
-            <div class = "col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>   
-              <button type="button" class="btn btn-primary">learn more</button>  
-              <div class ="custom-checkbox">
-                <input type="checkbox" id="" value="2Prime Home Loan"><p class="mb-0 ml-3">Select to compare </p>
-              </div>
+            <div class="tenure">
+              <p>Tenure</p>
+              <ul>
+                <li>Maximum upto 20 years</li>
+              </ul>
             </div>
           </div>
-          <hr>
+          <div class="col-md-3 third">
+            <button type="button" class="btn btn-primary">Apply now</button>
+            <button type="button" class="btn btn-primary">learn more</button>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="" value="">
+              <p class="mb-0 ml-3">Select to compare </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-3 first">
+            <h4>Prime Home Loan</h3>
+              <div class="img-container">
+                <img src="/img/primebank.png">
+              </div>
+
+          </div>
+          <div class="col-md-6 second">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident ipsa numquam eveniet repudiandae
+              sapiente aliquid consequatur dolores dolor alias nobis laboriosam, accusantium deleniti incidunt beatae
+              itaque deserunt quas. Consectetur!
+            </p>
+            <div class="interest_rate">
+              <p>
+                Interest Rate</br>
+              </p>
+              <ul>
+                <li class="interest_rate_add"> 15 %</li>
+              </ul>
+            </div>
+            <div class="tenure">
+              <p>Tenure</p>
+              <ul>
+                <li>Maximum upto 20 years</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 third">
+            <button type="button" class="btn btn-primary">Apply now</button>
+            <button type="button" class="btn btn-primary">learn more</button>
+            <div class="custom-checkbox">
+              <input type="checkbox" id="" value="">
+              <p class="mb-0 ml-3">Select to compare </p>
+            </div>
+          </div>
         </div>
       </section>    
     </div>  
@@ -332,4 +265,11 @@
   });
 </script>
   </body>
+        <hr>
+      </div>
+    </section>
+  </div>
+  <%- include('_layouts/footer') %>
+</body>
+
 </html>
