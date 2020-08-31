@@ -7,15 +7,13 @@ router.get('/', async (req, res) => {
 
 router.get('/compare', async (req, res, next) => {
   try {
-    
-    const bank_one = req.query.bank_one || null;
-    const bank_two = req.query.bank_two || null;
-    const bank_three = req.query.bank_three || null;
-    const data = await Controller.compareBanks(bank_one, bank_two, bank_three);
-    
-    res.render('compare', { title: 'Welcome to Chino Loan Website' , data});
-  }
-  catch (e) {
+    const bankOne = req.query.bank_one || null;
+    const bankTwo = req.query.bank_two || null;
+    const bankThree = req.query.bank_three || null;
+    const data = await Controller.compareBanks(bankOne, bankTwo, bankThree);
+    res.json(data);
+    // res.render('compare', { title: 'Welcome to Chino Loan Website', data });
+  } catch (e) {
     next(e);
   }
 });

@@ -25,25 +25,26 @@ class Controller {
     }
   }
 
-  async compareBanks(bank_one, bank_two, bank_three) {
+  async compareBanks(bankOne, bankTwo, bankThree) {
     try {
       const allData = await this.getAllData();
-      let data = [];
-      if (bank_one) {
-        data.push(allData.filter((el) => el.bank_id === bank_one));
+      const data = [];
+      if (bankOne) {
+        const bankOneDetails = allData.filter((el) => el.bank_id === bankOne);
+        data.push(bankOneDetails[0]);
       }
-      if (bank_two) {
-        data.push(allData.filter((el) => el.bank_id === bank_two));
+      if (bankTwo) {
+        const bankTwoDetails = allData.filter((el) => el.bank_id === bankTwo);
+        data.push(bankTwoDetails[0]);
       }
-      if (bank_three) {
-        data.push(allData.filter((el) => el.bank_id === bank_three));
+      if (bankThree) {
+        const bankThreeDetails = allData.filter((el) => el.bank_id === bankThree);
+        data.push(bankThreeDetails[0]);
       }
-      
       return data;
     } catch (error) {
       return { msg: error };
     }
   }
-  
 }
 module.exports = new Controller();
