@@ -192,14 +192,16 @@ table tr p {
   vertical-align: middle;
 }
 .compare-dropdown:link {
-  background-color: #0a1a4f;
+  background-color: white;
+  border: 1px solid #0a1a4f;
   transition-duration: 250ms;
-  color: #ffffff;
+  color: #0a1a4f;
+  font-size: 16px;
+  font-weight: 400;
 }
 .compare-dropdown:hover {
-  background-color: #0c2074;
   transition-duration: 250ms;
-  color: #ffffff;
+  color: #0c2074;
 }
 
 .terms-conditions {
@@ -225,4 +227,22 @@ table tr p {
   font-weight: 600;
   font-size: 20px;
   color: rgb(36, 42, 47);
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: white;
+  box-shadow: none;
+}
+
+.dropdown-menu a:hover {
+  box-shadow: none;
+  color: #0a1a4f !important;
+  background: transparent;
+}
+
+.dropdown-link {
+  color: #333;
+  background: transparent;
+  font-weight: 400;
+  font-size: 16px;
 }
