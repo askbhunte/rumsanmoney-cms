@@ -7,7 +7,7 @@ body {
 }
 
 hr {
-  border-top: 1px solid #0c2074;
+  border-top: 1px solid #d4d9ec;
 }
 
 .placeholder {
@@ -212,14 +212,17 @@ table tr p {
   font-weight: 600;
   font-size: 32px;
   line-height: 40px;
+  color: rgb(36, 42, 47);
 }
 
 .sub-heading {
   font-weight: 600;
   font-size: 28px;
+  color: rgb(36, 42, 47);
 }
 
 .sub-heading-features {
   font-weight: 600;
   font-size: 20px;
+  color: rgb(36, 42, 47);
 }
