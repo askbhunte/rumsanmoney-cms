@@ -1,9 +1,9 @@
-body{
-    background-color: #ffffff !important;
+body {
+  background-color: #ffffff !important;
 }
 
-.custom-color{
-    color: #0A1A4F;
+.custom-color {
+  color: #0a1a4f;
 }
 
 hr {
@@ -29,12 +29,12 @@ hr {
 }
 
 .loan-container {
-    margin-bottom: 200px;
+  margin-bottom: 200px;
 }
 
-.custom-category a{   
-    margin : 0px 20px;
-    font-weight: 700;
+.custom-category a {
+  margin: 0px 20px;
+  font-weight: 700;
 }
 
 .sort-bar {
@@ -42,32 +42,32 @@ hr {
   padding: 10px 0px;
 }
 
-.compare-popup{
-    background-color: #e2e2e2;
-    padding: 0px 0 5px 0;
+.compare-popup {
+  background-color: #e2e2e2;
+  padding: 0px 0 5px 0;
 }
-.compare-popup  h3{
-    font-weight: 900;
-    margin: 10px 0 10px 0;
+.compare-popup h3 {
+  font-weight: 900;
+  margin: 10px 0 10px 0;
 }
-.compare-popup a{
-    width: 100%;
+.compare-popup a {
+  width: 100%;
 }
-.compare-footer-card h4{
-    font-weight: 400;
+.compare-footer-card h4 {
+  font-weight: 400;
 }
-.compare-footer-img-container{
-    width: 60px;
-    height: 60px;
+.compare-footer-img-container {
+  width: 60px;
+  height: 60px;
 }
-.compare-footer-img-container img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.compare-footer-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.loan-card .row{
-    padding : 35px 0px !important;
+.loan-card .row {
+  padding: 35px 0px !important;
 }
 
 .loan-card hr {
@@ -134,77 +134,92 @@ hr {
   align-self: center;
 }
 
-.compare-img-container{
-    width: 100%;
-    height: 60px;
-    margin-bottom: 10px;
+.compare-img-container {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
 }
-.compare-img-container img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.compare-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.compare-apply{
-    width: 100%;    
+.compare-apply {
+  width: 100%;
 }
-table td{
-    width: 33.33%;    
+table td {
+  width: 33.33%;
 }
-table tr h4{
-    font-size: 20px;
-    font-weight: 900;
-    margin:0;
+table tr h4 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
 }
-table tr p{
-    margin-top: 10px;
+table tr p {
+  margin-top: 10px;
 }
-.custom-table-margin{
-    margin-top: 80px;
+.custom-table-margin {
+  margin-top: 80px;
 }
-.custom-table-padding td{
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-}
-
-.compare-dropdown-row{
-    width: 300px;
-}
-.compare-dropdown-img-container{
-    width: 100%;
-    height: 40px;
+.custom-table-padding td {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
-.compare-dropdown-img-container img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.compare-dropdown-row {
+  width: 300px;
+}
+.compare-dropdown-img-container {
+  width: 100%;
+  height: 40px;
 }
 
-.compare-dropdown{
-    background-color: #0A1A4F;
-    color:#ffffff;      
-    border-radius: 5px;
-    width: 3000px;
-    height: 50px;
-    padding : 0px 15px !important;
-    text-align: center;      
-    display:table-cell;    
-    vertical-align:middle;    
-}
-.compare-dropdown:link{
-    background-color: #0A1A4F;
-    transition-duration: 250ms;
-    color:#ffffff;
-}
-.compare-dropdown:hover{
-    background-color: #2e5fff;
-    transition-duration: 250ms;
-    color:#ffffff;
+.compare-dropdown-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.terms-conditions{
-    text-align: center;
-    text-decoration: underline;
-    font-weight: 900;
+.compare-dropdown {
+  background-color: #0a1a4f;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 3000px;
+  height: 50px;
+  padding: 0px 15px !important;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.compare-dropdown:link {
+  background-color: #0a1a4f;
+  transition-duration: 250ms;
+  color: #ffffff;
+}
+.compare-dropdown:hover {
+  background-color: #0c2074;
+  transition-duration: 250ms;
+  color: #ffffff;
 }
 
+.terms-conditions {
+  text-align: center;
+  text-decoration: underline;
+  font-weight: 900;
+}
+
+.section_title {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.sub-heading {
+  font-weight: 600;
+  font-size: 28px;
+}
+
+.sub-heading-features {
+  font-weight: 600;
+  font-size: 20px;
+}
