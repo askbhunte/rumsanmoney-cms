@@ -238,359 +238,88 @@
       $.post('/api/v1/compare',{id : id});
     });
 
+
+    /* Append Function */
+    function append(loan_type){
+      $('#loader').show();
+      console.log(loan_type);      
+      $.get('/api/v1/all-data',{type: loan_type}, (data) =>{        
+        console.log(data);
+        $('.loan-card').empty();
+        data.forEach(el =>{
+          $('.loan-card').append(`
+          <div class="row">
+            <div class="col-md-3 first">
+              <h4>${el.bank_name}</h4>
+                <div class="img-container">
+                  <img src="/img/primebank.png">
+                </div>
+            </div>
+            <div class="col-md-6 second">
+              <h4>${el.product_type}</h4>
+              <p>${el.product_name}</p>
+              <div class="interest_rate">
+                <p>
+                  Interest Rate</br>
+                </p>
+                <ul>
+                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
+                </ul>
+              </div>
+              <div class="interest_rate">
+                <p>
+                  Base Rate</br>
+                </p>
+                <ul>
+                  <li class="interest_rate_add"> ${el.base_rate} %</li>
+                </ul>
+              </div>
+              <div class="interest_rate">
+                <p>
+                  Total Interest Rate</br>
+                </p>
+                <ul class="mb-0">
+                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
+                </ul>
+              </div> 
+            </div>
+            <div class="col-md-3 third">
+              <button type="button" class="btn btn-primary">Apply now</button>
+              <button type="button" class="btn btn-primary">learn more</button>
+              <div class="custom-checkbox">
+                <input type="checkbox" id="" value="">
+                <p class="mb-0 ml-3">Select to compare </p>
+              </div>
+            </div>
+          </div>
+          <hr>
+        `);
+        });
+        $('#loader').hide();
+      });
+    }
+    /* append function end */
+
     $('#home_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('home_loan');      
-      $.get('/api/v1/all-data',{type:"Home Loan"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
+      append('Home Loan');
     });
-
     $('#auto_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('auto_loan');      
-      $.get('/api/v1/all-data',{type:"Auto Loan"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
+      append('Auto Loan');
     });
-
     $('#educational_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('Education_loan');     
-      $.get('/api/v1/all-data',{type:"Education Loan"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
-    });
-
+      append('Education Loan');
+    });  
     $('#sme_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('sme_loan');     
-      $.get('/api/v1/all-data',{type:"SME Loan"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
-    });
-
+      append('SME Loan');
+    });  
     $('#shares_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('shares_loan');     
-      $.get('/api/v1/all-data',{type:"Loan Against Shares"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
-    });
-
+      append('Loan Against Shares');
+    });  
     $('#agriculture_loan').on('click',()=>{
-      $('#loader').show();
-      console.log('agriculture_loan');     
-      $.get('/api/v1/all-data',{type:"Agriculture Loan"}, (data) =>{        
-        console.log(data);
-        $('.loan-card').empty();
-        data.forEach(el =>{
-          $('.loan-card').append(`
-          <div class="row">
-            <div class="col-md-3 first">
-              <h4>${el.bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${el.product_type}</h4>
-              <p>${el.product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>
-        `);
-        });
-        $('#loader').hide();
-      });
-    });
+      append('Agriculture Loan');
+    });     
+
+
   </script> 
   
 </body>
