@@ -19,10 +19,12 @@ class GSheet {
       const objData = {};
       objData.bank_id = rows[i]['Bank Id'];
       objData.bank_name = rows[i].Bank;
+      objData.bank_logo_url = rows[i].bank_logo_url;
+      objData.description = rows[i].Description;
       objData.product_name = rows[i]['Product Name'];
       objData.product_type = rows[i]['Product Type'];
       objData.deposit_loan = rows[i]['Deposit/Loan'];
-      objData['base_rate'] = rows[i]['Base Rate'];
+      objData.base_rate = rows[i]['Base Rate'];
       objData.interest_rate = rows[i]['Interest Rate'];
       objData.total_interest_rate = rows[i]['Total Interest Rate'];
       objData.minimum_balance = rows[i]['Minimum Balance'];
