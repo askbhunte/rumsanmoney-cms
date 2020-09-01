@@ -200,9 +200,8 @@ table tr p {
   font-weight: 400;
 }
 .compare-dropdown:hover {
-  background-color: #0c2074;
   transition-duration: 250ms;
-  color: #ffffff;
+  color: #0c2074;
 }
 
 .terms-conditions {
