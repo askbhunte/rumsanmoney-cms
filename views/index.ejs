@@ -30,7 +30,7 @@
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
 
-              <!--First slide-->
+              <!--First slide
               <div class="carousel-item active">
 
                 <div class="row">
@@ -56,29 +56,7 @@
                 </div>
 
               </div>
-              <!--/.First slide-->
-              <div class="carousel-item">
-
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card my-2 p-2" style="text-align: center;">
-                      <a id="sme_loan" href="#"><i class="material-icons">
-                          business</i>SME Loan</a>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card bg-light my-2 p-2" style="text-align: center;">
-                      <a id="shares_loan" href="#"><i class="material-icons">money</i> Loan against Shares</a>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card my-2 p-2" style="text-align: center;">
-                      <a id="agriculture_loan" href="#"><i class="material-icons">agriculture</i> Agriculture Loan</a>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+              /.First slide-->              
             </div>
             <!--/.Slides-->
           </div>
@@ -96,16 +74,18 @@
   <div class="container loan-container">
     <section class="custom-category">
       <div class="sort-bar mt-2">
-        <a class=" dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Sort By
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="javascript:;">Interest Rate (Low to High)</a>
-          <a class="dropdown-item" href="javascript:;">Interest Rate (High to Low)</a>
-          <a class="dropdown-item" href="javascript:;">Minimum Balance (Low to High)</a>
-          <a class="dropdown-item" href="javascript:;">Minimum Balance (High to Low)</a>
-        </div>
+        <div style="width: auto;">
+          <select id="sort_by" class="px-2 ml-2 custom-select">
+           <option value="" disabled selected hidden>Select an option...</option>
+           <option>Interest Rate (Low to High)</option>
+           <option>Interest Rate (High to Low)</option>
+           <option>Minimum Balance (Low to High)</option>
+           <option>Minimum Balance (High to Low)</option>
+         </select>
+       </div>  
+       <h4>
+         Sort By: 
+       </h4>
       </div>
       <hr class="mt-0">
       <div id="loader" class="text-center">
@@ -161,6 +141,67 @@
   <%- include('_layouts/footer') %>
 
   <script>
+    /* load all the loan types in carousel */
+    $.get('/api/v1/loan-type',{},(data) => {
+      console.log('beginning data loan type');
+      console.log(data);
+      for(let i = 0; i < data.length; i+=3){
+        if(i==0){
+          $('.carousel-inner').append(`
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="home_loan" href="#"><i class="material-icons">attach_money</i>${data[i].account_type}</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="auto_loan" href="#"><i class="material-icons">
+                      money</i>${data[i+1].account_type}</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="educational_loan"href="#"><i class="material-icons">
+                      local_atm
+                    </i>${data[i+2].account_type}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          `);   
+        }
+        $('.carousel-inner').append(`
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="home_loan" href="#"><i class="material-icons">attach_money</i> ${data[i].account_type}</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="auto_loan" href="#"><i class="material-icons">
+                      money</i> ${data[i+1].account_type}</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card my-2 p-2" style="text-align: center;">
+                  <a id="educational_loan"href="#"><i class="material-icons">
+                      local_atm
+                    </i> ${data[i+2].account_type}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `);
+      }
+    })
+    
+    /* load all the loan types in carousel */
+
+  
     /* to load a few data at the beginning */
     $.get('/api/v1/all-data',{type:'Home Loan'},(data)=>{
       console.log('beginning data');

@@ -25,6 +25,33 @@ class Controller {
     }
   }
 
+  async getAllLoanType(type) {
+    try {
+      console.log('inside getAllLoanType');
+      const data = await GSheet.getLookup();
+      let finalData = [];
+      let objData = {};
+      if(type){
+        data = data.filter((el) => {
+          el.account_type === type;
+        });
+        data.forEach((el) => {
+          objData['account_type'] = el.account_type;
+          finalData.push(objData);
+        });
+      }
+      else{
+        data.forEach((el)=> {
+          objData['account_type'] = el.account_type;
+          finalData.push(objData);
+        });
+      }
+      return data;
+    } catch (error) {
+      return { msg: error };
+    }
+  }
+
   async compareBanks(bankOne, bankTwo, bankThree) {
     try {
       const allData = await this.getAllData();

@@ -38,7 +38,8 @@ hr {
 }
 
 .sort-bar {
-  text-align: right;
+  display:flex;
+  flex-direction: row-reverse;
   padding: 10px 0px;
 }
 
