@@ -23,40 +23,19 @@
               class="fa fa-chevron-left"></i></a>
         </div>
         <div class="col-md-10">
-
+                   
+          <div id="loader-text" class="text-center">
+            <div class="spinner-border text-dark" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div> 
+          
+          
           <!--Carousel Wrapper-->
-          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-
+          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">            
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
-
-              <!--First slide
-              <div class="carousel-item active">
-
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card my-2 p-2" style="text-align: center;">
-                      <a id="home_loan" href="#"><i class="material-icons">home</i> Home Loan</a>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card my-2 p-2" style="text-align: center;">
-                      <a id="auto_loan" href="#"><i class="material-icons">
-                          directions_car</i> Auto Loan</a>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card my-2 p-2" style="text-align: center;">
-                      <a id="educational_loan"href="#"><i class="material-icons">
-                          school
-                        </i> Educational Loan</a>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-              /.First slide-->              
+                          
             </div>
             <!--/.Slides-->
           </div>
@@ -141,6 +120,7 @@
   <%- include('_layouts/footer') %>
 
   <script>
+    
     /* load all the loan types in carousel */
     $.get('/api/v1/loan-type',{},(data) => {
       console.log('beginning data loan type');
@@ -195,9 +175,10 @@
               </div>
             </div>
           </div>
-        `);
+        `);       
       }
-    })
+      $('#loader-text').hide();
+    });
     
     /* load all the loan types in carousel */
 
