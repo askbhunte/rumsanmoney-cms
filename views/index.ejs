@@ -145,10 +145,8 @@
   <script>
     $('#loader-carousel').hide();
     $('#loader').hide();
-    let rightButtonCounter = 0;
-    console.log(rightButtonCounter);
-    
-    
+    let rightButtonCounter = 0; 
+
       $('#next_slide').on('click',() => {
         if(rightButtonCounter == 0){
       $('#multi-item-example').hide();
@@ -168,13 +166,13 @@
                 </div>
                 <div class="col-md-4">
                   <div class="card my-2 p-2" style="text-align: center;">
-                    <a id="auto_loan" href="#"><i class="material-icons">
+                    <a id="${data[i+1].account_type}" href="#"><i class="material-icons">
                         money</i> ${data[i+1].account_type}</a>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="card my-2 p-2" style="text-align: center;">
-                    <a id="educational_loan"href="#"><i class="material-icons">
+                    <a id="${data[i+2].account_type}"href="#"><i class="material-icons">
                         local_atm
                       </i> ${data[i+2].account_type}</a>
                   </div>
@@ -193,7 +191,7 @@
       }
       });    
      
-
+    /* initial text on load card */
     $('.loan-card').append(`
       <div class = "row">
         <div class="alert alert-secondary" role="alert">
@@ -201,14 +199,21 @@
         </div>
       </div>
     `);
+    
+    /* initial text on load card */
 
-    /* add data to loan card */
-    console.log($('.carousel-item').children().children());
-    $('.carousel-item').children().children().on('click', () => {
-      console.log(this.value);
-    });
-   
-    /* add data to loan card */
+    /* add data to loan card */       
+    $('.carousel-inner').on('click', function(e){
+      if( this !== e.target ){
+        console.log($(e.target).attr('id'));
+        if($(e.target).attr('id')){
+          let type = $(e.target).attr('id');        
+          console.log(type);
+          append(type);  
+        }              
+      } 
+    });  
+    /* add data to loan card */ 
     
 
     /* compare part */
@@ -235,11 +240,12 @@
 
     /* Append Function */
     function append(loan_type){
+      $('.loan-card').empty();
       $('#loader').show();
       console.log(loan_type);      
       $.get('/api/v1/all-data',{type: loan_type}, (data) =>{        
         console.log(data);
-        $('.loan-card').empty();
+        
         data.forEach(el =>{
           $('.loan-card').append(`
           <div class="row">
