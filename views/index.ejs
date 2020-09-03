@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-10">
                    
-          <div id="loader-text" class="text-center">
+          <div id="loader-carousel" class="text-center">
             <div class="spinner-border text-dark" role="status">
               <span class="sr-only">Loading...</span>
             </div>
@@ -35,6 +35,29 @@
           <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">            
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
+             
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a id="_No_match" href="#"><i class="material-icons">attach_money</i>_No Match</a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a id="Nari Bachat" href="#"><i class="material-icons">
+                          money</i>Nari Bachat</a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card my-2 p-2" style="text-align: center;">
+                      <a id="Kids Savings" href="#"><i class="material-icons">
+                          local_atm
+                        </i>Kids Savings</a>
+                    </div>
+                  </div>
+                </div>
+              </div>              
                           
             </div>
             <!--/.Slides-->
@@ -43,7 +66,7 @@
           
         </div>
         <div class="col-md-1 mt-2">
-          <a class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example" data-slide="next"><i
+          <a id="next_slide" class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example" data-slide="next"><i
               class="fa fa-chevron-right"></i></a>
         </div>
       </div>
@@ -120,127 +143,75 @@
   <%- include('_layouts/footer') %>
 
   <script>
+    $('#loader-carousel').hide();
+    $('#loader').hide();
+    let rightButtonCounter = 0;
+    console.log(rightButtonCounter);
     
-    /* load all the loan types in carousel */
-    $.get('/api/v1/loan-type',{},(data) => {
-      console.log('beginning data loan type');
-      console.log(data);
-      for(let i = 0; i < data.length; i+=3){
-        if(i==0){
+    
+      $('#next_slide').on('click',() => {
+        if(rightButtonCounter == 0){
+      $('#multi-item-example').hide();
+      $('#loader-carousel').show();
+      /* load all the loan types in carousel */
+      $.get('/api/v1/loan-type',{},(data) => {
+        console.log('beginning data loan type');
+        console.log(data);
+        for(let i = 3; i < data.length; i+=3){
           $('.carousel-inner').append(`
-          <div class="carousel-item active">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="home_loan" href="#"><i class="material-icons">attach_money</i>${data[i].account_type}</a>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card my-2 p-2" style="text-align: center;">
+                    <a id="${data[i].account_type}" href="#"><i class="material-icons">attach_money</i> ${data[i].account_type}</a>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="auto_loan" href="#"><i class="material-icons">
-                      money</i>${data[i+1].account_type}</a>
+                <div class="col-md-4">
+                  <div class="card my-2 p-2" style="text-align: center;">
+                    <a id="auto_loan" href="#"><i class="material-icons">
+                        money</i> ${data[i+1].account_type}</a>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="educational_loan"href="#"><i class="material-icons">
-                      local_atm
-                    </i>${data[i+2].account_type}</a>
+                <div class="col-md-4">
+                  <div class="card my-2 p-2" style="text-align: center;">
+                    <a id="educational_loan"href="#"><i class="material-icons">
+                        local_atm
+                      </i> ${data[i+2].account_type}</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          `);   
+          `);       
         }
-        $('.carousel-inner').append(`
-          <div class="carousel-item">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="home_loan" href="#"><i class="material-icons">attach_money</i> ${data[i].account_type}</a>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="auto_loan" href="#"><i class="material-icons">
-                      money</i> ${data[i+1].account_type}</a>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card my-2 p-2" style="text-align: center;">
-                  <a id="educational_loan"href="#"><i class="material-icons">
-                      local_atm
-                    </i> ${data[i+2].account_type}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        `);       
-      }
-      $('#loader-text').hide();
-    });
-    
-    /* load all the loan types in carousel */
+        $('#loader-carousel').hide();
+        $('#next_slide').click();
+        $('#multi-item-example').show();
 
-  
-    /* to load a few data at the beginning */
-    $.get('/api/v1/all-data',{type:'Home Loan'},(data)=>{
-      console.log('beginning data');
-      let i =0;
-      console.log(data);
-      while(i<5){
-        console.log(i);
-        $('.loan-card').append(`
-        <div class="row">
-            <div class="col-md-3 first">
-              <h4>${data[i].bank_name}</h4>
-                <div class="img-container">
-                  <img src="/img/primebank.png">
-                </div>
-            </div>
-            <div class="col-md-6 second">
-              <h4>${data[i].product_type}</h4>
-              <p>${data[i].product_name}</p>
-              <div class="interest_rate">
-                <p>
-                  Interest Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${data[i].interest_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Base Rate</br>
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${data[i].base_rate} %</li>
-                </ul>
-              </div>
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate</br>
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${data[i].total_interest_rate} %</li>
-                </ul>
-              </div> 
-            </div>
-            <div class="col-md-3 third">
-              <button type="button" class="btn btn-primary">Apply now</button>
-              <button type="button" class="btn btn-primary">learn more</button>
-              <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
-                <p class="mb-0 ml-3">Select to compare </p>
-              </div>
-            </div>
-          </div>
-          <hr>          
-        `);
-        i++;
+      });    
+      /* load all the loan types in carousel end*/
+      rightButtonCounter = rightButtonCounter + 1;
       }
-      $('#loader').hide();
+      });    
+     
+
+    $('.loan-card').append(`
+      <div class = "row">
+        <div class="alert alert-secondary" role="alert">
+          Currently there are no bank data to display. Select a loan Category to view the data.
+        </div>
+      </div>
+    `);
+
+    /* add data to loan card */
+    console.log($('.carousel-item').children().children());
+    $('.carousel-item').children().children().on('click', () => {
+      console.log(this.value);
     });
+   
+    /* add data to loan card */
+    
+
+    /* compare part */
     $('#compare-div').hide();
     
     $('input[type=checkbox]').change(function(){
@@ -259,6 +230,7 @@
       id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";
       $.post('/api/v1/compare',{id : id});
     });
+    /* compare part end */
 
 
     /* Append Function */
@@ -321,6 +293,10 @@
       });
     }
     /* append function end */
+
+    $('#_No Match').on('click',() => {
+      console.log('no match clicked');
+    })
 
     $('#home_loan').on('click',()=>{
       append('Home Loan');
