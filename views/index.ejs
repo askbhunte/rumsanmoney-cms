@@ -23,19 +23,19 @@
               class="fa fa-chevron-left"></i></a>
         </div>
         <div class="col-md-10">
-                   
+
           <div id="loader-carousel" class="text-center">
             <div class="spinner-border text-dark" role="status">
               <span class="sr-only">Loading...</span>
             </div>
-          </div> 
-          
-          
+          </div>
+
+
           <!--Carousel Wrapper-->
-          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">            
+          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
-             
+
               <div class="carousel-item active">
                 <div class="row">
                   <div class="col-md-4">
@@ -57,89 +57,89 @@
                     </div>
                   </div>
                 </div>
-              </div>              
-                          
+              </div>
+
             </div>
             <!--/.Slides-->
           </div>
           <!--/.Carousel Wrapper-->
-          
+
         </div>
         <div class="col-md-1 mt-2">
-          <a id="next_slide" class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example" data-slide="next"><i
-              class="fa fa-chevron-right"></i></a>
+          <a id="next_slide" class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example"
+            data-slide="next"><i class="fa fa-chevron-right"></i></a>
         </div>
       </div>
-    </div>   
+    </div>
   </div>
 
   <div class="container loan-container">
     <section class="custom-category">
       <div class="sort-bar mt-2">
-        <div style="width: auto;">
+        <div style="width: 250px;">
           <select id="sort_by" class="px-2 ml-2 custom-select">
-           <option value="" disabled selected hidden>Select an option...</option>
-           <option>Interest Rate (Low to High)</option>
-           <option>Interest Rate (High to Low)</option>
-           <option>Minimum Balance (Low to High)</option>
-           <option>Minimum Balance (High to Low)</option>
-         </select>
-       </div>  
-       <h4>
-         Sort By: 
-       </h4>
+            <option value="" disabled selected hidden>Select an option...</option>
+            <option>Interest Rate (Low to High)</option>
+            <option>Interest Rate (High to Low)</option>
+            <option>Minimum Balance (Low to High)</option>
+            <option>Minimum Balance (High to Low)</option>
+          </select>
+        </div>
+        <h4>
+          Sort by
+        </h4>
       </div>
       <hr class="mt-0">
       <div id="loader" class="text-center">
         <div class="spinner-border text-dark" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-      </div> 
-      <div class="loan-card">      
-        
+      </div>
+      <div class="loan-card">
+
         <!-- Append All Data Here -->
       </div>
-    </section>    
-  </div>  
+    </section>
+  </div>
   <div id="compare-div" class="compare-popup fixed-bottom">
-    <div class= "container">
+    <div class="container">
       <h3>
         Compare Loans
       </h3>
-      <div class = "row">
-        <div class ="col-md-3">
-          <div class ="compare-footer-card">
-            <div class = "compare-footer-img-container">
-              <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
+      <div class="row">
+        <div class="col-md-3">
+          <div class="compare-footer-card">
+            <div class="compare-footer-img-container">
+              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
             <h4>Add a bank loan</h4>
-          </div>   
-        </div> 
-        <div class ="col-md-3">
-          <div class ="compare-footer-card">
-            <div class = "compare-footer-img-container">
-              <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="compare-footer-card">
+            <div class="compare-footer-img-container">
+              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
             <h4>Add a bank loan</h4>
-          </div>             
-        </div> 
-        <div class ="col-md-3">
-          <div class ="compare-footer-card">
-            <div class = "compare-footer-img-container">
-              <img src = "https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">                
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="compare-footer-card">
+            <div class="compare-footer-img-container">
+              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
             <h4>Add a bank loan</h4>
-          </div>            
-        </div> 
-        <div class ="col-md-3 d-flex align-items-center">
-          <a href="/compare" class = "btn btn-primary" id="compare_button">              
-            Compare              
-          </a>          
-        </div> 
-      </div>        
+          </div>
+        </div>
+        <div class="col-md-3 d-flex align-items-center">
+          <a href="/compare" class="btn btn-primary" id="compare_button">
+            Compare
+          </a>
+        </div>
+      </div>
     </div>
-  </div>   
-    
+  </div>
+
   <%- include('_layouts/footer') %>
 
   <script>
@@ -147,18 +147,18 @@
     $('#loader').hide();
     let rightButtonCounter = 0;
     console.log(rightButtonCounter);
-    
-    
-      $('#next_slide').on('click',() => {
-        if(rightButtonCounter == 0){
-      $('#multi-item-example').hide();
-      $('#loader-carousel').show();
-      /* load all the loan types in carousel */
-      $.get('/api/v1/loan-type',{},(data) => {
-        console.log('beginning data loan type');
-        console.log(data);
-        for(let i = 3; i < data.length; i+=3){
-          $('.carousel-inner').append(`
+
+
+    $('#next_slide').on('click', () => {
+      if (rightButtonCounter == 0) {
+        $('#multi-item-example').hide();
+        $('#loader-carousel').show();
+        /* load all the loan types in carousel */
+        $.get('/api/v1/loan-type', {}, (data) => {
+          console.log('beginning data loan type');
+          console.log(data);
+          for (let i = 3; i < data.length; i += 3) {
+            $('.carousel-inner').append(`
             <div class="carousel-item">
               <div class="row">
                 <div class="col-md-4">
@@ -169,30 +169,30 @@
                 <div class="col-md-4">
                   <div class="card my-2 p-2" style="text-align: center;">
                     <a id="auto_loan" href="#"><i class="material-icons">
-                        money</i> ${data[i+1].account_type}</a>
+                        money</i> ${data[i + 1].account_type}</a>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="card my-2 p-2" style="text-align: center;">
                     <a id="educational_loan"href="#"><i class="material-icons">
                         local_atm
-                      </i> ${data[i+2].account_type}</a>
+                      </i> ${data[i + 2].account_type}</a>
                   </div>
                 </div>
               </div>
             </div>
-          `);       
-        }
-        $('#loader-carousel').hide();
-        $('#next_slide').click();
-        $('#multi-item-example').show();
+          `);
+          }
+          $('#loader-carousel').hide();
+          $('#next_slide').click();
+          $('#multi-item-example').show();
 
-      });    
-      /* load all the loan types in carousel end*/
-      rightButtonCounter = rightButtonCounter + 1;
+        });
+        /* load all the loan types in carousel end*/
+        rightButtonCounter = rightButtonCounter + 1;
       }
-      });    
-     
+    });
+
 
     $('.loan-card').append(`
       <div class = "row">
@@ -207,40 +207,40 @@
     $('.carousel-item').children().children().on('click', () => {
       console.log(this.value);
     });
-   
+
     /* add data to loan card */
-    
+
 
     /* compare part */
     $('#compare-div').hide();
-    
-    $('input[type=checkbox]').change(function(){
+
+    $('input[type=checkbox]').change(function () {
       console.log('check');
-      if($(this).is(':checked')) {      
-        $('#compare-div').show();     
+      if ($(this).is(':checked')) {
+        $('#compare-div').show();
       } else {
         $('#compare-div').hide();
       }
     });
 
-    $('#compare_button').on('click',()=>{
-      id =[];
+    $('#compare_button').on('click', () => {
+      id = [];
       id[0] = "0ed05a36-2f73-4bdc-bf87-1142f299b126";
       id[1] = "0aca4966-f9c1-4df4-bad7-125d0c6e413c";
       id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";
-      $.post('/api/v1/compare',{id : id});
+      $.post('/api/v1/compare', { id: id });
     });
     /* compare part end */
 
 
     /* Append Function */
-    function append(loan_type){
+    function append(loan_type) {
       $('#loader').show();
-      console.log(loan_type);      
-      $.get('/api/v1/all-data',{type: loan_type}, (data) =>{        
+      console.log(loan_type);
+      $.get('/api/v1/all-data', { type: loan_type }, (data) => {
         console.log(data);
         $('.loan-card').empty();
-        data.forEach(el =>{
+        data.forEach(el => {
           $('.loan-card').append(`
           <div class="row">
             <div class="col-md-3 first">
@@ -294,32 +294,32 @@
     }
     /* append function end */
 
-    $('#_No Match').on('click',() => {
+    $('#_No Match').on('click', () => {
       console.log('no match clicked');
     })
 
-    $('#home_loan').on('click',()=>{
+    $('#home_loan').on('click', () => {
       append('Home Loan');
     });
-    $('#auto_loan').on('click',()=>{
+    $('#auto_loan').on('click', () => {
       append('Auto Loan');
     });
-    $('#educational_loan').on('click',()=>{
+    $('#educational_loan').on('click', () => {
       append('Education Loan');
-    });  
-    $('#sme_loan').on('click',()=>{
+    });
+    $('#sme_loan').on('click', () => {
       append('SME Loan');
-    });  
-    $('#shares_loan').on('click',()=>{
+    });
+    $('#shares_loan').on('click', () => {
       append('Loan Against Shares');
-    });  
-    $('#agriculture_loan').on('click',()=>{
+    });
+    $('#agriculture_loan').on('click', () => {
       append('Agriculture Loan');
-    });     
+    });
 
 
-  </script> 
-  
+  </script>
+
 </body>
 
 </html>
