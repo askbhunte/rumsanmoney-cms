@@ -38,7 +38,7 @@ hr {
 }
 
 .sort-bar {
-  display:flex;
+  display: flex;
   flex-direction: row-reverse;
   padding: 10px 0px;
 }
@@ -246,4 +246,11 @@ table tr p {
   background: transparent;
   font-weight: 400;
   font-size: 16px;
+}
+
+.footer-text {
+  font-size: 15px;
+  line-height: 26px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
