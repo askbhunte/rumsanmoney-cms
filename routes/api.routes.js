@@ -10,11 +10,21 @@ router.get('/all-data', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
-router.get('/loan-type', async (req,res,next)=>{
+router.get('/loan-type', async (req, res, next) => {
   try {
     const type = req.query.type || null;
     const data = await Controller.getAllLoanType(type);
     //console.log(data);
+    res.json(data);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/bank-names', async (req, res, next) => {
+  try {
+   const data = await Controller.getLookup();
+   console.log(data);
     res.json(data);
   } catch (error) {
     next(error);
