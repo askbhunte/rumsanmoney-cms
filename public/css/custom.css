@@ -1,5 +1,5 @@
 body {
-  background-color: #ffffff !important;
+  background-color: #eef7fb;
 }
 
 .custom-color {
@@ -266,10 +266,6 @@ table tr p {
 .card_slider {
   background: #0c2074;
   max-height: 200px;
-}
-
-a:hover {
-  color: white !important;
 }
 
 .chevron-margin {
