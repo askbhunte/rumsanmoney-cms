@@ -258,3 +258,19 @@ table tr p {
   background-color: #2039a2;
   border-color: #2039a2;
 }
+.slider_icon {
+  font-size: 50px !important;
+  color: white;
+  padding: 1rem;
+}
+.slider_text {
+  color: white;
+  font-size: 20px;
+}
+.card_slider {
+  background: #0c2074;
+}
+
+a:hover {
+  color: white;
+}
