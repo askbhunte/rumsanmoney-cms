@@ -260,11 +260,11 @@ table tr p {
 }
 .slider_icon {
   font-size: 50px !important;
-  color: white;
+  color: white !important;
   padding: 1rem;
 }
 .slider_text {
-  color: white;
+  color: white !important;
   font-size: 20px;
 }
 .card_slider {
@@ -273,7 +273,7 @@ table tr p {
 }
 
 a:hover {
-  color: white;
+  color: white !important;
 }
 
 .chevron-margin {
