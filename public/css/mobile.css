@@ -3,3 +3,8 @@
     margin-top: 0px !important;
   }
 }
+@media screen and (max-width: 992px) {
+  .slider_desktop {
+    display: none !important;
+  }
+}

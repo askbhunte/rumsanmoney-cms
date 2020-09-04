@@ -18,7 +18,7 @@
           <p class="text-center">Choose the type of loan you are looking for...</p>
         </div>
       </div>
-      <div class="row mt-3">
+      <div class="row mt-3 slider_desktop">
         <div class="col-md-1 chevron-margin">
           <a class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="prev"><i
               class="fa fa-chevron-left"></i></a>
@@ -77,6 +77,66 @@
           <a id="next_slide" class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="next"><i
               class="fa fa-chevron-right"></i></a>
         </div>
+      </div>
+      <div class="row mt-3 d-lg-none d-block">
+        <div class="col-md-6 chevron-margin">
+          <a class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="prev"><i
+              class="fa fa-chevron-left"></i></a>
+          <a id="next_slide" class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="next"><i
+              class="fa fa-chevron-right"></i></a>
+        </div>
+
+        <div class="col-md-12">
+          <div id="loader-carousel" class="text-center">
+            <div class="spinner-border text-dark" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <!--Carousel Wrapper-->
+          <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="card my-2 p-5 card_slider" style="text-align: center;">
+                      <a id="_No_match" class="slider_text" href="#"> <i
+                          class="material-icons slider_icon">account_balance
+                        </i><br />No
+                        Match</a>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card my-2 p-5 card_slider" style="text-align: center;">
+                      <a id="Nari Bachat" href="#" class="slider_text"><i class="material-icons slider_icon">
+                          face</i><br />Nari Bachat</a>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card my-2 p-5 card_slider" style="text-align: center;">
+                      <a id="Kids Savings" href="#" class="slider_text"><i class="material-icons  slider_icon">
+                          child_care
+                        </i><br />Kids Savings</a>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card my-2 p-5 card_slider" style="text-align: center;">
+                      <a id="Old Age Saving" href="#" class="slider_text"><i class="material-icons  slider_icon">
+                          accessibility_new
+                        </i><br />Old Age Saving</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!--/.Slides-->
+          </div>
+          <!--/.Carousel Wrapper-->
+
+        </div>
+
       </div>
     </div>
   </div>
