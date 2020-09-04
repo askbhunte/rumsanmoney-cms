@@ -2870,8 +2870,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #0A1A4F;
-  border-color: #0A1A4F;
+  background-color: #0C2074 ;
+  border-color: #0C2074 ;
   box-shadow: none;
 }
 
@@ -4160,7 +4160,7 @@ tbody.collapse.show {
 }
 
 .custom-select:focus {
-  border-color: #0a1a4f;
+  border-color: #0C2074 ;
   outline: 0;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(10, 26, 79, 0.5);
 }
@@ -9567,15 +9567,15 @@ button:focus {
 
 .btn.btn-primary {
   color: #fff;
-  background-color: #0A1A4F;
-  border-color: #0A1A4F;
+  background-color: #0C2074 ;
+  border-color: #0C2074 ;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 
 .btn.btn-primary:hover {
   color: #fff;
   background-color: #0C2074;
-  border-color:#0A1A4F;
+  border-color:#0C2074 ;
 }
 
 .btn.btn-primary:focus,
@@ -9591,7 +9591,7 @@ button:focus {
 .open>.btn.btn-primary.dropdown-toggle,
 .show>.btn.btn-primary.dropdown-toggle {
   color: #fff;
-  background-color:  #0A1A4F;
+  background-color:  #0C2074 ;
   border-color: #0C2074
   ;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -9610,31 +9610,31 @@ button:focus {
 .show>.btn.btn-primary.dropdown-toggle:focus,
 .show>.btn.btn-primary.dropdown-toggle.focus {
   color: #fff;
-  background-color: #0A1A4F;
-  border-color: #0A1A4F;
+  background-color: #0C2074 ;
+  border-color: #0C2074 ;
 }
 
 .open>.btn.btn-primary.dropdown-toggle.bmd-btn-icon {
   color: inherit;
-  background-color: #0A1A4F;
+  background-color: #0C2074 ;
 }
 
 .open>.btn.btn-primary.dropdown-toggle.bmd-btn-icon:hover {
-  background-color:#0A1A4F;
+  background-color:#0C2074 ;
 }
 
 .btn.btn-primary.disabled:focus,
 .btn.btn-primary.disabled.focus,
 .btn.btn-primary:disabled:focus,
 .btn.btn-primary:disabled.focus {
-  background-color: #0A1A4F;
-  border-color: #0A1A4F;
+  background-color: #0C2074 ;
+  border-color: #0C2074 ;
 }
 
 .btn.btn-primary.disabled:hover,
 .btn.btn-primary:disabled:hover {
-  background-color: #0A1A4F;
-  border-color: #0A1A4F;
+  background-color: #0C2074 ;
+  border-color: #0C2074 ;
 }
 
 .btn.btn-primary:focus,
@@ -11613,7 +11613,7 @@ legend {
 }
 
 a {
-  color: #0A1A4F;
+  color: #0C2074 ;
 }
 
 a:hover,

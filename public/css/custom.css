@@ -3,7 +3,7 @@ body {
 }
 
 .custom-color {
-  color: #0a1a4f;
+  color: #0c2074;
 }
 
 hr {
@@ -182,7 +182,7 @@ table tr p {
 }
 
 .compare-dropdown {
-  background-color: #0a1a4f;
+  background-color: #0c2074;
   color: #ffffff;
   border-radius: 5px;
   width: 3000px;
@@ -194,9 +194,9 @@ table tr p {
 }
 .compare-dropdown:link {
   background-color: white;
-  border: 1px solid #0a1a4f;
+  border: 1px solid #0c2074;
   transition-duration: 250ms;
-  color: #0a1a4f;
+  color: #0c2074;
   font-size: 16px;
   font-weight: 400;
 }
@@ -237,7 +237,7 @@ table tr p {
 
 .dropdown-menu a:hover {
   box-shadow: none;
-  color: #0a1a4f !important;
+  color: #0c2074 !important;
   background: transparent;
 }
 
@@ -253,4 +253,8 @@ table tr p {
   line-height: 26px;
   font-weight: 400;
   letter-spacing: 0.5px;
+}
+.btn.btn-primary:hover {
+  background-color: #2039a2;
+  border-color: #2039a2;
 }
