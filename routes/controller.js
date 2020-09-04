@@ -1,7 +1,7 @@
 const GSheet = require('../services/gsheet');
 
 class Controller {
-  async getAllData(bankName, productType) {
+  async getAllData(bankName, productType, productName) {
     try {
       let data = await GSheet.getData();
       if (bankName) {
@@ -10,6 +10,10 @@ class Controller {
       if (productType) {
         data = data.filter((el) => el.product_type === productType);
       }
+      if (productName) {
+        data = data.filter((el) => el.product_name === productName);
+      }
+      console.log('getalldata controller', data);
       return data;
     } catch (error) {
       return { msg: error };

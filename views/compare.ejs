@@ -22,185 +22,477 @@
         </div>
 
 
-        <div class="row mt-4">
+        <div id ="select-bank-row" class="row mt-4">
             
             <div class="col-md-4">
-                <h4 class = "px-2 ml-2 font-weight-bold">
-                    Bank : 
-                </h4>
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Bank : 
+                    </h4>
+                    <div id="loader_select_1">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>
+                
                 <div style="width: 100%;">
-                    <select id="sort_by" class="px-2 ml-2 custom-select">
-                     <option value="" disabled selected hidden>Select an option...</option>
-                     <option>Interest Rate (Low to High)</option>
-                     <option>Interest Rate (High to Low)</option>
-                     <option>Base Rate (Low to High)</option>
-                     <option>Base Rate (High to Low)</option>
-                     <option>Total Interest Rate (Low to High)</option>
-                     <option>Total Interest Rate (High to Low)</option>
+                    <select id="bank_1_select" class="px-2 ml-2 custom-select">
+                        <option value="" disabled selected hidden>Select an option...</option> 
+                        
+                    </select>
+                 </div>  
+            </div>
+
+            <div class="col-md-4">
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Bank : 
+                    </h4>
+                    <div id="loader_select_2">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>
+                
+                <div style="width: 100%;">
+                    <select id="bank_2_select" class="px-2 ml-2 custom-select">
+                        <option value="" disabled selected hidden>Select an option...</option> 
+                        
+                    </select>
+                 </div>  
+            </div>
+
+            <div class="col-md-4">
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Bank : 
+                    </h4>
+                    <div id="loader_select_3">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>
+                
+                <div style="width: 100%;">
+                    <select id="bank_3_select" class="px-2 ml-2 custom-select">
+                        <option value="" disabled selected hidden>Select an option...</option> 
+                        
+                    </select>
+                 </div>  
+            </div>
+        </div>
+
+        <div id ="select-product-row" class="row mt-4">
+            
+            <div class="col-md-4">
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Product Name : 
+                    </h4>
+                    <div id="product_loader_select_1">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>                
+                <div style="width: 100%;">
+                    <select id="product_1_select" class="px-2 ml-2 custom-select">
+                     <option value="" disabled selected hidden>Select a Bank first</option>                                         
                    </select>
                  </div>  
             </div>
+
             <div class="col-md-4">
-                <h4 class = "px-2 ml-2 font-weight-bold">
-                    Bank : 
-                </h4>
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Product Name : 
+                    </h4>
+                    <div id="product_loader_select_2">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>   
                 <div style="width: 100%;">
-                    <select id="sort_by" class="px-2 ml-2 custom-select">
-                     <option value="" disabled selected hidden>Select an option...</option>
-                     <option>Interest Rate (Low to High)</option>
-                     <option>Interest Rate (High to Low)</option>
-                     <option>Base Rate (Low to High)</option>
-                     <option>Base Rate (High to Low)</option>
-                     <option>Total Interest Rate (Low to High)</option>
-                     <option>Total Interest Rate (High to Low)</option>
+                    <select id="product_2_select" class="px-2 ml-2 custom-select">
+                     <option value="" disabled selected hidden>Select a Bank first</option>                                           
                    </select>
                  </div>  
             </div>
+
             <div class="col-md-4">
-                <h4 class = "px-2 ml-2 font-weight-bold">
-                    Bank : 
-                </h4>
+                <div class = "row px-2 ml-2 d-flex align-items-center" >
+                    <h4 class = "font-weight-bold">
+                        Product Name : 
+                    </h4>
+                    <div id="product_loader_select_3">
+                        <div class="spinner-border spinner-border-sm ml-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div> 
+                </div>   
                 <div style="width: 100%;">
-                    <select id="sort_by" class="px-2 ml-2 custom-select">
-                     <option value="" disabled selected hidden>Select an option...</option>
-                     <option>Interest Rate (Low to High)</option>
-                     <option>Interest Rate (High to Low)</option>
-                     <option>Base Rate (Low to High)</option>
-                     <option>Base Rate (High to Low)</option>
-                     <option>Total Interest Rate (Low to High)</option>
-                     <option>Total Interest Rate (High to Low)</option>
+                    <select id="product_3_select" class="px-2 ml-2 custom-select">
+                     <option value="" disabled selected hidden>Select a Bank first</option>                                          
                    </select>
                  </div>  
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-4">
 
-                <div class="compare-img-container">
-                    <img src="/img/primebank.png">
+        <div class="row mt-5">     
+            <div class = "col-md-4">
+                <div id="loader_1" class="col-md-4 text-center ">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>        
                 </div>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
-
-                <h4 class="sub-heading-features mt-4">
-                    <i class="material-icons" style="font-size:18px;">description</i> Description
-                </h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores mollitia incidunt ipsum.
-                    Dolores architecto numquam illo adipisci quam sapiente quis, optio ut odit cumque aliquam
-                    possimus assumenda blanditiis! Assumenda, pariatur?
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">trending_up
-                    </i> Interest Rate
-                </h4>
-                <p>
-                    - 10%
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">date_range</i> Tenure
-                </h4>
-                <p>
-                    - Upto 20 years
-                </p>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
-                <button type="button" class="btn btn-primary compare-apply">Learn More</button>
-                <p class="terms-conditions">
-                    <a href=""> Terms & Conditions</a>
-                </p>
-            </div>
-            <div class="col-md-4">
-
-                <div class="compare-img-container">
-                    <img src="/img/sunrisebank.jpg">
+                <div id ="card_1" class = "px-2 ml-1">
+                    Please select a Bank and a Product Name to display Data.
                 </div>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
-
-                <h4 class="sub-heading-features mt-4">
-                    <i class="material-icons" style="font-size:18px;">description</i> Description
-                </h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores mollitia incidunt ipsum.
-                    Dolores architecto numquam illo adipisci quam sapiente quis, optio ut odit cumque aliquam
-                    possimus assumenda blanditiis! Assumenda, pariatur?
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">trending_up
-                    </i> Interest Rate
-                </h4>
-                <p>
-                    - 10%
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">date_range</i> Tenure
-                </h4>
-                <p>
-                    - Upto 20 years
-                </p>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
-                <button type="button" class="btn btn-primary compare-apply">Learn More</button>
-                <p class="terms-conditions">
-                    <a href=""> Terms & Conditions</a>
-                </p>
             </div>
-            <div class="col-md-4">
-
-                <div class="compare-img-container">
-                    <img src="/img/siddarthabank.png">
+            
+            <div class = "col-md-4">
+                <div id="loader_2" class="col-md-4 text-center ">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>        
                 </div>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+                <div id ="card_2" class = "px-2 ml-1">
+                    Please select a Bank and a Product Name to display Data.
+                </div>
+            </div> 
 
-                <h4 class="sub-heading-features mt-4">
-                    <i class="material-icons" style="font-size:18px;">description</i> Description
-                </h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores mollitia incidunt ipsum.
-                    Dolores architecto numquam illo adipisci quam sapiente quis, optio ut odit cumque aliquam
-                    possimus assumenda blanditiis! Assumenda, pariatur?
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">trending_up
-                    </i> Interest Rate
-                </h4>
-                <p>
-                    - 10%
-                </p>
-                <hr />
-
-                <h4 class="sub-heading-features">
-                    <i class="material-icons" style="font-size:18px;">date_range</i> Tenure
-                </h4>
-                <p>
-                    - Upto 20 years
-                </p>
-                <button type="button" class="btn btn-primary compare-apply">Apply now</button>
-                <button type="button" class="btn btn-primary compare-apply">Learn More</button>
-                <p class="terms-conditions">
-                    <a href=""> Terms & Conditions</a>
-                </p>
+            <div class = "col-md-4">
+                <div id="loader_3" class="col-md-4 text-center ">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>        
+                </div>
+                <div id ="card_3" class = "px-2 ml-1">
+                    Please select a Bank and a Product Name to display Data.
+                </div>
             </div>
-
         </div>
-
     </div>
     <%- include('_layouts/footer') %>
 
     <script>
-        $.get('/api/v1/bank-names',{}, (data) => {
-            console.log(data);
-            data.forEach((el) => {
+        let currentBank_1=[];
+        let currentProduct_1 =[];        
+        let currentBank_2;
+        let currentProduct_2;        
+        let currentBank_3;
+        let currentProduct_3;
+
+        $('#loader_1').hide();
+        $('#loader_2').hide();
+        $('#loader_3').hide();
+
+        $('#product_loader_select_1').hide();
+        $('#product_loader_select_2').hide();
+        $('#product_loader_select_3').hide();
+       
+            $.get('/api/v1/bank-names',{}, (data) => {            
+                console.log('load all bank names',data);
                 
-            })
-        });
+                data.forEach((el) => {
+                    if(el.bank_name){
+                        $('#bank_1_select').append(`
+                        <option>${el.bank_name}</option>
+                    `);
+                    }                
+                });
+                $('#loader_select_1').hide();               
+                
+                data.forEach((el) => {
+                    if(el.bank_name){
+                        $('#bank_2_select').append(`
+                        <option>${el.bank_name}</option>
+                    `);
+                    }   
+                });
+                $('#loader_select_2').hide();   
+
+                data.forEach((el) => {
+                    if(el.bank_name){
+                        $('#bank_3_select').append(`
+                        <option>${el.bank_name}</option>
+                    `);
+                    }   
+                });
+                $('#loader_select_3').hide();   
+             });
+
+             
+
+             $('#bank_1_select').on('change', function() {  
+                $('#product_1_select').empty();
+                $('#product_1_select').append(`
+                    <option value="" disabled selected hidden>Select a Product Name</option>                    
+                `);
+                $('#product_loader_select_1').show();              
+
+                console.log('bank-name:',$(this).find(":selected").val() );
+                $.get('/api/v1/all-data', {bank : $(this).find(":selected").val() }, (data) => {
+                    console.log(data);
+                    currentBank_1 = data;                    
+                    data.forEach((el) => { 
+                        $('#product_1_select').append(`
+                            <option>${el.product_name}</option>
+                        `);  
+                    });
+                    $('#product_loader_select_1').hide();
+                });
+                
+                $('#card_1').empty();
+                $('#card_1').append(`
+                    Please select a Bank and a Product Name to display Data.
+                `);
+            });
+
+            $('#bank_2_select').on('change', function() {
+                $('#product_2_select').empty();
+                $('#product_2_select').append(`
+                    <option value="" disabled selected hidden>Select a Product Name</option>                    
+                `);    
+                $('#product_loader_select_2').show();            
+
+                console.log( $(this).find(":selected").val() );
+                $.get('/api/v1/all-data', {bank : $(this).find(":selected").val() }, (data) => {
+                    console.log(data);
+                    currentBank_2 = data;                    
+                    data.forEach((el) => {
+                        $('#product_2_select').append(`
+                            <option>${el.product_name}</option>
+                        `);
+                    });
+                    $('#product_loader_select_2').hide();
+                });
+
+                $('#card_2').empty();
+                $('#card_2').append(`
+                    Please select a Bank and a Product Name to display Data.
+                `);
+            });           
+
+            $('#bank_3_select').on('change', function() {
+                $('#product_3_select').empty();
+                $('#product_3_select').append(`
+                    <option value="" disabled selected hidden>Select a Product Name</option>                    
+                `);          
+                $('#product_loader_select_3').show();      
+
+                console.log( $(this).find(":selected").val() );
+                $.get('/api/v1/all-data', {bank : $(this).find(":selected").val() }, (data) => {
+                    console.log(data);
+                    currentBank_3 = data;                    
+                    data.forEach((el) => {
+                        $('#product_3_select').append(`
+                            <option>${el.product_name}</option>
+                        `);
+                    });
+                    $('#product_loader_select_3').hide();
+                });
+
+                $('#card_3').empty();
+                $('#card_3').append(`
+                    Please select a Bank and a Product Name to display Data.
+                `);
+            });
+
+            $('#product_1_select').on('change', function() {
+                console.log( $(this).find(":selected").val() );
+                let selected_product_name = $(this).find(":selected").val();
+                console.log('current bank',currentBank_1);
+                console.log('current product',currentProduct_1);
+                $('#loader_1').show();
+                $.get('/api/v1/all-data',{bank: currentBank_1[0].bank_name, productName : selected_product_name}, (data) => {
+                    console.log('xxxx',data);
+                    data.forEach((el) =>{
+                        $('#card_1').append(`
+                            <div class="compare-img-container">
+                                <img src="/img/primebank.png">
+                            </div>
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Name
+                            </h4>
+                            <p>
+                                ${el.product_name}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Type
+                            </h4>
+                            <p>
+                                ${el.product_type}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Deposit Loan
+                            </h4>
+                            <p>
+                                ${el.deposit_loan}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features">
+                                <i class="material-icons" style="font-size:18px;">trending_up
+                                </i> Interest Rate
+                            </h4>
+                            <p>
+                                - ${el.interest_rate} %
+                            </p>
+                            <hr />
+                           
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+                            <button type="button" class="btn btn-primary compare-apply">Learn More</button>
+                            <p class="terms-conditions">
+                                <a href=""> Terms & Conditions</a>
+                            </p>                    
+                        `) 
+                        }                               
+                    );
+                    $('#loader_1').hide();
+                });
+                console.log('current product',currentProduct_1);
+                console.log('current bank',currentBank_1);
+                $('#card_1').empty();
+            });
+
+            $('#product_2_select').on('change', function() {
+                console.log( $(this).find(":selected").val() );
+                let selected_product_name = $(this).find(":selected").val();
+                console.log(currentBank_2);
+                console.log(currentProduct_2);
+                $('#loader_2').show();
+                $.get('/api/v1/all-data',{bank: currentBank_2[0].bank_name, productName : selected_product_name}, (data) => {
+                    console.log('xxxx',data);
+                    data.forEach((el) =>{
+                        $('#card_2').append(`
+                            <div class="compare-img-container">
+                                <img src="/img/primebank.png">
+                            </div>
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Name
+                            </h4>
+                            <p>
+                                ${el.product_name}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Type
+                            </h4>
+                            <p>
+                                ${el.product_type}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Deposit Loan
+                            </h4>
+                            <p>
+                                ${el.deposit_loan}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features">
+                                <i class="material-icons" style="font-size:18px;">trending_up
+                                </i> Interest Rate
+                            </h4>
+                            <p>
+                                - ${el.interest_rate} %
+                            </p>
+                            <hr />
+                           
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+                            <button type="button" class="btn btn-primary compare-apply">Learn More</button>
+                            <p class="terms-conditions">
+                                <a href=""> Terms & Conditions</a>
+                            </p>                    
+                        `) 
+                        }                               
+                    );
+                    $('#loader_2').hide();
+                });
+                console.log(currentProduct_2);
+                console.log(currentBank_2);
+                $('#card_2').empty();
+            });
+
+            $('#product_3_select').on('change', function() {
+                console.log( $(this).find(":selected").val() );
+                let selected_product_name = $(this).find(":selected").val();
+                console.log(currentBank_3);
+                console.log(currentProduct_3);
+                $('#loader_3').show();
+                $.get('/api/v1/all-data',{bank: currentBank_3[0].bank_name, productName : selected_product_name}, (data) => {
+                    console.log('xxxx',data);
+                    data.forEach((el) =>{
+                        $('#card_3').append(`
+                            <div class="compare-img-container">
+                                <img src="/img/primebank.png">
+                            </div>
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Name
+                            </h4>
+                            <p>
+                                ${el.product_name}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Product Type
+                            </h4>
+                            <p>
+                                ${el.product_type}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features mt-4">
+                                <i class="material-icons" style="font-size:18px;">description</i> Deposit Loan
+                            </h4>
+                            <p>
+                                ${el.deposit_loan}
+                            </p>
+                            <hr />
+
+                            <h4 class="sub-heading-features">
+                                <i class="material-icons" style="font-size:18px;">trending_up
+                                </i> Interest Rate
+                            </h4>
+                            <p>
+                                - ${el.interest_rate} %
+                            </p>
+                            <hr />
+                           
+                            <button type="button" class="btn btn-primary compare-apply">Apply now</button>
+                            <button type="button" class="btn btn-primary compare-apply">Learn More</button>
+                            <p class="terms-conditions">
+                                <a href=""> Terms & Conditions</a>
+                            </p>                    
+                        `) 
+                        }                               
+                    );
+                    $('#loader_3').hide();
+                });
+                console.log(currentProduct_3);
+                console.log(currentBank_3);
+                $('#card_3').empty();                    
+            });
+        
+       
     </script>
 
 
