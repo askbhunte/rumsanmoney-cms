@@ -285,3 +285,7 @@ a:hover {
   font-weight: 500;
   color: rgb(36, 42, 47);
 }
+
+.text-primary {
+  color: #0c2074 !important;
+}
