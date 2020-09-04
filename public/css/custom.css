@@ -1,5 +1,5 @@
 body {
-  background-color: #ffffff !important;
+  background-color: #eef7fb;
 }
 
 .custom-color {
@@ -26,10 +26,6 @@ hr {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-}
-
-.loan-container {
-  margin-bottom: 200px;
 }
 
 .custom-category a {
@@ -68,11 +64,11 @@ hr {
 }
 
 .loan-card .row {
-  padding: 35px 0px !important;
+  padding: 10px 0px 20px 0px !important;
 }
 
 .loan-card hr {
-  border-top: 1px solid #0c2074;
+  border-top: 2px solid #d4d9ec;
 }
 
 .loan-card h4 {
@@ -257,4 +253,38 @@ table tr p {
 .btn.btn-primary:hover {
   background-color: #2039a2;
   border-color: #2039a2;
+}
+.slider_icon {
+  font-size: 50px !important;
+  color: white !important;
+  padding: 1rem;
+}
+.slider_text {
+  color: white !important;
+  font-size: 20px;
+}
+.card_slider {
+  background: #0c2074;
+  max-height: 200px;
+}
+
+.chevron-margin {
+  margin-top: 6rem;
+}
+
+.filter_by {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(36, 42, 47);
+}
+
+.text-primary {
+  color: #0c2074 !important;
+}
+
+.bank_name {
+  color: #0c2074 !important;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
 }
