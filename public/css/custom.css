@@ -28,10 +28,6 @@ hr {
   align-items: center;
 }
 
-.loan-container {
-  margin-bottom: 200px;
-}
-
 .custom-category a {
   margin: 0px 5px;
   font-weight: 700;
@@ -68,7 +64,7 @@ hr {
 }
 
 .loan-card .row {
-  padding: 35px 0px !important;
+  padding: 10px 0px 20px 0px !important;
 }
 
 .loan-card hr {
@@ -288,4 +284,11 @@ a:hover {
 
 .text-primary {
   color: #0c2074 !important;
+}
+
+.bank_name {
+  color: #0c2074 !important;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
 }

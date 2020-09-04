@@ -13,12 +13,12 @@
       <div class="row">
         <div class="col-md-12 text-center">
           <h1 class="section_title text-center">
-            Bank Loans Available in Nepal
+            Get a loan with the lowest interest rates!
           </h1>
           <p class="text-center">Choose the type of loan you are looking for...</p>
         </div>
       </div>
-      <div class="row mt-3 slider_desktop">
+      <div class="row mt-4 slider_desktop">
         <div class="col-md-1 chevron-margin">
           <a class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="prev"><i
               class="fa fa-chevron-left"></i></a>
@@ -78,7 +78,7 @@
               class="fa fa-chevron-right"></i></a>
         </div>
       </div>
-      <div class="row mt-3 d-lg-none d-block">
+      <div class="row mt-2 d-lg-none d-block">
         <div class="col-md-6 chevron-margin">
           <a class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="prev"><i
               class="fa fa-chevron-left"></i></a>
@@ -140,10 +140,10 @@
       </div>
     </div>
   </div>
-  <div class="container loan-container">
+  <div class="container">
     <section class="custom-category">
       <div class="sort-bar mt-3">
-        <div style="width: 270px;">
+        <div class="mr-2" style="width: 270px;">
           <select id="sort_by" class="px-2 ml-2 custom-select">
             <option value="" disabled selected hidden>Select an option...</option>
             <option>Interest Rate (Low to High)</option>
@@ -330,41 +330,56 @@
         data.forEach(el => {
           $('.loan-card').append(`
           <div class="row">
-            <div class="col-md-3 first">
-              <h2 class="text-primary">${el.bank_name}</h2>
+          <div class="col-md-12">
+              <h4 class="bank_name p-2">${el.bank_name}</h4>
+          </div>
+          </div>
+          <div class="row">
+     
+            <div class="col-md-3 first mt-3">
                 <div class="img-container">
                   <img src="/img/primebank.png">
                 </div>
             </div>
-            <div class="col-md-6 second">
+            <div class="col-md-6 second mt-3">
               <h4 >${el.product_type}</h4>
               <p>${el.product_name}</p>
+              <div class="row">
+              <div class="col-md-4">
               <div class="interest_rate">
                 <p>
-                  Interest Rate</br>
+                  Interest Rate
                 </p>
                 <ul>
                   <li class="interest_rate_add"> ${el.interest_rate} %</li>
                 </ul>
               </div>
+              </div>
+              <div class="col-md-4">
+
               <div class="interest_rate">
                 <p>
-                  Base Rate</br>
+                  Base Rate
                 </p>
                 <ul>
                   <li class="interest_rate_add"> ${el.base_rate} %</li>
                 </ul>
               </div>
+              </div>
+              <div class="col-md-4">
+
               <div class="interest_rate">
                 <p>
-                  Total Interest Rate</br>
+                  Total Interest Rate
                 </p>
                 <ul class="mb-0">
                   <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
                 </ul>
               </div> 
+              </div>
+              </div>
             </div>
-            <div class="col-md-3 third">
+            <div class="col-md-3 third mt-3 ">
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
@@ -389,51 +404,66 @@
     function sortedAppend(sortedLoanData) {
       sortedLoanData.forEach(el => {
         $('.loan-card').append(`
-                <div class="row">
-                  <div class="col-md-3 first">
-                    <h4>${el.bank_name}</h4>
-                      <div class="img-container">
-                        <img src="/img/primebank.png">
-                      </div>
-                  </div>
-                  <div class="col-md-6 second">
-                    <h4>${el.product_type}</h4>
-                    <p>${el.product_name}</p>
-                    <div class="interest_rate">
-                      <p>
-                        Interest Rate</br>
-                      </p>
-                      <ul>
-                        <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                      </ul>
-                    </div>
-                    <div class="interest_rate">
-                      <p>
-                        Base Rate</br>
-                      </p>
-                      <ul>
-                        <li class="interest_rate_add"> ${el.base_rate} %</li>
-                      </ul>
-                    </div>
-                    <div class="interest_rate">
-                      <p>
-                        Total Interest Rate</br>
-                      </p>
-                      <ul class="mb-0">
-                        <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                      </ul>
-                    </div> 
-                  </div>
-                  <div class="col-md-3 third">
-                    <button type="button" class="btn btn-primary">Apply now</button>
-                    <button type="button" class="btn btn-primary">learn more</button>
-                    <div class="custom-checkbox">
-                      <input type="checkbox" id="" value="">
-                      <p class="mb-0 ml-3">Select to compare </p>
-                    </div>
-                  </div>
+        <div class="row">
+          <div class="col-md-12">
+              <h4 class="bank_name p-2">${el.bank_name}</h4>
+          </div>
+          </div>
+          <div class="row">
+     
+            <div class="col-md-3 first mt-3">
+                <div class="img-container">
+                  <img src="/img/primebank.png">
                 </div>
-                <hr>
+            </div>
+            <div class="col-md-6 second mt-3">
+              <h4 >${el.product_type}</h4>
+              <p>${el.product_name}</p>
+              <div class="row">
+              <div class="col-md-4">
+              <div class="interest_rate">
+                <p>
+                  Interest Rate
+                </p>
+                <ul>
+                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
+                </ul>
+              </div>
+              </div>
+              <div class="col-md-4">
+
+              <div class="interest_rate">
+                <p>
+                  Base Rate
+                </p>
+                <ul>
+                  <li class="interest_rate_add"> ${el.base_rate} %</li>
+                </ul>
+              </div>
+              </div>
+              <div class="col-md-4">
+
+              <div class="interest_rate">
+                <p>
+                  Total Interest Rate
+                </p>
+                <ul class="mb-0">
+                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
+                </ul>
+              </div> 
+              </div>
+              </div>
+            </div>
+            <div class="col-md-3 third mt-3 ">
+              <button type="button" class="btn btn-primary">Apply now</button>
+              <button type="button" class="btn btn-primary">learn more</button>
+              <div class="custom-checkbox">
+                <input type="checkbox" id="" value="">
+                <p class="mb-0 ml-3">Select to compare </p>
+              </div>
+            </div>
+          </div>
+          <hr>
               `);
       });
     }
