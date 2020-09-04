@@ -201,7 +201,7 @@
           </div>
         </div>
         <div class="col-md-3 d-flex align-items-center">
-          <a href="/compare" class="btn btn-primary" id="compare_button">
+          <button class="btn btn-primary" id="compare_button">
             Compare
           </a>
         </div>
@@ -218,7 +218,7 @@
     let appendFunctionCounter = 0;
     let currentLoanData;
 
-    console.log(appendFunctionCounter);
+    console.log('appendFunctionCounter',appendFunctionCounter);
 
     $('#next_slide').on('click', () => {
       if (rightButtonCounter == 0) {
@@ -284,10 +284,9 @@
     /* add data to loan card */
     $('.carousel-inner').on('click', function (e) {
       if (this !== e.target) {
-        console.log($(e.target).attr('id'));
+        console.log('carousel id',$(e.target).attr('id'));
         if ($(e.target).attr('id')) {
-          let type = $(e.target).attr('id');
-          console.log(type);
+          let type = $(e.target).attr('id');          
           append(type);
         }
       }
@@ -295,26 +294,6 @@
     /* add data to loan card */
 
 
-    /* compare part */
-    $('#compare-div').hide();
-
-    $('input[type=checkbox]').change(function () {
-      console.log('check');
-      if ($(this).is(':checked')) {
-        $('#compare-div').show();
-      } else {
-        $('#compare-div').hide();
-      }
-    });
-
-    $('#compare_button').on('click', () => {
-      id = [];
-      id[0] = "0ed05a36-2f73-4bdc-bf87-1142f299b126";
-      id[1] = "0aca4966-f9c1-4df4-bad7-125d0c6e413c";
-      id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";
-      $.post('/api/v1/compare', { id: id });
-    });
-    /* compare part end */
 
 
     /* Append Function */
@@ -322,11 +301,11 @@
       console.log('currentLoanData', currentLoanData);
       $('.loan-card').empty();
       $('#loader').show();
-      console.log(loan_type);
+      console.log('loan type',loan_type);
       $.get('/api/v1/all-data', { type: loan_type }, (data) => {
         console.log(data);
         currentLoanData = data;
-        console.log(currentLoanData);
+        console.log('currentLoanData',currentLoanData);
         data.forEach(el => {
           $('.loan-card').append(`
           <div class="row">
@@ -334,8 +313,7 @@
               <h4 class="bank_name p-2">${el.bank_name}</h4>
           </div>
           </div>
-          <div class="row">
-     
+          <div class="row">     
             <div class="col-md-3 first mt-3">
                 <div class="img-container">
                   <img src="/img/primebank.png">
@@ -383,7 +361,7 @@
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
+                <input type="checkbox" id="${el.bank_id}" value="" onclick = "addToCompare(this)">
                 <p class="mb-0 ml-3">Select to compare </p>
               </div>
             </div>
@@ -394,9 +372,9 @@
         $('#loader').hide();
       });
       appendFunctionCounter++;
-      console.log(appendFunctionCounter);
+      console.log('appendFunctionCounter',appendFunctionCounter);
     }
-    console.log(appendFunctionCounter);
+    console.log('appendFunctionCounter',appendFunctionCounter);;
     /* append function end */
     console.log('currentLoanData', currentLoanData);
 
@@ -531,6 +509,86 @@
 
       }
     });
+
+    
+    /* compare part */
+    $('#compare-div').hide();
+
+    /*$('input[type=checkbox]').change(function () {
+      console.log('check');
+      if ($(this).is(':checked')) {
+        $('#compare-div').show();
+      } else {
+        $('#compare-div').hide();
+      }
+    });*/
+
+    /*$('input[type="checkbox"]').click(function(){
+            if($(this).prop("checked") == true){
+                console.log("Checkbox is checked.");
+            }
+            else if($(this).prop("checked") == false){
+                console.log("Checkbox is unchecked.");
+            }
+        });*/
+    let compareCounter=0;
+    let compareId = [];
+    function addToCompare(checkbox){
+      console.log(checkbox.id);
+        if(checkbox.checked){
+          compareCounter++;
+          console.log('compareCounter',compareCounter);
+          if(compareCounter > 3){
+            console.log('cant add more than 3 items for comparison');
+            $('#compare_button').attr("disabled",true);
+            console.log('compareId',compareId); 
+          }
+          else{
+            $('#compare_button').attr("disabled",false);            
+            console.log('compareCounter',compareCounter);
+            console.log('checked');            
+            compareId.push(checkbox.id);
+            console.log('compareId',compareId);            
+          }
+        }
+        else{
+          compareCounter--;
+          
+          //
+          const index = compareId.indexOf(checkbox.id);
+          if (index > -1) {
+            compareId.splice(index, 1);
+          }
+          console.log('compareId',compareId);
+          //
+
+          if(compareCounter == 0){
+            $('#compare-div').hide();
+          }
+          if(compareCounter <= 3 ){
+            $('#compare_button').attr("disabled",false);            
+            console.log('compareCounter', compareCounter);
+            console.log('checked');
+          }
+          console.log('compareCounter', compareCounter);
+          console.log('not checked');
+        }
+        if(compareCounter > 0){
+          $('#compare-div').show();
+        }
+    }
+
+    $('#compare_button').on('click', () => {
+     /* id = [];
+      id[0] = "0ed05a36-2f73-4bdc-bf87-1142f299b126";
+      id[1] = "0aca4966-f9c1-4df4-bad7-125d0c6e413c";
+      id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";*/
+      window.location.href=`/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;
+      /*$.get('/compare', { bank_one : compareId[0], bank_two : compareId[1], bank_three : compareId[2] }, ()=>{
+        console.log('successful');
+      });*/
+    });
+    /* compare part end */
 
 
 
