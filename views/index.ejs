@@ -10,9 +10,17 @@
 
   <div class="custom-category">
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1 class="section_title text-center">
+            Choose Bank Loans
+          </h1>
+          <p class="text-center">Choose the type of loan you are looking for...</p>
+        </div>
+      </div>
       <div class="row mt-3">
-        <div class="col-md-1 mt-2">
-          <a class="btn btn-primary btn-sm" href="#multi-item-example" data-slide="prev"><i
+        <div class="col-md-1 chevron-margin">
+          <a class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="prev"><i
               class="fa fa-chevron-left"></i></a>
         </div>
         <div class="col-md-10">
@@ -64,9 +72,9 @@
           <!--/.Carousel Wrapper-->
 
         </div>
-        <div class="col-md-1 mt-2">
-          <a id="next_slide" class="btn btn-primary" style="width: 100%; margin:0;" href="#multi-item-example"
-            data-slide="next"><i class="fa fa-chevron-right"></i></a>
+        <div class="col-md-1 chevron-margin">
+          <a id="next_slide" class="btn btn-primary btn-sm btn-round" href="#multi-item-example" data-slide="next"><i
+              class="fa fa-chevron-right"></i></a>
         </div>
       </div>
     </div>
@@ -160,7 +168,7 @@
         $.get('/api/v1/loan-type', {}, (data) => {
           console.log('beginning data loan type');
           console.log(data);
-          for (let i = 4; i < data.length -4; i += 4) {
+          for (let i = 4; i < data.length - 4; i += 4) {
             $('.carousel-inner').append(`
             <div class="carousel-item">
               <div class="row">

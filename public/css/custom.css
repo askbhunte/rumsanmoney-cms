@@ -269,8 +269,13 @@ table tr p {
 }
 .card_slider {
   background: #0c2074;
+  max-height: 200px;
 }
 
 a:hover {
   color: white;
+}
+
+.chevron-margin {
+  margin-top: 6rem;
 }
