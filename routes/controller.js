@@ -12,8 +12,7 @@ class Controller {
       }
       if (productName) {
         data = data.filter((el) => el.product_name === productName);
-      }
-      console.log('getalldata controller', data);
+      }      
       return data;
     } catch (error) {
       return { msg: error };
@@ -72,6 +71,7 @@ class Controller {
         const bankThreeDetails = allData.filter((el) => el.bank_id === bankThree);
         data.push(bankThreeDetails[0]);
       }
+      console.log('compare banks controller', data);
       return data;
     } catch (error) {
       return { msg: error };
