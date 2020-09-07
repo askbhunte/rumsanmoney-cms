@@ -54,8 +54,8 @@ hr {
   font-weight: 400;
 }
 .compare-footer-img-container {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 .compare-footer-img-container img {
   width: 100%;
@@ -287,4 +287,13 @@ table tr p {
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
+}
+
+.btn-remove{
+  background-color: #ffffff00;
+  border: 0px solid #ffffff;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
 }

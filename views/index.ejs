@@ -455,9 +455,6 @@
         if (compareCounter > 3) {
           console.log('cant add more than 3 items for comparison');
           $('#compare_button').attr("disabled", true);
-
-
-
           console.log('compareId', compareId);
         }
         else {
@@ -473,9 +470,20 @@
           $('.compare-row').append(`
             <div class = "col-md-4" id="compare-${checkbox.id}">
                 <div class="compare-footer-card">
-                  <div class="compare-footer-img-container">
-                    <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
-                  </div>
+                  <div class ="row">
+                    <div class = "col-md-6">
+                      <div class="compare-footer-img-container">
+                      <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
+                      </div>
+                    </div>
+                    <div class = "col-md-6 p-0 d-flex flex-row">
+                      <button class ="btn-remove d-flex flex-row" id="remove-${checkbox.id}" value="${checkbox.id}" onClick="removeItem(this)">
+                        <i class="material-icons mr-1" >
+                          remove_circle_outline
+                        </i><p>Remove</p> 
+                      </button>                     
+                    </div>
+                  </div>                  
                   <h4 id="first-text">${checkbox.value}</h4>
               </div>
             </div>
@@ -543,6 +551,45 @@
       if (compareCounter > 0) {
         $('#compare-div').show();
       }
+    }
+
+    function removeItem(el){
+      console.log(el);
+      compareCounter--;
+      const index = compareId.indexOf(el.value);
+        if (index > -1) {
+          compareId.splice(index, 1);
+          compareName.splice(index, 1);
+        }
+        console.log('comareCounter', compareCounter);
+        console.log('compareId after unchecking', compareId);
+        console.log('compareName after unchecking', compareName);
+
+        $(`#compare-${el.value}`).remove();
+        console.log($(`#${el.value}`)[0].checked);
+        
+        $(`#${el.value}`)[0].checked = false;
+        
+        console.log($(`#${el.value}`)[0].checked);
+
+        if (compareCounter == 0) {
+          $('#compare-div').hide();
+        }
+        if (compareCounter < 3) {          
+          currentLoanData.forEach((el) => {
+              if( $(`#${el.bank_id}`)[0].checked ){
+                console.log('true');
+                $(`#${el.bank_id}`).attr('disabled', false); 
+              }
+              else{
+                console.log('false');
+                $(`#${el.bank_id}`).attr('disabled', false);
+                $(`#alert-${el.bank_id}`).hide(); 
+              }              
+          });
+
+        }
+      
     }
 
     $('#compare_button').on('click', () => {
