@@ -140,7 +140,7 @@
 
   <script>
     $('#loader-carousel').hide();
-    $('#loader').hide();
+    $('#loader').hide();    
     let rightButtonCounter = 0;
     let appendFunctionCounter = 0;
     let currentLoanData;
@@ -282,9 +282,10 @@
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name}, ${el.product_name}" onclick = "addToCompare(this)">
-                <p class="mb-0 ml-3">Select to compare </p>
+                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name},</br> ${el.product_name}" onclick = "addToCompare(this)">
+                <p class="mb-0 ml-3">Select to compare </p> 
               </div>
+              <p id="alert-${el.bank_id}" style="color: red; display: none;">Sorry, you cannot add more than 3 loans for comparison</p>             
             </div>
           </div>
           <hr>
@@ -358,8 +359,9 @@
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
                 <input type="checkbox" id="${el.bank_id}" value="${el.bank_name}, ${el.product_name}" onclick = "addToCompare(this)">
-                <p class="mb-0 ml-3">Select to compare </p>
+                <p class="mb-0 ml-3">Select to compare</p>
               </div>
+              <p id="alert-${el.bank_id}" style="color: red; display: none;">Sorry, you cannot add more than 3 loans for comparison</p>
             </div>
           </div>
           <hr>
@@ -369,6 +371,13 @@
     /* sortedAppend function end */
 
     $('#sort_by').on('change', function () {
+      $('#compare-div').hide();
+      $('.compare-row').empty();
+      compareCounter = 0;
+      compareId =[];
+      compareName =[];
+      console.log('compareCounter after sorting',compareCounter);
+      console.log('compareId after sorting',compareId);
       if (appendFunctionCounter > 0) {
         console.log(this.value);
         if (this.value == "Interest Rate (Low to High)") {
@@ -446,6 +455,9 @@
         if (compareCounter > 3) {
           console.log('cant add more than 3 items for comparison');
           $('#compare_button').attr("disabled", true);
+
+
+
           console.log('compareId', compareId);
         }
         else {
@@ -453,7 +465,7 @@
           console.log('compareCounter', compareCounter);
           console.log('checked');
           compareId.push(checkbox.id);
-          compareName.push(checkbox.vakue);
+          compareName.push(checkbox.value);
           console.log('compareId', compareId);    
           console.log('compareName', compareName);  
           
@@ -467,7 +479,27 @@
                   <h4 id="first-text">${checkbox.value}</h4>
               </div>
             </div>
-          `);           
+          `);  
+          
+          if(compareCounter == 3){
+            console.log( $('#bb8fa7bd-0692-44e7-b5a8-1bab2a4a3021')[0].checked);
+            console.log( $('#90fdbc7a-b826-47c1-b1be-257846a9eb65')[0].checked);            
+            console.log( $('#bb8fa7bd-0692-44e7-b5a8-1bab2a4a3021').checked);
+
+            currentLoanData.forEach((el) => {
+              if( $(`#${el.bank_id}`)[0].checked ){
+                console.log('true');
+                $(`#${el.bank_id}`).attr('disabled', false); 
+              }
+              else{
+                console.log('false');
+                $(`#${el.bank_id}`).attr('disabled', true);
+                $(`#alert-${el.bank_id}`).show();
+                
+              }
+              
+            });  
+          }     
         }
       }
       else {
@@ -488,13 +520,25 @@
         if (compareCounter == 0) {
           $('#compare-div').hide();
         }
-        if (compareCounter <= 3) {
-          $('#compare_button').attr("disabled", false);
+        if (compareCounter < 3) {
+          /*$('#compare_button').attr("disabled", false);
           console.log('compareCounter', compareCounter);
-          console.log('checked');
+          console.log('checked');*/
+          currentLoanData.forEach((el) => {
+              if( $(`#${el.bank_id}`)[0].checked ){
+                console.log('true');
+                $(`#${el.bank_id}`).attr('disabled', false); 
+              }
+              else{
+                console.log('false');
+                $(`#${el.bank_id}`).attr('disabled', false);
+                $(`#alert-${el.bank_id}`).hide(); 
+              }              
+          });
+
         }
         console.log('compareCounter', compareCounter);
-        console.log('not checked');
+        console.log('unchecked');
       }
       if (compareCounter > 0) {
         $('#compare-div').show();
