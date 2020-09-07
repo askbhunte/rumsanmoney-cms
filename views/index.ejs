@@ -124,31 +124,9 @@
       <h3>
         Compare Loans
       </h3>
-      <div class="row">
-        <div class="col-md-3" id="first">
-          <div class="compare-footer-card">
-            <div class="compare-footer-img-container">
-              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
-            </div>
-            <h4 id="first-text">Add a bank loan</h4>
-          </div>
-        </div>
-        <div class="col-md-3" id="second">
-          <div class="compare-footer-card">
-            <div class="compare-footer-img-container">
-              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
-            </div>
-            <h4 id="second-text">Add a bank loan</h4>
-          </div>
-        </div>
-        <div class="col-md-3" id="third">
-          <div class="compare-footer-card">
-            <div class="compare-footer-img-container">
-              <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
-            </div>
-            <h4 id="third-text">Add a bank loan</h4>
-          </div>
-        </div>
+      <div class="row ">
+        <div class ="col-md-9 row compare-row">         
+        </div>        
         <div class="col-md-3 d-flex align-items-center">
           <button class="btn btn-primary" id="compare_button">
             Compare
@@ -379,7 +357,7 @@
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="" value="">
+                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name}, ${el.product_name}" onclick = "addToCompare(this)">
                 <p class="mb-0 ml-3">Select to compare </p>
               </div>
             </div>
@@ -455,25 +433,8 @@
 
 
     /* compare part */
-    $('#compare-div').hide();
-
-    /*$('input[type=checkbox]').change(function () {
-      console.log('check');
-      if ($(this).is(':checked')) {
-        $('#compare-div').show();
-      } else {
-        $('#compare-div').hide();
-      }
-    });*/
-
-    /*$('input[type="checkbox"]').click(function(){
-            if($(this).prop("checked") == true){
-                console.log("Checkbox is checked.");
-            }
-            else if($(this).prop("checked") == false){
-                console.log("Checkbox is unchecked.");
-            }
-        });*/
+    $('#compare-div').hide();   
+   
     let compareCounter = 0;
     let compareId = [];
     let compareName =[];
@@ -494,12 +455,25 @@
           compareId.push(checkbox.id);
           compareName.push(checkbox.vakue);
           console.log('compareId', compareId);    
-          console.log('compareName', compareName);               
+          console.log('compareName', compareName);  
+          
+         
+          $('.compare-row').append(`
+            <div class = "col-md-4" id="compare-${checkbox.id}">
+                <div class="compare-footer-card">
+                  <div class="compare-footer-img-container">
+                    <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
+                  </div>
+                  <h4 id="first-text">${checkbox.value}</h4>
+              </div>
+            </div>
+          `);           
         }
       }
       else {
         compareCounter--;
         //
+
         const index = compareId.indexOf(checkbox.id);
         if (index > -1) {
           compareId.splice(index, 1);
@@ -508,6 +482,8 @@
         console.log('compareId after unchecking', compareId);
         console.log('compareName after unchecking', compareName);
         //        
+
+        $(`#compare-${checkbox.id}`).remove();
 
         if (compareCounter == 0) {
           $('#compare-div').hide();
@@ -526,14 +502,9 @@
     }
 
     $('#compare_button').on('click', () => {
-      /* id = [];
-       id[0] = "0ed05a36-2f73-4bdc-bf87-1142f299b126";
-       id[1] = "0aca4966-f9c1-4df4-bad7-125d0c6e413c";
-       id[2] = "18fc0cbd-6e8e-412c-815f-b98b497df326";*/
+      
       window.location.href = `/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;
-      /*$.get('/compare', { bank_one : compareId[0], bank_two : compareId[1], bank_three : compareId[2] }, ()=>{
-        console.log('successful');
-      });*/
+      
     });
     /* compare part end */
     
