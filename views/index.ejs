@@ -127,7 +127,7 @@
       <div class="row ">
         <div class ="col-md-9 row compare-row">         
         </div>        
-        <div class="col-md-3 d-flex align-items-center">
+        <div class="col-md-3 d-flex align-items-center justify-content-center">
           <button class="btn btn-primary" id="compare_button">
             Compare
             </a>
@@ -282,7 +282,7 @@
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name},</br> ${el.product_name}" onclick = "addToCompare(this)">
+                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name},</br>${el.product_name}" onclick = "addToCompare(this)">
                 <p class="mb-0 ml-3">Select to compare </p> 
               </div>
               <p id="alert-${el.bank_id}" style="color: red; display: none;">Sorry, you cannot add more than 3 loans for comparison</p>             
@@ -358,7 +358,7 @@
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name}, ${el.product_name}" onclick = "addToCompare(this)">
+                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name},</br>${el.product_name}" onclick = "addToCompare(this)">
                 <p class="mb-0 ml-3">Select to compare</p>
               </div>
               <p id="alert-${el.bank_id}" style="color: red; display: none;">Sorry, you cannot add more than 3 loans for comparison</p>
