@@ -125,28 +125,28 @@
         Compare Loans
       </h3>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" id="first">
           <div class="compare-footer-card">
             <div class="compare-footer-img-container">
               <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
-            <h4>Add a bank loan</h4>
+            <h4 id="first-text">Add a bank loan</h4>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" id="second">
           <div class="compare-footer-card">
             <div class="compare-footer-img-container">
               <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
-            <h4>Add a bank loan</h4>
+            <h4 id="second-text">Add a bank loan</h4>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" id="third">
           <div class="compare-footer-card">
             <div class="compare-footer-img-container">
               <img src="https://assets.rumsan.com/askbhunte/assets/bhunte.png" alt="Bank Logo">
             </div>
-            <h4>Add a bank loan</h4>
+            <h4 id="third-text">Add a bank loan</h4>
           </div>
         </div>
         <div class="col-md-3 d-flex align-items-center">
@@ -213,7 +213,6 @@
           $('#loader-carousel').hide();
           $('#next_slide').click();
           $('#multi-item-example').show();
-
         });
         /* load all the loan types in carousel end*/
         rightButtonCounter = rightButtonCounter + 1;
@@ -240,9 +239,6 @@
     });
     /* add data to loan card */
 
-
-
-
     /* Append Function */
     function append(loan_type) {
       console.log('currentLoanData', currentLoanData);
@@ -256,9 +252,9 @@
         data.forEach(el => {
           $('.loan-card').append(`
           <div class="row">
-          <div class="col-md-12">
-              <h4 class="bank_name p-2">${el.bank_name}</h4>
-          </div>
+            <div class="col-md-12">
+                <h4 class="bank_name p-2">${el.bank_name}</h4>
+            </div>
           </div>
           <div class="row">     
             <div class="col-md-3 first mt-3">
@@ -270,45 +266,45 @@
               <h4 >${el.product_type}</h4>
               <p>${el.product_name}</p>
               <div class="row">
-              <div class="col-md-4">
-              <div class="interest_rate">
-                <p>
-                  Interest Rate
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.interest_rate} %</li>
-                </ul>
-              </div>
-              </div>
-              <div class="col-md-4">
+                <div class="col-md-4">
+                  <div class="interest_rate">
+                    <p>
+                      Interest Rate
+                    </p>
+                    <ul>
+                      <li class="interest_rate_add"> ${el.interest_rate} %</li>
+                    </ul>
+                  </div>
+                </div>
 
-              <div class="interest_rate">
-                <p>
-                  Base Rate
-                </p>
-                <ul>
-                  <li class="interest_rate_add"> ${el.base_rate} %</li>
-                </ul>
-              </div>
-              </div>
-              <div class="col-md-4">
+                <div class="col-md-4">
+                  <div class="interest_rate">
+                    <p>
+                      Base Rate
+                    </p>
+                    <ul>
+                      <li class="interest_rate_add"> ${el.base_rate} %</li>
+                    </ul>
+                  </div>
+                </div>
 
-              <div class="interest_rate">
-                <p>
-                  Total Interest Rate
-                </p>
-                <ul class="mb-0">
-                  <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
-                </ul>
-              </div> 
-              </div>
+                <div class="col-md-4">
+                  <div class="interest_rate">
+                    <p>
+                      Total Interest Rate
+                    </p>
+                    <ul class="mb-0">
+                      <li class="interest_rate_add"> ${el.total_interest_rate} %</li>
+                    </ul>
+                  </div> 
+                </div>
               </div>
             </div>
-            <div class="col-md-3 third mt-3 ">
+            <div class="col-md-3 third mt-3">
               <button type="button" class="btn btn-primary">Apply now</button>
               <button type="button" class="btn btn-primary">learn more</button>
               <div class="custom-checkbox">
-                <input type="checkbox" id="${el.bank_id}" value="" onclick = "addToCompare(this)">
+                <input type="checkbox" id="${el.bank_id}" value="${el.bank_name}, ${el.product_name}" onclick = "addToCompare(this)">
                 <p class="mb-0 ml-3">Select to compare </p>
               </div>
             </div>
@@ -480,6 +476,7 @@
         });*/
     let compareCounter = 0;
     let compareId = [];
+    let compareName =[];
     function addToCompare(checkbox) {
       console.log(checkbox.id);
       if (checkbox.checked) {
@@ -495,19 +492,22 @@
           console.log('compareCounter', compareCounter);
           console.log('checked');
           compareId.push(checkbox.id);
-          console.log('compareId', compareId);
+          compareName.push(checkbox.vakue);
+          console.log('compareId', compareId);    
+          console.log('compareName', compareName);               
         }
       }
       else {
         compareCounter--;
-
         //
         const index = compareId.indexOf(checkbox.id);
         if (index > -1) {
           compareId.splice(index, 1);
+          compareName.splice(index, 1);
         }
-        console.log('compareId', compareId);
-        //
+        console.log('compareId after unchecking', compareId);
+        console.log('compareName after unchecking', compareName);
+        //        
 
         if (compareCounter == 0) {
           $('#compare-div').hide();
@@ -536,10 +536,7 @@
       });*/
     });
     /* compare part end */
-
-
-
-
+    
   </script>
 
 </body>
