@@ -148,6 +148,9 @@
     let rightButtonCounter = 0;
     let appendFunctionCounter = 0;
     let currentLoanData;
+    let footerOffsetHeight;
+    let windowHeight;
+    let scrollTopHeight;
 
     console.log('appendFunctionCounter', appendFunctionCounter);
 
@@ -558,11 +561,16 @@
 
       if( $('#compare-div').css("display") == "none"){
         console.log('compare-div invisible');
-        $('#btnScrollToTop').removeAttr("style");
+        if(( windowHeight + scrollTopHeight) >= footerOffsetHeight){
+          $('#btnScrollToTop').css('bottom', 205);
+        }
+        else{
+          $('#btnScrollToTop').css('bottom', 10);
+        }
       }
       else{
         console.log('compare-div visible');
-        //$('#btnScrollToTop').css("bottom",$('#compare-div').css('height'));
+        $('#btnScrollToTop').css("bottom", $('#compare-div').css('height'));
       }
     }
 
@@ -587,9 +595,14 @@
 
         if (compareCounter == 0) {
           $('#compare-div').hide();
-          $('#btnScrollToTop').removeAttr("style");
+          if(( windowHeight + scrollTopHeight) >= footerOffsetHeight){
+            $('#btnScrollToTop').css("bottom", 205);
+          }
+          else{
+            $('#btnScrollToTop').css("bottom", 10);
+          }         
         }
-        if (compareCounter < 3) {          
+        if (compareCounter < 3 && compareCounter > 0 ) {          
           currentLoanData.forEach((el) => {
               if( $(`#${el.bank_id}`)[0].checked ){
                 console.log('true');
@@ -600,7 +613,8 @@
                 $(`#${el.bank_id}`).attr('disabled', false);
                 $(`#alert-${el.bank_id}`).hide(); 
               }              
-          });
+          });          
+          $('#btnScrollToTop').css("bottom", $('#compare-div').css('height'));
         }
     }
 
@@ -609,7 +623,8 @@
     });
     /* compare part end */
 
-    /*scroll to top */    
+    /*scroll to top */
+
     $('#btnScrollToTop').hide(); 
     $('#btnScrollToTop').on('click', () => {
       window.scrollTo({
@@ -626,6 +641,22 @@
         else{
           $('#btnScrollToTop').hide();
         }
+
+        footerOffsetHeight = $('#footer-card').offset().top;
+        windowHeight = $(window).height();
+        scrollTopHeight = $(this).scrollTop();        
+
+        if(( windowHeight + scrollTopHeight) >= footerOffsetHeight){
+          if($('#compare-div').css('display') == "none"){
+            $('#btnScrollToTop').css("bottom", 205);
+          }
+        }
+        else{
+          if($('#compare-div').css('display') == "none"){
+            $('#btnScrollToTop').css("bottom", 10);
+          }      
+        }
+
       });      
     });
     /*scroll to top */
