@@ -8,6 +8,10 @@
 <body>
   <%- include('_layouts/navbar') %>
 
+  <button id ="btnScrollToTop" class ="btn btn-primary btn-scroll-to-top " >
+    <i class = "material-icons">arrow_upward</i>
+  </button>
+
   <div class="custom-category">
     <div class="container-fluid">
       <div class="row">
@@ -552,6 +556,15 @@
       if (compareCounter > 0) {
         $('#compare-div').show();
       }
+
+      if( $('#compare-div').css("display") == "none"){
+        console.log('compare-div invisible');
+        $('#btnScrollToTop').removeAttr("style");
+      }
+      else{
+        console.log('compare-div visible');
+        //$('#btnScrollToTop').css("bottom",$('#compare-div').css('height'));
+      }
     }
 
     function removeItem(el){
@@ -575,6 +588,7 @@
 
         if (compareCounter == 0) {
           $('#compare-div').hide();
+          $('#btnScrollToTop').removeAttr("style");
         }
         if (compareCounter < 3) {          
           currentLoanData.forEach((el) => {
@@ -588,17 +602,34 @@
                 $(`#alert-${el.bank_id}`).hide(); 
               }              
           });
-
         }
-      
     }
 
-    $('#compare_button').on('click', () => {
-      
-      window.location.href = `/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;
-      
+    $('#compare_button').on('click', () => {      
+      window.location.href = `/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;      
     });
     /* compare part end */
+
+    /*scroll to top */    
+    $('#btnScrollToTop').hide(); 
+    $('#btnScrollToTop').on('click', () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
+    });
+    $(document).ready(function(){     
+      $(window).scroll(() => {
+        if($(this).scrollTop() > 500){
+        $('#btnScrollToTop').show();
+        }
+        else{
+          $('#btnScrollToTop').hide();
+        }
+      });      
+    });
+    /*scroll to top */
     
   </script>
 
