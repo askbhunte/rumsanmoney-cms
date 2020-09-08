@@ -327,4 +327,7 @@ table tr p {
   background: #2039a2;
 }
 
+.card_slider{
+  cursor: pointer !important;
+}
 /* scroll to top button*/

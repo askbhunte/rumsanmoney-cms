@@ -206,15 +206,20 @@
     /* initial data on load card */
 
     /* add data to loan card */
-    $('.carousel-item').on('click', function (e) {
-      console.log('clicked on carousel item');
-      console.log(e.target);
-      const idInfo = e.target.parentNode.id || $(e.target).attr('id');
+    $('.carousel-inner').on('click', function (e) {      
+      const idInfo = e.target.parentNode.parentNode.id || e.target.parentNode.id || $(e.target).attr('id');
       if (idInfo) {
         let type = idInfo;
+        $('#compare-div').hide();
+        $('.compare-row').empty();
+        compareCounter = 0;
+        compareId =[];
+        compareName =[];
+        console.log('compareCounter after click on carousel item',compareCounter);
+        console.log('compareId after click on carousel item',compareId);
         append(type);
       }
-    });
+    });   
     /* add data to loan card */
 
     /* Append Function add data to loan-card*/
