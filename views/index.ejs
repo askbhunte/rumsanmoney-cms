@@ -8,8 +8,8 @@
 <body>
   <%- include('_layouts/navbar') %>
 
-  <button id ="btnScrollToTop" class ="btn btn-primary btn-scroll-to-top " >
-    <i class = "material-icons">arrow_upward</i>
+  <button id="btnScrollToTop" class="btn btn-primary btn-scroll-to-top ">
+    <i class="material-icons">arrow_upward</i>
   </button>
 
   <div class="custom-category">
@@ -36,7 +36,7 @@
           <!--Carousel Wrapper-->
           <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
             <!--Slides-->
-            <div class="carousel-inner" role="listbox">
+            <div class="carousel-inner" role="listbox" id="carouselSlider">
               <div class="carousel-item active">
                 <div class="row">
                   <div class="col-md-3">
@@ -129,8 +129,8 @@
         Compare Loans
       </h3>
       <div class="row ">
-        <div class ="col-md-9 row compare-row">         
-        </div>        
+        <div class="col-md-9 row compare-row">
+        </div>
         <div class="col-md-3 d-flex align-items-center justify-content-end">
           <button class="btn btn-primary" id="compare_button">
             Compare
@@ -144,12 +144,10 @@
 
   <script>
     $('#loader-carousel').hide();
-    $('#loader').hide();    
+    $('#loader').hide();
     let rightButtonCounter = 0;
     let appendFunctionCounter = 0;
     let currentLoanData;
-
-    console.log('appendFunctionCounter', appendFunctionCounter);
 
     $('#next_slide').on('click', () => {
       if (rightButtonCounter == 0) {
@@ -157,11 +155,9 @@
         $('#loader-carousel').show();
         /* load all the loan types in carousel */
         $.get('/api/v1/loan-type', {}, (data) => {
-          console.log('beginning data loan type');
-          console.log(data);
           for (let i = 4; i < data.length - 4; i += 4) {
             $('.carousel-inner').append(`
-            <div class="carousel-item">
+            <div class="carousel-item carouselLoader">
               <div class="row">
                 <div class="col-md-3">
                   <div id="${data[i].account_type}" class="card my-2 p-5 card_slider" style="text-align: center;">
@@ -201,10 +197,9 @@
       }
     });
 
-    /* initial data on load card */    
+    /* initial data on load card */
     append('Home Loan');
     /* initial data on load card */
-
     /* add data to loan card */
     $('.carousel-item').on('click', function (e) {
       console.log('clicked on carousel item');
@@ -215,18 +210,23 @@
         append(type);
       }
     });
+
+    $('#carouselSlider').on('click', '.carouselLoader', function (e) {
+      const idInfo = e.target.parentNode.id || $(e.target).attr('id');
+      if (idInfo) {
+        let type = idInfo;
+        append(type);
+      }
+    });
+
     /* add data to loan card */
 
     /* Append Function add data to loan-card*/
     function append(loan_type) {
-      console.log('currentLoanData', currentLoanData);
       $('.loan-card').empty();
       $('#loader').show();
-      console.log('loan type', loan_type);
       $.get('/api/v1/all-data', { type: loan_type }, (data) => {
-        console.log(data);
         currentLoanData = data;
-        console.log('currentLoanData', currentLoanData);
         data.forEach(el => {
           $('.loan-card').append(`
           <div class="row">
@@ -294,12 +294,8 @@
         $('#loader').hide();
       });
       appendFunctionCounter++;
-      console.log('appendFunctionCounter', appendFunctionCounter);
     }
-    console.log('appendFunctionCounter', appendFunctionCounter);;
     /* append function end */
-    console.log('currentLoanData', currentLoanData);
-
     /* sortedAppend function */
     function sortedAppend(sortedLoanData) {
       sortedLoanData.forEach(el => {
@@ -369,23 +365,18 @@
       });
     }
     /* sortedAppend function end */
-
     $('#sort_by').on('change', function () {
       $('#compare-div').hide();
       $('.compare-row').empty();
       compareCounter = 0;
-      compareId =[];
-      compareName =[];
-      console.log('compareCounter after sorting',compareCounter);
-      console.log('compareId after sorting',compareId);
+      compareId = [];
+      compareName = [];
       if (appendFunctionCounter > 0) {
-        console.log(this.value);
         if (this.value == "Interest Rate (Low to High)") {
 
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return a.interest_rate - b.interest_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -394,7 +385,6 @@
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return b.interest_rate - a.interest_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -404,7 +394,6 @@
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return a.base_rate - b.base_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -413,7 +402,6 @@
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return b.base_rate - a.base_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -422,7 +410,6 @@
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return a.total_interest_rate - b.total_interest_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -431,7 +418,6 @@
           let sortedLoanData = currentLoanData.sort(function (a, b) {
             return b.total_interest_rate - a.total_interest_rate;
           });
-          console.log('sortedloandata', sortedLoanData);
           $('.loan-card').empty();
           sortedAppend(sortedLoanData);
         }
@@ -440,33 +426,21 @@
       }
     });
 
-
     /* compare part */
-    $('#compare-div').hide();   
-   
+    $('#compare-div').hide();
     let compareCounter = 0;
     let compareId = [];
-    let compareName =[];
+    let compareName = [];
     function addToCompare(checkbox) {
-      console.log(checkbox.id);
       if (checkbox.checked) {
         compareCounter++;
-        console.log('compareCounter', compareCounter);
         if (compareCounter > 3) {
-          console.log('cant add more than 3 items for comparison');
           $('#compare_button').attr("disabled", true);
-          console.log('compareId', compareId);
         }
         else {
           $('#compare_button').attr("disabled", false);
-          console.log('compareCounter', compareCounter);
-          console.log('checked');
           compareId.push(checkbox.id);
           compareName.push(checkbox.value);
-          console.log('compareId', compareId);    
-          console.log('compareName', compareName);  
-          
-         
           $('.compare-row').append(`
             <div class = "col-md-4" id="compare-${checkbox.id}">
                 <div class="compare-footer-card">
@@ -487,125 +461,91 @@
                   <p id="first-text">${checkbox.value}</p>
               </div>
             </div>
-          `);  
-          
-          if(compareCounter == 3){
-            
-           
-
+          `);
+          if (compareCounter == 3) {
             currentLoanData.forEach((el) => {
-              if( $(`#${el.bank_id}`)[0].checked ){
-                console.log('true');
-                $(`#${el.bank_id}`).attr('disabled', false); 
+              if ($(`#${el.bank_id}`)[0].checked) {
+                $(`#${el.bank_id}`).attr('disabled', false);
               }
-              else{
-                console.log('false');
+              else {
                 $(`#${el.bank_id}`).attr('disabled', true);
                 $(`#alert-${el.bank_id}`).show();
-                
               }
-              
-            });  
-          }     
+
+            });
+          }
         }
       }
       else {
         compareCounter--;
-        //
-
         const index = compareId.indexOf(checkbox.id);
         if (index > -1) {
           compareId.splice(index, 1);
           compareName.splice(index, 1);
         }
-        console.log('compareId after unchecking', compareId);
-        console.log('compareName after unchecking', compareName);
-        //        
-
         $(`#compare-${checkbox.id}`).remove();
-
         if (compareCounter == 0) {
           $('#compare-div').hide();
         }
         if (compareCounter < 3) {
-          /*$('#compare_button').attr("disabled", false);
-          console.log('compareCounter', compareCounter);
-          console.log('checked');*/
+          /*$('#compare_button').attr("disabled", false);*/
           currentLoanData.forEach((el) => {
-              if( $(`#${el.bank_id}`)[0].checked ){
-                console.log('true');
-                $(`#${el.bank_id}`).attr('disabled', false); 
-              }
-              else{
-                console.log('false');
-                $(`#${el.bank_id}`).attr('disabled', false);
-                $(`#alert-${el.bank_id}`).hide(); 
-              }              
+            if ($(`#${el.bank_id}`)[0].checked) {
+              $(`#${el.bank_id}`).attr('disabled', false);
+            }
+            else {
+              $(`#${el.bank_id}`).attr('disabled', false);
+              $(`#alert-${el.bank_id}`).hide();
+            }
           });
 
         }
-        console.log('compareCounter', compareCounter);
-        console.log('unchecked');
       }
       if (compareCounter > 0) {
         $('#compare-div').show();
       }
 
-      if( $('#compare-div').css("display") == "none"){
-        console.log('compare-div invisible');
+      if ($('#compare-div').css("display") == "none") {
         $('#btnScrollToTop').removeAttr("style");
       }
-      else{
-        console.log('compare-div visible');
+      else {
         //$('#btnScrollToTop').css("bottom",$('#compare-div').css('height'));
       }
     }
 
-    function removeItem(el){
-      console.log(el);
+    function removeItem(el) {
       compareCounter--;
       const index = compareId.indexOf(el.value);
-        if (index > -1) {
-          compareId.splice(index, 1);
-          compareName.splice(index, 1);
-        }
-        console.log('comareCounter', compareCounter);
-        console.log('compareId after unchecking', compareId);
-        console.log('compareName after unchecking', compareName);
-
-        $(`#compare-${el.value}`).remove();
-        console.log($(`#${el.value}`)[0].checked);
-        
-        $(`#${el.value}`)[0].checked = false;
-        
-        console.log($(`#${el.value}`)[0].checked);
-
-        if (compareCounter == 0) {
-          $('#compare-div').hide();
-          $('#btnScrollToTop').removeAttr("style");
-        }
-        if (compareCounter < 3) {          
-          currentLoanData.forEach((el) => {
-              if( $(`#${el.bank_id}`)[0].checked ){
-                console.log('true');
-                $(`#${el.bank_id}`).attr('disabled', false); 
-              }
-              else{
-                console.log('false');
-                $(`#${el.bank_id}`).attr('disabled', false);
-                $(`#alert-${el.bank_id}`).hide(); 
-              }              
-          });
-        }
+      if (index > -1) {
+        compareId.splice(index, 1);
+        compareName.splice(index, 1);
+      }
+      $(`#compare-${el.value}`).remove();
+      $(`#${el.value}`)[0].checked = false;
+      if (compareCounter == 0) {
+        $('#compare-div').hide();
+        $('#btnScrollToTop').removeAttr("style");
+      }
+      if (compareCounter < 3) {
+        currentLoanData.forEach((el) => {
+          if ($(`#${el.bank_id}`)[0].checked) {
+            $(`#${el.bank_id}`).attr('disabled', false);
+          }
+          else {
+            $(`#${el.bank_id}`).attr('disabled', false);
+            $(`#alert-${el.bank_id}`).hide();
+          }
+        });
+      }
     }
 
-    $('#compare_button').on('click', () => {      
-      window.location.href = `/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;      
+    $('#compare_button').on('click', () => {
+      window.location.href = `/compare?bank_one=${compareId[0]}&bank_two=${compareId[1]}&bank_three=${compareId[2]}`;
     });
     /* compare part end */
 
-    /*scroll to top */    
-    $('#btnScrollToTop').hide(); 
+    /*scroll to top */
+    $('#btnScrollToTop').hide();
     $('#btnScrollToTop').on('click', () => {
       window.scrollTo({
         top: 0,
@@ -613,18 +553,18 @@
         behavior: "smooth"
       });
     });
-    $(document).ready(function(){     
+    $(document).ready(function () {
       $(window).scroll(() => {
-        if($(this).scrollTop() > 500){
-        $('#btnScrollToTop').show();
+        if ($(this).scrollTop() > 500) {
+          $('#btnScrollToTop').show();
         }
-        else{
+        else {
           $('#btnScrollToTop').hide();
         }
-      });      
+      });
     });
     /*scroll to top */
-    
+
   </script>
 
 </body>
