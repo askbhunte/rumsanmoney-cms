@@ -201,15 +201,9 @@
       }
     });
 
-    /* initial text on load card */
-    $('.loan-card').append(`
-      <div class = "row">
-      <div class="col-md-12 text-center mt-2 mb-4">
-          Currently there are no bank data to display. Select a loan Category to view the data !
-        </div>
-      </div>
-    `);
-    /* initial text on load card */
+    /* initial data on load card */    
+    append('Home Loan');
+    /* initial data on load card */
 
     /* add data to loan card */
     $('.carousel-item').on('click', function (e) {
