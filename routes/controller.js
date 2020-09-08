@@ -12,7 +12,7 @@ class Controller {
       }
       if (productName) {
         data = data.filter((el) => el.product_name === productName);
-      }      
+      }
       return data;
     } catch (error) {
       return { msg: error };
@@ -30,22 +30,20 @@ class Controller {
 
   async getAllLoanType(type) {
     try {
-      console.log('inside getAllLoanType');
       const data = await GSheet.getLookup();
-      let finalData = [];
-      let objData = {};
-      if(type){
+      const finalData = [];
+      const objData = {};
+      if (type) {
         data = data.filter((el) => {
           el.account_type === type;
         });
         data.forEach((el) => {
-          objData['account_type'] = el.account_type;
+          objData.account_type = el.account_type;
           finalData.push(objData);
         });
-      }
-      else{
-        data.forEach((el)=> {
-          objData['account_type'] = el.account_type;
+      } else {
+        data.forEach((el) => {
+          objData.account_type = el.account_type;
           finalData.push(objData);
         });
       }
@@ -71,7 +69,6 @@ class Controller {
         const bankThreeDetails = allData.filter((el) => el.bank_id === bankThree);
         data.push(bankThreeDetails[0]);
       }
-      console.log('compare banks controller', data);
       return data;
     } catch (error) {
       return { msg: error };

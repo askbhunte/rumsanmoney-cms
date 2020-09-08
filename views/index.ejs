@@ -202,8 +202,6 @@
     /* initial data on load card */
     /* add data to loan card */
     $('.carousel-item').on('click', function (e) {
-      console.log('clicked on carousel item');
-      console.log(e.target);
       const idInfo = e.target.parentNode.id || $(e.target).attr('id');
       if (idInfo) {
         let type = idInfo;

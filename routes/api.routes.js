@@ -15,7 +15,6 @@ router.get('/loan-type', async (req, res, next) => {
   try {
     const type = req.query.type || null;
     const data = await Controller.getAllLoanType(type);
-    //console.log(data);
     res.json(data);
   } catch (error) {
     next(error);
@@ -24,8 +23,7 @@ router.get('/loan-type', async (req, res, next) => {
 
 router.get('/bank-names', async (req, res, next) => {
   try {
-   const data = await Controller.getLookup();
-   console.log(data);
+    const data = await Controller.getLookup();
     res.json(data);
   } catch (error) {
     next(error);
