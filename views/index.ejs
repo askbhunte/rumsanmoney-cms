@@ -148,6 +148,9 @@
     let rightButtonCounter = 0;
     let appendFunctionCounter = 0;
     let currentLoanData;
+    let footerOffsetHeight;
+    let windowHeight;
+    let scrollTopHeight;
 
     $('#next_slide').on('click', () => {
       if (rightButtonCounter == 0) {
@@ -201,22 +204,20 @@
     append('Home Loan');
     /* initial data on load card */
     /* add data to loan card */
-    $('.carousel-item').on('click', function (e) {
-      const idInfo = e.target.parentNode.id || $(e.target).attr('id');
+    $('.carousel-inner').on('click', function (e) {
+      const idInfo = e.target.parentNode.parentNode.id || e.target.parentNode.id || $(e.target).attr('id');
       if (idInfo) {
         let type = idInfo;
+        $('#compare-div').hide();
+        $('.compare-row').empty();
+        compareCounter = 0;
+        compareId = [];
+        compareName = [];
+        console.log('compareCounter after click on carousel item', compareCounter);
+        console.log('compareId after click on carousel item', compareId);
         append(type);
       }
     });
-
-    $('#carouselSlider').on('click', '.carouselLoader', function (e) {
-      const idInfo = e.target.parentNode.id || $(e.target).attr('id');
-      if (idInfo) {
-        let type = idInfo;
-        append(type);
-      }
-    });
-
     /* add data to loan card */
 
     /* Append Function add data to loan-card*/
@@ -504,10 +505,17 @@
       }
 
       if ($('#compare-div').css("display") == "none") {
-        $('#btnScrollToTop').removeAttr("style");
+        console.log('compare-div invisible');
+        if ((windowHeight + scrollTopHeight) >= footerOffsetHeight) {
+          $('#btnScrollToTop').css('bottom', 205);
+        }
+        else {
+          $('#btnScrollToTop').css('bottom', 10);
+        }
       }
       else {
-        //$('#btnScrollToTop').css("bottom",$('#compare-div').css('height'));
+        console.log('compare-div visible');
+        $('#btnScrollToTop').css("bottom", $('#compare-div').css('height'));
       }
     }
 
@@ -518,22 +526,39 @@
         compareId.splice(index, 1);
         compareName.splice(index, 1);
       }
+      console.log('comareCounter', compareCounter);
+      console.log('compareId after unchecking', compareId);
+      console.log('compareName after unchecking', compareName);
+
       $(`#compare-${el.value}`).remove();
+      console.log($(`#${el.value}`)[0].checked);
+
       $(`#${el.value}`)[0].checked = false;
+
+      console.log($(`#${el.value}`)[0].checked);
+
       if (compareCounter == 0) {
         $('#compare-div').hide();
-        $('#btnScrollToTop').removeAttr("style");
+        if ((windowHeight + scrollTopHeight) >= footerOffsetHeight) {
+          $('#btnScrollToTop').css("bottom", 205);
+        }
+        else {
+          $('#btnScrollToTop').css("bottom", 10);
+        }
       }
-      if (compareCounter < 3) {
+      if (compareCounter < 3 && compareCounter > 0) {
         currentLoanData.forEach((el) => {
           if ($(`#${el.bank_id}`)[0].checked) {
+            console.log('true');
             $(`#${el.bank_id}`).attr('disabled', false);
           }
           else {
+            console.log('false');
             $(`#${el.bank_id}`).attr('disabled', false);
             $(`#alert-${el.bank_id}`).hide();
           }
         });
+        $('#btnScrollToTop').css("bottom", $('#compare-div').css('height'));
       }
     }
 
@@ -543,6 +568,7 @@
     /* compare part end */
 
     /*scroll to top */
+
     $('#btnScrollToTop').hide();
     $('#btnScrollToTop').on('click', () => {
       window.scrollTo({
@@ -559,6 +585,22 @@
         else {
           $('#btnScrollToTop').hide();
         }
+
+        footerOffsetHeight = $('#footer-card').offset().top;
+        windowHeight = $(window).height();
+        scrollTopHeight = $(this).scrollTop();
+
+        if ((windowHeight + scrollTopHeight) >= footerOffsetHeight) {
+          if ($('#compare-div').css('display') == "none") {
+            $('#btnScrollToTop').css("bottom", 205);
+          }
+        }
+        else {
+          if ($('#compare-div').css('display') == "none") {
+            $('#btnScrollToTop').css("bottom", 10);
+          }
+        }
+
       });
     });
     /*scroll to top */
