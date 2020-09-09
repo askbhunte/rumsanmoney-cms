@@ -213,8 +213,6 @@
         compareCounter = 0;
         compareId = [];
         compareName = [];
-        console.log('compareCounter after click on carousel item', compareCounter);
-        console.log('compareId after click on carousel item', compareId);
         append(type);
       }
     });
@@ -505,7 +503,6 @@
       }
 
       if ($('#compare-div').css("display") == "none") {
-        console.log('compare-div invisible');
         if ((windowHeight + scrollTopHeight) >= footerOffsetHeight) {
           $('#btnScrollToTop').css('bottom', 205);
         }
@@ -514,7 +511,6 @@
         }
       }
       else {
-        console.log('compare-div visible');
         $('#btnScrollToTop').css("bottom", $('#compare-div').css('height'));
       }
     }
@@ -526,16 +522,8 @@
         compareId.splice(index, 1);
         compareName.splice(index, 1);
       }
-      console.log('comareCounter', compareCounter);
-      console.log('compareId after unchecking', compareId);
-      console.log('compareName after unchecking', compareName);
-
       $(`#compare-${el.value}`).remove();
-      console.log($(`#${el.value}`)[0].checked);
-
       $(`#${el.value}`)[0].checked = false;
-
-      console.log($(`#${el.value}`)[0].checked);
 
       if (compareCounter == 0) {
         $('#compare-div').hide();
@@ -549,11 +537,9 @@
       if (compareCounter < 3 && compareCounter > 0) {
         currentLoanData.forEach((el) => {
           if ($(`#${el.bank_id}`)[0].checked) {
-            console.log('true');
             $(`#${el.bank_id}`).attr('disabled', false);
           }
           else {
-            console.log('false');
             $(`#${el.bank_id}`).attr('disabled', false);
             $(`#alert-${el.bank_id}`).hide();
           }
@@ -568,7 +554,6 @@
     /* compare part end */
 
     /*scroll to top */
-
     $('#btnScrollToTop').hide();
     $('#btnScrollToTop').on('click', () => {
       window.scrollTo({
@@ -604,7 +589,6 @@
       });
     });
     /*scroll to top */
-
   </script>
 
 </body>
