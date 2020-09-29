@@ -1,6 +1,16 @@
 const router = require('express').Router();
 const Controller = require('./controller');
 
+bankApi = require('../modules/bank/bank.routes.api');
+categoryApi = require('../modules/category/category.routes.api');
+productApi = require('../modules/product/product.routes.api');
+tagsApi = require('../modules/tags/tags.routes.api');
+
+router.use('/bank', bankApi);
+router.use('/category', categoryApi);
+router.use('/product', productApi);
+router.use('/tags', tagsApi);
+
 router.get('/all-data', async (req, res, next) => {
   try {
     const bank = req.query.bank || null;

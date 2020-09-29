@@ -4,10 +4,19 @@ var express = require('express');
 const helmet = require('helmet');
 var logger = require('morgan');
 var path = require('path');
-
+const mongoose = require('mongoose');
 var routesManager = require('./routes/index');
+const config = require('config');
 
 var app = express();
+
+//db
+mongoose.connect(config.get('app.db'), {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
