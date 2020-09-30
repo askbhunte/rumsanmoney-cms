@@ -5,11 +5,13 @@ bankApi = require('../modules/bank/bank.routes.api');
 categoryApi = require('../modules/category/category.routes.api');
 productApi = require('../modules/product/product.routes.api');
 tagsApi = require('../modules/tags/tags.routes.api');
+blogApi = require('../modules/blog/blog.routes.api');
 
 router.use('/bank', bankApi);
 router.use('/category', categoryApi);
 router.use('/product', productApi);
 router.use('/tags', tagsApi);
+router.use('/blog', blogApi);
 
 router.get('/all-data', async (req, res, next) => {
   try {

@@ -18,7 +18,7 @@ const Schema = mongoose.Schema(
     updated_by: { type: ObjectId, ref: 'Users' },
   },
   {
-    collection: 'tags',
+    collection: 'blogs',
     toObject: {
       virtuals: true,
     },
@@ -28,4 +28,4 @@ const Schema = mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Tags', Schema);
+module.exports = mongoose.model('Blogs', Schema);
