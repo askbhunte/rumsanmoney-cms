@@ -4,11 +4,13 @@ const Controller = require('./bank.controller');
 router.get('/', async (q, r, n) => {
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
-  const search = q.query.search || null;
+  const name = q.query.name || null;
+  const status = q.query.status || null;
   Controller.list({
     limit,
     start,
-    search,
+    name,
+    status,
   })
     .then((d) => r.json(d))
     .catch((e) => n(e));
