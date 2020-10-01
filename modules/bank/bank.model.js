@@ -38,25 +38,13 @@ const BankSchema = mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    created_at: {
-      type: Date,
-      required: true,
-    },
-    updated_at: {
-      type: Date,
-      required: true,
-    },
-    created_by: {
-      type: ObjectId,
-      ref: 'Products',
-    },
-    updated_by: {
-      type: ObjectId,
-      ref: 'Users',
-    },
   },
   {
     collection: 'banks',
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
     toObject: {
       virtuals: true,
     },

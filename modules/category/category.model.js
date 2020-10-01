@@ -8,15 +8,15 @@ const Schema = mongoose.Schema(
     description: { type: String, required: true },
     slug: { type: String, required: true },
     is_active: { type: Boolean, required: true },
-    created_at: { type: Date, required: true },
-    updated_at: { type: Date, required: true },
-    created_by: { type: ObjectId, ref: 'Users' },
-    updated_by: { type: ObjectId, ref: 'Users' },
   },
   {
     collection: 'categories',
     toObject: {
       virtuals: true,
+    },
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
     },
     toJson: {
       virtuals: true,

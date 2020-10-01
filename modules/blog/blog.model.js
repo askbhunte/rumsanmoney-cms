@@ -12,15 +12,15 @@ const Schema = mongoose.Schema(
     status: { type: String, enum: ['Published', 'Draft', 'Archived'] },
     category: [{ type: ObjectId, ref: 'Categories' }],
     tags: [{ type: ObjectId, ref: 'Tags' }],
-    created_at: { type: Date, required: true },
-    updated_at: { type: Date, required: true },
-    created_by: { type: ObjectId, ref: 'Users' },
-    updated_by: { type: ObjectId, ref: 'Users' },
   },
   {
     collection: 'blogs',
     toObject: {
       virtuals: true,
+    },
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
     },
     toJson: {
       virtuals: true,
