@@ -1,9 +1,10 @@
+const { ObjectId } = require('mongodb');
 const Model = require('./blog.model');
 const { DataUtils } = require('../../utils');
 
 class Controller {
   list({
-    start, limit, name, status,
+    start, limit, name, status, categoryId, tagsId,
   }) {
     const query = [];
     query.push({
@@ -14,6 +15,25 @@ class Controller {
     {
       $match: {
         status,
+      },
+    },
+    {
+      $unwind: {
+        path: '$category',
+      },
+    },
+    {
+      $match: {
+        category: ObjectId(categoryId),
+      },
+    },
+    {
+      $unwind: {
+        path: '$tags',
+      },
+    }, {
+      $match: {
+        tags: ObjectId(tagsId),
       },
     });
     return DataUtils.paging({

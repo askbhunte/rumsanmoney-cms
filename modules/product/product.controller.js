@@ -1,8 +1,9 @@
+const { ObjectId } = require('mongodb');
 const Model = require('./product.model');
 
 class Controller {
   list({
-    start, limit, name, status,
+    start, limit, name, status, bankId, categoryId,
   }) {
     const query = [];
     query.push({
@@ -13,6 +14,21 @@ class Controller {
     {
       $match: {
         status,
+      },
+    },
+    {
+      $match: {
+        bank_id: ObjectId(bankId),
+      },
+    },
+    {
+      $unwind: {
+        path: '$category',
+      },
+    },
+    {
+      $match: {
+        category: ObjectId(categoryId),
       },
     });
     return DataUtils.paging({

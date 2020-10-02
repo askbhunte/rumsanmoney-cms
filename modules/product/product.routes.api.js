@@ -7,11 +7,15 @@ router.get('/', async (q, r, n) => {
   const start = q.query.start || 0;
   const name = q.query.name || null;
   const status = q.query.status || null;
+  const bankId = q.query.bank || null;
+  const categoryId = q.query.category || null;
   Controller.list({
     limit,
     start,
     name,
     status,
+    bankId,
+    categoryId,
   })
     .then((d) => r.json(d))
     .catch((e) => n(e));
