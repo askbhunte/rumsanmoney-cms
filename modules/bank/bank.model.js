@@ -14,7 +14,7 @@ const BankSchema = mongoose.Schema(
       required: true,
     },
     contact_number: {
-      type: [],
+      type: [{}],
       required: true,
     },
     primary_contact: {
