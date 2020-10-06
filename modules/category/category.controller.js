@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Model = require('./category.model');
 const { DataUtils } = require('../../utils');
 
@@ -38,4 +39,4 @@ class Controller {
   }
 }
 
-module.exports = new Controller();
+module.exports = new Controller({ mongoose });
