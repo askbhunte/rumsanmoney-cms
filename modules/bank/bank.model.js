@@ -6,14 +6,15 @@ const { ObjectId } = mongoose.Schema;
 const BankSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    head_office: { type: String, required: true },
-    contact_number: { type: [{}], required: true },
-    primary_contact: { type: String, required: true },
-    email: { type: String, required: true },
+    head_office: { type: String },
+    address: { type: String, required: true },
+    contact_number: { type: String },
+    primary_contact: { type: String },
+    email: { type: String },
     logo_url: { type: String, required: true },
     products: [{ type: ObjectId, ref: 'Products' }],
-    website: { type: String, required: true },
-    is_active: { type: Boolean, required: true },
+    website: { type: String },
+    is_active: { type: Boolean, required: true, default: true },
   },
   {
     collection: 'banks',

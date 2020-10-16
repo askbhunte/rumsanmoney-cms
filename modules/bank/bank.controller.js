@@ -1,8 +1,6 @@
 const Model = require('./bank.model');
 const { DataUtils } = require('../../utils');
 
-console.log(DataUtils);
-
 class Controller {
   list({
     start, limit, name, status,

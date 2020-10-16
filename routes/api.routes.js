@@ -8,12 +8,12 @@ const blogApi = require('../modules/blog/blog.routes.api');
 const userApi = require('../modules/user/user.routes.api');
 const rolesApi = require('../modules/roles/roles.routes.api');
 
-router.use('/bank', bankApi);
-router.use('/category', categoryApi);
-router.use('/product', productApi);
+router.use('/banks', bankApi);
+router.use('/categories', categoryApi);
+router.use('/products', productApi);
 router.use('/tags', tagsApi);
-router.use('/blog', blogApi);
-router.use('/user', userApi);
+router.use('/blogs', blogApi);
+router.use('/users', userApi);
 router.use('/roles', rolesApi);
 
 module.exports = router;

@@ -5,12 +5,13 @@ const Schema = mongoose.Schema(
   {
     name: { type: String, required: true },
     bank_id: { type: ObjectId, ref: 'Banks' },
+    image: { type: String },
     description: { type: String, required: true },
     category: [{ type: ObjectId, ref: 'Categories' }],
     loan_type: { type: String, required: true },
     interest_rate: [{ type: ObjectId, ref: 'Interests' }],
     base_rate: { type: Number, required: true },
-    is_active: { type: Boolean, required: true },
+    is_active: { type: Boolean, required: true, default: true },
   },
   {
     collection: 'products',

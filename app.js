@@ -1,16 +1,17 @@
-var createError = require('http-errors');
-var cookieParser = require('cookie-parser');
-var express = require('express');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const express = require('express');
 const helmet = require('helmet');
-var logger = require('morgan');
-var path = require('path');
+const logger = require('morgan');
+const path = require('path');
 const mongoose = require('mongoose');
-var routesManager = require('./routes/index');
 const config = require('config');
+const cors = require('cors');
+const routesManager = require('./routes/index');
 
-var app = express();
+const app = express();
 
-//db
+// db
 mongoose.connect(config.get('app.db'), {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -22,7 +23,8 @@ mongoose.connect(config.get('app.db'), {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//app.use(logger('dev'));
+// app.use(logger('dev'));
+app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,12 +34,12 @@ app.use(helmet());
 app.use('/', routesManager);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

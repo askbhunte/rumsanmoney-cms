@@ -7,7 +7,7 @@ const Schema = mongoose.Schema(
     name: { type: String, required: true },
     excerpt: { type: String, required: true },
     slug: { type: String, required: true },
-    description: { type: String, required: true },
+    content: { type: String, required: true },
     image_url: { type: String, required: true },
     status: { type: String, enum: ['Published', 'Draft', 'Archived'] },
     category: [{ type: ObjectId, ref: 'Categories' }],
