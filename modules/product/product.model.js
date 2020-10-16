@@ -6,6 +6,7 @@ const Schema = mongoose.Schema(
     name: { type: String, required: true },
     bank_id: { type: ObjectId, ref: 'Banks' },
     image: { type: String },
+    plink: { type: String },
     description: { type: String, required: true },
     category: [{ type: ObjectId, ref: 'Categories' }],
     loan_type: { type: String, required: true },
