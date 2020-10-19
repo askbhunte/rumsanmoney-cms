@@ -2,7 +2,6 @@ const router = require('express').Router();
 const Controller = require('./category.controller');
 
 router.get('/', async (q, r, n) => {
-  console.log('inside category routes api get all');
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
   const name = q.query.name || null;

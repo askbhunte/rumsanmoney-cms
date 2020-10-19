@@ -7,16 +7,18 @@ class Controller {
     start, limit, name, status,
   }) {
     const query = [];
-    query.push({
-      $match: {
-        name: new RegExp(name, 'gi'),
+    if (name) {
+      query.push({
+        $match: {
+          name: new RegExp(name, 'gi'),
+        },
       },
-    },
-    {
-      $match: {
-        status,
-      },
-    });
+      {
+        $match: {
+          status,
+        },
+      });
+    }
     return DataUtils.paging({
       start, limit, query, model: Model, sort: { created_at: 1 },
     });
