@@ -12,7 +12,6 @@ const Schema = mongoose.Schema(
     loan_type: { type: String, required: true },
     interest_rate: [{ type: ObjectId, ref: 'Interests' }],
     base_rate: { type: Number, required: true },
-    is_active: { type: Boolean, required: true, default: true },
   },
   {
     collection: 'products',

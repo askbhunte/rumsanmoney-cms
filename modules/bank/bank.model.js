@@ -12,7 +12,7 @@ const BankSchema = mongoose.Schema(
     primary_contact: { type: String },
     email: { type: String },
     logo_url: { type: String, required: true },
-    products: [{ type: ObjectId, ref: 'Products' }],
+    desc: { type: String },
     website: { type: String },
     is_active: { type: Boolean, required: true, default: true },
   },
