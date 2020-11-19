@@ -24,7 +24,11 @@ class Controller {
       });
     }
     return DataUtils.paging({
-      start, limit, query, model: Model, sort: { created_at: 1 },
+      start,
+      limit,
+      query,
+      model: Model,
+      sort: { created_at: 1 }
     });
   }
 
