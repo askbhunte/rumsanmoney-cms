@@ -1,20 +1,25 @@
 const Model = require('./tags.model');
+const { DataUtils } = require('../../utils');
 
 class Controller {
   list({
     start, limit, name, status,
   }) {
     const query = [];
-    query.push({
-      $match: {
-        name: new RegExp(name, 'gi'),
-      },
-    },
-    {
-      $match: {
-        status,
-      },
-    });
+    if (name) {
+      query.push({
+        $match: {
+          name: new RegExp(name, 'gi'),
+        },
+      });
+    }
+    if (status) {
+      query.push({
+        $match: {
+          status,
+        },
+      });
+    }
     return DataUtils.paging({
       start, limit, query, model: Model, sort: { created_at: 1 },
     });

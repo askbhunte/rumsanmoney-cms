@@ -7,35 +7,40 @@ class Controller {
     start, limit, name, status, categoryId, tagsId,
   }) {
     const query = [];
-    query.push({
-      $match: {
-        name: new RegExp(name, 'gi'),
-      },
-    },
-    {
-      $match: {
-        status,
-      },
-    },
-    {
-      $unwind: {
-        path: '$category',
-      },
-    },
-    {
-      $match: {
-        category: ObjectId(categoryId),
-      },
-    },
-    {
-      $unwind: {
-        path: '$tags',
-      },
-    }, {
-      $match: {
-        tags: ObjectId(tagsId),
-      },
-    });
+    if (name) {
+      query.push({
+        $match: {
+          name: new RegExp(name, 'gi'),
+        },
+      });
+    }
+    if (status) {
+      query.push({
+        $match: {
+          is_active: status,
+        },
+      });
+    }
+    if (categoryId) {
+      query.push({
+        $unwind: {
+          path: '$category',
+        },
+        $match: {
+          category: ObjectId(categoryId),
+        },
+      });
+    }
+    if (tagsId) {
+      query.push({
+        $unwind: {
+          path: '$tags',
+        },
+        $match: {
+          tags: ObjectId(tagsId),
+        },
+      });
+    }
     return DataUtils.paging({
       start, limit, query, model: Model, sort: { created_at: 1 },
     });
