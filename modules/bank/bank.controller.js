@@ -3,7 +3,7 @@ const { DataUtils } = require('../../utils');
 
 class Controller {
   list({
-    start, limit, name, status,
+    start, limit, name, address,
   }) {
     const query = [];
     if (name) {
@@ -13,10 +13,10 @@ class Controller {
         },
       });
     }
-    if (status) {
+    if (address) {
       query.push({
         $match: {
-          is_active: status,
+          address: new RegExp(address, 'gi'),
         },
       });
     }

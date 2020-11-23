@@ -1,12 +1,14 @@
-const { ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
 const Model = require('./product.model');
+
+const { ObjectId } = mongoose.Types;
 const {
   DataUtils,
 } = require('../../utils');
 
 class Controller {
   list({
-    start, limit, name, bankId,
+    start, limit, name, bankname, loantype, baserate,
   }) {
     const query = [];
     if (name) {
@@ -16,10 +18,24 @@ class Controller {
         },
       });
     }
-    if (bankId) {
+    if (bankname) {
       query.push({
         $match: {
-          bank_id: ObjectId(bankId),
+          bank_id: ObjectId(bankname),
+        },
+      });
+    }
+    if (baserate) {
+      query.push({
+        $match: {
+          base_rate: baserate,
+        },
+      });
+    }
+    if (loantype) {
+      query.push({
+        $match: {
+          loan_type: new RegExp(loantype, 'gi'),
         },
       });
     }
@@ -28,7 +44,7 @@ class Controller {
       limit,
       query,
       model: Model,
-      sort: { created_at: 1 }
+      sort: { created_at: 1 },
     });
   }
 
@@ -37,6 +53,8 @@ class Controller {
   }
 
   add(payload) {
+    payload.bank_id = ObjectId(payload.bank_id);
+    console.log(payload);
     return Model.create(payload);
   }
 

@@ -5,13 +5,13 @@ router.get('/', async (q, r, n) => {
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
   const name = q.query.name || null;
-  const status = q.query.status || null;
+  const address = q.query.address || null;
 
   Controller.list({
     limit,
     start,
     name,
-    status,
+    address,
   })
     .then((d) => r.json(d))
     .catch((e) => n(e));
