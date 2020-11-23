@@ -7,8 +7,7 @@ const BankSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     head_office: { type: String },
-    address: { type: String, required: true },
-    contact_number: { type: String },
+    secondary_contacts: { type: String },
     primary_contact: { type: String },
     email: { type: String },
     logo_url: { type: String, required: true },
