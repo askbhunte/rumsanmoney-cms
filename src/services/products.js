@@ -6,10 +6,10 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getBankDetails(bankId) {
+export function getProductDetails(productId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}/${bankId}`)
+      .get(`${API.PRODUCT}/${productId}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -22,10 +22,10 @@ export function getBankDetails(bankId) {
   });
 }
 
-export function listBank(query) {
+export function listProduct(query) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}?${qs.stringify(query)}`)
+      .get(`${API.PRODUCT}?${qs.stringify(query)}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -38,11 +38,11 @@ export function listBank(query) {
   });
 }
 
-export function updateBank(bankId, payload) {
+export function updateProduct(productId, payload) {
   return new Promise((resolve, reject) => {
     axios
       .put(
-        `${API.BANK}/${bankId}`,
+        `${API.PRODUCT}/${productId}`,
         payload
       )
       .then((res) => {
@@ -57,9 +57,9 @@ export function updateBank(bankId, payload) {
   });
 }
 
-export async function addBank(body) {
+export async function addProduct(body) {
   const res = await axios({
-    url: API.BANK,
+    url: API.PRODUCT,
     method: "post",
     data: body,
   });

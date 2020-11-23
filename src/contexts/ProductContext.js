@@ -1,18 +1,18 @@
 import React, { createContext, useReducer } from "react";
-import bankReduce from "../reducers/bankReducer";
-import * as Service from "../services/banks";
-import ACTION from "../actions/bank";
+import productReduce from "../reducers/productReducer";
+import * as Service from "../services/products";
+import ACTION from "../actions/product";
 
 const initialState = {
-  bank: [],
+  product: [],
   pagination: { total: 0, limit: 20, start: 0, currentPage: 1, totalPages: 0 },
-  bank_details: null,
+  product_details: null,
   loading: false,
 };
 
-export const BankContext = createContext(initialState);
-export const BankContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(bankReduce, initialState);
+export const ProductContext = createContext(initialState);
+export const ProductContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(productReduce, initialState);
 
   function setLoading() {
     dispatch({ type: ACTION.SET_LOADING });
@@ -22,9 +22,9 @@ export const BankContextProvider = ({ children }) => {
     dispatch({ type: ACTION.RESET_LOADING });
   }
 
-  function getBankDetails(bankId) {
+  function getProductDetails(productId) {
     return new Promise((resolve, reject) => {
-      Service.getBankDetails(bankId)
+      Service.getProductDetails(productId)
         .then((res) => {
           dispatch({ type: ACTION.GET_BANK_SUCCESS, res });
           resolve(res);
@@ -35,9 +35,9 @@ export const BankContextProvider = ({ children }) => {
     });
   }
 
-  function listBank(query) {
+  function listProduct(query) {
     return new Promise((resolve, reject) => {
-      Service.listBank(query)
+      Service.listProduct(query)
         .then((res) => {
           dispatch({ type: ACTION.LIST_SUCCESS, res });
           resolve(res);
@@ -48,9 +48,9 @@ export const BankContextProvider = ({ children }) => {
     });
   }
 
-  function updateBank(bankId, payload) {
+  function updateProduct(productId, payload) {
     return new Promise((resolve, reject) => {
-      Service.updateBank(bankId, payload)
+      Service.updateProduct(productId, payload)
         .then((res) => {
           resolve(res);
         })
@@ -60,7 +60,7 @@ export const BankContextProvider = ({ children }) => {
     });
   }
 
-  const addBank = async (event) => {
+  const addProduct = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
@@ -74,26 +74,26 @@ export const BankContextProvider = ({ children }) => {
       address: formData.get("address"),
       website: formData.get("website")
     };
-    let d = await Service.addBank(payload);
+    let d = await Service.addProduct(payload);
     return d;
   };
 
   return (
-    <BankContext.Provider
+    <ProductContext.Provider
       value={{
-        bank: state.bank,
+        product: state.product,
         loading: state.loading,
         pagination: state.pagination,
-        bank_details: state.bank_details,
-        listBank,
+        product_details: state.product_details,
+        listProduct,
         setLoading,
         resetLoading,
-        addBank,
-        updateBank,
-        getBankDetails,
+        addProduct,
+        updateProduct,
+        getProductDetails,
       }}
     >
       {children}
-    </BankContext.Provider>
+    </ProductContext.Provider>
   );
 };

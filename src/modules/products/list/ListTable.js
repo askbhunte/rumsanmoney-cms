@@ -1,0 +1,329 @@
+import React, { useState, useContext, useEffect, useCallback } from "react";
+import { useToasts } from "react-toast-notifications";
+import { Link } from "react-router-dom";
+
+import {
+  Button,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  Table,
+  Form,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from "reactstrap";
+import { ProductContext } from "../../../contexts/ProductContext";
+
+
+export default function ProductList() {
+  const { addToast } = useToasts();
+  const [model, setModel] = useState(false);
+  const { listProduct, product, pagination, addProduct } = useContext(ProductContext);
+
+  const handlePagination = (current_page) => {
+    let _start = current_page * pagination.limit - 1;
+    return loadProductList({ start: _start, limit: pagination.limit });
+  };
+  const toggle = () => setModel(!model);
+
+  const loadProductList = (query) => {
+    if (!query) query = null;
+    listProduct(query)
+      .then()
+      .catch(() => {
+        addToast("Something went wrong!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      });
+  };
+  
+  //List Beneficiary
+  let get = useCallback(
+    (params) => {
+      listProduct(params);
+    },
+    [listProduct]
+  );
+
+  useEffect(loadProductList, []);
+  return (
+    <>
+      <Card>
+        <CardTitle className="mb-0 p-3 border-bottom bg-light">
+          <Row>
+            <Col md="10">
+              <i className="mdi mdi-border-right mr-2"></i>Product List
+            </Col>
+            <Col md="2">
+            <div style={{ float: "right" }}>
+              <Button color="info" onClick={(e) => toggle()}>
+                Add Product
+              </Button>
+            </div>
+            </Col>
+          </Row>
+        </CardTitle>
+        <CardBody>
+          <Table className="no-wrap v-middle" responsive>
+            <thead>
+              <tr className="border-0">
+                <th className="border-0">Name</th>
+                <th className="border-0">Address</th>
+                <th className="border-0">Contact</th>
+                {/* <th className="border-0">is Active?</th> */}
+                <th className="border-0">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.length ? (
+                product.map((d) => {
+                  return (
+                    <tr key={d._id}>
+                      <td>{d.name}</td>
+                      <td>{d.address || "n/a"}</td>
+                      <td>{d.primary_contact || "n/a"}</td>
+                      {/* <td>
+                        {d.is_active === true ? (
+                          <span className="ml-3 badge badge-success">
+                            Active
+                          </span>
+                        ) : (
+                          <span className="ml-3 badge badge-danger">
+                            Inactive
+                          </span>
+                        )}
+                      </td> */}
+                      <td className="blue-grey-text  text-darken-4 font-medium">
+                        <Link
+                          className="btn btn-secondary"
+                          to={`/product/${d._id}`}
+                        >
+                          Details
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan={4}>No data available.</td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+          {pagination.totalPages > 1 ? (
+            <Pagination
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "50px",
+              }}
+            >
+              <PaginationItem>
+                <PaginationLink
+                  first
+                  href="#first_page"
+                  onClick={() => handlePagination(1)}
+                />
+              </PaginationItem>
+              {[...Array(pagination.totalPages)].map((p, i) => (
+                <PaginationItem
+                  key={i}
+                  active={pagination.currentPage === i + 1 ? true : false}
+                  onClick={() => handlePagination(i + 1)}
+                >
+                  <PaginationLink href={`#page=${i + 1}`}>
+                    {i + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationLink
+                  last
+                  href="#last_page"
+                  onClick={() => handlePagination(pagination.totalPages)}
+                />
+              </PaginationItem>
+            </Pagination>
+          ) : (
+            ""
+          )}
+        </CardBody>
+      </Card>
+      <Modal isOpen={model} toggle={toggle}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addProduct(e)
+              .then((d) => {
+                addToast("Product Added successfully", {
+                  appearance: "success",
+                  autoDismiss: true,
+                });
+                get();
+                toggle();
+              })
+              .catch((err) =>
+                addToast(err.message, {
+                  appearance: "error",
+                  autoDismiss: true,
+                })
+              );
+          }}
+        >
+          <ModalHeader toggle={toggle}>
+            <div>
+              <h3>Add Product</h3>
+            </div>
+          </ModalHeader>
+          <ModalBody>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
+              <div className="form-item">
+                <label htmlFor="name">Name</label>
+                <br />
+                <Input
+                  name="name"
+                  type="text"
+                  placeholder="Full Name"
+                  className="form-field"
+                  required
+                />
+              </div>
+              <div className="form-item">
+                <label htmlFor="headOffice">Head Office</label>
+                <br />
+                <Input
+                  name="head_office"
+                  type="text"
+                  placeholder="Full Address"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
+              <div className="form-item">
+                <label htmlFor="primary_contact">Primary Phone</label>
+                <br />
+                <Input
+                  name="primary_contact"
+                  type="number"
+                  placeholder="Primary Phone no"
+                  className="form-field"
+                  required
+                />
+              </div>
+              
+              <div className="form-item">
+                <label htmlFor="contact_number">Secondary Phone</label>
+                <br />
+                <Input
+                  name="contact_number"
+                  type="text"
+                  placeholder="Secondary Phone"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            > 
+            <div className="form-item">
+                <label htmlFor="email">Email</label>
+                <br />
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                  className="form-field"
+                  required
+                />
+              </div>
+
+              <div className="form-item">
+                <label htmlFor="logo_url">Product Logo</label>
+                <br />
+                <Input
+                  name="logo_url"
+                  type="text"
+                  placeholder="Link of Logo"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
+              <div className="form-item">
+                <label htmlFor="address">Address</label>
+                <br />
+                <Input
+                  name="address"
+                  type="text"
+                  placeholder="Product Address"
+                  className="form-field"
+                  required
+                />
+              </div>
+              <div className="form-item">
+                <label htmlFor="website">Website URL</label>
+                <br />
+                <Input
+                  name="website"
+                  type="text"
+                  placeholder="Website URL"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary">Submit</Button>
+
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+      <br />
+    </>
+  );
+}

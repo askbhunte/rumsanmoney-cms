@@ -3,7 +3,8 @@ import { lazy } from "react";
 const Dashboard = lazy(() => import("../modules/dashboard/Dashboard"));
 const Banks = lazy(() => import("../modules/banks/list"));
 const BankDetails = lazy(() => import("../modules/banks/details"));
-const Products = lazy(() => import("../modules/products/Products"));
+const Products = lazy(() => import("../modules/products/list"));
+const ProductDetails = lazy(() => import("../modules/products/details"));
 const Categories = lazy(() => import("../modules/categories/Categories"));
 const Blogs = lazy(() => import("../modules/blogs/Blogs"));
 const Users = lazy(() => import("../modules/users/Users"));
@@ -35,6 +36,12 @@ var AppRoutes = [
     icon: "layers",
     component: Products,
     showInSidebar: true
+  },
+  {
+    path: "/product/:id",
+    name: "Product Info",
+    icon: "umbrella",
+    component: ProductDetails
   },
   {
     path: "/categories",
