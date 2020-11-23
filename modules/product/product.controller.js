@@ -62,6 +62,12 @@ class Controller {
     return Model.findByIdAndUpdate(id, payload);
   }
 
+  changeStatus(id, status) {
+    return Model.findOneAndUpdate(
+      { _id: id }, { $set: status }, { new: true },
+    );
+  }
+
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
