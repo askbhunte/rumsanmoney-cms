@@ -86,7 +86,7 @@ export default function DetailsForm(props) {
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
-                  <Label>Address</Label>
+                  <Label>Head Office Address</Label>
                   <InputGroup>
                     <Input
                       type="text"
@@ -97,34 +97,6 @@ export default function DetailsForm(props) {
                     />
                   </InputGroup>
                 </FormGroup>
-                 <Row form>
-                <Col md="6">
-                <FormGroup>
-                  <Label>Email Address</Label>
-                  <InputGroup>
-                    <Input
-                      type="email"
-                      name="email" 
-                      defaultValue={bank_details ? bank_details.email : ""}
-                      onChange={e => setBankDetails({ ...bank_details, email: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="6">
-                <FormGroup>
-                  <Label>Web Url</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="website"   
-                      defaultValue={bank_details ? bank_details.website : ""}
-                      onChange={e => setBankDetails({ ...bank_details, website: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                </Row>
                 <Row form>
                 <Col md="6">
                   <FormGroup>
@@ -148,6 +120,47 @@ export default function DetailsForm(props) {
                       name="secondary_contacts"   
                       defaultValue={bank_details ? bank_details.secondary_contacts : ""}
                       onChange={e => setBankDetails({ ...bank_details, secondary_contacts: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                </Row>
+                 <Row form>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Email Address</Label>
+                  <InputGroup>
+                    <Input
+                      type="email"
+                      name="email" 
+                      defaultValue={bank_details ? bank_details.email : ""}
+                      onChange={e => setBankDetails({ ...bank_details, email: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Web Url</Label>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="website"   
+                      defaultValue={bank_details ? bank_details.website : ""}
+                      onChange={e => setBankDetails({ ...bank_details, website: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Logo Url</Label>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="logo_url"   
+                      defaultValue={bank_details ? bank_details.logo_url : ""}
+                      onChange={e => setBankDetails({ ...bank_details, logo_url: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>
