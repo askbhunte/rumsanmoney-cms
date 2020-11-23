@@ -145,9 +145,9 @@ export default function DetailsForm(props) {
                   <InputGroup>
                     <Input
                       type="text"
-                      name="contact_number"   
-                      defaultValue={bank_details ? bank_details.contact_number : ""}
-                      onChange={e => setBankDetails({ ...bank_details, contact_number: e.target.value })}
+                      name="secondary_contacts"   
+                      defaultValue={bank_details ? bank_details.secondary_contacts : ""}
+                      onChange={e => setBankDetails({ ...bank_details, secondary_contacts: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>

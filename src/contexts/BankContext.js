@@ -68,7 +68,7 @@ export const BankContextProvider = ({ children }) => {
       name: formData.get("name"),
       head_office: formData.get('head_office'),
       primary_contact: formData.get('primary_contact'),
-      contact_number: formData.get("contact_number"),
+      secondary_contacts: formData.get("secondary_contacts"),
       logo_url: formData.get("logo_url"),
       email: formData.get("email"),
       address: formData.get("address"),

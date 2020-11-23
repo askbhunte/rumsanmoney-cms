@@ -27,6 +27,7 @@ import { BankContext } from "../../../contexts/BankContext";
 export default function BankList() {
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
+  const size = "xl";
   const { listBank, bank, pagination, addBank } = useContext(BankContext);
 
   const handlePagination = (current_page) => {
@@ -155,7 +156,6 @@ export default function BankList() {
                 <th className="border-0">Name</th>
                 <th className="border-0">Address</th>
                 <th className="border-0">Contact</th>
-                {/* <th className="border-0">is Active?</th> */}
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -167,17 +167,6 @@ export default function BankList() {
                       <td>{d.name}</td>
                       <td>{d.address || "n/a"}</td>
                       <td>{d.primary_contact || "n/a"}</td>
-                      {/* <td>
-                        {d.is_active === true ? (
-                          <span className="ml-3 badge badge-success">
-                            Active
-                          </span>
-                        ) : (
-                          <span className="ml-3 badge badge-danger">
-                            Inactive
-                          </span>
-                        )}
-                      </td> */}
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
                           className="btn btn-secondary"
@@ -235,7 +224,7 @@ export default function BankList() {
           )}
         </CardBody>
       </Card>
-      <Modal isOpen={model} toggle={toggle}>
+      <Modal isOpen={model} toggle={toggle} size={size}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -275,18 +264,18 @@ export default function BankList() {
                 <Input
                   name="name"
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Bank Full Name"
                   className="form-field"
                   required
                 />
               </div>
               <div className="form-item">
-                <label htmlFor="headOffice">Head Office</label>
+                <label htmlFor="headOffice">Head Office Address</label>
                 <br />
                 <Input
                   name="head_office"
                   type="text"
-                  placeholder="Full Address"
+                  placeholder="Address of Head Office"
                   className="form-field"
                   required
                 />
@@ -313,12 +302,12 @@ export default function BankList() {
               </div>
               
               <div className="form-item">
-                <label htmlFor="contact_number">Secondary Phone</label>
+                <label htmlFor="secondary_contacts">Secondary Contacts</label>
                 <br />
                 <Input
-                  name="contact_number"
+                  name="secondary_contacts"
                   type="text"
-                  placeholder="Secondary Phone"
+                  placeholder="Secondary Contacts separated by comma"
                   className="form-field"
                   required
                 />
@@ -328,7 +317,7 @@ export default function BankList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             > 
@@ -343,7 +332,6 @@ export default function BankList() {
                   required
                 />
               </div>
-
               <div className="form-item">
                 <label htmlFor="logo_url">Bank Logo</label>
                 <br />
@@ -351,27 +339,6 @@ export default function BankList() {
                   name="logo_url"
                   type="text"
                   placeholder="Link of Logo"
-                  className="form-field"
-                  required
-                />
-              </div>
-            </div>
-            <br />
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gridColumnGap: "10px",
-              }}
-            >
-              <div className="form-item">
-                <label htmlFor="address">Address</label>
-                <br />
-                <Input
-                  name="address"
-                  type="text"
-                  placeholder="Bank Address"
                   className="form-field"
                   required
                 />
