@@ -81,6 +81,7 @@ export default function ProductList() {
                 <th className="border-0">Name</th>
                 <th className="border-0">Bank</th>
                 <th className="border-0">Loan Type</th>
+                <th className="border-0">Base Rate</th>
                 <th className="border-0">Interest Rate</th>
                 {/* <th className="border-0">is Active?</th> */}
                 <th className="border-0">Action</th>
@@ -94,6 +95,7 @@ export default function ProductList() {
                       <td>{d.name}</td>
                       <td>{d.bank_id || "N/A"}</td>
                       <td>{d.loan_type || "N/A"}</td>
+                      <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
 
                       {/* <td>
@@ -120,7 +122,7 @@ export default function ProductList() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={5}>No data available.</td>
+                  <td colSpan={6}>No data available.</td>
                 </tr>
               )}
             </tbody>
@@ -194,7 +196,7 @@ export default function ProductList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             >
@@ -205,6 +207,17 @@ export default function ProductList() {
                   name="name"
                   type="text"
                   placeholder="Product Name"
+                  className="form-field"
+                  required
+                />
+              </div>
+               <div className="form-item">
+                <label htmlFor="name">Bank Name</label>
+                <br />
+                <Input
+                  name="bank_id"
+                  type="text"
+                  placeholder="Bank Name"
                   className="form-field"
                   required
                 />
@@ -263,7 +276,7 @@ export default function ProductList() {
                 <br />
                 <Input
                   name="base_rate"
-                  type="text"
+                  type="Number"
                   placeholder="Base Rate"
                   className="form-field"
                   required
@@ -274,8 +287,8 @@ export default function ProductList() {
                 <label htmlFor="logo_url">Interest Rate</label>
                 <br />
                 <Input
-                  name="interest_rate"
-                  type="text"
+                  name="interest_rate"                  
+                  type="Number"
                   placeholder="Interest Rate"
                   className="form-field"
                   required
