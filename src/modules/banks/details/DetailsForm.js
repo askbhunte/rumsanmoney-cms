@@ -51,7 +51,7 @@ export default function DetailsForm(props) {
     updateBank(bankId, formData)
       .then(() => {
         resetLoading();
-        Swal.fire("Approved!", "Bank details updated successfully.", "success");
+        Swal.fire("Successful!", "Bank details updated successfully.", "success");
       })
       .catch((err) => {
         addToast("Something went wrong on server!", {

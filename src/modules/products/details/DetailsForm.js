@@ -17,25 +17,25 @@ import {
   InputGroup
 } from "reactstrap";
 
-import { BankContext } from "../../../contexts/BankContext";
+import { ProductContext } from "../../../contexts/ProductContext";
 import Loading from "../../global/Loading";
 
 export default function DetailsForm(props) {
-  const bankId = props.params.id;
+  const productId = props.params.id;
   const { addToast } = useToasts();
-  const [bank_details, setBankDetails] = useState(null);
+  const [product_details, setProductDetails] = useState(null);
 
   const {
     loading,
     setLoading,
     resetLoading,
-    getBankDetails,
-    updateBank,
-  } = useContext(BankContext);
+    getProductDetails,
+    updateProduct,
+  } = useContext(ProductContext);
 
-  const loadBankDetails = () => {
-    getBankDetails(bankId)
-      .then(d =>setBankDetails(d))
+  const loadProductDetails = () => {
+    getProductDetails(productId)
+      .then(d =>setProductDetails(d))
       .catch(() => {
         addToast("Something went wrong!", {
           appearance: "error",
@@ -46,12 +46,12 @@ export default function DetailsForm(props) {
 
   const submitUpdate = (e) => {
       e.preventDefault();
-      const formData = {...bank_details}
+      const formData = {...product_details}
     setLoading();
-    updateBank(bankId, formData)
+    updateProduct(productId, formData)
       .then(() => {
         resetLoading();
-        Swal.fire("Approved!", "Bank details updated successfully.", "success");
+        Swal.fire("Successful!", "Product details updated successfully.", "success");
       })
       .catch((err) => {
         addToast("Something went wrong on server!", {
@@ -62,7 +62,7 @@ export default function DetailsForm(props) {
       });
   };
 
-  useEffect(loadBankDetails, []);
+  useEffect(loadProductDetails, []);
 
   return (
     <>
@@ -70,56 +70,34 @@ export default function DetailsForm(props) {
         <Col md="12">
           <Card>
             <CardTitle className="bg-light border-bottom p-3 mb-0">
-              <i className="mdi mdi-book mr-2"></i>Bank Details.
+              <i className="mdi mdi-book mr-2"></i>Product Details.
             </CardTitle>
             <CardBody>
               <Form onSubmit={submitUpdate} >
+                 <Row form>
+                <Col md="6">
+                <FormGroup>
+                  <Label>Product Name</Label>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="name"
+                      defaultValue={product_details ? product_details.name : ""}
+                      onChange={e => setProductDetails({ ...product_details, name: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                  <Col md="6">
                 <FormGroup>
                   <Label>Bank Name</Label>
                   <InputGroup>
                     <Input
                       type="text"
-                      name="name"
-                      defaultValue={bank_details ? bank_details.name : ""}
-                      onChange={e => setBankDetails({ ...bank_details, name: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <Label>Address</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="address"
-                      defaultValue={bank_details ? bank_details.address : ""}
-                      onChange={e => setBankDetails({ ...bank_details, address: e.target.value })}
+                      name="bank_id"
+                      defaultValue={product_details ? product_details.bank_id : ""}
+                      onChange={e => setProductDetails({ ...product_details, bank_id: e.target.value })}
 
-                    />
-                  </InputGroup>
-                </FormGroup>
-                 <Row form>
-                <Col md="6">
-                <FormGroup>
-                  <Label>Email Address</Label>
-                  <InputGroup>
-                    <Input
-                      type="email"
-                      name="email" 
-                      defaultValue={bank_details ? bank_details.email : ""}
-                      onChange={e => setBankDetails({ ...bank_details, email: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="6">
-                <FormGroup>
-                  <Label>Web Url</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="website"   
-                      defaultValue={bank_details ? bank_details.website : ""}
-                      onChange={e => setBankDetails({ ...bank_details, website: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -127,27 +105,84 @@ export default function DetailsForm(props) {
                 </Row>
                 <Row form>
                 <Col md="6">
-                  <FormGroup>
-                  <Label>Primary Contact</Label>
+                <FormGroup>
+                  <Label>Product Link</Label>
                   <InputGroup>
                     <Input
                       type="text"
-                      name="primary_contact"   
-                      defaultValue={bank_details ? bank_details.primary_contact : ""}
-                      onChange={e => setBankDetails({ ...bank_details, primary_contact: e.target.value })}
+                      name="plink" 
+                      defaultValue={product_details ? product_details.plink : ""}
+                      onChange={e => setProductDetails({ ...product_details, plink: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>
                 </Col>
                 <Col md="6">
                 <FormGroup>
-                  <Label>Secondary Contacts</Label>
+                  <Label>Product Image Url</Label>
                   <InputGroup>
                     <Input
                       type="text"
-                      name="contact_number"   
-                      defaultValue={bank_details ? bank_details.contact_number : ""}
-                      onChange={e => setBankDetails({ ...bank_details, contact_number: e.target.value })}
+                      name="image_url"   
+                      defaultValue={product_details ? product_details.image_url : ""}
+                      onChange={e => setProductDetails({ ...product_details, image_url: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                </Row>
+                <Row form>
+                <Col md="4">
+                  <FormGroup>
+                  <Label>Loan Type</Label>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="loan_type"   
+                      defaultValue={product_details ? product_details.loan_type : ""}
+                      onChange={e => setProductDetails({ ...product_details, loan_type: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Base Rate</Label>
+                  <InputGroup>
+                    <Input
+                      type="Number"
+                      name="base_rate"   
+                      defaultValue={product_details ? product_details.base_rate : ""}
+                      onChange={e => setProductDetails({ ...product_details, base_rate: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Interest Rate</Label>
+                  <InputGroup>
+                    <Input
+                      type="Number"
+                      name="interest_rate"   
+                      defaultValue={product_details ? product_details.interest_rate : ""}
+                      onChange={e => setProductDetails({ ...product_details, interest_rate: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                </Row>
+                <Row form>
+                <Col md="12">
+                <FormGroup>
+                  <Label>Description</Label>
+                  <InputGroup>
+                    <Input
+                      type="textarea"
+                      name="description"
+                      rows="12"   
+                      defaultValue={product_details ? product_details.description : ""}
+                      onChange={e => setProductDetails({ ...product_details, description: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>
@@ -161,7 +196,7 @@ export default function DetailsForm(props) {
                       <Button type="submit" className="btn btn-success mr-2">
                         Submit
                       </Button>
-                      <Link to="/banks" className="btn btn-dark">
+                      <Link to="/products" className="btn btn-dark">
                         Cancel
                       </Link>
                     </div>
