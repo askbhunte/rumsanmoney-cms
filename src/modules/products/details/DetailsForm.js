@@ -14,6 +14,7 @@ import {
   Label,
   Input,
   Button,
+  ButtonGroup,
   InputGroup
 } from "reactstrap";
 
@@ -31,6 +32,7 @@ export default function DetailsForm(props) {
     resetLoading,
     getProductDetails,
     updateProduct,
+    changeStatus
   } = useContext(ProductContext);
 
   const loadProductDetails = () => {
@@ -64,17 +66,82 @@ export default function DetailsForm(props) {
 
   useEffect(loadProductDetails, []);
 
+  const handleStatusChange = async (status) => {
+    const title = status.is_active ? "Active" : "Inactive"; 
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `Product will be marked as ${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changeStatus(productId, status);
+        if (d) {
+          setProductDetails(d);
+          addToast(`Product marked as ${title}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
   return (
     <>
       <Row>
         <Col md="12">
           <Card>
             <CardTitle className="bg-light border-bottom p-3 mb-0">
-              <i className="mdi mdi-book mr-2"></i>Product Details.
+              <Row form>
+                <Col md="6">
+                <i className="mdi mdi-book mr-2"></i>Product Details.
+                </Col>
+                <Col md="6">
+                  <div
+                  style={{
+                    float: "right",
+                    display: "flex"
+                  }}
+                >
+                 <FormGroup>
+                    <ButtonGroup>
+                      <Button
+                        color="success"
+                        onClick={() => handleStatusChange({is_active : false})}
+                        disabled={
+                          product_details && product_details.is_active === false
+                        }
+                      >
+                        Active
+                      </Button>
+                      <Button
+                        disabled={
+                          product_details && product_details.is_active !== false
+                        }
+                        color="danger"
+                        onClick={() => handleStatusChange({is_active : true})}
+                      >
+                        Inactive
+                      </Button>
+                    </ButtonGroup>
+                  </FormGroup>
+                 </div>
+                </Col>
+              </Row>
             </CardTitle>
             <CardBody>
               <Form onSubmit={submitUpdate} >
-                 <Row form>
+              <Row form>
                 <Col md="6">
                 <FormGroup>
                   <Label>Product Name</Label>

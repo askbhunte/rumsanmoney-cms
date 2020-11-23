@@ -57,6 +57,25 @@ export function updateProduct(productId, payload) {
   });
 }
 
+export function changeStatus(productId, status) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.PRODUCT}/${productId}/status`,
+        status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
 export async function addProduct(body) {
   const res = await axios({
     url: API.PRODUCT,

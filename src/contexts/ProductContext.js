@@ -60,6 +60,18 @@ export const ProductContextProvider = ({ children }) => {
     });
   }
 
+  function changeStatus(productId, status) {
+    return new Promise((resolve, reject) => {
+      Service.changeStatus(productId, status)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   const addProduct = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -91,6 +103,7 @@ export const ProductContextProvider = ({ children }) => {
         resetLoading,
         addProduct,
         updateProduct,
+        changeStatus,
         getProductDetails,
       }}
     >
