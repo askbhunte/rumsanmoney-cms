@@ -66,13 +66,13 @@ export const ProductContextProvider = ({ children }) => {
 
     let payload = {
       name: formData.get("name"),
-      head_office: formData.get('head_office'),
-      primary_contact: formData.get('primary_contact'),
-      contact_number: formData.get("contact_number"),
-      logo_url: formData.get("logo_url"),
-      email: formData.get("email"),
-      address: formData.get("address"),
-      website: formData.get("website")
+      bank_id: formData.get('bank_id'),
+      image_url: formData.get('image_url'),
+      plink: formData.get("plink"),
+      description: formData.get("description"),
+      loan_type: formData.get("loan_type"),
+      base_rate: formData.get("base_rate"),
+      interest_rate: formData.get("interest_rate")
     };
     let d = await Service.addProduct(payload);
     return d;

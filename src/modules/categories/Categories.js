@@ -4,7 +4,7 @@ import { Card, CardBody } from "reactstrap";
 const Requests = () => {
   return (
     <Card>
-      <CardBody>Categories list goes here...</CardBody>
+      <CardBody>Coming Soon...</CardBody>
     </Card>
   );
 };

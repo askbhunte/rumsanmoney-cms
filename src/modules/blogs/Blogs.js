@@ -3,8 +3,8 @@ import { Card, CardBody } from "reactstrap";
 
 const Blogs = () => {
   return (
-    <Card>
-      <CardBody>Blogs list goes here...</CardBody>
+    <Card>      
+     <CardBody>Coming Soon...</CardBody>
     </Card>
   );
 };

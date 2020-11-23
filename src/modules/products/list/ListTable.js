@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 
+
 import {
   Button,
   Row,
@@ -25,14 +26,15 @@ import { ProductContext } from "../../../contexts/ProductContext";
 
 export default function ProductList() {
   const { addToast } = useToasts();
-  const [model, setModel] = useState(false);
+  const [modal, setModal] = useState(false);
+  const size = 'xl';
   const { listProduct, product, pagination, addProduct } = useContext(ProductContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit - 1;
     return loadProductList({ start: _start, limit: pagination.limit });
   };
-  const toggle = () => setModel(!model);
+  const toggle = () => setModal(!modal);
 
   const loadProductList = (query) => {
     if (!query) query = null;
@@ -77,8 +79,9 @@ export default function ProductList() {
             <thead>
               <tr className="border-0">
                 <th className="border-0">Name</th>
-                <th className="border-0">Address</th>
-                <th className="border-0">Contact</th>
+                <th className="border-0">Bank</th>
+                <th className="border-0">Loan Type</th>
+                <th className="border-0">Interest Rate</th>
                 {/* <th className="border-0">is Active?</th> */}
                 <th className="border-0">Action</th>
               </tr>
@@ -89,8 +92,10 @@ export default function ProductList() {
                   return (
                     <tr key={d._id}>
                       <td>{d.name}</td>
-                      <td>{d.address || "n/a"}</td>
-                      <td>{d.primary_contact || "n/a"}</td>
+                      <td>{d.bank_id || "N/A"}</td>
+                      <td>{d.loan_type || "N/A"}</td>
+                      <td>{d.interest_rate || "N/A"}</td>
+
                       {/* <td>
                         {d.is_active === true ? (
                           <span className="ml-3 badge badge-success">
@@ -115,7 +120,7 @@ export default function ProductList() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={4}>No data available.</td>
+                  <td colSpan={5}>No data available.</td>
                 </tr>
               )}
             </tbody>
@@ -159,7 +164,7 @@ export default function ProductList() {
           )}
         </CardBody>
       </Card>
-      <Modal isOpen={model} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} size={size}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -189,7 +194,7 @@ export default function ProductList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             >
@@ -199,18 +204,7 @@ export default function ProductList() {
                 <Input
                   name="name"
                   type="text"
-                  placeholder="Full Name"
-                  className="form-field"
-                  required
-                />
-              </div>
-              <div className="form-item">
-                <label htmlFor="headOffice">Head Office</label>
-                <br />
-                <Input
-                  name="head_office"
-                  type="text"
-                  placeholder="Full Address"
+                  placeholder="Product Name"
                   className="form-field"
                   required
                 />
@@ -225,26 +219,23 @@ export default function ProductList() {
               }}
             >
               <div className="form-item">
-                <label htmlFor="primary_contact">Primary Phone</label>
+                <label htmlFor="headOffice">Product Link</label>
                 <br />
                 <Input
-                  name="primary_contact"
-                  type="number"
-                  placeholder="Primary Phone no"
+                  name="plink"
+                  type="text"
+                  placeholder="Product Url"
                   className="form-field"
-                  required
                 />
               </div>
-              
               <div className="form-item">
-                <label htmlFor="contact_number">Secondary Phone</label>
+                <label htmlFor="primary_contact">Product Image</label>
                 <br />
                 <Input
-                  name="contact_number"
+                  name="image_url"
                   type="text"
-                  placeholder="Secondary Phone"
+                  placeholder="Copy Product Image Url"
                   className="form-field"
-                  required
                 />
               </div>
             </div>
@@ -252,61 +243,61 @@ export default function ProductList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
-            > 
+            >
+              <div className="form-item">
+                <label htmlFor="contact_number">Loan Type</label>
+                <br />
+                <Input
+                  name="loan_type"
+                  type="text"
+                  placeholder="Loan Type"
+                  className="form-field"
+                  required
+                />
+              </div> 
             <div className="form-item">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Base Rate</label>
                 <br />
                 <Input
-                  name="email"
-                  type="email"
-                  placeholder="Email Address"
+                  name="base_rate"
+                  type="text"
+                  placeholder="Base Rate"
                   className="form-field"
                   required
                 />
               </div>
 
               <div className="form-item">
-                <label htmlFor="logo_url">Product Logo</label>
+                <label htmlFor="logo_url">Interest Rate</label>
                 <br />
                 <Input
-                  name="logo_url"
+                  name="interest_rate"
                   type="text"
-                  placeholder="Link of Logo"
+                  placeholder="Interest Rate"
                   className="form-field"
                   required
                 />
               </div>
             </div>
             <br />
-
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             >
               <div className="form-item">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Description</label>
                 <br />
                 <Input
-                  name="address"
-                  type="text"
-                  placeholder="Product Address"
-                  className="form-field"
-                  required
-                />
-              </div>
-              <div className="form-item">
-                <label htmlFor="website">Website URL</label>
-                <br />
-                <Input
-                  name="website"
-                  type="text"
-                  placeholder="Website URL"
+                  name="description"
+                  type="textarea"
+                  rows="8"
+                  placeholder="Product Details"
                   className="form-field"
                   required
                 />
