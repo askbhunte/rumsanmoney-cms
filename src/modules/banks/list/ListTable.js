@@ -154,7 +154,7 @@ export default function BankList() {
             <thead>
               <tr className="border-0">
                 <th className="border-0">Name</th>
-                <th className="border-0">Address</th>
+                <th className="border-0">Head Office Location</th>
                 <th className="border-0">Contact</th>
                 <th className="border-0">Action</th>
               </tr>
@@ -165,8 +165,8 @@ export default function BankList() {
                   return (
                     <tr key={d._id}>
                       <td>{d.name}</td>
-                      <td>{d.address || "n/a"}</td>
-                      <td>{d.primary_contact || "n/a"}</td>
+                      <td>{d.address || "N/A"}</td>
+                      <td>{d.primary_contact || "N/A"}</td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
                           className="btn btn-secondary"
@@ -294,7 +294,7 @@ export default function BankList() {
                 <br />
                 <Input
                   name="primary_contact"
-                  type="number"
+                  type="text"
                   placeholder="Primary Phone no"
                   className="form-field"
                   required
@@ -309,7 +309,6 @@ export default function BankList() {
                   type="text"
                   placeholder="Secondary Contacts separated by comma"
                   className="form-field"
-                  required
                 />
               </div>
             </div>
@@ -329,7 +328,6 @@ export default function BankList() {
                   type="email"
                   placeholder="Email Address"
                   className="form-field"
-                  required
                 />
               </div>
               <div className="form-item">
@@ -340,7 +338,6 @@ export default function BankList() {
                   type="text"
                   placeholder="Link of Logo"
                   className="form-field"
-                  required
                 />
               </div>
               <div className="form-item">
@@ -351,7 +348,6 @@ export default function BankList() {
                   type="text"
                   placeholder="Website URL"
                   className="form-field"
-                  required
                 />
               </div>
             </div>
