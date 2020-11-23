@@ -48,13 +48,31 @@ class Controller {
     });
   }
 
-  findById(id) {
-    return Model.findById(id);
+  async findById(id) {
+    const data = await Model.aggregate([
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      }, {
+        $lookup: {
+          from: 'banks',
+          localField: 'bank_id',
+          foreignField: '_id',
+          as: 'bank_info',
+        },
+      }, {
+        $unwind: {
+          path: '$bank_info',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+    ]);
+    const [resp] = data;
+    return resp;
   }
 
   add(payload) {
-    payload.bank_id = ObjectId(payload.bank_id);
-    console.log(payload);
     return Model.create(payload);
   }
 
