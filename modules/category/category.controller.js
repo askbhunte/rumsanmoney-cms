@@ -12,15 +12,21 @@ class Controller {
         $match: {
           name: new RegExp(name, 'gi'),
         },
-      },
-      {
+      });
+    }
+    if (status) {
+      query.push({
         $match: {
-          status,
+          is_active: status,
         },
       });
     }
     return DataUtils.paging({
-      start, limit, query, model: Model, sort: { created_at: 1 },
+      start,
+      limit,
+      sort: { created_at: 1 },
+      query,
+      model: Model,
     });
   }
 
