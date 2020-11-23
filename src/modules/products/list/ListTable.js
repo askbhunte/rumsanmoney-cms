@@ -20,6 +20,7 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
+  CustomInput
 } from "reactstrap";
 import { ProductContext } from "../../../contexts/ProductContext";
 
@@ -35,6 +36,70 @@ export default function ProductList() {
     return loadProductList({ start: _start, limit: pagination.limit });
   };
   const toggle = () => setModal(!modal);
+
+  const searchOptions = { BANKNAME: "bankname", NAME: "name", BASERATE: "baserate", TYPE: "type" };
+  const [filter, setFilter] = useState({
+    searchPlaceholder: "Enter product name...",
+    searchBy: "name",
+  });
+
+  const handleFilterChange = (e) => {
+    let { value } = e.target;
+    if (value === searchOptions.NAME) {
+      setFilter({
+        searchPlaceholder: "Enter product name...",
+        searchBy: searchOptions.NAME,
+      });
+    }
+    if (value === searchOptions.BANKNAME) {
+      setFilter({
+        searchPlaceholder: "Enter bank name...",
+        searchBy: searchOptions.BANKNAME,
+      });
+    }
+    if (value === searchOptions.BASERATE) {
+      setFilter({
+        searchPlaceholder: "Enter base rate...",
+        searchBy: searchOptions.BASERATE,
+      });
+    }
+    if (value === searchOptions.TYPE) {
+      setFilter({
+        searchPlaceholder: "Enter loan type...",
+        searchBy: searchOptions.TYPE,
+      });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+    if (filter.searchBy === searchOptions.BANKNAME) {
+      return fetchList({ start: 0, limit: pagination.limit, bankname: value });
+    }
+    if (filter.searchBy === searchOptions.NAME) {
+      return fetchList({ start: 0, limit: pagination.limit, name: value });
+    }
+    if (filter.searchBy === searchOptions.TYPE) {
+      return fetchList({ start: 0, limit: pagination.limit, type: value });
+    }
+    if (filter.searchBy === searchOptions.BASERATE) {
+      return fetchList({ start: 0, limit: pagination.limit, baserate: value });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const fetchList = (query) => {
+    let params = { ...pagination, ...query };
+    listProduct(params)
+      .then()
+      .catch(() => {
+        addToast("Something went wrong!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      });
+  };
 
   const loadProductList = (query) => {
     if (!query) query = null;
@@ -56,15 +121,47 @@ export default function ProductList() {
     [listProduct]
   );
 
+  useEffect(fetchList, []);
   useEffect(loadProductList, []);
   return (
     <>
       <Card>
         <CardTitle className="mb-0 p-3 border-bottom bg-light">
           <Row>
-            <Col md="10">
+            <Col md="4">
               <i className="mdi mdi-border-right mr-2"></i>Product List
             </Col>
+            <Col md="6">
+                <div
+                  style={{
+                    float: "right",
+                    display: "flex",
+                    marginRight: "-16%"
+                  }}
+                >
+                  <CustomInput
+                    type="select"
+                    id="exampleCustomSelect"
+                    name="customSelect"
+                    defaultValue=""
+                    style={{ width: "auto" }}
+                    onChange={handleFilterChange}
+                  >
+                    <option value="name">Search By Product Name</option>
+                    <option value="bankname">By Bank Name</option>
+                    <option value="type">By Loan Type</option>
+                    <option value="baserate">By Base Rate</option>
+
+                  </CustomInput>
+                  <div style={{ display: "inline-flex" }}>
+                      <Input
+                        placeholder={filter.searchPlaceholder}
+                        onChange={handleSearchInputChange}
+                        style={{ width: "100%" }}
+                      />
+                  </div>
+                </div>
+              </Col>
             <Col md="2">
             <div style={{ float: "right" }}>
               <Button color="info" onClick={(e) => toggle()}>

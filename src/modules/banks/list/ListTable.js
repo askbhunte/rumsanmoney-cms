@@ -19,6 +19,7 @@ import {
   Pagination,
   PaginationItem,
   PaginationLink,
+  CustomInput
 } from "reactstrap";
 import { BankContext } from "../../../contexts/BankContext";
 
@@ -33,6 +34,53 @@ export default function BankList() {
     return loadBankList({ start: _start, limit: pagination.limit });
   };
   const toggle = () => setModel(!model);
+
+  const searchOptions = { ADDRESS: "address", NAME: "name" };
+  const [filter, setFilter] = useState({
+    searchPlaceholder: "Enter bank name...",
+    searchBy: "name",
+  });
+
+  const handleFilterChange = (e) => {
+    let { value } = e.target;
+    if (value === searchOptions.NAME) {
+      setFilter({
+        searchPlaceholder: "Enter Bank name...",
+        searchBy: searchOptions.NAME,
+      });
+    }
+    if (value === searchOptions.ADDRESS) {
+      setFilter({
+        searchPlaceholder: "Enter address...",
+        searchBy: searchOptions.ADDRESS,
+      });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+    if (filter.searchBy === searchOptions.ADDRESS) {
+      return fetchList({ start: 0, limit: pagination.limit, address: value });
+    }
+    if (filter.searchBy === searchOptions.NAME) {
+      return fetchList({ start: 0, limit: pagination.limit, name: value });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const fetchList = (query) => {
+    let params = { ...pagination, ...query };
+    listBank(params)
+      .then()
+      .catch(() => {
+        addToast("Something went wrong!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      });
+  };
+
 
   const loadBankList = (query) => {
     if (!query) query = null;
@@ -54,16 +102,44 @@ export default function BankList() {
     [listBank]
   );
 
+  useEffect(fetchList, []);
   useEffect(loadBankList, []);
   return (
     <>
       <Card>
         <CardTitle className="mb-0 p-3 border-bottom bg-light">
           <Row>
-            <Col md="10">
+            <Col md="4">
               <i className="mdi mdi-border-right mr-2"></i>Bank List
             </Col>
-            <Col md="2">
+            <Col md="7">
+                <div
+                  style={{
+                    float: "right",
+                    display: "flex"
+                  }}
+                >
+                  <CustomInput
+                    type="select"
+                    id="exampleCustomSelect"
+                    name="customSelect"
+                    defaultValue=""
+                    style={{ width: "auto" }}
+                    onChange={handleFilterChange}
+                  >
+                    <option value="name">Search By Name</option>
+                    <option value="address">By Address</option>
+                  </CustomInput>
+                  <div style={{ display: "inline-flex" }}>
+                      <Input
+                        placeholder={filter.searchPlaceholder}
+                        onChange={handleSearchInputChange}
+                        style={{ width: "100%" }}
+                      />
+                  </div>
+                </div>
+              </Col>
+            <Col md="1">
             <div style={{ float: "right" }}>
               <Button color="info" onClick={(e) => toggle()}>
                 Add Bank
