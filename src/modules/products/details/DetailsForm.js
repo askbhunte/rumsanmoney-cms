@@ -64,8 +64,6 @@ export default function DetailsForm(props) {
       });
   };
 
-  useEffect(loadProductDetails, []);
-
   const handleStatusChange = async (status) => {
     const title = status.is_active ? "Active" : "Inactive"; 
     let result = await Swal.fire({
@@ -95,7 +93,8 @@ export default function DetailsForm(props) {
       }
     }
   };
-
+  useEffect(loadProductDetails, []);
+  
   return (
     <>
       <Row>
@@ -203,12 +202,15 @@ export default function DetailsForm(props) {
                   <FormGroup>
                   <Label>Loan Type</Label>
                   <InputGroup>
-                    <Input
-                      type="text"
-                      name="loan_type"   
-                      defaultValue={product_details ? product_details.loan_type : ""}
-                      onChange={e => setProductDetails({ ...product_details, loan_type: e.target.value })}
-                    />
+                     <Input type="select" name="loan_type"
+                     value={product_details ? product_details.loan_type : ""}
+                     onChange={e => setProductDetails({ ...product_details, loan_type: e.target.value })}
+                     >
+                      <option value="">-- Select Type --</option>
+                      <option value="saving">Saving</option>
+                      <option value="current">Current</option>
+                      <option value="loan">Loan</option>
+                    </Input>
                   </InputGroup>
                 </FormGroup>
                 </Col>

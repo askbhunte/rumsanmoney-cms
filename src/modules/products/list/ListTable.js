@@ -180,7 +180,6 @@ export default function ProductList() {
                 <th className="border-0">Loan Type</th>
                 <th className="border-0">Base Rate</th>
                 <th className="border-0">Interest Rate</th>
-                {/* <th className="border-0">is Active?</th> */}
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -194,7 +193,6 @@ export default function ProductList() {
                       <td>{d.loan_type || "N/A"}</td>
                       <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
-
                       {/* <td>
                         {d.is_active === true ? (
                           <span className="ml-3 badge badge-success">
