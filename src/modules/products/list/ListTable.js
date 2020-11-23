@@ -353,21 +353,40 @@ export default function ProductList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             >
               <div className="form-item">
-                <label htmlFor="contact_number">Loan Type</label>
+                <label htmlFor="loan_type">Loan Type</label>
+                <br />
+                <Input type="select" name="loan_type" placeholder="Loan Type" className="form-field" required>
+                  <option value="">-- Select Type --</option>
+                  <option value="saving">Saving</option>
+                  <option value="current">Current</option>
+                  <option value="loan">Loan</option>
+                </Input>
+              </div> 
+              <div className="form-item">
+                <label htmlFor="logo_url">Product Type</label>
                 <br />
                 <Input
-                  name="loan_type"
+                  name="ptype"                  
                   type="text"
-                  placeholder="Loan Type"
+                  placeholder="Product Type"
                   className="form-field"
                   required
                 />
-              </div> 
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
             <div className="form-item">
                 <label htmlFor="email">Base Rate</label>
                 <br />

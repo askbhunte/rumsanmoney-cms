@@ -71,6 +71,7 @@ export const ProductContextProvider = ({ children }) => {
       plink: formData.get("plink"),
       description: formData.get("description"),
       loan_type: formData.get("loan_type"),
+      ptype: formData.get("ptype"),
       base_rate: formData.get("base_rate"),
       interest_rate: formData.get("interest_rate")
     };
