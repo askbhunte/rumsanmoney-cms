@@ -39,7 +39,6 @@
     "react-select": "^2.2.0",
     "react-toast-notifications": "^2.4.0",
     "reactstrap": "^8.4.1",
-    "redux-devtools-extension": "^2.13.8",
     "sweetalert2": "^9.17.2",
     "yup": "^0.29.3"
   },
