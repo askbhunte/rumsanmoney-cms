@@ -19,28 +19,26 @@ mongoose.connect(config.get('app.db'), {
   useCreateIndex: true,
 });
 
-// view engine setup
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, './client/build')));
-  // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-  });
-}
-
 app.set('view engine', 'ejs');
 
+app.use('/', routesManager);
 app.use(logger('dev'));
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
-app.use('/', routesManager);
 
+// view engine setup
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  });
+}
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
