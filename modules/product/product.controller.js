@@ -11,6 +11,19 @@ class Controller {
     start, limit, name, bankname, loantype, baserate, bankId,
   }) {
     const query = [];
+    query.push({
+      $lookup: {
+        from: 'banks',
+        localField: 'bank_id',
+        foreignField: '_id',
+        as: 'bankinfo',
+      },
+    }, {
+      $unwind: {
+        path: '$bankinfo',
+        preserveNullAndEmptyArrays: false,
+      },
+    });
     if (name) {
       query.push({
         $match: {
@@ -28,7 +41,7 @@ class Controller {
     if (bankname) {
       query.push({
         $match: {
-          bank_id: ObjectId(bankname),
+          'bankinfo.name': new RegExp(bankname, 'gi'),
         },
       });
     }
