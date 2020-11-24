@@ -10,7 +10,7 @@ const Schema = mongoose.Schema(
     description: { type: String },
     category: [{ type: ObjectId, ref: 'Categories' }],
     loan_type: { type: String, required: true },
-    ptype: { type: String, required: true },
+    ptype: { type: String },
     interest_rate: { type: Number },
     // interest_rate: { type: ObjectId, ref: 'Interests' },
     base_rate: { type: Number, required: true },

@@ -45,6 +45,10 @@ class Controller {
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
+
+  findBook(name) {
+    return Model.find({ name: new RegExp(name, 'gi') });
+  }
 }
 
 module.exports = new Controller();
