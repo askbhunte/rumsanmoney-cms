@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon ./bin/www",
-    "production": "NODE_ENV=production node ./bin/www"
+    "production": "NODE_ENV=production node ./bin/www",
+    "client": "cd ./client && yarn start",
+    "all": "npm-run-all -p start client",
+    "build": "NODE_ENV=production && yarn install && cd ./client && yarn install && yarn run build"
   },
   "dependencies": {
     "config": "^3.3.1",
@@ -13,6 +16,7 @@
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "google-spreadsheet": "^3.0.13",
     "helmet": "^3.23.3",
     "http-errors": "~1.6.3",
     "mongoose": "^5.10.7",
