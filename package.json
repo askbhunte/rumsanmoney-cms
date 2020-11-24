@@ -1,9 +1,9 @@
 {
-  "name": "chino",
+  "name": "bhuntemoney",
   "version": "1.0.0",
   "homepage": "/",
   "private": true,
-  "description": "Chino",
+  "description": "Bhunte Money Client",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
@@ -12,7 +12,7 @@
     "eject": "react-scripts eject"
   },
   "keywords": [],
-  "author": "Wrappixel",
+  "author": "Askbhunte",
   "license": "ISC",
   "devDependencies": {
     "axios-mock-adapter": "^1.18.1",
@@ -41,11 +41,7 @@
     "reactstrap": "^8.4.1",
     "redux-devtools-extension": "^2.13.8",
     "sweetalert2": "^9.17.2",
-    "yarn": "^1.22.4",
     "yup": "^0.29.3"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
