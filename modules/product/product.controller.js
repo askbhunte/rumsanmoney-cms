@@ -8,13 +8,20 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, loantype, baserate,
+    start, limit, name, bankname, loantype, baserate, bankId,
   }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
           name: new RegExp(name, 'gi'),
+        },
+      });
+    }
+    if (bankId) {
+      query.push({
+        $match: {
+          bank_id: ObjectId(bankId),
         },
       });
     }

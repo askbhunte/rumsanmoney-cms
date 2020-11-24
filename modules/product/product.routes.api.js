@@ -8,11 +8,13 @@ router.get('/', async (q, r, n) => {
   const loantype = q.query.type || null;
   const bankname = q.query.bankname || null;
   const baserate = q.query.baserate || null;
+  const bankId = q.query.bankId || null;
   Controller.list({
     limit,
     start,
     name,
     loantype,
+    bankId,
     bankname,
     baserate,
   })
