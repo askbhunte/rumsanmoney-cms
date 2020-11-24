@@ -189,7 +189,7 @@ export default function ProductList() {
                   return (
                     <tr key={d._id}>
                       <td>{d.name}</td>
-                      <td>{d.bank_id || "N/A"}</td>
+                      <td>{d.bankinfo.name || "N/A"}</td>
                       <td>{d.loan_type ? d.loan_type.toUpperCase() : "N/A"}</td>
                       <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
