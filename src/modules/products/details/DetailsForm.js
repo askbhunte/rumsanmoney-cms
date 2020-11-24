@@ -167,7 +167,7 @@ export default function DetailsForm(props) {
                       name="bank_id"
                       defaultValue={product_details ? product_details.bank_id : ""}
                       onChange={e => setProductDetails({ ...product_details, bank_id: e.target.value })}
-
+                      readOnly
                     />
                   </InputGroup>
                 </FormGroup>
