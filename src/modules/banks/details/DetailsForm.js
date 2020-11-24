@@ -51,7 +51,10 @@ export default function DetailsForm(props) {
     updateBank(bankId, formData)
       .then(() => {
         resetLoading();
-        Swal.fire("Successful!", "Bank details updated successfully.", "success");
+        Swal.fire("Successful!", "Bank details updated successfully.", "success").then((result) => {
+            if(result.value) {
+              window.location.href = '/banks';
+            }
       })
       .catch((err) => {
         addToast("Something went wrong on server!", {
@@ -60,7 +63,8 @@ export default function DetailsForm(props) {
         });
         resetLoading();
       });
-  };
+  });
+};
 
   useEffect(loadBankDetails, []);
 

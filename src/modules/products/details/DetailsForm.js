@@ -53,7 +53,10 @@ export default function DetailsForm(props) {
     updateProduct(productId, formData)
       .then(() => {
         resetLoading();
-        Swal.fire("Successful!", "Product details updated successfully.", "success");
+        Swal.fire("Successful!", "Product details updated successfully.", "success").then((result) => {
+            if(result.value) {
+              window.location.href = '/products';
+            };
       })
       .catch((err) => {
         addToast("Something went wrong on server!", {
@@ -62,7 +65,8 @@ export default function DetailsForm(props) {
         });
         resetLoading();
       });
-  };
+  })
+};
 
   const handleStatusChange = async (status) => {
     const title = status.is_active ? "Active" : "Inactive"; 
