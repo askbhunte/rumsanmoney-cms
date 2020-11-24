@@ -165,7 +165,7 @@ export default function BankList() {
                   return (
                     <tr key={d._id}>
                       <td>{d.name}</td>
-                      <td>{d.address || "N/A"}</td>
+                      <td>{d.head_office || "N/A"}</td>
                       <td>{d.primary_contact || "N/A"}</td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
