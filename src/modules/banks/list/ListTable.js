@@ -113,11 +113,12 @@ export default function BankList() {
             <Col md="4">
               <i className="mdi mdi-border-right mr-2"></i>Bank List
             </Col>
-            <Col md="7">
+            <Col md="6">
                 <div
                   style={{
                     float: "right",
-                    display: "flex"
+                    display: "flex",
+                    marginRight: "-16%"
                   }}
                 >
                   <CustomInput
@@ -140,7 +141,7 @@ export default function BankList() {
                   </div>
                 </div>
               </Col>
-            <Col md="1">
+            <Col md="2">
             <div style={{ float: "right" }}>
               <Button color="info" onClick={(e) => toggle()}>
                 Add Bank
