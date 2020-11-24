@@ -21,9 +21,33 @@ mongoose.connect(config.get('app.db'), {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'client/build'), {
+  etag: false, // Just being explicit about the default.
+  lastModified: false, // Just being explicit about the default.
+  setHeaders: (res, path) => {
+    if (path.endsWith('.html')) {
+      // All of the project's HTML files end in .html
+      res.setHeader('Cache-Control', 'private,no-cache,no-store,max-age=0,must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '-1');
+    }
+    if (path.endsWith('.css')) {
+      // All of the project's HTML files end in .html
+      res.setHeader('Cache-Control', 'private,no-cache,no-store,max-age=0,must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '-1');
+    }
+    if (path.endsWith('.js')) {
+      // All of the project's HTML files end in .html
+      res.setHeader('Cache-Control', 'private,no-cache,no-store,max-age=0,must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '-1');
+    }
+  },
+}));
 app.set('view engine', 'ejs');
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
