@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
+import Paginate from '../../global/Paginate';
 
 import {
   Button,
@@ -16,9 +17,6 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   CustomInput
 } from "reactstrap";
 import { BankContext } from "../../../contexts/BankContext";
@@ -27,11 +25,13 @@ import { BankContext } from "../../../contexts/BankContext";
 export default function BankList() {
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
+  const [current, setCurrent] = useState(0);
   const size = "xl";
   const { listBank, bank, pagination, addBank } = useContext(BankContext);
 
   const handlePagination = (current_page) => {
-    let _start = current_page * pagination.limit - 1;
+    let _start = current_page * pagination.limit;
+    setCurrent(current_page);
     return loadBankList({ start: _start, limit: pagination.limit });
   };
   const toggle = () => setModel(!model);
@@ -186,43 +186,12 @@ export default function BankList() {
               )}
             </tbody>
           </Table>
-          {pagination.totalPages > 1 ? (
-            <Pagination
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "50px",
-              }}
-            >
-              <PaginationItem>
-                <PaginationLink
-                  first
-                  href="#first_page"
-                  onClick={() => handlePagination(1)}
-                />
-              </PaginationItem>
-              {[...Array(pagination.totalPages)].map((p, i) => (
-                <PaginationItem
-                  key={i}
-                  active={pagination.currentPage === i + 1 ? true : false}
-                  onClick={() => handlePagination(i + 1)}
-                >
-                  <PaginationLink href={`#page=${i + 1}`}>
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
-              <PaginationItem>
-                <PaginationLink
-                  last
-                  href="#last_page"
-                  onClick={() => handlePagination(pagination.totalPages)}
-                />
-              </PaginationItem>
-            </Pagination>
-          ) : (
-            ""
-          )}
+          <Paginate
+          limit={pagination.limit}
+          total={pagination.total}
+          current={current}
+          onChange={handlePagination}
+        />
         </CardBody>
       </Card>
       <Modal isOpen={model} toggle={toggle} size={size}>
