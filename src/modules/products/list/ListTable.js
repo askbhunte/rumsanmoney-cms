@@ -65,7 +65,7 @@ export default function ProductList() {
     }
     if (value === searchOptions.TYPE) {
       setFilter({
-        searchPlaceholder: "Enter loan type...",
+        searchPlaceholder: "Enter product type...",
         searchBy: searchOptions.TYPE,
       });
     }
@@ -149,7 +149,7 @@ export default function ProductList() {
                   >
                     <option value="name">Search By Product Name</option>
                     <option value="bankname">By Bank Name</option>
-                    <option value="type">By Loan Type</option>
+                    <option value="type">By Product Type</option>
                     <option value="baserate">By Base Rate</option>
 
                   </CustomInput>
@@ -177,7 +177,7 @@ export default function ProductList() {
               <tr className="border-0">
                 <th className="border-0">Name</th>
                 <th className="border-0">Bank</th>
-                <th className="border-0">Loan Type</th>
+                <th className="border-0">Product Type</th>
                 <th className="border-0">Base Rate</th>
                 <th className="border-0">Interest Rate</th>
                 <th className="border-0">Action</th>
@@ -190,7 +190,7 @@ export default function ProductList() {
                     <tr key={d._id}>
                       <td>{d.name}</td>
                       <td>{d.bankinfo.name || "N/A"}</td>
-                      <td>{d.loan_type ? d.loan_type.toUpperCase() : "N/A"}</td>
+                      <td>{d.loan_type ? d.ptype.toUpperCase() : "N/A"}</td>
                       <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
                       {/* <td>
