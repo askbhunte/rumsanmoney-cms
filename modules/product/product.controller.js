@@ -8,7 +8,7 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, loantype, baserate, bankId,
+    start, limit, name, bankname, producttype, baserate, bankId,
   }) {
     const query = [];
     query.push({
@@ -52,10 +52,10 @@ class Controller {
         },
       });
     }
-    if (loantype) {
+    if (producttype) {
       query.push({
         $match: {
-          loan_type: new RegExp(loantype, 'gi'),
+          ptype: new RegExp(producttype, 'gi'),
         },
       });
     }
