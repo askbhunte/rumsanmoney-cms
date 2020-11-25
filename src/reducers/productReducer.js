@@ -21,13 +21,7 @@ export default (state, action) => {
         ...state,
         product_details: action.res.product,
       };
-
-    case `${ACTION.DEPLOY_TOKEN_SUCCESS}`:
-      return {
-        ...state,
-        product_details: action.res,
-      };
-
+      
     case `${ACTION.SET_LOADING}`:
       return {
         ...state,

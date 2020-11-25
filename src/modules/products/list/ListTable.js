@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
-
+import Ratings from 'react-ratings-declarative';
+import Swal from "sweetalert2";
 
 import {
   Button,
@@ -29,7 +30,7 @@ export default function ProductList() {
   const { addToast } = useToasts();
   const [modal, setModal] = useState(false);
   const size = 'xl';
-  const { listProduct, product, pagination, addProduct } = useContext(ProductContext);
+  const { listProduct, product, pagination, addProduct, changeFeatured } = useContext(ProductContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit - 1;
@@ -112,8 +113,39 @@ export default function ProductList() {
         });
       });
   };
+
+  const changeRating = async (productId, status) => {
+    const title = status.is_featured ? "Product will be marked as Featured" : "Product will be removed from Featured";
+    const toastTitle = status.is_featured ? "Product has been marked as Featured" : "Product has been removed from Featured";
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changeFeatured(productId, status);
+        if (d) {
+          listProduct();
+          addToast(`${toastTitle}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+    }
   
-  //List Beneficiary
+  //List Products
   let get = useCallback(
     (params) => {
       listProduct(params);
@@ -180,6 +212,7 @@ export default function ProductList() {
                 <th className="border-0">Product Type</th>
                 <th className="border-0">Base Rate</th>
                 <th className="border-0">Interest Rate</th>
+                <th className="border-0">Featured?</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -193,17 +226,28 @@ export default function ProductList() {
                       <td>{d.loan_type ? d.ptype.toUpperCase() : "N/A"}</td>
                       <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
-                      {/* <td>
-                        {d.is_active === true ? (
-                          <span className="ml-3 badge badge-success">
-                            Active
-                          </span>
-                        ) : (
-                          <span className="ml-3 badge badge-danger">
-                            Inactive
-                          </span>
+                      <td>
+                        {d.is_featured ? (<span>
+                        <Ratings
+                          rating={1}
+                          widgetRatedColors="gold"
+                          changeRating={()=>changeRating(d._id, {is_featured: false})}
+                        >
+                          <Ratings.Widget widgetHoverColor="grey" />
+                        </Ratings>  
+                        </span>): (
+                          <span>
+                        <Ratings
+                          rating={0}
+                          widgetRatedColors="gold"
+                          changeRating={()=>changeRating(d._id, {is_featured: true})}
+                        >
+                          <Ratings.Widget widgetHoverColor="grey" />
+                        </Ratings>  
+                        </span>
                         )}
-                      </td> */}
+
+                      </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
                           className="btn btn-secondary"

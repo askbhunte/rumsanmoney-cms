@@ -76,6 +76,26 @@ export function changeStatus(productId, status) {
   });
 }
 
+export function changeFeatured(productId, status) {
+  console.log(productId, status)
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.PRODUCT}/${productId}/featured`,
+        status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
 export async function addProduct(body) {
   const res = await axios({
     url: API.PRODUCT,
