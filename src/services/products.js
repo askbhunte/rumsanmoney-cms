@@ -77,7 +77,6 @@ export function changeStatus(productId, status) {
 }
 
 export function changeFeatured(productId, status) {
-  console.log(productId, status)
   return new Promise((resolve, reject) => {
     axios
       .put(
