@@ -86,6 +86,12 @@ class Controller {
     );
   }
 
+  changeFeatured(id, status) {
+    return Model.findOneAndUpdate(
+      { _id: id }, { $set: status }, { new: true },
+    );
+  }
+
   remove(id) {
     return Model.findByIdAndRemove(id);
   }

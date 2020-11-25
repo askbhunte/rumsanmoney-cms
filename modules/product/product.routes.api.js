@@ -46,6 +46,12 @@ router.put('/:id/status', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
+router.put('/:id/featured', async (q, r, n) => {
+  Controller.changeFeatured(q.params.id, q.body)
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
     .then((d) => r.json(d))
