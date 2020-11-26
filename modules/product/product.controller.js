@@ -46,6 +46,7 @@ class Controller {
       });
     }
     if (baserate) {
+      baserate = Number(baserate);
       query.push({
         $match: {
           base_rate: baserate,
