@@ -8,7 +8,7 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, producttype, baserate, bankId, isFeatured,
+    start, limit, name, bankname, producttype, baserate, bankId, isFeatured, category,
   }) {
     const query = [];
     query.push({
@@ -61,6 +61,13 @@ class Controller {
       query.push({
         $match: {
           'bankinfo.name': new RegExp(bankname, 'gi'),
+        },
+      });
+    }
+    if (category) {
+      query.push({
+        $match: {
+          'categoryinfo.name': new RegExp(category, 'gi'),
         },
       });
     }
