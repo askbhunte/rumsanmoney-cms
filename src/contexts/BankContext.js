@@ -72,7 +72,8 @@ export const BankContextProvider = ({ children }) => {
       logo_url: formData.get("logo_url"),
       email: formData.get("email"),
       address: formData.get("address"),
-      website: formData.get("website")
+      website: formData.get("website"),
+      product_url: formData.get("product_url")
     };
     let d = await Service.addBank(payload);
     return d;

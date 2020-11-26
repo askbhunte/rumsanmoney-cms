@@ -102,7 +102,7 @@ export default function DetailsForm(props) {
                   </InputGroup>
                 </FormGroup>
                 <Row form>
-                <Col md="6">
+                <Col md="4">
                   <FormGroup>
                   <Label>Primary Contact</Label>
                   <InputGroup>
@@ -115,7 +115,7 @@ export default function DetailsForm(props) {
                   </InputGroup>
                 </FormGroup>
                 </Col>
-                <Col md="6">
+                <Col md="4">
                 <FormGroup>
                   <Label>Secondary Contacts</Label>
                   <InputGroup>
@@ -124,6 +124,19 @@ export default function DetailsForm(props) {
                       name="secondary_contacts"   
                       defaultValue={bank_details ? bank_details.secondary_contacts : ""}
                       onChange={e => setBankDetails({ ...bank_details, secondary_contacts: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="4">
+                <FormGroup>
+                  <Label>Product Url</Label>
+                  <InputGroup>
+                    <Input
+                      type="text"
+                      name="secondary_contacts"   
+                      defaultValue={bank_details ? bank_details.product_url : ""}
+                      onChange={e => setBankDetails({ ...bank_details, product_url: e.target.value })}
                     />
                   </InputGroup>
                 </FormGroup>

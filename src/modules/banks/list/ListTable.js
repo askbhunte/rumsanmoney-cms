@@ -297,7 +297,7 @@ export default function BankList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
             > 
@@ -328,6 +328,16 @@ export default function BankList() {
                   name="website"
                   type="text"
                   placeholder="Website URL"
+                  className="form-field"
+                />
+              </div>
+              <div className="form-item">
+                <label htmlFor="product_url">Product URL</label>
+                <br />
+                <Input
+                  name="product_url"
+                  type="text"
+                  placeholder="Product URL"
                   className="form-field"
                 />
               </div>
