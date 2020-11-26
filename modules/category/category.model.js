@@ -7,7 +7,6 @@ const Schema = mongoose.Schema(
     name: { type: String, required: true },
     icon: { type: String, required: true },
     description: { type: String },
-    slug: { type: String, required: true },
     is_active: { type: Boolean, required: true, default: true },
   },
   {

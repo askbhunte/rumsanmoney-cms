@@ -35,7 +35,6 @@ router.put('/:id', async (q, r, n) => {
 });
 
 router.delete('/:id', async (q, r, n) => {
-  console.log('inside category routes api delete', q.params.id);
   Controller.remove(q.params.id)
     .then((d) => r.json(d))
     .catch((e) => n(e));
