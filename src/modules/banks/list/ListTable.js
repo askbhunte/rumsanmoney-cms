@@ -26,13 +26,23 @@ export default function BankList() {
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [searchText, setSearchText] = useState('');
+
   const size = "xl";
   const { listBank, bank, pagination, addBank } = useContext(BankContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
     setCurrent(current_page);
-    return loadBankList({ start: _start, limit: pagination.limit });
+    let query = { name: searchText };
+    if (filter.searchBy === searchOptions.ADDRESS) {
+      query = { baserate: searchText };
+    }
+    return loadBankList({
+      start: _start,
+      limit: pagination.limit,
+      ...query,
+    });
   };
   const toggle = () => setModel(!model);
 
@@ -61,6 +71,7 @@ export default function BankList() {
 
   const handleSearchInputChange = (e) => {
     const { value } = e.target;
+    setSearchText(value);
     if (filter.searchBy === searchOptions.ADDRESS) {
       return fetchList({ start: 0, limit: pagination.limit, address: value });
     }

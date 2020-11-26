@@ -28,13 +28,28 @@ export default function ProductList() {
   const { addToast } = useToasts();
   const [modal, setModal] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [searchText, setSearchText] = useState('');
   const size = 'xl';
   const { listProduct, product, pagination, addProduct, changeFeatured } = useContext(ProductContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
     setCurrent(current_page);
-    return loadProductList({ start: _start, limit: pagination.limit });
+    let query = { name: searchText };
+    if (filter.searchBy === searchOptions.TYPE) {
+      query = { type: searchText };
+    }
+    if (filter.searchBy === searchOptions.BASERATE) {
+      query = { baserate: searchText };
+    }
+    if (filter.searchBy === searchOptions.BANKNAME) {
+      query = { bankname: searchText };
+    }
+    return loadProductList({
+      start: _start,
+      limit: pagination.limit,
+      ...query,
+    });
   };
   const toggle = () => setModal(!modal);
 
@@ -73,8 +88,9 @@ export default function ProductList() {
     fetchList({ start: 0, limit: pagination.limit });
   };
 
-  const handleSearchInputChange = (e) => {
+   const handleSearchInputChange = (e) => {
     const { value } = e.target;
+    setSearchText(value);
     if (filter.searchBy === searchOptions.BANKNAME) {
       return fetchList({ start: 0, limit: pagination.limit, bankname: value });
     }
