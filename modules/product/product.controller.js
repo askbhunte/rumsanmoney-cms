@@ -8,7 +8,7 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, producttype, baserate, bankId,
+    start, limit, name, bankname, producttype, baserate, bankId, isFeatured,
   }) {
     const query = [];
     query.push({
@@ -23,11 +23,30 @@ class Controller {
         path: '$bankinfo',
         preserveNullAndEmptyArrays: false,
       },
+    }, {
+      $lookup: {
+        from: 'categories',
+        localField: 'category',
+        foreignField: '_id',
+        as: 'categoryinfo',
+      },
+    }, {
+      $unwind: {
+        path: '$categoryinfo',
+        preserveNullAndEmptyArrays: false,
+      },
     });
     if (name) {
       query.push({
         $match: {
           name: new RegExp(name, 'gi'),
+        },
+      });
+    }
+    if (isFeatured) {
+      query.push({
+        $match: {
+          is_featured: isFeatured,
         },
       });
     }
