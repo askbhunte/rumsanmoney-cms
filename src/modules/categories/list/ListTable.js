@@ -137,7 +137,7 @@ export default function CategoryList() {
                     <tr key={d._id}>
                       <td>{d.name || "N/A"}</td>
                       <td>{d.icon || "N/A"}</td>
-                      <td><i className={d.icon || "N/A"}></i></td>
+                      <td><i className={`${d.icon} fa-lg`}></i></td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Button color="primary" onClick={(e) => toggle()}>
                            Edit
@@ -240,7 +240,7 @@ export default function CategoryList() {
                 <label htmlFor="iconPreview">Icon Preview</label>
                 <br />
                 <div>
-                  <i className={iconPrev}></i>
+                  <i className={`${iconPrev} fa-lg`}></i>
                 </div>
               </div>
             </div>
@@ -256,6 +256,6 @@ export default function CategoryList() {
         </Form>
       </Modal>
       <br />
-    </>
+   </>
   );
 }
