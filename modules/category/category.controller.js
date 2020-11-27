@@ -15,9 +15,10 @@ class Controller {
       });
     }
     if (status) {
+      status = status === 'true';
       query.push({
         $match: {
-          is_active: Boolean(status),
+          is_active: status,
         },
       });
     }
