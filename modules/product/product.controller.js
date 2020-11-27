@@ -35,6 +35,14 @@ class Controller {
         path: '$categoryinfo',
         preserveNullAndEmptyArrays: false,
       },
+    }, {
+      $addFields: {
+        totalInterest: {
+          $add: [
+            '$base_rate', '$interest_rate',
+          ],
+        },
+      },
     });
     if (name) {
       query.push({
