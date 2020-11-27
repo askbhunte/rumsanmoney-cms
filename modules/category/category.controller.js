@@ -17,7 +17,7 @@ class Controller {
     if (status) {
       query.push({
         $match: {
-          is_active: status,
+          is_active: Boolean(status),
         },
       });
     }
