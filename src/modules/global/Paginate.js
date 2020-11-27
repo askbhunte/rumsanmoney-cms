@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const PAGE_TRANSITION = 3;
 const Paginate = ({ limit, total, onChange, current }) => {
   const [visible, setVisible] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-
   const page = Math.ceil(total / limit);
   let paging = (count) => {
     onChange(count);

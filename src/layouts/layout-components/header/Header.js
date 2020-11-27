@@ -98,7 +98,7 @@ export default () => {
           {/*--------------------------------------------------------------------------------*/}
           {/* Logos Or Icon will be goes here for Light Layout && Dark Layout                */}
           {/*--------------------------------------------------------------------------------*/}
-          <NavbarBrand href="/">
+          <NavbarBrand href="/banks">
             <b className="logo-icon">
               <img src={logodarkicon} alt="homepage" className="dark-logo" />
               <img src={logolighticon} alt="homepage" className="light-logo" />

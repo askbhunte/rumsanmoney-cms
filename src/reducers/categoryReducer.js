@@ -1,4 +1,4 @@
-import ACTION from "../actions/bank";
+import ACTION from "../actions/category";
 
 export default (state, action) => {
   const result = action.res;
@@ -6,7 +6,7 @@ export default (state, action) => {
     case `${ACTION.LIST_SUCCESS}`:
       return {
         ...state,
-        bank: result.data,
+        category: result.data,
         pagination: {
           total: result.total,
           limit: result.limit,
@@ -16,10 +16,10 @@ export default (state, action) => {
         },
       };
 
-    case `${ACTION.GET_BANK_SUCCESS}`:
+    case `${ACTION.GET_CATEGORY_SUCCESS}`:
       return {
         ...state,
-        bank_details: action.res.bank,
+        category_details: action.res.category,
       };
 
     case `${ACTION.SET_LOADING}`:

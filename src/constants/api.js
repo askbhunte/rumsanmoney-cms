@@ -3,6 +3,7 @@ const base_url = server_url + "/api/v1";
 
 module.exports = {
   BANK: base_url + "/banks",
+  CATEGORY: base_url + "/categories",
   PRODUCT: base_url + "/products",
   USERS: base_url + "/users",
 };

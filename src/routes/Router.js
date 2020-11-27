@@ -5,12 +5,20 @@ const Banks = lazy(() => import("../modules/banks/list"));
 const BankDetails = lazy(() => import("../modules/banks/details"));
 const Products = lazy(() => import("../modules/products/list"));
 const ProductDetails = lazy(() => import("../modules/products/details"));
-const Categories = lazy(() => import("../modules/categories/Categories"));
+const Categories = lazy(() => import("../modules/categories/list"));
 const Blogs = lazy(() => import("../modules/blogs/Blogs"));
+const Requests = lazy(() => import("../modules/requests/Requests"));
 const Users = lazy(() => import("../modules/users/Users"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
 
 var AppRoutes = [
+  {
+    path: "/requests",
+    name: "Requests",
+    icon: "inbox",
+    component: Requests,
+    showInSidebar: true
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -33,27 +41,27 @@ var AppRoutes = [
   {
     path: "/products",
     name: "Products",
-    icon: "layers",
+    icon: "gift",
     component: Products,
     showInSidebar: true
   },
   {
     path: "/product/:id",
     name: "Product Info",
-    icon: "umbrella",
+    icon: "gift",
     component: ProductDetails
   },
   {
     path: "/categories",
     name: "Categories",
-    icon: "anchor",
+    icon: "layers",
     component: Categories,
     showInSidebar: true
   },
   {
     path: "/blogs",
     name: "Blogs",
-    icon: "inbox",
+    icon: "book-open",
     component: Blogs,
     showInSidebar: true
   },
@@ -79,7 +87,7 @@ var AppRoutes = [
       },
     ],
   },
-  { path: "/", pathTo: "/dashboard", name: "Dashboard", redirect: true },
+  { path: "/", pathTo: "/banks", name: "Bank List", redirect: true },
 
 ];
 export default AppRoutes;
