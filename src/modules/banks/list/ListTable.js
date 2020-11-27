@@ -343,6 +343,27 @@ export default function BankList() {
               </div>
             </div>
             <br />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
+              <div className="form-item">
+                <label htmlFor="name">Description</label>
+                <br />
+                <Input
+                  name="desc"
+                  type="textarea"
+                  rows='4'
+                  placeholder="Bank Short Information"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
           </ModalBody>
           <ModalFooter>
             <Button color="primary">Submit</Button>

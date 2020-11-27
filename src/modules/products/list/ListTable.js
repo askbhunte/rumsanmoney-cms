@@ -249,7 +249,7 @@ export default function ProductList() {
                           widgetRatedColors="gold"
                           changeRating={()=>changeRating(d._id, {is_featured: false})}
                         >
-                          <Ratings.Widget widgetHoverColor="grey" />
+                          <Ratings.Widget widgetHoverColor="grey" widgetDimension="25px" />
                         </Ratings>  
                         </span>): (
                           <span>
@@ -258,7 +258,8 @@ export default function ProductList() {
                           widgetRatedColors="gold"
                           changeRating={()=>changeRating(d._id, {is_featured: true})}
                         >
-                          <Ratings.Widget widgetHoverColor="grey" />
+                          <Ratings.Widget widgetHoverColor="grey" widgetDimension="25px"/>
+
                         </Ratings>  
                         </span>
                         )}

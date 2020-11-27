@@ -183,6 +183,22 @@ export default function DetailsForm(props) {
                 </FormGroup>
                 </Col>
                 </Row>
+                <Row form>
+                <Col md="12">
+                <FormGroup>
+                  <Label>Description</Label>
+                  <InputGroup>
+                    <Input
+                      type="textarea"
+                      name="desc"
+                      rows="8"   
+                      defaultValue={bank_details ? bank_details.desc : ""}
+                      onChange={e => setBankDetails({ ...bank_details, desc: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                </Row>
                  <div className="border-top pt-3 mt-3">
                   {loading ? (
                     <Loading />
