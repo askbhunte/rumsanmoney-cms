@@ -8,7 +8,7 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, producttype, baserate, bankId, isFeatured, category,
+    start, limit, name, bankname, producttype, baserate, bankId, isfeatured, category,
   }) {
     const query = [];
     query.push({
@@ -43,10 +43,11 @@ class Controller {
         },
       });
     }
-    if (isFeatured) {
+    if (isfeatured) {
+      isfeatured = isfeatured === 'true';
       query.push({
         $match: {
-          is_featured: isFeatured,
+          is_featured: isfeatured,
         },
       });
     }

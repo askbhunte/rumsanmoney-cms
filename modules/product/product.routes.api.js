@@ -9,7 +9,7 @@ router.get('/', async (q, r, n) => {
   const bankname = q.query.bankname || null;
   const baserate = q.query.baserate || null;
   const bankId = q.query.bankId || null;
-  const isFeatured = q.query.isFeatured || null;
+  const isfeatured = q.query.isfeatured || null;
   const category = q.query.category || null;
   Controller.list({
     limit,
@@ -19,7 +19,7 @@ router.get('/', async (q, r, n) => {
     bankId,
     bankname,
     baserate,
-    isFeatured,
+    isfeatured,
     category,
   })
     .then((d) => r.json(d))
