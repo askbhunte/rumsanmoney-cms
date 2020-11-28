@@ -29,16 +29,17 @@ export default function DetailsForm(props) {
   const [content, setContent] = useState('');
   const modules = {
 			toolbar: [
-		      [{ 'font': [] }],
-		      [{ 'size': ['small', false, 'large', 'huge'] }],
-		      ['bold', 'italic', 'underline'],
+          [{ 'header': [1, 2, 3, 4, false] }],
+          ['bold', 'italic', 'underline'],
 		      [{'list': 'ordered'}, {'list': 'bullet'}],
 		      [{ 'align': [] }],
-		      [{ 'color': [] }, { 'background': [] }],
+          [{ 'color': [] }, { 'background': [] }],
+          ['link'],
 		      ['clean']
 		    ]
     };
   const formats = [
+        'header',
 		    'font',
 		    'size',
 		    'bold', 'italic', 'underline',
