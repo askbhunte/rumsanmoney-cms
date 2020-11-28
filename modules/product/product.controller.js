@@ -8,9 +8,17 @@ const {
 
 class Controller {
   list({
-    start, limit, name, bankname, producttype, baserate, bankId, isfeatured, category,
+    start, limit, name, bankname, producttype, bankId, isfeatured, category, baserate, sortindesc, sortinasc,
   }) {
     const query = [];
+    const sort = {};
+    if (sortindesc) {
+      sort[sortindesc] = -1;
+    } else if (sortinasc) {
+      sort[sortinasc] = 1;
+    } else {
+      sort.created_at = 1;
+    }
     query.push({
       $lookup: {
         from: 'banks',
@@ -100,7 +108,7 @@ class Controller {
       limit,
       query,
       model: Model,
-      sort: { created_at: 1 },
+      sort,
     });
   }
 
