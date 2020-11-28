@@ -34,7 +34,6 @@ export default function DetailsForm(props) {
 		      [{'list': 'ordered'}, {'list': 'bullet'}],
 		      [{ 'align': [] }],
           [{ 'color': [] }, { 'background': [] }],
-          ['link'],
 		      ['clean']
 		    ]
     };
