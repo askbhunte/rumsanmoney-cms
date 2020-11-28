@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import ReactQuill from 'react-quill';
 import Swal from "sweetalert2";
-
+import 'react-quill/dist/quill.snow.css';
 import {
   Card,
   CardBody,
@@ -25,7 +26,26 @@ export default function DetailsForm(props) {
   const productId = props.params.id;
   const { addToast } = useToasts();
   const [product_details, setProductDetails] = useState(null);
-
+  const [content, setContent] = useState('');
+  const modules = {
+			toolbar: [
+		      [{ 'font': [] }],
+		      [{ 'size': ['small', false, 'large', 'huge'] }],
+		      ['bold', 'italic', 'underline'],
+		      [{'list': 'ordered'}, {'list': 'bullet'}],
+		      [{ 'align': [] }],
+		      [{ 'color': [] }, { 'background': [] }],
+		      ['clean']
+		    ]
+    };
+  const formats = [
+		    'font',
+		    'size',
+		    'bold', 'italic', 'underline',
+		    'list', 'bullet',
+		    'align',
+		    'color', 'background'
+	  	];
   const {
     loading,
     setLoading,
@@ -37,7 +57,11 @@ export default function DetailsForm(props) {
 
   const loadProductDetails = () => {
     getProductDetails(productId)
-      .then(d =>setProductDetails(d))
+      .then(d =>{
+        setProductDetails(d)
+        const editorText = d.description;
+        setContent(editorText);
+      })
       .catch(() => {
         addToast("Something went wrong!", {
           appearance: "error",
@@ -47,8 +71,9 @@ export default function DetailsForm(props) {
   };
 
   const submitUpdate = (e) => {
-      e.preventDefault();
-      const formData = {...product_details}
+    e.preventDefault();
+    let formData = {...product_details};
+    formData.description = content;
     setLoading();
     updateProduct(productId, formData)
       .then(() => {
@@ -97,8 +122,11 @@ export default function DetailsForm(props) {
       }
     }
   };
+
+  const handleContentChange = async (content) => {
+    setContent(content);
+  }
   useEffect(loadProductDetails, []);
-  
   return (
     <>
       <Row>
@@ -249,15 +277,14 @@ export default function DetailsForm(props) {
                 <Col md="12">
                 <FormGroup>
                   <Label>Description</Label>
-                  <InputGroup>
-                    <Input
-                      type="textarea"
-                      name="description"
-                      rows="12"   
-                      defaultValue={product_details ? product_details.description : ""}
-                      onChange={e => setProductDetails({ ...product_details, description: e.target.value })}
-                    />
-                  </InputGroup>
+                    <ReactQuill
+                      modules={modules}
+			              	formats={formats}
+                      value={content}
+                      placeholder="Write the Product Description"
+                      theme={"snow"}
+                      style={{height: '200px'}}
+                      onChange={e => handleContentChange(e)} />
                 </FormGroup>
                 </Col>
                 </Row>
