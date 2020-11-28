@@ -230,7 +230,7 @@ export default function DetailsForm(props) {
                 </Col>
                 </Row>
                 <Row form>
-                <Col md="4">
+                <Col md="3">
                   <FormGroup>
                   <Label>Loan Type</Label>
                   <InputGroup>
@@ -246,7 +246,7 @@ export default function DetailsForm(props) {
                   </InputGroup>
                 </FormGroup>
                 </Col>
-                <Col md="4">
+                <Col md="3">
                 <FormGroup>
                   <Label>Base Rate</Label>
                   <InputGroup>
@@ -259,7 +259,7 @@ export default function DetailsForm(props) {
                   </InputGroup>
                 </FormGroup>
                 </Col>
-                <Col md="4">
+                <Col md="3">
                 <FormGroup>
                   <Label>Interest Rate</Label>
                   <InputGroup>
@@ -268,6 +268,20 @@ export default function DetailsForm(props) {
                       name="interest_rate"   
                       defaultValue={product_details ? product_details.interest_rate : ""}
                       onChange={e => setProductDetails({ ...product_details, interest_rate: e.target.value })}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                </Col>
+                <Col md="3">
+                <FormGroup>
+                  <Label>Total Interest</Label>
+                  <InputGroup>
+                    <Input
+                      readOnly
+                      type="text"
+                      name="totalInterest"   
+                      defaultValue={product_details ? product_details.interest_rate + product_details.base_rate : ""}
+
                     />
                   </InputGroup>
                 </FormGroup>
