@@ -59,7 +59,7 @@ export default function DetailsForm(props) {
     getProductDetails(productId)
       .then(d =>{
         setProductDetails(d)
-        const editorText = d.description;
+        const editorText = d.description ? d.description : '';
         setContent(editorText);
       })
       .catch(() => {

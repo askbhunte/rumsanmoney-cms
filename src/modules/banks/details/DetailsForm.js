@@ -59,7 +59,7 @@ export default function DetailsForm(props) {
     getBankDetails(bankId)
       .then(d =>{
           setBankDetails(d);
-          const editorText = d.information;
+          const editorText = d.information ? d.information : '';
           setContent(editorText);
       })
       .catch(() => {
