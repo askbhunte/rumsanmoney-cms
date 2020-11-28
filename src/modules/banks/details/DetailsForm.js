@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import ReactQuill from 'react-quill';
 import Swal from "sweetalert2";
+import 'react-quill/dist/quill.snow.css';
 
 import {
   Card,
@@ -24,7 +26,27 @@ export default function DetailsForm(props) {
   const bankId = props.params.id;
   const { addToast } = useToasts();
   const [bank_details, setBankDetails] = useState(null);
-
+  const [content, setContent] = useState('');
+  const modules = {
+			toolbar: [
+          [{ 'header': [1, 2, 3, 4, false] }],
+          ['bold', 'italic', 'underline'],
+		      [{'list': 'ordered'}, {'list': 'bullet'}],
+		      [{ 'align': [] }],
+          [{ 'color': [] }, { 'background': [] }],
+		      ['clean']
+		    ]
+    };
+  const formats = [
+        'header',
+		    'font',
+		    'size',
+		    'bold', 'italic', 'underline',
+		    'list', 'bullet',
+		    'align',
+		    'color', 'background'
+      ];
+      
   const {
     loading,
     setLoading,
@@ -35,7 +57,11 @@ export default function DetailsForm(props) {
 
   const loadBankDetails = () => {
     getBankDetails(bankId)
-      .then(d =>setBankDetails(d))
+      .then(d =>{
+          setBankDetails(d);
+          const editorText = d.information;
+          setContent(editorText);
+      })
       .catch(() => {
         addToast("Something went wrong!", {
           appearance: "error",
@@ -46,7 +72,8 @@ export default function DetailsForm(props) {
 
   const submitUpdate = (e) => {
       e.preventDefault();
-      const formData = {...bank_details}
+      let formData = {...bank_details};
+      formData.information = content;
     setLoading();
     updateBank(bankId, formData)
       .then(() => {
@@ -65,7 +92,9 @@ export default function DetailsForm(props) {
       });
   });
 };
-
+  const handleContentChange = async (content) => {
+      setContent(content);
+  }
   useEffect(loadBankDetails, []);
 
   return (
@@ -191,11 +220,26 @@ export default function DetailsForm(props) {
                     <Input
                       type="textarea"
                       name="desc"
-                      rows="8"   
+                      rows="4"   
                       defaultValue={bank_details ? bank_details.desc : ""}
                       onChange={e => setBankDetails({ ...bank_details, desc: e.target.value })}
                     />
                   </InputGroup>
+                </FormGroup>
+                </Col>
+                </Row>
+                <Row form>
+                <Col md="12">
+                <FormGroup>
+                  <Label>Required Documents Section</Label>
+                    <ReactQuill
+                      modules={modules}
+			              	formats={formats}
+                      value={content}
+                      placeholder="Write the Bank Required Docs"
+                      theme={"snow"}
+                      style={{height: '200px'}}
+                      onChange={e => handleContentChange(e)} />
                 </FormGroup>
                 </Col>
                 </Row>
