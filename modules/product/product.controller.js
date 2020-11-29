@@ -45,7 +45,7 @@ class Controller {
       },
     }, {
       $addFields: {
-        totalInterest: {
+        total_interest: {
           $add: [
             '$base_rate', '$interest_rate',
           ],
