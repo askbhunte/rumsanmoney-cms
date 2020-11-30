@@ -14,7 +14,6 @@ const BankSchema = mongoose.Schema(
     desc: { type: String },
     website: { type: String },
     product_url: { type: String },
-    information: { type: String },
     is_active: { type: Boolean, required: true, default: true },
   },
   {
