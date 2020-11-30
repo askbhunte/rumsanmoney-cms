@@ -32,8 +32,6 @@ export default function DetailsForm(props) {
           [{ 'header': [1, 2, 3, 4, false] }],
           ['bold', 'italic', 'underline'],
 		      [{'list': 'ordered'}, {'list': 'bullet'}],
-		      [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }],
 		      ['clean']
 		    ]
     };
@@ -43,8 +41,6 @@ export default function DetailsForm(props) {
 		    'size',
 		    'bold', 'italic', 'underline',
 		    'list', 'bullet',
-		    'align',
-		    'color', 'background'
 	  	];
   const {
     loading,
