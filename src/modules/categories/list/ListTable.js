@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
+import { Link } from "react-router-dom";
 import Paginate from '../../global/Paginate';
 
 import {
@@ -38,7 +39,7 @@ export default function CategoryList() {
       ...query,
     });
   };
-  const toggle = () => {setModel(!model); setIconPrev('');};
+  const toggle = () => setModel(!model);
 
   const handleSearchInputChange = (e) => {
     const { value } = e.target;
@@ -139,9 +140,12 @@ export default function CategoryList() {
                       <td>{d.icon || "N/A"}</td>
                       <td><i className={`${d.icon} fa-lg`}></i></td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
-                        <Button color="primary" onClick={(e) => toggle()}>
-                           Edit
-                        </Button>
+                        <Link
+                          className="btn btn-primary"
+                          to={`/category/${d._id}`}
+                        >
+                          Edit
+                        </Link>
                       </td>
                     </tr>
                   );

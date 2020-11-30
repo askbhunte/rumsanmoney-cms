@@ -6,6 +6,7 @@ const BankDetails = lazy(() => import("../modules/banks/details"));
 const Products = lazy(() => import("../modules/products/list"));
 const ProductDetails = lazy(() => import("../modules/products/details"));
 const Categories = lazy(() => import("../modules/categories/list"));
+const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Blogs = lazy(() => import("../modules/blogs/Blogs"));
 const Requests = lazy(() => import("../modules/requests/Requests"));
 const Users = lazy(() => import("../modules/users/Users"));
@@ -57,6 +58,12 @@ var AppRoutes = [
     icon: "layers",
     component: Categories,
     showInSidebar: true
+  },
+  {
+    path: "/category/:id",
+    name: "Category Detail",
+    icon: "layers",
+    component: CategoryDetails
   },
   {
     path: "/blogs",
