@@ -36,9 +36,6 @@ export default function DetailsForm(props) {
 		    ]
     };
   const formats = [
-        'header',
-		    'font',
-		    'size',
 		    'bold', 'italic', 'underline',
 		    'list', 'bullet',
 	  	];

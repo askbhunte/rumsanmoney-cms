@@ -32,19 +32,12 @@ export default function DetailsForm(props) {
           [{ 'header': [1, 2, 3, 4, false] }],
           ['bold', 'italic', 'underline'],
 		      [{'list': 'ordered'}, {'list': 'bullet'}],
-		      [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }],
 		      ['clean']
 		    ]
     };
   const formats = [
-        'header',
-		    'font',
-		    'size',
 		    'bold', 'italic', 'underline',
-		    'list', 'bullet',
-		    'align',
-		    'color', 'background'
+		    'list', 'bullet'
       ];
       
   const {
@@ -59,7 +52,7 @@ export default function DetailsForm(props) {
     getBankDetails(bankId)
       .then(d =>{
           setBankDetails(d);
-          const editorText = d.information ? d.information : '';
+          const editorText = d.desc ? d.desc : '';
           setContent(editorText);
       })
       .catch(() => {
@@ -73,7 +66,7 @@ export default function DetailsForm(props) {
   const submitUpdate = (e) => {
       e.preventDefault();
       let formData = {...bank_details};
-      formData.information = content;
+      formData.desc = content;
     setLoading();
     updateBank(bankId, formData)
       .then(() => {
@@ -215,30 +208,14 @@ export default function DetailsForm(props) {
                 <Row form>
                 <Col md="12">
                 <FormGroup>
-                  <Label>Description</Label>
-                  <InputGroup>
-                    <Input
-                      type="textarea"
-                      name="desc"
-                      rows="4"   
-                      defaultValue={bank_details ? bank_details.desc : ""}
-                      onChange={e => setBankDetails({ ...bank_details, desc: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                </Row>
-                <Row form>
-                <Col md="12">
-                <FormGroup>
-                  <Label>Required Documents Section</Label>
+                  <Label>Bank Summary</Label>
                     <ReactQuill
                       modules={modules}
 			              	formats={formats}
                       value={content}
-                      placeholder="Write the Bank Required Docs"
+                      placeholder="Write the Bank Summary"
                       theme={"snow"}
-                      style={{height: '200px'}}
+                      style={{height: '250px'}}
                       onChange={e => handleContentChange(e)} />
                 </FormGroup>
                 </Col>

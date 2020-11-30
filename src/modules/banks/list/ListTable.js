@@ -343,7 +343,7 @@ export default function BankList() {
               </div>
             </div>
             <br />
-            <div
+            {/* <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
@@ -363,7 +363,7 @@ export default function BankList() {
                 />
               </div>
             </div>
-            <br />
+            <br /> */}
           </ModalBody>
           <ModalFooter>
             <Button color="primary">Submit</Button>
