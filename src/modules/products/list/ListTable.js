@@ -270,7 +270,7 @@ export default function ProductList() {
                           className="btn btn-secondary"
                           to={`/product/${d._id}`}
                         >
-                          Details
+                          Edit
                         </Link>
                       </td>
                     </tr>
