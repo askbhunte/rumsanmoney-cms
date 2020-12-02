@@ -27,11 +27,20 @@ export default function DetailsForm(props) {
   const { addToast } = useToasts();
   const [category_details, setCategoryDetails] = useState(null);
   const [content, setContent] = useState('');
+  const [extraContent, setExtraContent] = useState('');
   const modules = {
 			toolbar: [
           [{ 'header': [1, 2, 3, 4, false] }],
           ['bold', 'italic', 'underline'],
-		      [{'list': 'ordered'}, {'list': 'bullet'}],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+		      ['clean']
+		    ]
+    };
+  const freemodules = {
+			toolbar: [
+          [{ 'header': [1, 2, 3, 4, false] }],
+          ['bold', 'italic', 'underline'],
+          [{'list': 'ordered'}, {'list': 'bullet'}, {'color': []}],
 		      ['clean']
 		    ]
     };
@@ -39,7 +48,10 @@ export default function DetailsForm(props) {
 		    'bold', 'italic', 'underline',
 		    'list', 'bullet'
       ];
-      
+  const freeformats = [
+		    'header', 'bold', 'italic', 'underline',
+		    'list', 'bullet', 'color'
+      ];
   const {
     loading,
     setLoading,
@@ -54,6 +66,8 @@ export default function DetailsForm(props) {
           setCategoryDetails(d);
           const editorText = d.required_docs ? d.required_docs : '';
           setContent(editorText);
+          const extraText = d.extras ? d.extras : '';
+          setExtraContent(extraText);
       })
       .catch(() => {
         addToast("Something went wrong!", {
@@ -67,6 +81,7 @@ export default function DetailsForm(props) {
       e.preventDefault();
       let formData = {...category_details};
       formData.required_docs = content;
+      formData.extras = extraContent;
     setLoading();
     updateCategory(categoryId, formData)
       .then(() => {
@@ -87,6 +102,9 @@ export default function DetailsForm(props) {
 };
   const handleContentChange = async (content) => {
       setContent(content);
+  }
+  const handleExtraContentChange = async (extraContent) => {
+      setExtraContent(extraContent);
   }
   useEffect(loadCategoryDetails, []);
 
@@ -140,6 +158,23 @@ export default function DetailsForm(props) {
                       theme={"snow"}
                       style={{height: '250px'}}
                       onChange={e => handleContentChange(e)} />
+                </FormGroup>
+                </Col>
+                </Row>
+                <br/>
+                <br/>
+                <Row form>
+                <Col md="12">
+                <FormGroup>
+                  <Label>Extra Information</Label>
+                    <ReactQuill
+                      modules={freemodules}
+			              	formats={freeformats}
+                      value={extraContent}
+                      placeholder="Write extra information in free form"
+                      theme={"snow"}
+                      style={{height: '350px'}}
+                      onChange={e => handleExtraContentChange(e)} />
                 </FormGroup>
                 </Col>
                 </Row>
