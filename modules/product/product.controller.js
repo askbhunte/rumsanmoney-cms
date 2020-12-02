@@ -32,6 +32,11 @@ class Controller {
         preserveNullAndEmptyArrays: false,
       },
     }, {
+      $project: {
+        'bankinfo.desc': 0,
+        'bankinfo.information': 0,
+      },
+    }, {
       $lookup: {
         from: 'categories',
         localField: 'category',
@@ -42,6 +47,11 @@ class Controller {
       $unwind: {
         path: '$categoryinfo',
         preserveNullAndEmptyArrays: false,
+      },
+    }, {
+      $project: {
+        'categoryinfo.extras': 0,
+        'categoryinfo.required_docs': 0,
       },
     }, {
       $addFields: {
@@ -112,8 +122,50 @@ class Controller {
     });
   }
 
-  findById(id) {
-    return Model.findById(id);
+  async findById(id) {
+    const query = [];
+    query.push(
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: 'banks',
+          localField: 'bank_id',
+          foreignField: '_id',
+          as: 'bankinfo',
+        },
+      }, {
+        $unwind: {
+          path: '$bankinfo',
+          preserveNullAndEmptyArrays: false,
+        },
+      }, {
+        $lookup: {
+          from: 'categories',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'categoryinfo',
+        },
+      }, {
+        $unwind: {
+          path: '$categoryinfo',
+          preserveNullAndEmptyArrays: false,
+        },
+      }, {
+        $addFields: {
+          total_interest: {
+            $add: [
+              '$base_rate', '$interest_rate',
+            ],
+          },
+        },
+      },
+    );
+    const resp = await Model.aggregate(query);
+    return resp[0];
   }
 
   add(payload) {
