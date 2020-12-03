@@ -30,6 +30,38 @@ class Controller {
     });
   }
 
+  listnoDesc({
+    start, limit, name, address,
+  }) {
+    const query = [];
+    if (name) {
+      query.push({
+        $match: {
+          name: new RegExp(name, 'gi'),
+        },
+      });
+    }
+    if (address) {
+      query.push({
+        $match: {
+          address: new RegExp(address, 'gi'),
+        },
+      });
+    }
+    query.push({
+      $project: {
+        description: 0,
+      },
+    });
+    return DataUtils.paging({
+      start,
+      limit,
+      sort: { created_at: 1 },
+      model: Model,
+      query,
+    });
+  }
+
   findById(id) {
     return Model.findById(id);
   }
