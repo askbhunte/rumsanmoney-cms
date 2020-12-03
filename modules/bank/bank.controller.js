@@ -50,7 +50,8 @@ class Controller {
     }
     query.push({
       $project: {
-        description: 0,
+        desc: 0,
+        information: 0,
       },
     });
     return DataUtils.paging({
