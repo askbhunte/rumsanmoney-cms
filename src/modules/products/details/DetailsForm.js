@@ -273,7 +273,7 @@ export default function DetailsForm(props) {
                       readOnly
                       type="text"
                       name="totalInterest"   
-                      defaultValue={product_details ? product_details.interest_rate + product_details.base_rate : ""}
+                      defaultValue={product_details ? Number(product_details.interest_rate) + Number(product_details.base_rate) : ""}
 
                     />
                   </InputGroup>
