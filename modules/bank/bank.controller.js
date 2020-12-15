@@ -1,65 +1,70 @@
-const Model = require('./bank.model');
-const { DataUtils } = require('../../utils');
+const Model = require("./bank.model");
+const { DataUtils } = require("../../utils");
 
 class Controller {
-  list({
-    start, limit, name, address,
-  }) {
+  async list({ start, limit, name, address }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, "gi")
+        }
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, 'gi'),
-        },
+          address: new RegExp(address, "gi")
+        }
       });
     }
 
-    return DataUtils.paging({
+    let data = await DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
+    let originalData = data.data;
+    originalData.map(el => {
+      let bankName = el.name;
+      el.slug = bankName
+        .toLowerCase()
+        .split(" ")
+        .join("-");
+    });
+    return originalData;
   }
 
-  listnoDesc({
-    start, limit, name, address,
-  }) {
+  listnoDesc({ start, limit, name, address }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, "gi")
+        }
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, 'gi'),
-        },
+          address: new RegExp(address, "gi")
+        }
       });
     }
     query.push({
       $project: {
         desc: 0,
-        information: 0,
-      },
+        information: 0
+      }
     });
     return DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
   }
 
@@ -80,7 +85,7 @@ class Controller {
   }
 
   findBook(name) {
-    return Model.find({ name: new RegExp(name, 'gi') });
+    return Model.find({ name: new RegExp(name, "gi") });
   }
 }
 
