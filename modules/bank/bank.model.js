@@ -6,6 +6,7 @@ const { ObjectId } = mongoose.Schema;
 const BankSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
+    slug: { type: String },
     head_office: { type: String },
     secondary_contacts: { type: String },
     primary_contact: { type: String },

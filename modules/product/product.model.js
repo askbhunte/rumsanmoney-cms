@@ -4,6 +4,7 @@ const { ObjectId } = mongoose.Schema;
 const Schema = mongoose.Schema(
   {
     name: { type: String, required: true },
+    slug: { type: String },
     bank_id: { type: ObjectId, ref: 'Banks' },
     image_url: { type: String },
     plink: { type: String },

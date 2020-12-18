@@ -172,7 +172,61 @@ class Controller {
     return resp[0];
   }
 
+  async findBySlug(slug) {
+    const query = [];
+    query.push(
+      {
+        $match: {
+          slug,
+        },
+      },
+      {
+        $lookup: {
+          from: 'banks',
+          localField: 'bank_id',
+          foreignField: '_id',
+          as: 'bankinfo',
+        },
+      }, {
+        $unwind: {
+          path: '$bankinfo',
+          preserveNullAndEmptyArrays: false,
+        },
+      }, {
+        $lookup: {
+          from: 'categories',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'categoryinfo',
+        },
+      }, {
+        $unwind: {
+          path: '$categoryinfo',
+          preserveNullAndEmptyArrays: false,
+        },
+      }, {
+        $addFields: {
+          total_interest: {
+            $round: [{
+              $add: [
+                '$base_rate', '$interest_rate',
+              ],
+            }, 2],
+          },
+        },
+      },
+    );
+    const resp = await Model.aggregate(query);
+    return resp[0];
+  }
+
   add(payload) {
+    payload.slug = payload.name.toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '');
     return Model.create(payload);
   }
 

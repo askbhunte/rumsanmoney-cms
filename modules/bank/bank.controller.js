@@ -67,7 +67,17 @@ class Controller {
     return Model.findById(id);
   }
 
+  findBySlug(slug) {
+    return Model.findOne({ slug });
+  }
+
   add(payload) {
+    payload.slug = payload.name.toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '');
     return Model.create(payload);
   }
 
