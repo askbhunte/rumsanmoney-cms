@@ -36,7 +36,7 @@ router.get('/:id', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.get('/:slug', async (q, r, n) => {
+router.get('/slug/:slug', async (q, r, n) => {
   Controller.findBySlug(q.params.slug)
     .then((d) => r.json(d))
     .catch((e) => n(e));
