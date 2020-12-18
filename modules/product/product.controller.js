@@ -172,14 +172,9 @@ class Controller {
     return resp[0];
   }
 
-  async findBySlug(slug) {
+  async findBySlug(bank, product) {
     const query = [];
     query.push(
-      {
-        $match: {
-          slug,
-        },
-      },
       {
         $lookup: {
           from: 'banks',
@@ -214,6 +209,9 @@ class Controller {
             }, 2],
           },
         },
+      },
+      {
+        $match: { $and: [{ 'bankinfo.slug': bank }, { slug: product }] },
       },
     );
     const resp = await Model.aggregate(query);
