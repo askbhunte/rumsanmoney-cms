@@ -6,4 +6,5 @@ module.exports = {
   CATEGORY: base_url + "/categories",
   PRODUCT: base_url + "/products",
   USERS: base_url + "/users",
+  BLOGS: base_url + "/blogs",
 };

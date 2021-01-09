@@ -7,7 +7,8 @@ const Products = lazy(() => import("../modules/products/list"));
 const ProductDetails = lazy(() => import("../modules/products/details"));
 const Categories = lazy(() => import("../modules/categories/list"));
 const CategoryDetails = lazy(() => import("../modules/categories/details"));
-const Blogs = lazy(() => import("../modules/blogs/Blogs"));
+const Blogs = lazy(() => import("../modules/blogs/list"));
+const BlogsDetails = lazy(() => import("../modules/blogs/details"));
 const Requests = lazy(() => import("../modules/requests/Requests"));
 const Users = lazy(() => import("../modules/users/Users"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
@@ -18,7 +19,7 @@ var AppRoutes = [
     name: "Requests",
     icon: "inbox",
     component: Requests,
-    showInSidebar: true
+    showInSidebar: true,
   },
   {
     path: "/dashboard",
@@ -31,46 +32,52 @@ var AppRoutes = [
     name: "Banks",
     icon: "dollar-sign",
     component: Banks,
-    showInSidebar: true
+    showInSidebar: true,
   },
-   {
+  {
     path: "/bank/:id",
     name: "Bank Details",
     icon: "umbrella",
-    component: BankDetails
+    component: BankDetails,
   },
   {
     path: "/products",
     name: "Products",
     icon: "gift",
     component: Products,
-    showInSidebar: true
+    showInSidebar: true,
   },
   {
     path: "/product/:id",
     name: "Product Info",
     icon: "gift",
-    component: ProductDetails
+    component: ProductDetails,
   },
   {
     path: "/categories",
     name: "Categories",
     icon: "layers",
     component: Categories,
-    showInSidebar: true
+    showInSidebar: true,
   },
   {
     path: "/category/:id",
     name: "Category Detail",
     icon: "layers",
-    component: CategoryDetails
+    component: CategoryDetails,
   },
   {
     path: "/blogs",
     name: "Blogs",
     icon: "book-open",
     component: Blogs,
-    showInSidebar: true
+    showInSidebar: true,
+  },
+  {
+    path: "/blog/:id",
+    name: "Blog Detail",
+    icon: "layers",
+    component: BlogsDetails,
   },
   {
     collapse: true,
@@ -95,6 +102,5 @@ var AppRoutes = [
     ],
   },
   { path: "/", pathTo: "/banks", name: "Bank List", redirect: true },
-
 ];
 export default AppRoutes;

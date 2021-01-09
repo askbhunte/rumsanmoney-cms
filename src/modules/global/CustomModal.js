@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 
-export default function CustomModal(props) {
+export const CustomModal = (props) => {
   return (
     <>
       <Modal
@@ -36,7 +36,7 @@ export default function CustomModal(props) {
       </Modal>
     </>
   );
-}
+};
 
 CustomModal.propTypes = {
   toggle: PropTypes.func.isRequired,
