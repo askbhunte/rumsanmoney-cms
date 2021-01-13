@@ -9,8 +9,8 @@ const Categories = lazy(() => import("../modules/categories/list"));
 const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Blogs = lazy(() => import("../modules/blogs/list"));
 const BlogsDetails = lazy(() => import("../modules/blogs/details"));
-const Requests = lazy(() => import("../modules/requests/Requests"));
 const Users = lazy(() => import("../modules/users/Users"));
+const Requests = lazy(() => import("../modules/requests/list"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
 
 var AppRoutes = [

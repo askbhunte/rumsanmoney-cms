@@ -26,7 +26,6 @@ export const BlogContextProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       Service.getBlogDetails(blogId)
         .then((res) => {
-          console.log("*********** res", res);
           dispatch({ type: ACTION.GET_BLOG_SUCCESS, res });
           resolve(res);
         })
