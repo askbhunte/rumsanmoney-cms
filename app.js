@@ -1,34 +1,50 @@
-var createError = require('http-errors');
-var cookieParser = require('cookie-parser');
-var express = require('express');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const express = require('express');
 const helmet = require('helmet');
-var logger = require('morgan');
-var path = require('path');
+const logger = require('morgan');
+const path = require('path');
+const mongoose = require('mongoose');
+const config = require('config');
+const cors = require('cors');
+const apiroutesManager = require('./routes/api.routes');
 
-var routesManager = require('./routes/index');
+const app = express();
 
-var app = express();
+// db
+mongoose.connect(config.get('app.db'), {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//app.use(logger('dev'));
+app.use(logger('dev'));
+app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
-app.use('/', routesManager);
-
+app.use('/api/v1', apiroutesManager);
+// view engine setup
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  });
+}
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
