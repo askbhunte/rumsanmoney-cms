@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Nav,
   NavItem,
@@ -12,7 +12,8 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { AppContext } from "../../../contexts/AppContext";
-import { UserContext } from "../../../contexts/UserContext";
+// import { UserContext } from "../../../contexts/UserContext";
+// import { getUser } from "../../../utils/sessionManager";
 
 /*--------------------------------------------------------------------------------*/
 /* Import images which are need for the HEADER                                    */
@@ -28,15 +29,6 @@ export default () => {
   const [user, setUser] = useState("");
 
   const { settings } = useContext(AppContext);
-  const { getUser } = useContext(UserContext);
-
-  const getUserDetails = () => {
-    getUser()
-      .then((d) => setUser(d))
-      .catch((e) => console.log("Err:", e));
-  };
-
-  useEffect(getUserDetails, [user]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -104,7 +96,12 @@ export default () => {
               <img src={logolighticon} alt="homepage" className="light-logo" />
             </b>
             <span className="logo-text">
-              <img src={logodarktext} alt="homepage" className="dark-logo" width="90" />
+              <img
+                src={logodarktext}
+                alt="homepage"
+                className="dark-logo"
+                width="90"
+              />
               <img src={logolighttext} className="light-logo" alt="homepage" />
             </span>
           </NavbarBrand>

@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { getUser } from "../utils/sessionManager";
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      const currentUser = localStorage.getItem("currentUser");
-      console.log("CurrentUSER:", currentUser);
+      const currentUser = getUser();
+
       if (!currentUser) {
         return (
           <Redirect

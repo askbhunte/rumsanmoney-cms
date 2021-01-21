@@ -2,6 +2,7 @@ const server_url = process.env.REACT_APP_API_SERVER;
 const base_url = server_url + "/api/v1";
 
 module.exports = {
+  AUTH: base_url + "/auth",
   BANK: base_url + "/banks",
   CATEGORY: base_url + "/categories",
   PRODUCT: base_url + "/products",

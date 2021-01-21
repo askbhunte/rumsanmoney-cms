@@ -9,7 +9,7 @@ const Categories = lazy(() => import("../modules/categories/list"));
 const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Blogs = lazy(() => import("../modules/blogs/list"));
 const BlogsDetails = lazy(() => import("../modules/blogs/details"));
-const Users = lazy(() => import("../modules/users/Users"));
+const Users = lazy(() => import("../modules/users/List"));
 const Requests = lazy(() => import("../modules/requests/list"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
 

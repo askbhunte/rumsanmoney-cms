@@ -4,30 +4,22 @@ import * as Service from "../services/users";
 
 const initialState = {
   user_info: {},
+  list: [],
+  pagination: { limit: 10, start: 0, total: 0, currentPage: 1, totalPages: 0 },
 };
 
 export const UserContext = createContext(initialState);
 export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReduce, initialState);
-
-  function getUser() {
-    return new Promise((resolve, reject) => {
-      Service.getUser()
-        .then((res) => {
-          dispatch({ type: "GET_USER_DETAILS", res });
-          resolve(res);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
+  function userLogin(payload) {
+    return Service.login(payload);
   }
 
   return (
     <UserContext.Provider
       value={{
-        user_info: state.user_info,
-        getUser,
+        userLogin,
+        dispatch,
       }}
     >
       {children}
