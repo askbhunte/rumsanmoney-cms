@@ -1,33 +1,34 @@
-const Model = require('./bank.model');
-const { DataUtils } = require('../../utils');
+const Model = require("./bank.model");
+const { DataUtils } = require("../../utils");
 
 class Controller {
-  list({
-    start, limit, name, address,
-  }) {
+  list({ start, limit, name, address }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
+          name: new RegExp(name, "gi"),
         },
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, 'gi'),
+          address: new RegExp(address, "gi"),
         },
       });
     }
 
     return DataUtils.paging({
       start,
-      limit,
       sort: { created_at: 1 },
       model: Model,
       query,
     });
+  }
+
+  listAll() {
+    return Model.find({ is_active: true });
   }
 
   findById(id) {
@@ -47,7 +48,7 @@ class Controller {
   }
 
   findBook(name) {
-    return Model.find({ name: new RegExp(name, 'gi') });
+    return Model.find({ name: new RegExp(name, "gi") });
   }
 }
 
