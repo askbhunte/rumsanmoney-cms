@@ -50,7 +50,7 @@ export const BlogContextProvider = ({ children }) => {
 
   const addBlogs = async (event) => {
     event.preventDefault();
-    console.log("************ event target", event.target);
+
     const formData = new FormData(event.target);
 
     let payload = {

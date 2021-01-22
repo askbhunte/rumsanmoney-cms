@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
-import Paginate from '../../global/Paginate';
+import Paginate from "../../global/Paginate";
 
 import {
   Button,
@@ -17,16 +17,15 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  CustomInput
+  CustomInput,
 } from "reactstrap";
 import { BankContext } from "../../../contexts/BankContext";
-
 
 export default function BankList() {
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const size = "xl";
   const { listBank, bank, pagination, addBank } = useContext(BankContext);
@@ -93,7 +92,6 @@ export default function BankList() {
       });
   };
 
-
   const loadBankList = (query) => {
     if (!query) query = null;
     listBank(query)
@@ -105,7 +103,7 @@ export default function BankList() {
         });
       });
   };
-  
+
   //List Beneficiary
   let get = useCallback(
     (params) => {
@@ -125,39 +123,39 @@ export default function BankList() {
               <i className="mdi mdi-border-right mr-2"></i>Bank List
             </Col>
             <Col md="6">
-                <div
-                  style={{
-                    float: "right",
-                    display: "flex",
-                    marginRight: "-16%"
-                  }}
+              <div
+                style={{
+                  float: "right",
+                  display: "flex",
+                  marginRight: "-16%",
+                }}
+              >
+                <CustomInput
+                  type="select"
+                  id="exampleCustomSelect"
+                  name="customSelect"
+                  defaultValue=""
+                  style={{ width: "auto" }}
+                  onChange={handleFilterChange}
                 >
-                  <CustomInput
-                    type="select"
-                    id="exampleCustomSelect"
-                    name="customSelect"
-                    defaultValue=""
-                    style={{ width: "auto" }}
-                    onChange={handleFilterChange}
-                  >
-                    <option value="name">Search By Name</option>
-                    <option value="address">By Address</option>
-                  </CustomInput>
-                  <div style={{ display: "inline-flex" }}>
-                      <Input
-                        placeholder={filter.searchPlaceholder}
-                        onChange={handleSearchInputChange}
-                        style={{ width: "100%" }}
-                      />
-                  </div>
+                  <option value="name">Search By Name</option>
+                  <option value="address">By Address</option>
+                </CustomInput>
+                <div style={{ display: "inline-flex" }}>
+                  <Input
+                    placeholder={filter.searchPlaceholder}
+                    onChange={handleSearchInputChange}
+                    style={{ width: "100%" }}
+                  />
                 </div>
-              </Col>
+              </div>
+            </Col>
             <Col md="2">
-            <div style={{ float: "right" }}>
-              <Button color="info" onClick={(e) => toggle()}>
-                Add Bank
-              </Button>
-            </div>
+              <div style={{ float: "right" }}>
+                <Button color="info" onClick={(e) => toggle()}>
+                  Add Bank
+                </Button>
+              </div>
             </Col>
           </Row>
         </CardTitle>
@@ -198,11 +196,11 @@ export default function BankList() {
             </tbody>
           </Table>
           <Paginate
-          limit={pagination.limit}
-          total={pagination.total}
-          current={current}
-          onChange={handlePagination}
-        />
+            limit={pagination.limit}
+            total={pagination.total}
+            current={current}
+            onChange={handlePagination}
+          />
         </CardBody>
       </Card>
       <Modal isOpen={model} toggle={toggle} size={size}>
@@ -281,7 +279,7 @@ export default function BankList() {
                   required
                 />
               </div>
-              
+
               <div className="form-item">
                 <label htmlFor="secondary_contacts">Secondary Contacts</label>
                 <br />
@@ -297,11 +295,11 @@ export default function BankList() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
                 gridColumnGap: "10px",
               }}
-            > 
-            <div className="form-item">
+            >
+              <div className="form-item">
                 <label htmlFor="email">Email</label>
                 <br />
                 <Input
@@ -312,7 +310,27 @@ export default function BankList() {
                 />
               </div>
               <div className="form-item">
-                <label htmlFor="logo_url">Bank Logo</label>
+                <label htmlFor="email">Base Rate</label>
+                <br />
+                <Input
+                  name="base_rate"
+                  type="Number"
+                  placeholder="Base Rate"
+                  className="form-field"
+                  required
+                />
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                gridColumnGap: "10px",
+              }}
+            >
+              <div className="form-item">
+                <label htmlFor="logo_url">Bank Logo Url</label>
                 <br />
                 <Input
                   name="logo_url"
@@ -342,6 +360,7 @@ export default function BankList() {
                 />
               </div>
             </div>
+
             <br />
             {/* <div
               style={{

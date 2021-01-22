@@ -81,7 +81,6 @@ export default function RequestList() {
   const loadRequestDetails = (id) => {
     getRequestDetails(id)
       .then((d) => {
-        console.log(d);
         setRequestDetails(d);
       })
       .catch(() => {
@@ -112,11 +111,9 @@ export default function RequestList() {
 
   const checkState = (id) => {
     if (id) {
-      console.log("i am here");
       toggle();
       loadRequestDetails(id);
     } else {
-      console.log("no i am here");
       toggle();
       setRequestDetails(null);
     }

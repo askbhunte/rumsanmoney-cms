@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import ReactQuill from 'react-quill';
+import ReactQuill from "react-quill";
 import Swal from "sweetalert2";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 
 import {
   Card,
@@ -16,7 +16,7 @@ import {
   Label,
   Input,
   Button,
-  InputGroup
+  InputGroup,
 } from "reactstrap";
 
 import { BankContext } from "../../../contexts/BankContext";
@@ -26,20 +26,17 @@ export default function DetailsForm(props) {
   const bankId = props.params.id;
   const { addToast } = useToasts();
   const [bank_details, setBankDetails] = useState(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const modules = {
-			toolbar: [
-          [{ 'header': [1, 2, 3, 4, false] }],
-          ['bold', 'italic', 'underline'],
-		      [{'list': 'ordered'}, {'list': 'bullet'}],
-		      ['clean']
-		    ]
-    };
-  const formats = [
-		    'bold', 'italic', 'underline',
-		    'list', 'bullet'
-      ];
-      
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"],
+    ],
+  };
+  const formats = ["bold", "italic", "underline", "list", "bullet"];
+
   const {
     loading,
     setLoading,
@@ -50,10 +47,10 @@ export default function DetailsForm(props) {
 
   const loadBankDetails = () => {
     getBankDetails(bankId)
-      .then(d =>{
-          setBankDetails(d);
-          const editorText = d.desc ? d.desc : '';
-          setContent(editorText);
+      .then((d) => {
+        setBankDetails(d);
+        const editorText = d.desc ? d.desc : "";
+        setContent(editorText);
       })
       .catch(() => {
         addToast("Something went wrong!", {
@@ -64,30 +61,30 @@ export default function DetailsForm(props) {
   };
 
   const submitUpdate = (e) => {
-      e.preventDefault();
-      let formData = {...bank_details};
-      formData.desc = content;
+    e.preventDefault();
+    let formData = { ...bank_details };
+    formData.desc = content;
     setLoading();
-    updateBank(bankId, formData)
-      .then(() => {
-        resetLoading();
-        Swal.fire("Successful!", "Bank details updated successfully.", "success").then((result) => {
-            if(result.value) {
-              window.location.href = '/banks';
-            }
-      })
-      .catch((err) => {
-        addToast("Something went wrong on server!", {
-          appearance: "error",
-          autoDismiss: true,
+    updateBank(bankId, formData).then(() => {
+      resetLoading();
+      Swal.fire("Successful!", "Bank details updated successfully.", "success")
+        .then((result) => {
+          if (result.value) {
+            window.location.href = "/banks";
+          }
+        })
+        .catch((err) => {
+          addToast("Something went wrong on server!", {
+            appearance: "error",
+            autoDismiss: true,
+          });
+          resetLoading();
         });
-        resetLoading();
-      });
-  });
-};
+    });
+  };
   const handleContentChange = async (content) => {
-      setContent(content);
-  }
+    setContent(content);
+  };
   useEffect(loadBankDetails, []);
 
   return (
@@ -99,7 +96,7 @@ export default function DetailsForm(props) {
               <i className="mdi mdi-book mr-2"></i>Bank Details.
             </CardTitle>
             <CardBody>
-              <Form onSubmit={submitUpdate} >
+              <Form onSubmit={submitUpdate}>
                 <FormGroup>
                   <Label>Bank Name</Label>
                   <InputGroup>
@@ -107,7 +104,12 @@ export default function DetailsForm(props) {
                       type="text"
                       name="name"
                       defaultValue={bank_details ? bank_details.name : ""}
-                      onChange={e => setBankDetails({ ...bank_details, name: e.target.value })}
+                      onChange={(e) =>
+                        setBankDetails({
+                          ...bank_details,
+                          name: e.target.value,
+                        })
+                      }
                     />
                   </InputGroup>
                 </FormGroup>
@@ -117,110 +119,176 @@ export default function DetailsForm(props) {
                     <Input
                       type="text"
                       name="address"
-                      defaultValue={bank_details ? bank_details.address : ""}
-                      onChange={e => setBankDetails({ ...bank_details, address: e.target.value })}
-
+                      defaultValue={
+                        bank_details ? bank_details.head_office : ""
+                      }
+                      onChange={(e) =>
+                        setBankDetails({
+                          ...bank_details,
+                          head_office: e.target.value,
+                        })
+                      }
                     />
                   </InputGroup>
                 </FormGroup>
-                <Row form>
-                <Col md="4">
-                  <FormGroup>
-                  <Label>Primary Contact</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="primary_contact"   
-                      defaultValue={bank_details ? bank_details.primary_contact : ""}
-                      onChange={e => setBankDetails({ ...bank_details, primary_contact: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="4">
-                <FormGroup>
-                  <Label>Secondary Contacts</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="secondary_contacts"   
-                      defaultValue={bank_details ? bank_details.secondary_contacts : ""}
-                      onChange={e => setBankDetails({ ...bank_details, secondary_contacts: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="4">
-                <FormGroup>
-                  <Label>Product Url</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="secondary_contacts"   
-                      defaultValue={bank_details ? bank_details.product_url : ""}
-                      onChange={e => setBankDetails({ ...bank_details, product_url: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                </Row>
-                 <Row form>
-                <Col md="4">
                 <FormGroup>
                   <Label>Email Address</Label>
                   <InputGroup>
                     <Input
                       type="email"
-                      name="email" 
+                      name="email"
                       defaultValue={bank_details ? bank_details.email : ""}
-                      onChange={e => setBankDetails({ ...bank_details, email: e.target.value })}
+                      onChange={(e) =>
+                        setBankDetails({
+                          ...bank_details,
+                          email: e.target.value,
+                        })
+                      }
                     />
                   </InputGroup>
                 </FormGroup>
-                </Col>
-                <Col md="4">
-                <FormGroup>
-                  <Label>Web Url</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="website"   
-                      defaultValue={bank_details ? bank_details.website : ""}
-                      onChange={e => setBankDetails({ ...bank_details, website: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="4">
-                <FormGroup>
-                  <Label>Logo Url</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="logo_url"   
-                      defaultValue={bank_details ? bank_details.logo_url : ""}
-                      onChange={e => setBankDetails({ ...bank_details, logo_url: e.target.value })}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
+                <Row form>
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Primary Contact</Label>
+                      <InputGroup>
+                        <Input
+                          type="text"
+                          name="primary_contact"
+                          defaultValue={
+                            bank_details ? bank_details.primary_contact : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              primary_contact: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Secondary Contacts</Label>
+                      <InputGroup>
+                        <Input
+                          type="text"
+                          name="secondary_contacts"
+                          defaultValue={
+                            bank_details ? bank_details.secondary_contacts : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              secondary_contacts: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
+
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Base Rate</Label>
+                      <InputGroup>
+                        <Input
+                          type="number"
+                          name="base_rate"
+                          defaultValue={
+                            bank_details ? bank_details.base_rate : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              base_rate: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
                 </Row>
                 <Row form>
-                <Col md="12">
-                <FormGroup>
-                  <Label>Bank Summary</Label>
-                    <ReactQuill
-                      modules={modules}
-			              	formats={formats}
-                      value={content}
-                      placeholder="Write the Bank Summary"
-                      theme={"snow"}
-                      style={{height: '250px'}}
-                      onChange={e => handleContentChange(e)} />
-                </FormGroup>
-                </Col>
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Product Url</Label>
+                      <InputGroup>
+                        <Input
+                          type="text"
+                          name="product_url"
+                          defaultValue={
+                            bank_details ? bank_details.product_url : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              product_url: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Web Url</Label>
+                      <InputGroup>
+                        <Input
+                          type="text"
+                          name="website"
+                          defaultValue={
+                            bank_details ? bank_details.website : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              website: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col md="4">
+                    <FormGroup>
+                      <Label>Logo Url</Label>
+                      <InputGroup>
+                        <Input
+                          type="text"
+                          name="logo_url"
+                          defaultValue={
+                            bank_details ? bank_details.logo_url : ""
+                          }
+                          onChange={(e) =>
+                            setBankDetails({
+                              ...bank_details,
+                              logo_url: e.target.value,
+                            })
+                          }
+                        />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
                 </Row>
-                 <div className="border-top pt-3 mt-3">
+                <Row form>
+                  <Col md="12">
+                    <FormGroup>
+                      <Label>Bank Summary</Label>
+                      <ReactQuill
+                        modules={modules}
+                        formats={formats}
+                        value={content}
+                        placeholder="Write the Bank Summary"
+                        theme={"snow"}
+                        style={{ height: "250px" }}
+                        onChange={(e) => handleContentChange(e)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <div className="border-top pt-3 mt-3">
                   {loading ? (
                     <Loading />
                   ) : (

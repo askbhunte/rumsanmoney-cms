@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
-import Ratings from 'react-ratings-declarative';
+import Ratings from "react-ratings-declarative";
 import Swal from "sweetalert2";
-import Paginate from '../../global/Paginate';
+import Paginate from "../../global/Paginate";
+import { BankSelector } from "../../banks";
 
 import {
   Button,
@@ -19,18 +20,25 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  CustomInput
+  CustomInput,
 } from "reactstrap";
 import { ProductContext } from "../../../contexts/ProductContext";
-
 
 export default function ProductList() {
   const { addToast } = useToasts();
   const [modal, setModal] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [searchText, setSearchText] = useState('');
-  const size = 'xl';
-  const { listProduct, product, pagination, addProduct, changeFeatured } = useContext(ProductContext);
+  const [searchText, setSearchText] = useState("");
+  const [baseRate, setBaseRate] = useState(null);
+  const size = "xl";
+  const {
+    listProduct,
+    product,
+    pagination,
+    addProduct,
+    changeFeatured,
+    getBankDetail,
+  } = useContext(ProductContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
@@ -53,14 +61,33 @@ export default function ProductList() {
   };
   const toggle = () => setModal(!modal);
 
-  const searchOptions = { BANKNAME: "bankname", NAME: "name", BASERATE: "baserate", TYPE: "type" };
+  const searchOptions = {
+    BANKNAME: "bankname",
+    NAME: "name",
+    BASERATE: "baserate",
+    TYPE: "type",
+  };
+
+  const sortOptions = {
+    BASERATE: "baserate",
+    INTERESTRATE: "interestrate",
+    FEATURED: "featured",
+  };
+
   const [filter, setFilter] = useState({
     searchPlaceholder: "Enter product name...",
     searchBy: "name",
   });
 
+  const handleSortChange = (e) => {
+    let { value } = e.target;
+
+    return fetchList({ start: 0, limit: pagination.limit, sortindesc: value });
+  };
+
   const handleFilterChange = (e) => {
     let { value } = e.target;
+    alert(value);
     if (value === searchOptions.NAME) {
       setFilter({
         searchPlaceholder: "Enter product name...",
@@ -88,7 +115,7 @@ export default function ProductList() {
     fetchList({ start: 0, limit: pagination.limit });
   };
 
-   const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = (e) => {
     const { value } = e.target;
     setSearchText(value);
     if (filter.searchBy === searchOptions.BANKNAME) {
@@ -118,6 +145,21 @@ export default function ProductList() {
       });
   };
 
+  const loadBankBaseRate = (e) => {
+    const { value } = e.target;
+
+    getBankDetail(value)
+      .then((d) => {
+        setBaseRate(d.base_rate);
+      })
+      .catch(() => {
+        addToast("Something went wrong!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      });
+  };
+
   const loadProductList = (query) => {
     if (!query) query = null;
     listProduct(query)
@@ -131,8 +173,12 @@ export default function ProductList() {
   };
 
   const changeRating = async (productId, status) => {
-    const title = status.is_featured ? "Product will be marked as Featured" : "Product will be removed from Featured";
-    const toastTitle = status.is_featured ? "Product has been marked as Featured" : "Product has been removed from Featured";
+    const title = status.is_featured
+      ? "Product will be marked as Featured"
+      : "Product will be removed from Featured";
+    const toastTitle = status.is_featured
+      ? "Product has been marked as Featured"
+      : "Product has been removed from Featured";
     let result = await Swal.fire({
       title: "Are you sure?",
       text: `${title}!`,
@@ -159,8 +205,8 @@ export default function ProductList() {
         });
       }
     }
-    }
-  
+  };
+
   //List Products
   let get = useCallback(
     (params) => {
@@ -180,42 +226,54 @@ export default function ProductList() {
               <i className="mdi mdi-border-right mr-2"></i>Product List
             </Col>
             <Col md="6">
-                <div
-                  style={{
-                    float: "right",
-                    display: "flex",
-                    marginRight: "-16%"
-                  }}
+              <div
+                style={{
+                  float: "right",
+                  display: "flex",
+                  marginRight: "-16%",
+                }}
+              >
+                <CustomInput
+                  type="select"
+                  id="exampleCustomSelect"
+                  name="customSelect"
+                  defaultValue=""
+                  style={{ width: "auto" }}
+                  onChange={handleSortChange}
                 >
-                  <CustomInput
-                    type="select"
-                    id="exampleCustomSelect"
-                    name="customSelect"
-                    defaultValue=""
-                    style={{ width: "auto" }}
-                    onChange={handleFilterChange}
-                  >
-                    <option value="name">Search By Product Name</option>
-                    <option value="bankname">By Bank Name</option>
-                    <option value="type">By Product Type</option>
-                    <option value="baserate">By Base Rate</option>
-
-                  </CustomInput>
-                  <div style={{ display: "inline-flex" }}>
-                      <Input
-                        placeholder={filter.searchPlaceholder}
-                        onChange={handleSearchInputChange}
-                        style={{ width: "100%" }}
-                      />
-                  </div>
+                  <option value="">Sort By</option>
+                  <option value="base_rate">Sort By Base Rate</option>
+                  <option value="interest_rate">By Interest Rate</option>
+                  <option value="is_featured">By Featured</option>
+                </CustomInput>
+                <CustomInput
+                  type="select"
+                  id="exampleCustomSelect"
+                  name="customSelect"
+                  defaultValue=""
+                  style={{ width: "auto" }}
+                  onChange={handleFilterChange}
+                >
+                  <option value="name">Search By Product Name</option>
+                  <option value="bankname">By Bank Name</option>
+                  <option value="type">By Product Type</option>
+                  <option value="baserate">By Base Rate</option>
+                </CustomInput>
+                <div style={{ display: "inline-flex" }}>
+                  <Input
+                    placeholder={filter.searchPlaceholder}
+                    onChange={handleSearchInputChange}
+                    style={{ width: "100%" }}
+                  />
                 </div>
-              </Col>
+              </div>
+            </Col>
             <Col md="2">
-            <div style={{ float: "right" }}>
-              <Button color="info" onClick={(e) => toggle()}>
-                Add Product
-              </Button>
-            </div>
+              <div style={{ float: "right" }}>
+                <Button color="info" onClick={(e) => toggle()}>
+                  Add Product
+                </Button>
+              </div>
             </Col>
           </Row>
         </CardTitle>
@@ -243,27 +301,37 @@ export default function ProductList() {
                       <td>{d.base_rate || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
                       <td>
-                        {d.is_featured ? (<span>
-                        <Ratings
-                          rating={1}
-                          widgetRatedColors="gold"
-                          changeRating={()=>changeRating(d._id, {is_featured: false})}
-                        >
-                          <Ratings.Widget widgetHoverColor="grey" widgetDimension="25px" />
-                        </Ratings>  
-                        </span>): (
+                        {d.is_featured ? (
                           <span>
-                        <Ratings
-                          rating={0}
-                          widgetRatedColors="gold"
-                          changeRating={()=>changeRating(d._id, {is_featured: true})}
-                        >
-                          <Ratings.Widget widgetHoverColor="grey" widgetDimension="25px"/>
-
-                        </Ratings>  
-                        </span>
+                            <Ratings
+                              rating={1}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changeRating(d._id, { is_featured: false })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        ) : (
+                          <span>
+                            <Ratings
+                              rating={0}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changeRating(d._id, { is_featured: true })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
                         )}
-
                       </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
@@ -284,17 +352,18 @@ export default function ProductList() {
             </tbody>
           </Table>
           <Paginate
-          limit={pagination.limit}
-          total={pagination.total}
-          current={current}
-          onChange={handlePagination}
-        />
+            limit={pagination.limit}
+            total={pagination.total}
+            current={current}
+            onChange={handlePagination}
+          />
         </CardBody>
       </Card>
       <Modal isOpen={modal} toggle={toggle} size={size}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
+
             addProduct(e)
               .then((d) => {
                 addToast("Product Added successfully", {
@@ -336,16 +405,8 @@ export default function ProductList() {
                   required
                 />
               </div>
-               <div className="form-item">
-                <label htmlFor="name">Bank Name</label>
-                <br />
-                <Input
-                  name="bank_id"
-                  type="text"
-                  placeholder="Bank Name"
-                  className="form-field"
-                  required
-                />
+              <div className="form-item">
+                <BankSelector onChange={loadBankBaseRate} />
               </div>
             </div>
             <br />
@@ -388,18 +449,24 @@ export default function ProductList() {
               <div className="form-item">
                 <label htmlFor="loan_type">Loan Type</label>
                 <br />
-                <Input type="select" name="loan_type" placeholder="Loan Type" className="form-field" required>
+                <Input
+                  type="select"
+                  name="loan_type"
+                  placeholder="Loan Type"
+                  className="form-field"
+                  required
+                >
                   <option value="">-- Select Type --</option>
                   <option value="saving">Saving</option>
                   <option value="current">Current</option>
                   <option value="loan">Loan</option>
                 </Input>
-              </div> 
+              </div>
               <div className="form-item">
                 <label htmlFor="logo_url">Product Type</label>
                 <br />
                 <Input
-                  name="ptype"                  
+                  name="ptype"
                   type="text"
                   placeholder="Product Type"
                   className="form-field"
@@ -415,12 +482,13 @@ export default function ProductList() {
                 gridColumnGap: "10px",
               }}
             >
-            <div className="form-item">
+              <div className="form-item">
                 <label htmlFor="email">Base Rate</label>
                 <br />
                 <Input
                   name="base_rate"
                   type="Number"
+                  defaultValue={baseRate ? baseRate : ""}
                   placeholder="Base Rate"
                   className="form-field"
                   required
@@ -431,7 +499,7 @@ export default function ProductList() {
                 <label htmlFor="logo_url">Interest Rate</label>
                 <br />
                 <Input
-                  name="interest_rate"                  
+                  name="interest_rate"
                   type="Number"
                   placeholder="Interest Rate"
                   className="form-field"

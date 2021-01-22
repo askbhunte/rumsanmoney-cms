@@ -12,8 +12,6 @@ const access_token = getUserToken();
 const _token = "jwt-token";
 
 export function login(payload) {
-  console.log(payload);
-
   return new Promise((resolve, reject) => {
     axios
       .post(API.AUTH, payload)

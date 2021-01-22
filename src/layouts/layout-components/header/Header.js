@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import { AppContext } from "../../../contexts/AppContext";
 // import { UserContext } from "../../../contexts/UserContext";
-// import { getUser } from "../../../utils/sessionManager";
+import { getUser, logoutUser } from "../../../utils/sessionManager";
 
 /*--------------------------------------------------------------------------------*/
 /* Import images which are need for the HEADER                                    */
@@ -24,11 +24,16 @@ import logodarktext from "../../../assets/images/text.png";
 import logolighttext from "../../../assets/images/logo-light-text.png";
 import profilephoto from "../../../assets/images/users/1.jpg";
 
+const user = getUser();
+
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState("");
 
   const { settings } = useContext(AppContext);
+
+  const handleLogout = () => {
+    logoutUser();
+  };
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -160,8 +165,10 @@ export default () => {
                     />
                   </div>
                   <div className="ml-2">
-                    <h4 className="mb-0">{user.name}</h4>
-                    <p className=" mb-0">{user.email}</p>
+                    <h4 className="mb-0">
+                      {user && user.name ? user.name.full : ""}
+                    </h4>
+                    <p className=" mb-0">{user ? user.email : ""}</p>
                   </div>
                 </div>
                 <DropdownItem>
@@ -178,7 +185,7 @@ export default () => {
                   <i className="ti-settings mr-1 ml-1" /> Account Settings
                 </DropdownItem>
                 <DropdownItem divider /> */}
-                <DropdownItem href="/pages/login">
+                <DropdownItem onClick={handleLogout}>
                   <i className="fa fa-power-off mr-1 ml-1" /> Logout
                 </DropdownItem>
                 <DropdownItem divider />
