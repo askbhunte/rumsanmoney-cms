@@ -1,14 +1,22 @@
-const mongoose = require('mongoose');
-const Model = require('./product.model');
+const mongoose = require("mongoose");
+const Model = require("./product.model");
 
 const { ObjectId } = mongoose.Types;
-const {
-  DataUtils,
-} = require('../../utils');
+const { DataUtils } = require("../../utils");
 
 class Controller {
   list({
-    start, limit, name, bankname, producttype, bankId, isfeatured, category, baserate, sortindesc, sortinasc,
+    start,
+    limit,
+    name,
+    bankname,
+    producttype,
+    bankId,
+    isfeatured,
+    category,
+    baserate,
+    sortindesc,
+    sortinasc,
   }) {
     const query = [];
     const sort = {};
@@ -19,17 +27,15 @@ class Controller {
     } else {
       sort.created_at = 1;
     }
-    query.push({
-      $lookup: {
-        from: 'banks',
-        localField: 'bank_id',
-        foreignField: '_id',
-        as: 'bankinfo',
-      },
-    }, {
-      $unwind: {
-        path: '$bankinfo',
-        preserveNullAndEmptyArrays: false,
+
+    query.push(
+      {
+        $lookup: {
+          from: "banks",
+          localField: "bank_id",
+          foreignField: "_id",
+          as: "bankinfo",
+        },
       },
     }, {
       $project: {
@@ -43,10 +49,13 @@ class Controller {
         foreignField: '_id',
         as: 'categoryinfo',
       },
-    }, {
-      $unwind: {
-        path: '$categoryinfo',
-        preserveNullAndEmptyArrays: false,
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "categoryinfo",
+        },
       },
     }, {
       $project: {
@@ -63,16 +72,23 @@ class Controller {
           }, 2],
         },
       },
-    });
+      {
+        $addFields: {
+          total_interest: {
+            $add: ["$base_rate", "$interest_rate"],
+          },
+        },
+      }
+    );
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
+          name: new RegExp(name, "gi"),
         },
       });
     }
     if (isfeatured) {
-      isfeatured = isfeatured === 'true';
+      isfeatured = isfeatured === "true";
       query.push({
         $match: {
           is_featured: isfeatured,
@@ -89,14 +105,14 @@ class Controller {
     if (bankname) {
       query.push({
         $match: {
-          'bankinfo.name': new RegExp(bankname, 'gi'),
+          "bankinfo.name": new RegExp(bankname, "gi"),
         },
       });
     }
     if (category) {
       query.push({
         $match: {
-          'categoryinfo.name': new RegExp(category, 'gi'),
+          "categoryinfo.name": new RegExp(category, "gi"),
         },
       });
     }
@@ -111,10 +127,11 @@ class Controller {
     if (producttype) {
       query.push({
         $match: {
-          ptype: new RegExp(producttype, 'gi'),
+          ptype: new RegExp(producttype, "gi"),
         },
       });
     }
+
     return DataUtils.paging({
       start,
       limit,
@@ -233,15 +250,11 @@ class Controller {
   }
 
   changeStatus(id, status) {
-    return Model.findOneAndUpdate(
-      { _id: id }, { $set: status }, { new: true },
-    );
+    return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
   }
 
   changeFeatured(id, status) {
-    return Model.findOneAndUpdate(
-      { _id: id }, { $set: status }, { new: true },
-    );
+    return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
   }
 
   remove(id) {
