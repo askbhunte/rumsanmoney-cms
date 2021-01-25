@@ -6,31 +6,46 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  FormGroup,
 } from "reactstrap";
 import PropTypes from "prop-types";
 
 export default function CustomModal(props) {
+  const handleClose = () => {
+    props.handleCancel();
+    props.setOpen(false);
+  };
+
   return (
     <>
-      <Modal
-        isOpen={props.open}
-        toggle={props.toggle.bind(null)}
-        className={props.className || ""}
-      >
-        <Form onSubmit={props.handleSubmit}>
-          <ModalHeader toggle={props.toggle.bind(null)}>
-            {props.title || "Modal Title"}
-          </ModalHeader>
+      <Modal isOpen={props.open} size={props.size ? props.size : ""}>
+        <Form id="form" onSubmit={props.handleSubmit}>
+          <ModalHeader>{props.title || "Modal Title"}</ModalHeader>
           <ModalBody>
             {props.children || "No child elements supplied."}
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" color="primary">
-              Submit
-            </Button>
-            <Button color="secondary" onClick={props.toggle.bind(null)}>
-              Cancel
-            </Button>
+            <FormGroup>
+              {props.handleCancel ? (
+                <Button onClick={handleClose} className="mr-2">
+                  Close
+                </Button>
+              ) : (
+                <Button
+                  color="secondary"
+                  onClick={() => props.setOpen(!props.open)}
+                >
+                  Close
+                </Button>
+              )}
+              {props.handleSubmit ? (
+                <Button color="primary" type="submit" style={{ marginLeft: 5 }}>
+                  Submit
+                </Button>
+              ) : (
+                ""
+              )}
+            </FormGroup>
           </ModalFooter>
         </Form>
       </Modal>
@@ -39,6 +54,6 @@ export default function CustomModal(props) {
 }
 
 CustomModal.propTypes = {
-  toggle: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };

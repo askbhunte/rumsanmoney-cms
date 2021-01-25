@@ -66,8 +66,8 @@ export const BankContextProvider = ({ children }) => {
 
     let payload = {
       name: formData.get("name"),
-      head_office: formData.get('head_office'),
-      primary_contact: formData.get('primary_contact'),
+      head_office: formData.get("head_office"),
+      primary_contact: formData.get("primary_contact"),
       secondary_contacts: formData.get("secondary_contacts"),
       logo_url: formData.get("logo_url"),
       email: formData.get("email"),
@@ -75,6 +75,7 @@ export const BankContextProvider = ({ children }) => {
       website: formData.get("website"),
       desc: formData.get("desc"),
       product_url: formData.get("product_url"),
+      base_rate: formData.get("base_rate"),
     };
     let d = await Service.addBank(payload);
     return d;

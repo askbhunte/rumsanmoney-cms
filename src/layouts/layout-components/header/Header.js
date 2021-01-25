@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Nav,
   NavItem,
@@ -12,7 +12,8 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { AppContext } from "../../../contexts/AppContext";
-import { UserContext } from "../../../contexts/UserContext";
+// import { UserContext } from "../../../contexts/UserContext";
+import { getUser, logoutUser } from "../../../utils/sessionManager";
 
 /*--------------------------------------------------------------------------------*/
 /* Import images which are need for the HEADER                                    */
@@ -23,20 +24,16 @@ import logodarktext from "../../../assets/images/text.png";
 import logolighttext from "../../../assets/images/logo-light-text.png";
 import profilephoto from "../../../assets/images/users/1.jpg";
 
+const user = getUser();
+
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState("");
 
   const { settings } = useContext(AppContext);
-  const { getUser } = useContext(UserContext);
 
-  const getUserDetails = () => {
-    getUser()
-      .then((d) => setUser(d))
-      .catch((e) => console.log("Err:", e));
+  const handleLogout = () => {
+    logoutUser();
   };
-
-  useEffect(getUserDetails, [user]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -104,7 +101,12 @@ export default () => {
               <img src={logolighticon} alt="homepage" className="light-logo" />
             </b>
             <span className="logo-text">
-              <img src={logodarktext} alt="homepage" className="dark-logo" width="90" />
+              <img
+                src={logodarktext}
+                alt="homepage"
+                className="dark-logo"
+                width="90"
+              />
               <img src={logolighttext} className="light-logo" alt="homepage" />
             </span>
           </NavbarBrand>
@@ -163,8 +165,10 @@ export default () => {
                     />
                   </div>
                   <div className="ml-2">
-                    <h4 className="mb-0">{user.name}</h4>
-                    <p className=" mb-0">{user.email}</p>
+                    <h4 className="mb-0">
+                      {user && user.name ? user.name.full : ""}
+                    </h4>
+                    <p className=" mb-0">{user ? user.email : ""}</p>
                   </div>
                 </div>
                 <DropdownItem>
@@ -181,7 +185,7 @@ export default () => {
                   <i className="ti-settings mr-1 ml-1" /> Account Settings
                 </DropdownItem>
                 <DropdownItem divider /> */}
-                <DropdownItem href="/pages/login">
+                <DropdownItem onClick={handleLogout}>
                   <i className="fa fa-power-off mr-1 ml-1" /> Logout
                 </DropdownItem>
                 <DropdownItem divider />

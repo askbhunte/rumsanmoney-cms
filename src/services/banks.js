@@ -38,13 +38,26 @@ export function listBank(query) {
   });
 }
 
+export function listAllBank(query) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.BANK}/all`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
 export function updateBank(bankId, payload) {
   return new Promise((resolve, reject) => {
     axios
-      .put(
-        `${API.BANK}/${bankId}`,
-        payload
-      )
+      .put(`${API.BANK}/${bankId}`, payload)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);

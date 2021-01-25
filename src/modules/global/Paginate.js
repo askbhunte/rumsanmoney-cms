@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import PropTypes from "prop-types";
 const PAGE_TRANSITION = 3;
 const Paginate = ({ limit, total, onChange, current }) => {
   const [visible, setVisible] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -17,7 +17,7 @@ const Paginate = ({ limit, total, onChange, current }) => {
               <PaginationLink href="#">...</PaginationLink>
             </PaginationItem>
           ) : (
-            ''
+            ""
           )}
           {visible.map((p, i) => (
             <PaginationItem
@@ -56,8 +56,8 @@ const Paginate = ({ limit, total, onChange, current }) => {
               <PaginationLink href="#">...</PaginationLink>
             </PaginationItem>
           ) : (
-            ''
-          )}{' '}
+            ""
+          )}{" "}
         </>
       );
     } else {
@@ -74,7 +74,7 @@ const Paginate = ({ limit, total, onChange, current }) => {
   };
   return (
     <Pagination
-      style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}
+      style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
     >
       <PaginationItem
         disabled={current > 0 ? false : true}

@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import productReduce from "../reducers/productReducer";
 import * as Service from "../services/products";
+import { getBankDetails } from "../services/banks";
 import ACTION from "../actions/product";
 
 const initialState = {
@@ -21,6 +22,19 @@ export const ProductContextProvider = ({ children }) => {
   function resetLoading() {
     dispatch({ type: ACTION.RESET_LOADING });
   }
+
+  const getBankDetail = (bankId) => {
+    return new Promise((resolve, reject) => {
+      getBankDetails(bankId)
+        .then((res) => {
+          dispatch({ type: ACTION.GET_TRANSACTION_SUCCESS, res });
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
 
   function getProductDetails(productId) {
     return new Promise((resolve, reject) => {
@@ -90,14 +104,14 @@ export const ProductContextProvider = ({ children }) => {
 
     let payload = {
       name: formData.get("name"),
-      bank_id: formData.get('bank_id'),
-      image_url: formData.get('image_url'),
+      bank_id: formData.get("bank_id"),
+      image_url: formData.get("image_url"),
       plink: formData.get("plink"),
       description: formData.get("description"),
       loan_type: formData.get("loan_type"),
       ptype: formData.get("ptype"),
       base_rate: formData.get("base_rate"),
-      interest_rate: formData.get("interest_rate")
+      interest_rate: formData.get("interest_rate"),
     };
     let d = await Service.addProduct(payload);
     return d;
@@ -118,6 +132,7 @@ export const ProductContextProvider = ({ children }) => {
         changeStatus,
         changeFeatured,
         getProductDetails,
+        getBankDetail,
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
-import Paginate from '../../global/Paginate';
+import Paginate from "../../global/Paginate";
 
 import {
   Button,
@@ -17,7 +17,7 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  CustomInput
+  CustomInput,
 } from "reactstrap";
 import { CategoryContext } from "../../../contexts/CategoryContext";
 
@@ -25,9 +25,11 @@ export default function CategoryList() {
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [iconPrev, setIconPrev] = useState('');
+  const [iconPrev, setIconPrev] = useState("");
   const size = "sm";
-  const { listCategory, category, pagination, addCategory } = useContext(CategoryContext);
+  const { listCategory, category, pagination, addCategory } = useContext(
+    CategoryContext
+  );
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
@@ -43,7 +45,7 @@ export default function CategoryList() {
 
   const handleSearchInputChange = (e) => {
     const { value } = e.target;
-      return fetchList({ start: 0, limit: pagination.limit, name: value });
+    return fetchList({ start: 0, limit: pagination.limit, name: value });
   };
 
   const fetchList = (query) => {
@@ -68,7 +70,7 @@ export default function CategoryList() {
         });
       });
   };
-  
+
   let get = useCallback(
     (params) => {
       listCategory(params);
@@ -87,37 +89,37 @@ export default function CategoryList() {
               <i className="mdi mdi-border-right mr-2"></i>Category List
             </Col>
             <Col md="6">
-                <div
-                  style={{
-                    float: "right",
-                    display: "flex",
-                    marginRight: "-12%"
-                  }}
+              <div
+                style={{
+                  float: "right",
+                  display: "flex",
+                  marginRight: "-12%",
+                }}
+              >
+                <CustomInput
+                  type="select"
+                  id="exampleCustomSelect"
+                  name="customSelect"
+                  defaultValue=""
+                  style={{ width: "auto" }}
                 >
-                  <CustomInput
-                    type="select"
-                    id="exampleCustomSelect"
-                    name="customSelect"
-                    defaultValue=""
-                    style={{ width: "auto" }}
-                  >
-                    <option value="name">Search By Name</option>
-                  </CustomInput>
-                  <div style={{ display: "inline-flex" }}>
-                      <Input
-                        placeholder="Enter Category Name ..."
-                        onChange={handleSearchInputChange}
-                        style={{ width: "100%" }}
-                      />
-                  </div>
+                  <option value="name">Search By Name</option>
+                </CustomInput>
+                <div style={{ display: "inline-flex" }}>
+                  <Input
+                    placeholder="Enter Category Name ..."
+                    onChange={handleSearchInputChange}
+                    style={{ width: "100%" }}
+                  />
                 </div>
-              </Col>
+              </div>
+            </Col>
             <Col md="2">
-            <div style={{ float: "right" }}>
-              <Button color="info" onClick={(e) => toggle()}>
-                Add Category
-              </Button>
-            </div>
+              <div style={{ float: "right" }}>
+                <Button color="info" onClick={(e) => toggle()}>
+                  Add Category
+                </Button>
+              </div>
             </Col>
           </Row>
         </CardTitle>
@@ -138,7 +140,9 @@ export default function CategoryList() {
                     <tr key={d._id}>
                       <td>{d.name || "N/A"}</td>
                       <td>{d.icon || "N/A"}</td>
-                      <td><i className={`${d.icon} fa-lg`}></i></td>
+                      <td>
+                        <i className={`${d.icon} fa-lg`}></i>
+                      </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
                           className="btn btn-primary"
@@ -158,17 +162,18 @@ export default function CategoryList() {
             </tbody>
           </Table>
           <Paginate
-          limit={pagination.limit}
-          total={pagination.total}
-          current={current}
-          onChange={handlePagination}
-        />
+            limit={pagination.limit}
+            total={pagination.total}
+            current={current}
+            onChange={handlePagination}
+          />
         </CardBody>
       </Card>
       <Modal isOpen={model} toggle={toggle} size={size}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();
+
             addCategory(e)
               .then((d) => {
                 addToast("Category Added successfully", {
@@ -227,7 +232,7 @@ export default function CategoryList() {
                   type="text"
                   placeholder="Eg: fas fa-child from font Awesome"
                   className="form-field"
-                  onChange={e => setIconPrev(e.target.value)}
+                  onChange={(e) => setIconPrev(e.target.value)}
                   required
                 />
               </div>
@@ -260,6 +265,6 @@ export default function CategoryList() {
         </Form>
       </Modal>
       <br />
-   </>
+    </>
   );
 }
