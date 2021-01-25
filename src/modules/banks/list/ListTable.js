@@ -23,7 +23,7 @@ import { BankContext } from "../../../contexts/BankContext";
 
 export default function BankList() {
   const { addToast } = useToasts();
-  const [model, setModel] = useState(false);
+  const [modal, setModal] = useState(false);
   const [current, setCurrent] = useState(0);
   const [searchText, setSearchText] = useState("");
 
@@ -43,7 +43,7 @@ export default function BankList() {
       ...query,
     });
   };
-  const toggle = () => setModel(!model);
+  const toggle = () => setModal(!modal);
 
   const searchOptions = { ADDRESS: "address", NAME: "name" };
   const [filter, setFilter] = useState({
@@ -182,7 +182,7 @@ export default function BankList() {
                           className="btn btn-secondary"
                           to={`/bank/${d._id}`}
                         >
-                          Details
+                          Edit
                         </Link>
                       </td>
                     </tr>
@@ -203,7 +203,7 @@ export default function BankList() {
           />
         </CardBody>
       </Card>
-      <Modal isOpen={model} toggle={toggle} size={size}>
+      <Modal isOpen={modal} toggle={toggle} size={size}>
         <Form
           onSubmit={(e) => {
             e.preventDefault();

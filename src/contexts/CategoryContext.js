@@ -67,7 +67,8 @@ export const CategoryContextProvider = ({ children }) => {
     let payload = {
       name: formData.get("name"),
       icon: formData.get("icon"),
-      required_docs: formData.get('required_docs')
+      required_docs: formData.get('required_docs'),
+      extras: formData.get('extras')
     };
     let d = await Service.addCategory(payload);
     return d;
