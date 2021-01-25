@@ -1,7 +1,6 @@
 const { ObjectId } = require("mongodb");
-const Model = require("./blog.model");
+const Model = require("./request.model");
 const { DataUtils } = require("../../utils");
-const slugify = require("slugify");
 
 class Controller {
   list({ start, limit, name, status, categoryId, tagsId }) {
@@ -54,12 +53,6 @@ class Controller {
   }
 
   add(payload) {
-    let _slug = slugify(payload.name, {
-      remove: /[*+~.()'"#:@!?,]/g,
-      replacement: "-",
-      lower: true,
-    });
-    payload.slug = _slug;
     return Model.create(payload);
   }
 

@@ -1,21 +1,25 @@
-const mongoose = require('mongoose');
-const config = require('config');
-const { UserManager } = require('rs-user');
-const { DataUtils } = require('../../utils');
+const mongoose = require("mongoose");
+const config = require("config");
+const { UserManager } = require("rs-user");
+const { DataUtils } = require("../../utils");
 
 class UserController extends UserManager {
-  list({
-    start, limit, isEmployee, name,
-  }) {
+  async login(request) {
+    const loginData = await this.authenticate(request);
+
+    if (!loginData.is_active) throw ERR.USER_INACTIVE;
+
+    return { loginData };
+  }
+
+  list({ start, limit, isEmployee, name }) {
     const query = [];
     if (name) {
-      query.push(
-        {
-          $match: {
-            'name.first': new RegExp(name, 'gi'),
-          },
+      query.push({
+        $match: {
+          "name.first": new RegExp(name, "gi"),
         },
-      );
+      });
     }
     query.push(
       {
@@ -25,23 +29,23 @@ class UserController extends UserManager {
       },
       {
         $lookup: {
-          from: 'users_comm',
-          localField: 'comms',
-          foreignField: '_id',
-          as: 'comms',
+          from: "users_comm",
+          localField: "comms",
+          foreignField: "_id",
+          as: "comms",
         },
       },
       {
         $project: {
           _id: 1,
           name: 1,
-          full_name: { $concat: ['$name.first', ' ', '$name.last'] },
+          full_name: { $concat: ["$name.first", " ", "$name.last"] },
           comms: {
             $filter: {
-              input: '$comms',
-              as: 'item',
+              input: "$comms",
+              as: "item",
               cond: {
-                $eq: ['$$item.is_primary', true],
+                $eq: ["$$item.is_primary", true],
               },
             },
           },
@@ -51,7 +55,7 @@ class UserController extends UserManager {
           created_at: 1,
           updated_at: 1,
         },
-      },
+      }
     );
     console.log(query);
     if (isEmployee) {
@@ -65,7 +69,7 @@ class UserController extends UserManager {
     return DataUtils.paging({
       start,
       limit,
-      sort: { 'name.first': 1 },
+      sort: { "name.first": 1 },
       model: this.models.UserModel,
       query,
     });
@@ -78,5 +82,5 @@ class UserController extends UserManager {
 
 module.exports = new UserController({
   mongoose,
-  appSecret: config.get('app.secret'),
+  appSecret: config.get("app.secret"),
 });
