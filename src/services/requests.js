@@ -6,10 +6,10 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getBankDetails(bankId) {
+export function getRequestDetails(requestId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}/${bankId}`)
+      .get(`${API.REQUESTS}/${requestId}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -22,10 +22,10 @@ export function getBankDetails(bankId) {
   });
 }
 
-export function listBank(query) {
+export function listRequests(query) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}?${qs.stringify(query)}`)
+      .get(`${API.REQUESTS}?${qs.stringify(query)}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -38,44 +38,44 @@ export function listBank(query) {
   });
 }
 
-export function listAllBank(query) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${API.BANK}/all`)
-      .then((res) => {
-        if (res.statusText === "OK") {
-          resolve(res.data);
-        }
-        reject(res.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
-
-export function updateBank(bankId, payload) {
-  return new Promise((resolve, reject) => {
-    axios
-      .put(`${API.BANK}/${bankId}`, payload)
-      .then((res) => {
-        if (res.statusText === "OK") {
-          resolve(res.data);
-        }
-        reject(res.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
-
-export async function addBank(body) {
+export async function addRequest(body) {
   const res = await axios({
-    url: API.BANK,
+    url: API.REQUESTS,
     method: "post",
     data: body,
   });
 
   return res.data;
+}
+
+export function updateRequest(requestId, payload) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${API.REQUESTS}/${requestId}`, payload)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+export function deleteRequest(requestId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${API.REQUESTS}/${requestId}`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }

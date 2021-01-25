@@ -6,10 +6,10 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getBankDetails(bankId) {
+export function getBlogDetails(blogId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}/${bankId}`)
+      .get(`${API.BLOGS}/${blogId}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -22,10 +22,10 @@ export function getBankDetails(bankId) {
   });
 }
 
-export function listBank(query) {
+export function listBlogs(query) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.BANK}?${qs.stringify(query)}`)
+      .get(`${API.BLOGS}?${qs.stringify(query)}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
@@ -38,44 +38,28 @@ export function listBank(query) {
   });
 }
 
-export function listAllBank(query) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(`${API.BANK}/all`)
-      .then((res) => {
-        if (res.statusText === "OK") {
-          resolve(res.data);
-        }
-        reject(res.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
-
-export function updateBank(bankId, payload) {
-  return new Promise((resolve, reject) => {
-    axios
-      .put(`${API.BANK}/${bankId}`, payload)
-      .then((res) => {
-        if (res.statusText === "OK") {
-          resolve(res.data);
-        }
-        reject(res.data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
-
-export async function addBank(body) {
+export async function addBlog(body) {
   const res = await axios({
-    url: API.BANK,
+    url: API.BLOGS,
     method: "post",
     data: body,
   });
 
   return res.data;
+}
+
+export function updateBlog(blogId, payload) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${API.BLOGS}/${blogId}`, payload)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }

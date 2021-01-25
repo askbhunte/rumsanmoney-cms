@@ -12,23 +12,27 @@ import { UserContextProvider } from "../contexts/UserContext";
 const App = () => {
   return (
     <AppContextProvider>
-    <ToastProvider>
-      <UserContextProvider>
-        <Router history={History}>
-          <Switch>
-            <Route exact path="/authentication/login" component={BlankLayout} />
-            {indexRoutes.map((prop, key) => {
-              return (
-                <PrivateRoute
-                  path={prop.path}
-                  key={key}
-                  component={prop.component}
-                />
-              );
-            })}
-          </Switch>
-        </Router>
-      </UserContextProvider>
+      <ToastProvider>
+        <UserContextProvider>
+          <Router history={History}>
+            <Switch>
+              <Route
+                exact
+                path="/authentication/login"
+                component={BlankLayout}
+              />
+              {indexRoutes.map((prop, key) => {
+                return (
+                  <PrivateRoute
+                    path={prop.path}
+                    key={key}
+                    component={prop.component}
+                  />
+                );
+              })}
+            </Switch>
+          </Router>
+        </UserContextProvider>
       </ToastProvider>
     </AppContextProvider>
   );
