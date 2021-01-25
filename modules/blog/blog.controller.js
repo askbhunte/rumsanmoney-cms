@@ -1,16 +1,15 @@
-const { ObjectId } = require('mongodb');
-const Model = require('./blog.model');
-const { DataUtils } = require('../../utils');
+const { ObjectId } = require("mongodb");
+const Model = require("./blog.model");
+const { DataUtils } = require("../../utils");
+const slugify = require("slugify");
 
 class Controller {
-  list({
-    start, limit, name, status, categoryId, tagsId,
-  }) {
+  list({ start, limit, name, status, categoryId, tagsId }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
+          name: new RegExp(name, "gi"),
         },
       });
     }
@@ -24,7 +23,7 @@ class Controller {
     if (categoryId) {
       query.push({
         $unwind: {
-          path: '$category',
+          path: "$category",
         },
         $match: {
           category: ObjectId(categoryId),
@@ -34,7 +33,7 @@ class Controller {
     if (tagsId) {
       query.push({
         $unwind: {
-          path: '$tags',
+          path: "$tags",
         },
         $match: {
           tags: ObjectId(tagsId),
@@ -42,7 +41,11 @@ class Controller {
       });
     }
     return DataUtils.paging({
-      start, limit, query, model: Model, sort: { created_at: 1 },
+      start,
+      limit,
+      query,
+      model: Model,
+      sort: { created_at: 1 },
     });
   }
 
@@ -51,6 +54,12 @@ class Controller {
   }
 
   add(payload) {
+    let _slug = slugify(payload.name, {
+      remove: /[*+~.()'"#:@!?,]/g,
+      replacement: "-",
+      lower: true,
+    });
+    payload.slug = _slug;
     return Model.create(payload);
   }
 

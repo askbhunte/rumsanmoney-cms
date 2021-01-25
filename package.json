@@ -1,32 +1,54 @@
 {
-  "name": "chino-loan-site",
-  "version": "0.0.0",
+  "name": "bhuntemoney",
+  "version": "1.0.0",
+  "homepage": "/",
   "private": true,
+  "description": "Bhunte Money Client",
+  "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon ./bin/www",
-    "production": "NODE_ENV=production node ./bin/www",
-    "client": "cd ./client && yarn start",
-    "all": "npm-run-all -p start client",
-    "build": "NODE_ENV=production && yarn install && cd ./client && yarn install && yarn run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "Askbhunte",
+  "license": "ISC",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "axios-mock-adapter": "^1.18.1",
+    "lodash": "^4.17.19",
+    "mixin-deep": "^2.0.1",
+    "node": "^8.15.0"
   },
   "dependencies": {
-    "config": "^3.3.1",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
-    "google-spreadsheet": "^3.0.13",
-    "helmet": "^3.23.3",
-    "http-errors": "~1.6.3",
-    "mongoose": "^5.10.7",
-    "morgan": "~1.9.1",
-    "nodemailer": "^6.4.10",
-    "rs-user": "git+ssh://git@lab.rumsan.net:rs/user.git"
+    "axios": "^0.19.2",
+    "feather-icons-react": "^0.4.1",
+    "formik": "^1.5.8",
+    "history": "4.7.2",
+    "joi": "^13.7.0",
+    "joi-validation-strategy": "^0.3.3",
+    "moment": "^2.26.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^5.7.2",
+    "react-iframe": "1.3.0",
+    "react-perfect-scrollbar": "1.2.0",
+    "react-quill": "^1.3.5",
+    "react-ratings-declarative": "^3.4.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
+    "react-select": "^2.2.0",
+    "react-toast-notifications": "^2.4.0",
+    "reactstrap": "^8.4.1",
+    "sweetalert2": "^9.17.2",
+    "yup": "^0.29.3"
   },
-  "devDependencies": {
-    "eslint": "^7.10.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0"
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
