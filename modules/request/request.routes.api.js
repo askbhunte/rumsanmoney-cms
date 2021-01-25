@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Controller = require("./blog.controller");
+const Controller = require("./request.controller");
 
 router.get("/", async (q, r, n) => {
   const limit = q.query.limit || 20;
@@ -27,6 +27,7 @@ router.get("/:id", async (q, r, n) => {
 });
 
 router.post("/", async (q, r, n) => {
+  console.log("*************", q.body);
   Controller.add(q.body)
     .then((d) => r.json(d))
     .catch((e) => n(e));
