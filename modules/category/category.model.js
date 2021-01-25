@@ -5,9 +5,11 @@ const { ObjectId } = mongoose.Schema;
 const Schema = mongoose.Schema(
   {
     name: { type: String, required: true },
+    slug: { type: String },
     icon: { type: String, required: true },
     description: { type: String },
     required_docs: { type: String },
+    extras: { type: String },
     is_active: { type: Boolean, required: true, default: true },
   },
   {

@@ -27,7 +27,6 @@ router.get("/:id", async (q, r, n) => {
 });
 
 router.post("/", async (q, r, n) => {
-  console.log("*************", q.body);
   Controller.add(q.body)
     .then((d) => r.json(d))
     .catch((e) => n(e));

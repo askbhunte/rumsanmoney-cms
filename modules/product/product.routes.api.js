@@ -37,7 +37,13 @@ router.get("/:id", async (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.post("/", async (q, r, n) => {
+router.get('/slug/:bank/:product', async (q, r, n) => {
+  Controller.findBySlug(q.params.bank, q.params.product)
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
+router.post('/', async (q, r, n) => {
   Controller.add(q.body)
     .then((d) => r.json(d))
     .catch((e) => n(e));
