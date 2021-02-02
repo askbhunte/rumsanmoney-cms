@@ -68,12 +68,6 @@ export default function ProductList() {
     TYPE: "type",
   };
 
-  const sortOptions = {
-    BASERATE: "baserate",
-    INTERESTRATE: "interestrate",
-    FEATURED: "featured",
-  };
-
   const [filter, setFilter] = useState({
     searchPlaceholder: "Enter product name...",
     searchBy: "name",
