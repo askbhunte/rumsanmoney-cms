@@ -25,6 +25,7 @@ export default function RequestList() {
   const { addToast } = useToasts();
 
   const [model, setModel] = useState(false);
+  const [extrasViewModal, setExtrasViewModal] = useState(false);
   const [current, setCurrent] = useState(0);
   const [request_details, setRequestDetails] = useState({});
 
@@ -103,10 +104,21 @@ export default function RequestList() {
   };
 
   const toggle = () => setModel(!model);
+  const toggleViewModal = () => setExtrasViewModal(!extrasViewModal);
 
   const closeModal = () => {
     setRequestDetails({});
     toggle();
+  };
+
+  const checkExtrasState = (id) => {
+    if (id) {
+      toggleViewModal();
+      loadRequestDetails(id);
+    } else {
+      toggleViewModal();
+      setRequestDetails(null);
+    }
   };
 
   const checkState = (id) => {
@@ -270,6 +282,12 @@ export default function RequestList() {
                           onClick={(e) => checkState(d._id)}
                         >
                           Edit
+                        </Button>
+                        <Button
+                          className="btn btn-info"
+                          onClick={(e) => checkExtrasState(d._id)}
+                        >
+                          View
                         </Button>
                         <Button
                           className="btn btn-danger"
@@ -479,6 +497,41 @@ export default function RequestList() {
             </Button>
           </ModalFooter>
         </Form>
+      </Modal>
+      <br />
+      <Modal isOpen={extrasViewModal} toggle={toggleViewModal} size={size}>
+        <ModalHeader toggle={toggleViewModal}>
+          <div>
+            <h3>Request Full Details</h3>
+          </div>
+        </ModalHeader>
+        <ModalBody>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+              gridColumnGap: "10px",
+            }}
+          >
+            <div>
+              {request_details.extras ? (
+                <ul>
+                  {Object.keys(request_details.extras).map((value, index) => (
+                    <li key={index}>
+                      {value} : {request_details.extras[value]}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div>
+                  <h3>N/A</h3>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <br />
+        </ModalBody>
       </Modal>
       <br />
     </>
