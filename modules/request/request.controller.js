@@ -56,6 +56,18 @@ class Controller {
     return Model.create(payload);
   }
 
+  addFromSite(payload) {
+    let mainPayload = {};
+    mainPayload.name = payload.full_name;
+    mainPayload.phone = payload.phone;
+    mainPayload.email = payload.email;
+    mainPayload.product = payload.product_name;
+    mainPayload.bank = payload.bank_name;
+    mainPayload.extras = payload;
+
+    return Model.create(mainPayload);
+  }
+
   update(id, payload) {
     return Model.findByIdAndUpdate(id, payload);
   }
