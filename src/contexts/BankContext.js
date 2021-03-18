@@ -60,7 +60,7 @@ export const BankContextProvider = ({ children }) => {
     });
   }
 
-  const addBank = async (event) => {
+  const addBank = async (event, content) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
@@ -73,7 +73,7 @@ export const BankContextProvider = ({ children }) => {
       email: formData.get("email"),
       address: formData.get("address"),
       website: formData.get("website"),
-      desc: formData.get("desc"),
+      desc: content,
       product_url: formData.get("product_url"),
       base_rate: formData.get("base_rate"),
     };

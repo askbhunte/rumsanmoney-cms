@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import PropTypes from "prop-types";
+import Select from "react-select";
 const PAGE_TRANSITION = 3;
 const Paginate = ({ limit, total, onChange, current }) => {
   const [visible, setVisible] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -8,6 +9,13 @@ const Paginate = ({ limit, total, onChange, current }) => {
   let paging = (count) => {
     onChange(count);
   };
+  let pageOptions = [];
+  for (let i = 1; i <= page; i++) {
+    pageOptions.push({
+      value: i,
+      label: i,
+    });
+  }
   const calculate = () => {
     if (page > 10) {
       return (
@@ -144,6 +152,16 @@ const Paginate = ({ limit, total, onChange, current }) => {
         }}
       >
         <PaginationLink last href="#" />
+      </PaginationItem>
+      <PaginationItem
+        style={{ width: "80px" }}
+        className={page > 10 ? "" : "d-none"}
+      >
+        <Select
+          onChange={(e) => onChange(e.value - 1)}
+          options={pageOptions}
+          placeholder=".."
+        />
       </PaginationItem>
     </Pagination>
   );

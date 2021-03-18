@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 import Paginate from "../../global/Paginate";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import {
   Button,
@@ -26,9 +28,23 @@ export default function BankList() {
   const [modal, setModal] = useState(false);
   const [current, setCurrent] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const [content, setContent] = useState("");
 
   const size = "xl";
   const { listBank, bank, pagination, addBank } = useContext(BankContext);
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"],
+    ],
+  };
+  const formats = ["bold", "italic", "underline", "list", "bullet"];
+
+  const handleContentChange = async (content) => {
+    setContent(content);
+  };
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
@@ -207,7 +223,7 @@ export default function BankList() {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-            addBank(e)
+            addBank(e, content)
               .then((d) => {
                 addToast("Bank Added successfully", {
                   appearance: "success",
@@ -315,6 +331,7 @@ export default function BankList() {
                 <Input
                   name="base_rate"
                   type="Number"
+                  step=".01"
                   placeholder="Base Rate"
                   className="form-field"
                   required
@@ -362,7 +379,7 @@ export default function BankList() {
             </div>
 
             <br />
-            {/* <div
+            <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
@@ -370,19 +387,20 @@ export default function BankList() {
               }}
             >
               <div className="form-item">
-                <label htmlFor="name">Description</label>
+                <label htmlFor="">Bank Summary</label>
                 <br />
-                <Input
-                  name="desc"
-                  type="textarea"
-                  rows='4'
-                  placeholder="Bank Short Information"
-                  className="form-field"
-                  required
+                <ReactQuill
+                  modules={modules}
+                  formats={formats}
+                  value={content}
+                  placeholder="Write the Bank Summary"
+                  theme={"snow"}
+                  style={{ height: "250px" }}
+                  onChange={(e) => handleContentChange(e)}
                 />
               </div>
             </div>
-            <br /> */}
+            <br />
           </ModalBody>
           <ModalFooter>
             <Button color="primary">Submit</Button>

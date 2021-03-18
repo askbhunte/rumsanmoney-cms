@@ -81,7 +81,6 @@ export default function ProductList() {
 
   const handleFilterChange = (e) => {
     let { value } = e.target;
-    alert(value);
     if (value === searchOptions.NAME) {
       setFilter({
         searchPlaceholder: "Enter product name...",
@@ -346,7 +345,7 @@ export default function ProductList() {
             </tbody>
           </Table>
           <Paginate
-            limit={pagination.limit}
+            limit={Number(pagination.limit)}
             total={pagination.total}
             current={current}
             onChange={handlePagination}

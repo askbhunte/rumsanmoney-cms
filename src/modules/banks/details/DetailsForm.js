@@ -195,6 +195,7 @@ export default function DetailsForm(props) {
                       <InputGroup>
                         <Input
                           type="number"
+                          step=".01"
                           name="base_rate"
                           defaultValue={
                             bank_details ? bank_details.base_rate : ""
