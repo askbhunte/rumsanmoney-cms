@@ -4,7 +4,7 @@ const { DataUtils } = require('../../utils');
 
 class Controller {
   list({
-    start, limit, name, status,
+    start, limit, name, status, type,
   }) {
     const query = [];
     if (name) {
@@ -19,6 +19,13 @@ class Controller {
       query.push({
         $match: {
           is_active: status,
+        },
+      });
+    }
+    if (type) {
+      query.push({
+        $match: {
+          type: new RegExp(type, 'gi'),
         },
       });
     }

@@ -7,9 +7,12 @@ const Schema = mongoose.Schema(
     name: { type: String, required: true },
     slug: { type: String },
     icon: { type: String, required: true },
+    sub_head: { type: String },
+    image: { type: String },
     description: { type: String },
     required_docs: { type: String },
     extras: { type: String },
+    isFeatured: { type: Boolean, required: true, default: false },
     is_active: { type: Boolean, required: true, default: true },
   },
   {

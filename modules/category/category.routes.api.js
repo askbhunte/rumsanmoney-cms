@@ -6,11 +6,13 @@ router.get('/', async (q, r, n) => {
   const start = q.query.start || 0;
   const name = q.query.name || null;
   const status = q.query.status || null;
+  const type = q.query.type || null;
   Controller.list({
     limit,
     start,
     status,
     name,
+    type,
   })
     .then((d) => r.json(d))
     .catch((e) => n(e));
