@@ -95,7 +95,7 @@ class Controller {
         },
       });
     }
-    if (type === 'loan') {
+    if (type === 'saving') {
       query.push({
         $match: {
           loan_type: 'saving',
