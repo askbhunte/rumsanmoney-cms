@@ -22,10 +22,11 @@ class Controller {
         },
       });
     }
-    if (type) {
+    if (type === 'featured') {
+      const isFeatured = true;
       query.push({
         $match: {
-          type: new RegExp(type, 'gi'),
+          isFeatured,
         },
       });
     }
