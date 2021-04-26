@@ -95,6 +95,13 @@ class Controller {
         },
       });
     }
+    if (type === 'loan') {
+      query.push({
+        $match: {
+          loan_type: 'saving',
+        },
+      });
+    }
     if (bankId) {
       query.push({
         $match: {
