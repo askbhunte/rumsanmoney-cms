@@ -88,6 +88,13 @@ class Controller {
         },
       });
     }
+    if (type === 'loan') {
+      query.push({
+        $match: {
+          loan_type: 'loan',
+        },
+      });
+    }
     if (bankId) {
       query.push({
         $match: {
