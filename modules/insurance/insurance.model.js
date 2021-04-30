@@ -21,7 +21,7 @@ const Schema = mongoose.Schema(
     is_active: { type: Boolean, required: true, default: true },
   },
   {
-    collection: 'products',
+    collection: 'insurances',
     timestamps: {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
@@ -35,4 +35,4 @@ const Schema = mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Products', Schema);
+module.exports = mongoose.model('Insurances', Schema);

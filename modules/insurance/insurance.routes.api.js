@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Controller = require('./product.controller');
+const Controller = require('./insurance.controller');
 
 router.get('/', async (q, r, n) => {
   const limit = q.query.limit || 20;
