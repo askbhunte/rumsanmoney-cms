@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Controller = require('./bank.controller');
+const Controller = require('./company.controller');
 
 router.get('/', async (q, r, n) => {
   const limit = q.query.limit || 20;
