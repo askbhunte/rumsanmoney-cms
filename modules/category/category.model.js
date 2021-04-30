@@ -13,6 +13,7 @@ const Schema = mongoose.Schema(
     required_docs: { type: String },
     extras: { type: String },
     isFeatured: { type: Boolean, required: true, default: false },
+    isPopular: { type: Boolean, required: true, default: false },
     is_active: { type: Boolean, required: true, default: true },
   },
   {

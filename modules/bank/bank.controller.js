@@ -1,20 +1,22 @@
-const Model = require("./bank.model");
-const { DataUtils } = require("../../utils");
+const Model = require('./bank.model');
+const { DataUtils } = require('../../utils');
 
 class Controller {
-  async list({ start, limit, name, address }) {
+  async list({
+    start, limit, name, address,
+  }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, "gi"),
+          name: new RegExp(name, 'gi'),
         },
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, "gi"),
+          address: new RegExp(address, 'gi'),
         },
       });
     }
@@ -28,19 +30,21 @@ class Controller {
     });
   }
 
-  listnoDesc({ start, limit, name, address }) {
+  listnoDesc({
+    start, limit, name, address,
+  }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, "gi"),
+          name: new RegExp(name, 'gi'),
         },
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, "gi"),
+          address: new RegExp(address, 'gi'),
         },
       });
     }
@@ -74,15 +78,25 @@ class Controller {
   add(payload) {
     payload.slug = payload.name
       .toLowerCase()
-      .replace(/\s+/g, "-") // Replace spaces with -
-      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-      .replace(/\-\-+/g, "-") // Replace multiple - with single -
-      .replace(/^-+/, "") // Trim - from start of text
-      .replace(/-+$/, "");
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '');
     return Model.create(payload);
   }
 
   update(id, payload) {
+    if (payload.name) {
+      delete payload.slug;
+      payload.slug = payload.name
+        .toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '');
+    }
     return Model.findByIdAndUpdate(id, payload);
   }
 
@@ -91,7 +105,7 @@ class Controller {
   }
 
   findBook(name) {
-    return Model.find({ name: new RegExp(name, "gi") });
+    return Model.find({ name: new RegExp(name, 'gi') });
   }
 }
 

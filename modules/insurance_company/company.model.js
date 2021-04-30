@@ -1,25 +1,23 @@
 // const { ObjectID, ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
-const { ObjectId } = mongoose.Schema;
-
-const BankSchema = mongoose.Schema(
+const Schema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    head_office: { type: String },
-    slug: { type: String, required: true },
+    address: { type: String },
+    slug: String,
     secondary_contacts: { type: String },
     primary_contact: { type: String },
     email: { type: String },
     logo_url: { type: String },
     desc: { type: String },
-    base_rate: { type: Number, required: true },
     website: { type: String },
-    product_url: { type: String },
     is_active: { type: Boolean, required: true, default: true },
+    type: String,
+    symbol: String,
   },
   {
-    collection: 'banks',
+    collection: 'insurances_companies',
     timestamps: {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
@@ -33,4 +31,4 @@ const BankSchema = mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Banks', BankSchema);
+module.exports = mongoose.model('InsuranceCompanies', Schema);

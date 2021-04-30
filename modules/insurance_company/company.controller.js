@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Model = require('./category.model');
+const Model = require('./company.model');
 const { DataUtils } = require('../../utils');
 
 class Controller {
-  list({
-    start, limit, name, status, type,
+  async list({
+    start, limit, name, address,
   }) {
     const query = [];
     if (name) {
@@ -14,48 +13,27 @@ class Controller {
         },
       });
     }
-    if (status) {
-      status = status === 'true';
+    if (address) {
       query.push({
         $match: {
-          is_active: status,
+          address: new RegExp(address, 'gi'),
         },
       });
     }
-    if (type === 'featured') {
-      const isFeatured = true;
-      query.push({
-        $match: {
-          isFeatured,
-        },
-      });
-    }
-    if (type === 'popular') {
-      const isPopular = true;
-      query.push({
-        $match: {
-          isPopular,
-        },
-      });
-    }
+
     return DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
-      query,
       model: Model,
+      query,
     });
   }
 
-  weblist({
-    start, limit, name, status,
+  listnoDesc({
+    start, limit, name, address,
   }) {
-    const query = [{
-      $project: {
-        required_docs: 0,
-        extras: 0,
-      },
-    }];
+    const query = [];
     if (name) {
       query.push({
         $match: {
@@ -63,29 +41,43 @@ class Controller {
         },
       });
     }
-    if (status) {
-      status = status === 'true';
+    if (address) {
       query.push({
         $match: {
-          is_active: status,
+          address: new RegExp(address, 'gi'),
         },
       });
     }
+    query.push({
+      $project: {
+        desc: 0,
+        information: 0,
+      },
+    });
     return DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
-      query,
       model: Model,
+      query,
     });
+  }
+
+  listAll() {
+    return Model.find({ is_active: true });
   }
 
   findById(id) {
     return Model.findById(id);
   }
 
+  findBySlug(slug) {
+    return Model.findOne({ slug });
+  }
+
   add(payload) {
-    payload.slug = payload.name.toLowerCase()
+    payload.slug = payload.name
+      .toLowerCase()
       .replace(/\s+/g, '-') // Replace spaces with -
       .replace(/[^\w\-]+/g, '') // Remove all non-word chars
       .replace(/\-\-+/g, '-') // Replace multiple - with single -
@@ -101,6 +93,10 @@ class Controller {
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
+
+  findBook(name) {
+    return Model.find({ name: new RegExp(name, 'gi') });
+  }
 }
 
-module.exports = new Controller({ mongoose });
+module.exports = new Controller();
