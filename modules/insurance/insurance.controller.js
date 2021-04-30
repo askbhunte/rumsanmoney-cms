@@ -10,7 +10,6 @@ class Controller {
     limit,
     name,
     companyName,
-    producttype,
     type,
     category,
     baserate,
@@ -72,32 +71,18 @@ class Controller {
       });
     }
     if (type === 'featured') {
-      const isfeatured = true;
+      const is_featured = true;
       query.push({
         $match: {
-          is_featured: isfeatured,
+          is_featured,
         },
       });
     }
     if (type === 'popular') {
-      const isPopular = true;
+      const is_popular = true;
       query.push({
         $match: {
-          is_popular: isPopular,
-        },
-      });
-    }
-    if (type === 'loan') {
-      query.push({
-        $match: {
-          loan_type: 'loan',
-        },
-      });
-    }
-    if (type === 'saving') {
-      query.push({
-        $match: {
-          loan_type: 'saving',
+          is_popular,
         },
       });
     }
@@ -123,14 +108,7 @@ class Controller {
         },
       });
     }
-    if (producttype) {
-      query.push({
-        $match: {
-          ptype: new RegExp(producttype, 'gi'),
-        },
-      });
-    }
-
+    console.log(query);
     return DataUtils.paging({
       start,
       limit,
