@@ -62,6 +62,75 @@ class GSheet {
     });
     return data;
   }
+
+  async getInsurance() {
+    try {
+      await this.doc.loadInfo();
+      const sheet = this.doc.sheetsByIndex[2];
+      await sheet.loadHeaderRow();
+      const rows = await sheet.getRows();
+      const data = [];
+      rows.forEach((el) => {
+        const objData = {};
+        objData.name = el['Name of Insurance Companies'];
+        objData.symbol = el['Symbol Name'];
+        objData.primary_contact = el['Contact Number'];
+        objData.email = el['Email Address'];
+        objData.website = el.Website;
+        objData.address = el.Address;
+        objData.type = el['Company types'];
+        data.push(objData);
+      });
+      return data;
+    } catch (error) {
+      console.log('Error console log:', error);
+    }
+  }
+
+  async getPolicyAsCategory() {
+    try {
+      await this.doc.loadInfo();
+      const sheet = this.doc.sheetsByIndex[0];
+      await sheet.loadHeaderRow();
+      const rows = await sheet.getRows();
+      const data = [];
+
+      rows.forEach((el) => {
+        const objData = {};
+        if (el['Policy Type']) {
+          objData.name = el['Policy Type'];
+          objData.icon = 'fa fa-plus-square';
+          data.push(objData);
+        }
+      });
+      return data;
+    } catch (error) {
+      console.log('TRY CATCH ERROR', error);
+    }
+  }
+
+  async getPolicyList() {
+    try {
+      await this.doc.loadInfo();
+      const sheet = this.doc.sheetsByIndex[1];
+      await sheet.loadHeaderRow();
+      const rows = await sheet.getRows();
+      const data = [];
+
+      rows.forEach((el) => {
+        const objData = {};
+        if (el['Policy Type']) {
+          objData.name = el['Policy Name'];
+          objData.company = el['Name of insurance company'];
+          objData.category = el['Policy Type'];
+          data.push(objData);
+        }
+      });
+      return data;
+    } catch (error) {
+      console.log('TRY CATCH ERROR', error);
+    }
+  }
 }
 
 module.exports = new GSheet();
