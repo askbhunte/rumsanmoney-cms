@@ -9,9 +9,8 @@ class Controller {
     start,
     limit,
     name,
-    bankname,
+    companyName,
     producttype,
-    bankId,
     type,
     category,
     baserate,
@@ -31,15 +30,15 @@ class Controller {
     query.push(
       {
         $lookup: {
-          from: 'banks',
-          localField: 'bank_id',
+          from: 'insurances_companies',
+          localField: 'company',
           foreignField: '_id',
-          as: 'bankinfo',
+          as: 'companyInfo',
         },
       },
       {
         $unwind: {
-          path: '$bankinfo',
+          path: '$companyInfo',
           preserveNullAndEmptyArrays: false,
         },
       },
@@ -57,13 +56,13 @@ class Controller {
           preserveNullAndEmptyArrays: false,
         },
       },
-      {
-        $addFields: {
-          total_interest: {
-            $add: ['$base_rate', '$interest_rate'],
-          },
-        },
-      },
+      // {
+      //   $addFields: {
+      //     total_interest: {
+      //       $add: ['$base_rate', '$interest_rate'],
+      //     },
+      //   },
+      // },
     );
     if (name) {
       query.push({
@@ -81,10 +80,10 @@ class Controller {
       });
     }
     if (type === 'popular') {
-      const is_popular = true;
+      const isPopular = true;
       query.push({
         $match: {
-          is_popular,
+          is_popular: isPopular,
         },
       });
     }
@@ -102,17 +101,10 @@ class Controller {
         },
       });
     }
-    if (bankId) {
+    if (companyName) {
       query.push({
         $match: {
-          bank_id: ObjectId(bankId),
-        },
-      });
-    }
-    if (bankname) {
-      query.push({
-        $match: {
-          'bankinfo.name': new RegExp(bankname, 'gi'),
+          'companyInfo.name': new RegExp(companyName, 'gi'),
         },
       });
     }

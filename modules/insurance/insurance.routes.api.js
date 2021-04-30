@@ -6,9 +6,8 @@ router.get('/', async (q, r, n) => {
   const start = q.query.start || 0;
   const name = q.query.name || null;
   const producttype = q.query.type || null;
-  const bankname = q.query.bankname || null;
+  const companyName = q.query.companyname || null;
   const baserate = q.query.baserate || null;
-  const bankId = q.query.bankId || null;
   const type = q.query.type || null;
   const category = q.query.category || null;
   const sortinasc = q.query.sortinasc || null;
@@ -19,8 +18,7 @@ router.get('/', async (q, r, n) => {
     start,
     name,
     producttype,
-    bankId,
-    bankname,
+    companyName,
     baserate,
     type,
     category,
