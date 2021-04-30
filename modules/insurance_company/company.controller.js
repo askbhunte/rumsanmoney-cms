@@ -94,8 +94,8 @@ class Controller {
     return Model.findByIdAndRemove(id);
   }
 
-  findBook(name) {
-    return Model.find({ name: new RegExp(name, 'gi') });
+  findByName(name) {
+    return Model.findOne({ name: new RegExp(name, 'gi') });
   }
 }
 

@@ -101,6 +101,10 @@ class Controller {
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
+
+  findByName(name) {
+    return Model.findOne({ name: new RegExp(name, 'gi') });
+  }
 }
 
 module.exports = new Controller({ mongoose });
