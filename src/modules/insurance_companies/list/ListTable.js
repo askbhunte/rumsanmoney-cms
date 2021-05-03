@@ -4,7 +4,7 @@ import { useToasts } from 'react-toast-notifications';
 import { Row, Col, Card, CardTitle, CardBody, Input, Table } from 'reactstrap';
 import { Context } from '../core/contexts';
 import Paginate from '../../global/Paginate';
-import { dateFormatter } from '../../../utils/formatter';
+import { properCase } from '../../../utils/formatter';
 
 const List = () => {
 	const { addToast } = useToasts();
@@ -38,7 +38,7 @@ const List = () => {
 	const handleSearchInputChange = e => {
 		const value = e.target.value;
 		setSearchText(value);
-		fetchList({ start: 0, limit: pagination.limit, search: value });
+		fetchList({ start: 0, limit: pagination.limit, name: value });
 	};
 
 	const loadList = query => {
@@ -64,10 +64,10 @@ const List = () => {
 							<i className="mdi mdi-border-right mr-2"></i>Companies List
 						</Col>
 						<Col md="3">
-							<Input placeholder="Enter title name ..." onChange={handleSearchInputChange} />
+							<Input placeholder="Enter name ..." onChange={handleSearchInputChange} />
 						</Col>
 						<Col md="2">
-							<Link className="btn btn-primary" to="/career/add">
+							<Link className="btn btn-primary" to="/newcompany">
 								Add
 							</Link>
 						</Col>
@@ -77,10 +77,9 @@ const List = () => {
 					<Table className="no-wrap v-middle" responsive>
 						<thead>
 							<tr className="border-0">
-								<th className="border-0">Title</th>
-								<th className="border-0">Expiry Date</th>
-								<th className="border-0">Vacancy</th>
-								<th className="border-0">Applicants</th>
+								<th className="border-0">Name</th>
+								<th className="border-0">Contact</th>
+								<th className="border-0">Address</th>
 								<th className="border-0">Action</th>
 							</tr>
 						</thead>
@@ -90,13 +89,12 @@ const List = () => {
 									return (
 										<tr key={d._id}>
 											<td>
-												<div className="text-dark">{d.title ? d.title : '-'}</div>
+												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
 											</td>
-											<td>{d.expiryDate ? dateFormatter(d.expiryDate) : '-'}</td>
-											<td>{d.vacancies ? d.vacancies : '-'}</td>
-											<td>{d.count ? d.count : '-'}</td>
+											<td>{d.primary_contact ? d.primary_contact : '-'}</td>
+											<td>{d.address ? properCase(d.address) : '-'}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
-												<Link className="btn btn-secondary" to={`/career/${d._id}`}>
+												<Link className="btn btn-secondary" to={`/company/${d._id}`}>
 													Edit
 												</Link>
 											</td>
@@ -105,7 +103,7 @@ const List = () => {
 								})
 							) : (
 								<tr>
-									<td colSpan={5}>No data available.</td>
+									<td colSpan={4}>No data available.</td>
 								</tr>
 							)}
 						</tbody>
