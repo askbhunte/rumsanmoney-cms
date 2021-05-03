@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import userReduce from "../reducers/userReducer";
 import * as Service from "../services/users";
+import ACTION from "../actions/user";
 
 const initialState = {
   user_info: {},
@@ -15,10 +16,27 @@ export const UserContextProvider = ({ children }) => {
     return Service.login(payload);
   }
 
+  function listUsers(query) {
+    return new Promise((resolve, reject) => {
+      Service.listUsers(query)
+        .then((res) => {
+          dispatch({ type: ACTION.LIST_SUCCESS, res });
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   return (
     <UserContext.Provider
       value={{
+        user_info: state.user_info,
+        list: state.list,
+        pagination: state.pagination,
         userLogin,
+        listUsers,
         dispatch,
       }}
     >

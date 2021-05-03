@@ -9,8 +9,6 @@ import {
 
 const access_token = getUserToken();
 
-const _token = "jwt-token";
-
 export function login(payload) {
   return new Promise((resolve, reject) => {
     axios
@@ -30,7 +28,7 @@ export function login(payload) {
 export function listUsers() {
   return new Promise((resolve, reject) => {
     axios
-      .get(API.USERS, { headers: { Authorization: `${_token}` } })
+      .get(API.USERS, { headers: { access_token } })
       .then((res) => {
         resolve(res.data);
       })

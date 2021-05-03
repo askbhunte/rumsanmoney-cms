@@ -33,9 +33,9 @@ export default function List() {
     changeUserStatus,
     addUser,
     list,
+    listUsers,
     dispatch,
     pagination,
-    listByOrg,
   } = useContext(UserContext);
 
   const toggleModal = () => {
@@ -45,7 +45,7 @@ export default function List() {
   // Can send search params like name, phone in query later
   const fetchUsersByOrg = (query) => {
     let params = { ...pagination, ...query };
-    listByOrg(org_id, params)
+    listUsers(params)
       .then((res) => {
         dispatch({ type: ACTIONS.LIST_BY_ORG, data: res });
       })
