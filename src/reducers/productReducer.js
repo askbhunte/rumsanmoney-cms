@@ -8,10 +8,10 @@ export default (state, action) => {
         ...state,
         product: result.data,
         pagination: {
-          total: result.total,
-          limit: result.limit,
-          start: result.start,
-          currentPage: result.page,
+          total: Number(result.total),
+          limit: Number(result.limit),
+          start: Number(result.start),
+          currentPage: Number(result.page),
           totalPages: Math.ceil(result.total / result.limit),
         },
       };

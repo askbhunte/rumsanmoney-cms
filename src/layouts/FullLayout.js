@@ -10,9 +10,7 @@ import { AppContext } from "../contexts/AppContext";
 
 export default (props) => {
   const [width, setWidth] = useState(window.innerWidth);
-
   const { settings } = useContext(AppContext);
-
   const SidebarRoutes = AppRoutes.filter((d) => {
     return d.showInSidebar === true;
   });

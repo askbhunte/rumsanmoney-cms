@@ -303,7 +303,7 @@ export default function RequestList() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={4}>No data available.</td>
+                  <td colSpan={7}>No data available.</td>
                 </tr>
               )}
             </tbody>
