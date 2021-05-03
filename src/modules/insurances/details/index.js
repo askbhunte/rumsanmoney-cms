@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DetailsForm from './DetailsForm';
-import { ContextProvider } from '../context';
+import { ContextProvider } from '../core/contexts';
 
 const Details = props => {
 	return (

@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardBody, CardHeader } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
-import { Context } from '../context';
+import { Context } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
-import CKEditor from 'ckeditor4-react';
-import CKConfig from '../../../constants/ckeditor';
 
 const Add = () => {
 	const { addToast } = useToasts();
@@ -77,7 +75,7 @@ const Add = () => {
 					</Row>
 					<FormGroup>
 						<Label for="content">Content:</Label>
-						<CKEditor data="" config={CKConfig} onChange={handleChange} />
+						{/* <CKEditor data="" config={CKConfig} onChange={handleChange} /> */}
 					</FormGroup>
 					<Button type="submit">Submit</Button>
 					<Link to="/careers" className="btn btn-danger ml-2">

@@ -1,4 +1,4 @@
-import ACTION from '../actions';
+import ACTION from './actions';
 
 export default (state, action) => {
 	const result = action.res;

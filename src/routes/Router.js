@@ -3,15 +3,18 @@ import { lazy } from "react";
 const Dashboard = lazy(() => import("../modules/dashboard/Dashboard"));
 const Banks = lazy(() => import("../modules/banks/list"));
 const BankDetails = lazy(() => import("../modules/banks/details"));
-const Products = lazy(() => import("../modules/products/list"));
-const ProductDetails = lazy(() => import("../modules/products/details"));
-const Categories = lazy(() => import("../modules/categories/list"));
-const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Blogs = lazy(() => import("../modules/blogs/list"));
 const BlogsDetails = lazy(() => import("../modules/blogs/details"));
-const Users = lazy(() => import("../modules/users/List"));
+const Categories = lazy(() => import("../modules/categories/list"));
+const CategoryDetails = lazy(() => import("../modules/categories/details"));
+const Insurances = lazy(() => import("../modules/insurances/list"));
+const Companies = lazy(() => import("../modules/insurance_companies/list"));
+const CompanyAdd = lazy(() => import("../modules/insurance_companies/add"));
+const Products = lazy(() => import("../modules/products/list"));
+const ProductDetails = lazy(() => import("../modules/products/details"));
 const Requests = lazy(() => import("../modules/requests/list"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
+const Users = lazy(() => import("../modules/users/List"));
 
 var AppRoutes = [
   {
@@ -60,16 +63,21 @@ var AppRoutes = [
     showInSidebar: true,
     child: [
       {
-        path: "/banks",
+        path: "/companies",
         name: "Companies",
-        component: Banks,
+        component: Companies,
       },
       {
-        path: "/products",
+        path: "/insurances",
         name: "Products",
-        component: Products,
+        component: Insurances,
       },
     ],
+  },
+  {
+    path: "/newcompany",
+    name: "CompanyAdd",
+    component: CompanyAdd,
   },
   {
     path: "/categories",

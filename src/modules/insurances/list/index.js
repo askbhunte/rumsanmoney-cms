@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContextProvider } from '../context';
+import { ContextProvider } from '../core/contexts';
 import ListTable from './ListTable';
 
 const List = () => {

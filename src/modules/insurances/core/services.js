@@ -4,7 +4,7 @@ import API from '../../../constants/api';
 import { getUserToken } from '../../../utils/sessionManager';
 
 axios.defaults.headers.access_token = getUserToken();
-const URL = `${API.CAREERS}`;
+const URL = `${API.INSURANCES}`;
 
 export function list(params) {
 	return new Promise((resolve, reject) => {

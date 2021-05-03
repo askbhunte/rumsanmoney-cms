@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
-import Reduce from '../reducers';
-import * as Service from '../services';
-import ACTION from '../actions';
+import Reduce from './reducers';
+import * as Service from './services';
+import ACTION from './actions';
 
 const initialState = {
 	data: [],
