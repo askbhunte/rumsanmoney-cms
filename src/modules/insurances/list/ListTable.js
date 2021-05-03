@@ -61,7 +61,7 @@ const List = () => {
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
 					<Row>
 						<Col md="7">
-							<i className="mdi mdi-border-right mr-2"></i>Companies List
+							<i className="mdi mdi-border-right mr-2"></i>Insurance Product List
 						</Col>
 						<Col md="3">
 							<Input placeholder="Enter name ..." onChange={handleSearchInputChange} />
@@ -94,7 +94,7 @@ const List = () => {
 											<td>{d.companyInfo && d.companyInfo.name ? properCase(d.companyInfo.name) : '-'}</td>
 											<td>{d.categoryinfo && d.categoryinfo.name ? properCase(d.categoryinfo.name) : '-'}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
-												<Link className="btn btn-secondary" to={`/company/${d._id}`}>
+												<Link className="btn btn-secondary" to={`/insurance/${d._id}`}>
 													Edit
 												</Link>
 											</td>

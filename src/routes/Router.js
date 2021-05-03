@@ -10,6 +10,7 @@ const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Insurances = lazy(() => import("../modules/insurances/list"));
 const Companies = lazy(() => import("../modules/insurance_companies/list"));
 const CompanyAdd = lazy(() => import("../modules/insurance_companies/add"));
+const CompanyDetails = lazy(() => import("../modules/insurance_companies/details"));
 const Products = lazy(() => import("../modules/products/list"));
 const ProductDetails = lazy(() => import("../modules/products/details"));
 const Requests = lazy(() => import("../modules/requests/list"));
@@ -98,6 +99,12 @@ var AppRoutes = [
     name: "Bank Details",
     icon: "umbrella",
     component: BankDetails,
+  },
+  {
+    path: "/company/:id",
+    name: "Company Details",
+    icon: "umbrella",
+    component: CompanyDetails,
   },
   {
     path: "/product/:id",

@@ -7,7 +7,6 @@ import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
 import { dateFormatter } from '../../../utils/formatter';
-import ApplicantListTable from '../../applicant/list';
 
 const DetailForm = props => {
 	const Id = props.params.id;
@@ -215,7 +214,6 @@ const DetailForm = props => {
 							</Form>
 						</CardBody>
 					</Card>
-					<ApplicantListTable id={detail._id} jobTitle={detail.title} />
 				</div>
 			) : (
 				<Loading />

@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardTitle, CardBody, CardHeader } from 'reactstrap';
-import Accordion from 'react-bootstrap/Accordion';
+import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardTitle, CardBody } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Context } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
 import { dateFormatter } from '../../../utils/formatter';
-import ApplicantListTable from '../../applicant/list';
 
 const DetailForm = props => {
 	const Id = props.params.id;
@@ -16,18 +14,11 @@ const DetailForm = props => {
 	const { addToast } = useToasts();
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
-	const [contentData, setContentData] = useState('');
-
-	const handleChange = event => {
-		const data = event.editor.getData();
-		setContentData(data);
-	};
 
 	const submitUpdate = e => {
 		e.preventDefault();
 		const { id, _id, __v, created_at, updated_at, slug, google_doc_id, description, ...rest } = detail;
 		let formData = { ...rest };
-		formData.description = contentData ? contentData : detail.description;
 		update(Id, formData).then(d => {
 			Swal.fire('Successful!', 'Career details updated successfully.', 'success')
 				.then()
@@ -123,7 +114,7 @@ const DetailForm = props => {
 						<CardTitle className="mb-0 p-3 border-bottom bg-light">
 							<Row>
 								<Col md="8">
-									<i className="mdi mdi-book mr-2"></i>Career Detail
+									<i className="mdi mdi-book mr-2"></i>Insurance Company Detail
 								</Col>
 								<Col md="4" className="text-right">
 									<Button color="warning" className="text-white" onClick={() => archive_career(detail._id)}>
@@ -140,13 +131,6 @@ const DetailForm = props => {
 						<CardBody>
 							<Form onSubmit={submitUpdate}>
 								<div className="basic detail">
-									<Accordion defaultActiveKey="0">
-										<Card>
-											<Accordion.Toggle as={CardHeader} eventKey="0">
-												Basic detail
-											</Accordion.Toggle>
-											<Accordion.Collapse eventKey="0">
-												<CardBody>
 													<FormGroup>
 														<Label for="title">Title:</Label>
 														<Input
@@ -196,14 +180,6 @@ const DetailForm = props => {
 															</FormGroup>
 														</Col>
 													</Row>
-													<FormGroup>
-														<Label for="content">Content:</Label>
-														{/* <CKEditor config={CKConfig} data={detail.description} onChange={handleChange} /> */}
-													</FormGroup>
-												</CardBody>
-											</Accordion.Collapse>
-										</Card>
-									</Accordion>
 								</div>
 								<br />
 								<Button color="success" type="submit">
@@ -215,7 +191,6 @@ const DetailForm = props => {
 							</Form>
 						</CardBody>
 					</Card>
-					<ApplicantListTable id={detail._id} jobTitle={detail.title} />
 				</div>
 			) : (
 				<Loading />

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardBody, CardHeader } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Context } from '../core/contexts';
@@ -8,13 +8,6 @@ const Add = () => {
 	const { addToast } = useToasts();
 	const { add } = useContext(Context);
 	const history = useHistory();
-	const [contentData, setContentData] = useState(null);
-
-	const handleChange = event => {
-		let data = event.editor.getData();
-		data = data.replace(/"/g, "'");
-		setContentData(data);
-	};
 
 	const handleFormSubmit = e => {
 		e.preventDefault();
@@ -24,7 +17,6 @@ const Add = () => {
 			sub_title: formData.get('sub_title'),
 			expiryDate: formData.get('expiryDate'),
 			vacancies: formData.get('vacancies'),
-			description: contentData
 		};
 		saveDetails(payload);
 	};
