@@ -10,7 +10,6 @@ import {
   CardBody,
   CardTitle,
   Table,
-  CustomInput,
   Input,
 } from "reactstrap";
 import { UserContext } from "../../contexts/UserContext";
@@ -18,14 +17,11 @@ import { getUser } from "../../utils/sessionManager";
 import ACTIONS from "../../actions/user";
 import Paginate from "../global/Paginate";
 import CustomModal from "../global/CustomModal";
-import ROLES from "../../constants/roles";
-import { USER_TYPES } from "../../constants";
 
 export default function List() {
   const { addToast } = useToasts();
   const [current, setCurrent] = useState(0);
   const [modal, setModal] = useState(false);
-  const [role, setRole] = useState(ROLES.USER);
 
   const currentUser = getUser();
   const { org_id } = currentUser;
@@ -93,7 +89,6 @@ export default function List() {
         });
         toggleModal();
         fetchUsersByOrg();
-        setRole(ROLES.USER);
       })
       .catch((err) => {
         addToast(err.message, {
@@ -101,10 +96,6 @@ export default function List() {
           autoDismiss: true,
         });
       });
-  };
-
-  const handleRoleChange = (e) => {
-    setRole(e.target.value);
   };
 
   const handleCheckboxChange = (userId, status) => {
@@ -195,49 +186,6 @@ export default function List() {
           </div>
         </div>
         <br />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-            gridColumnGap: "10px",
-          }}
-        >
-          <div className="form-item">
-            <label htmlFor="roles">Role</label>
-            <CustomInput
-              type="select"
-              id="roles"
-              name="roles"
-              onChange={handleRoleChange}
-              className="form-field"
-              required
-            >
-              <option value={ROLES.USER}>User</option>
-              <option value={ROLES.ORG_ADMIN}>Org Admin</option>
-            </CustomInput>
-          </div>
-          {role && role === ROLES.USER ? (
-            <div className="form-item">
-              <label htmlFor="userType">User Type</label>
-              <CustomInput
-                type="select"
-                id="userType"
-                name="userType"
-                defaultValue=""
-                className="form-field"
-                required
-              >
-                <option value={USER_TYPES.FARMER}>Farmer</option>
-                <option value={USER_TYPES.TRADER}>Trader</option>
-                <option value={USER_TYPES.SERVICE_PROVIDER}>
-                  Service Provider
-                </option>
-              </CustomInput>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
         <br />
       </CustomModal>
       <Card>
