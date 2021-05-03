@@ -55,7 +55,7 @@ var AppRoutes = [
     collapse: true,
     path: "/dashboard",
     name: "Insurances",
-    state: "insurancesPages",
+    state: "insurancePages",
     icon: "gift",
     showInSidebar: true,
     child: [

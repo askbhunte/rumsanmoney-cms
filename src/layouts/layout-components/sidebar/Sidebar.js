@@ -12,6 +12,8 @@ const Sidebar = (props) => {
   };
   const [state, setState] = useState({
     dashboardpages: activeRoute("/dashboards") !== "" ? true : false,
+    bankPages : true,
+    insurancePages : true
   });
   const [cstate, csetState] = useState({
     extrapages: activeRoute("/sample-pages/extra-pages") !== "" ? true : false,
