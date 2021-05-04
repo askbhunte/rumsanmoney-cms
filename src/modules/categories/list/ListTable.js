@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Paginate from "../../global/Paginate";
 import Swal from "sweetalert2";
 import Ratings from "react-ratings-declarative";
-
+import {properCase} from '../../../utils/formatter';
 import {
   Button,
   Row,
@@ -212,7 +212,21 @@ export default function CategoryList() {
                 category.map((d) => {
                   return (
                     <tr key={d._id}>
-                      <td>{d.name || "N/A"}</td>
+                      <td>
+                        <div className="text-dark">{d.name ? d.name : 'N/A'}&nbsp;
+                            {d.image && d.image.length > 0 ? (
+                              <i className="fas fa-image fa-sm" style={{ color: 'red' }}></i>
+                            ) : (
+                              ''
+                            )}</div>
+                        <div className="row">
+                          <div className="col">
+                            <em>
+                              <small>{d && d.sub_head ? properCase(d.sub_head.substring(0,80).concat("...")) : 'N/A'}</small>
+                            </em>
+                          </div>
+                        </div>
+                      </td>
                       <td>
                         <i className={`${d.icon} fa-lg`}></i>
                       </td>
