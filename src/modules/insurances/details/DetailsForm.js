@@ -1,34 +1,69 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardTitle, CardBody, CardHeader } from 'reactstrap';
-import Accordion from 'react-bootstrap/Accordion';
+import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardTitle, CardBody } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Context } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
-import { dateFormatter } from '../../../utils/formatter';
+import S3 from 'react-aws-s3';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+import uploading from '../../../assets/images/uploading.gif';
 
 const DetailForm = props => {
 	const Id = props.params.id;
-
+  const config = {
+		bucketName: process.env.REACT_APP_AWS_BUCKETNAME,
+		dirName: process.env.REACT_APP_AWS_DIRNAME,
+		region: process.env.REACT_APP_AWS_REGION,
+		accessKeyId: process.env.REACT_APP_AWS_ACCESSKEYID,
+		secretAccessKey: process.env.REACT_APP_AWS_SECRETACCESSKEY,
+		s3Url: process.env.REACT_APP_AWS_S3URL
+	};
+	const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"],
+    ],
+  };
+  const formats = ["bold", "italic", "underline", "list", "bullet"];
+	const ReactS3Client = new S3(config);
 	const history = useHistory();
 	const { addToast } = useToasts();
+
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
-	const [contentData, setContentData] = useState('');
+  const [content, setContent] = useState("");
+	const [selectedFile, setSelectedFile] = useState('');
 
-	const handleChange = event => {
-		const data = event.editor.getData();
-		setContentData(data);
+  const docHandler = async event => {
+		const fileName = event.target.files[0];
+		const regex = / /gi;
+    const date = new Date();
+    const milliseconds = String(date.getTime());
+		const newFileName = milliseconds.concat("-",fileName.name.replace(regex, '-'));
+		setSelectedFile(uploading);
+		try{
+			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
+			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
+			setSelectedFile(fileURL);
+		}catch(e){
+			console.log(e);
+			setSelectedFile('');
+		}
 	};
 
 	const submitUpdate = e => {
 		e.preventDefault();
-		const { id, _id, __v, created_at, updated_at, slug, google_doc_id, description, ...rest } = detail;
+		const { id, _id, __v, created_at, updated_at, slug, ...rest } = detail;
 		let formData = { ...rest };
-		formData.description = contentData ? contentData : detail.description;
+    formData.description = content;
+		formData.image = selectedFile;
 		update(Id, formData).then(d => {
-			Swal.fire('Successful!', 'Career details updated successfully.', 'success')
+			Swal.fire('Successful!', 'Product details updated successfully.', 'success')
 				.then()
 				.catch(err => {
 					addToast('Something went wrong on server!', {
@@ -39,10 +74,10 @@ const DetailForm = props => {
 		});
 	};
 
-	async function delete_career(Id) {
+	async function removeData(Id) {
 		let result = await Swal.fire({
 			title: 'Are you sure?',
-			text: `Career will be deleted!`,
+			text: `This Product will be deleted!`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -53,12 +88,12 @@ const DetailForm = props => {
 			try {
 				let d = await remove(Id);
 				if (d) {
-					addToast(`Career deleted successfully.`, {
+					addToast(`Company deleted successfully.`, {
 						appearance: 'success',
 						autoDismiss: true
 					});
 					list();
-					history.push('/careers');
+					history.push('/insurances');
 				}
 			} catch {
 				addToast('Something went wrong on server!', {
@@ -69,10 +104,10 @@ const DetailForm = props => {
 		}
 	}
 
-	async function archive_career(Id) {
+	async function archiveData(Id) {
 		let result = await Swal.fire({
 			title: 'Are you sure?',
-			text: `Career will be archived!`,
+			text: `This Product will be archived!`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -83,12 +118,12 @@ const DetailForm = props => {
 			try {
 				let d = await archive(Id);
 				if (d) {
-					addToast(`Career archived successfully.`, {
+					addToast(`This Product archived successfully.`, {
 						appearance: 'success',
 						autoDismiss: true
 					});
 					list();
-					history.push('/careers');
+					history.push('/insurances');
 				}
 			} catch {
 				addToast('Something went wrong on server!', {
@@ -103,6 +138,8 @@ const DetailForm = props => {
 		getDetail(Id)
 			.then(d => {
 				setDetail(d);
+        const editorText = d.description ? d.description : "";
+        setContent(editorText);
 			})
 			.catch(() => {
 				addToast('Something went wrong!', {
@@ -112,7 +149,14 @@ const DetailForm = props => {
 			});
 	};
 
+	const handleContentChange = async (content) => {
+    setContent(content);
+  };
+
 	useEffect(loaddetail, []);
+	useEffect(()=>{
+		if(detail && detail.image) setSelectedFile(detail.image);
+	}, [detail]);
 
 	return (
 		<>
@@ -122,14 +166,14 @@ const DetailForm = props => {
 						<CardTitle className="mb-0 p-3 border-bottom bg-light">
 							<Row>
 								<Col md="8">
-									<i className="mdi mdi-book mr-2"></i>Career Detail
+									<i className="mdi mdi-book mr-2"></i>Insurance Product Detail
 								</Col>
 								<Col md="4" className="text-right">
-									<Button color="warning" className="text-white" onClick={() => archive_career(detail._id)}>
+									<Button color="warning" className="text-white" onClick={() => archiveData(detail._id)}>
 										<i className="mdi mdi-delete mr-2"></i>Archive
 									</Button>
 									&nbsp;
-									<Button color="danger" onClick={() => delete_career(detail._id)}>
+									<Button color="danger" onClick={() => removeData(detail._id)}>
 										<i className="mdi mdi-delete mr-2"></i>Delete
 									</Button>
 								</Col>
@@ -139,76 +183,109 @@ const DetailForm = props => {
 						<CardBody>
 							<Form onSubmit={submitUpdate}>
 								<div className="basic detail">
-									<Accordion defaultActiveKey="0">
-										<Card>
-											<Accordion.Toggle as={CardHeader} eventKey="0">
-												Basic detail
-											</Accordion.Toggle>
-											<Accordion.Collapse eventKey="0">
-												<CardBody>
-													<FormGroup>
-														<Label for="title">Title:</Label>
+									<Row>
+									<Col md="4">
+                  <FormGroup>
+                  <Label>Image</Label>
+                  <div className="text-center mb-0">
+								<Label for="doc-upload" className="custom-doc-upload text-center">
+									<div>
+										<img
+											src={ selectedFile }
+											className="form-group text-center"
+                      onError={(e)=>{e.target.onerror = null; e.target.src="https://9to5wordpress.com/wp-content/uploads/2020/11/ninja-forms-file-upload.png"}}  
+											width="260"
+											height="150"
+											alt="new file for uploading"
+										/>
+									</div>
+								</Label>
+								<Input id="doc-upload" type="file" name="image_upload" onChange={e => docHandler(e)} />
+							</div>
+                </FormGroup>
+                </Col>
+								<Col md="8">
+								<Col md="12">
+									<FormGroup>
+														<Label for="title">Name:</Label>
 														<Input
 															type="text"
-															name="title"
-															id="title"
-															value={detail ? detail.title : ''}
+															name="name"
+															value={detail ? detail.name : ''}
 															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter Title"
+															placeholder="Enter Name"
 														/>
 													</FormGroup>
+													
+								</Col>
+								<Col md='12'>
+									<Row>
+										<Col md='6'>
 													<FormGroup>
-														<Label for="sub_title">Subtitle:</Label>
+														<Label for="company">Company:</Label>
 														<Input
 															type="text"
-															name="sub_title"
-															id="sub_title"
-															value={detail ? detail.sub_title : ''}
+															name="company"
+															value={detail ? detail.company : ''}
 															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter subtitle"
+															placeholder="Enter Company"
+															disabled
 														/>
 													</FormGroup>
+								</Col>
+								<Col md='6'>
+													<FormGroup>
+														<Label for="category">Category:</Label>
+														<Input
+															type="text"
+															name="category"
+															value={detail ? detail.category : ''}
+															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
+															placeholder="Enter Category"
+															disabled
+														/>
+													</FormGroup>
+								</Col> 
+									</Row>
+								</Col>
+								
+								</Col>
+									</Row>
 													<Row>
-														<Col md="6">
+														<Col md="12">
 															<FormGroup>
-																<Label for="expiryDate">Expiry Date:</Label>
+																<Label for="subhead">Sub Head:</Label>
 																<Input
-																	type="date"
-																	name="expiryDate"
-																	value={detail ? dateFormatter(detail.expiryDate, 'YYYY-MM-DD') : ''}
+																	type="text"
+																	name="subhead"
+																	value={detail ? detail.subhead : ''}
 																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-																	placeholder="Enter career expiry date"
+																	placeholder="Enter Short detail..."
 																/>
 															</FormGroup>
 														</Col>
-														<Col md="6">
+														<Col md="12">
 															<FormGroup>
-																<Label for="vacancies">Vacancies:</Label>
-																<Input
-																	type="text"
-																	name="vacancies"
-																	id="vacancies"
-																	value={detail ? detail.vacancies : ''}
-																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-																	placeholder=" Enter vacancies"
-																/>
+																<Label for="description">Description:</Label>
+																<ReactQuill
+                        modules={modules}
+                        formats={formats}
+                        value={content}
+                        placeholder="Write the Product Description"
+                        theme={"snow"}
+                        style={{ height: "250px" }}
+                        onChange={(e) => handleContentChange(e)}
+                      />
 															</FormGroup>
 														</Col>
 													</Row>
-													<FormGroup>
-														<Label for="content">Content:</Label>
-														{/* <CKEditor config={CKConfig} data={detail.description} onChange={handleChange} /> */}
-													</FormGroup>
-												</CardBody>
-											</Accordion.Collapse>
-										</Card>
-									</Accordion>
 								</div>
+								<br />
 								<br />
 								<Button color="success" type="submit">
 									Submit
 								</Button>
-								<Link to="/careers" className="btn btn-dark ml-2">
+								<Link to="/companies" className="btn btn-dark ml-2">
 									Cancel
 								</Link>
 							</Form>

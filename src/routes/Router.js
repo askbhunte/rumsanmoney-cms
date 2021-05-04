@@ -8,6 +8,7 @@ const BlogsDetails = lazy(() => import("../modules/blogs/details"));
 const Categories = lazy(() => import("../modules/categories/list"));
 const CategoryDetails = lazy(() => import("../modules/categories/details"));
 const Insurances = lazy(() => import("../modules/insurances/list"));
+const InsuranceDetails = lazy(() => import("../modules/insurances/details"));
 const Companies = lazy(() => import("../modules/insurance_companies/list"));
 const CompanyAdd = lazy(() => import("../modules/insurance_companies/add"));
 const CompanyDetails = lazy(() => import("../modules/insurance_companies/details"));
@@ -105,6 +106,12 @@ var AppRoutes = [
     name: "Company Details",
     icon: "umbrella",
     component: CompanyDetails,
+  },
+  {
+    path: "/insurance/:id",
+    name: "Insurance Details",
+    icon: "umbrella",
+    component: InsuranceDetails,
   },
   {
     path: "/product/:id",
