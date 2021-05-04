@@ -102,6 +102,14 @@ class Controller {
     return Model.findByIdAndRemove(id);
   }
 
+  changeFeatured(id, status) {
+    return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
+  }
+
+  changePopular(id, status) {
+    return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
+  }
+
   findByName(name) {
     return Model.findOne({ name: new RegExp(name, 'gi') });
   }

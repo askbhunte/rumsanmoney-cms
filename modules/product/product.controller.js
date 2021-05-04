@@ -264,7 +264,7 @@ class Controller {
   }
 
   update(id, payload) {
-    return Model.findByIdAndUpdate(id, payload);
+    return Model.findByIdAndUpdate(id, payload, { timestamps: false });
   }
 
   changeStatus(id, status) {
