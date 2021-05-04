@@ -176,15 +176,15 @@ class Controller {
     query.push(
       {
         $lookup: {
-          from: 'banks',
-          localField: 'bank_id',
+          from: 'insurances_companies',
+          localField: 'company',
           foreignField: '_id',
-          as: 'bankinfo',
+          as: 'companyInfo',
         },
       },
       {
         $unwind: {
-          path: '$bankinfo',
+          path: '$companyInfo',
           preserveNullAndEmptyArrays: false,
         },
       },
@@ -193,12 +193,12 @@ class Controller {
           from: 'categories',
           localField: 'category',
           foreignField: '_id',
-          as: 'categoryinfo',
+          as: 'categoryInfo',
         },
       },
       {
         $unwind: {
-          path: '$categoryinfo',
+          path: '$categoryInfo',
           preserveNullAndEmptyArrays: false,
         },
       },
@@ -215,7 +215,7 @@ class Controller {
         },
       },
       {
-        $match: { $and: [{ 'bankinfo.slug': insurance }, { slug: product }] },
+        $match: { $and: [{ 'companyInfo.slug': insurance }, { slug: product }] },
       },
     );
     const resp = await Model.aggregate(query);
