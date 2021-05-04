@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import Spinner from "./modules/spinner";
 import "./assets/scss/style.scss";
+import './assets/custom.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = lazy(

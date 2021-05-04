@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Paginate from "../../global/Paginate";
 
 import {
@@ -22,6 +22,7 @@ import {
 import { CategoryContext } from "../../../contexts/CategoryContext";
 
 export default function CategoryList() {
+  const history = useHistory();
   const { addToast } = useToasts();
   const [model, setModel] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -144,12 +145,12 @@ export default function CategoryList() {
                         <i className={`${d.icon} fa-lg`}></i>
                       </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
-                        <Link
+                        <Button
                           className="btn btn-primary"
-                          to={`/category/${d._id}`}
+                          onClick={()=> history.push(`/category/${d._id}`)}
                         >
                           Edit
-                        </Link>
+                        </Button>
                       </td>
                     </tr>
                   );
