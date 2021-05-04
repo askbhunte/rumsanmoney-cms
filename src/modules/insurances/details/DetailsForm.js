@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import S3 from 'react-aws-s3';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import CategorySelector from '../../categories/category.selector';
+import CompanySelector from '../../insurance_companies/companies.selector';
 
 import uploading from '../../../assets/images/uploading.gif';
 
@@ -37,8 +39,9 @@ const DetailForm = props => {
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
   const [content, setContent] = useState("");
+	const [category, setCategory] = useState("");
+	const [company, setCompany] = useState("");
 	const [selectedFile, setSelectedFile] = useState('');
-
   const docHandler = async event => {
 		const fileName = event.target.files[0];
 		const regex = / /gi;
@@ -58,10 +61,12 @@ const DetailForm = props => {
 
 	const submitUpdate = e => {
 		e.preventDefault();
-		const { id, _id, __v, created_at, updated_at, slug, ...rest } = detail;
+		const { id,_id,__v,created_at,updated_at, slug,companyInfo,is_featured,is_popular,is_active,categoryinfo, ...rest } = detail;
 		let formData = { ...rest };
     formData.description = content;
 		formData.image = selectedFile;
+		formData.category = category;
+		formData.company = company;
 		update(Id, formData).then(d => {
 			Swal.fire('Successful!', 'Product details updated successfully.', 'success')
 				.then()
@@ -156,6 +161,8 @@ const DetailForm = props => {
 	useEffect(loaddetail, []);
 	useEffect(()=>{
 		if(detail && detail.image) setSelectedFile(detail.image);
+		if(detail && detail.category) setCategory(detail.category);
+		if(detail && detail.company) setCompany(detail.company);
 	}, [detail]);
 
 	return (
@@ -223,27 +230,13 @@ const DetailForm = props => {
 										<Col md='6'>
 													<FormGroup>
 														<Label for="company">Company:</Label>
-														<Input
-															type="text"
-															name="company"
-															value={detail ? detail.company : ''}
-															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter Company"
-															disabled
-														/>
+														<CompanySelector categories={company} onChange={e => setCompany(e)} />
 													</FormGroup>
 								</Col>
 								<Col md='6'>
 													<FormGroup>
 														<Label for="category">Category:</Label>
-														<Input
-															type="text"
-															name="category"
-															value={detail ? detail.category : ''}
-															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter Category"
-															disabled
-														/>
+														<CategorySelector categories={category} onChange={e => setCategory(e)} />
 													</FormGroup>
 								</Col> 
 									</Row>
