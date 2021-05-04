@@ -60,6 +60,30 @@ export const CategoryContextProvider = ({ children }) => {
     });
   }
 
+  function changeFeatured(id, status) {
+    return new Promise((resolve, reject) => {
+      Service.changeFeatured(id, status)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  function changePopular(id, status) {
+    return new Promise((resolve, reject) => {
+      Service.changePopular(id, status)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   const addCategory = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -85,6 +109,8 @@ export const CategoryContextProvider = ({ children }) => {
         setLoading,
         resetLoading,
         addCategory,
+        changeFeatured,
+        changePopular,
         updateCategory,
         getCategoryDetails,
       }}

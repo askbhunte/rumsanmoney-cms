@@ -66,3 +66,41 @@ export async function addCategory(body) {
 
   return res.data;
 }
+
+export function changeFeatured(id, status) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.CATEGORY}/${id}/featured`,
+        status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+export function changePopular(id, status) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.CATEGORY}/${id}/popular`,
+        status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}

@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
 import Paginate from "../../global/Paginate";
+import Swal from "sweetalert2";
+import Ratings from "react-ratings-declarative";
 
 import {
   Button,
@@ -28,7 +30,7 @@ export default function CategoryList() {
   const [current, setCurrent] = useState(0);
   const [iconPrev, setIconPrev] = useState("");
   const size = "sm";
-  const { listCategory, category, pagination, addCategory } = useContext(
+  const { listCategory, category, pagination, addCategory, changeFeatured, changePopular } = useContext(
     CategoryContext
   );
 
@@ -70,6 +72,76 @@ export default function CategoryList() {
           autoDismiss: true,
         });
       });
+  };
+
+  const changeFeaturedRating = async (id, status) => {
+    const title = status.isFeatured
+      ? "Category will be marked as Featured"
+      : "Category will be removed from Featured";
+    const toastTitle = status.isFeatured
+      ? "Category has been marked as Featured"
+      : "Category has been removed from Featured";
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changeFeatured(id, status);
+        if (d) {
+          listCategory();
+          addToast(`${toastTitle}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
+  const changePopularRating = async (id, status) => {
+    const title = status.isPopular
+      ? "Category will be marked as Popular"
+      : "Category will be removed from Popular";
+    const toastTitle = status.isPopular
+      ? "Category has been marked as Popular"
+      : "Category has been removed from Popular";
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changePopular(id, status);
+        if (d) {
+          listCategory();
+          addToast(`${toastTitle}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
   };
 
   let get = useCallback(
@@ -129,8 +201,9 @@ export default function CategoryList() {
             <thead>
               <tr className="border-0">
                 <th className="border-0">Name</th>
-                <th className="border-0">Icon</th>
                 <th className="border-0">Preview</th>
+                <th className="border-0">Featured?</th>
+                <th className="border-0">Popular?</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -140,9 +213,74 @@ export default function CategoryList() {
                   return (
                     <tr key={d._id}>
                       <td>{d.name || "N/A"}</td>
-                      <td>{d.icon || "N/A"}</td>
                       <td>
                         <i className={`${d.icon} fa-lg`}></i>
+                      </td>
+                      <td>
+                        {d.isFeatured ? (
+                          <span>
+                            <Ratings
+                              rating={1}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changeFeaturedRating(d._id, { isFeatured: false })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        ) : (
+                          <span>
+                            <Ratings
+                              rating={0}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changeFeaturedRating(d._id, { isFeatured: true })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        )}
+                      </td>
+                      <td>
+                        {d.isPopular ? (
+                          <span>
+                            <Ratings
+                              rating={1}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changePopularRating(d._id, { isPopular: false })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        ) : (
+                          <span>
+                            <Ratings
+                              rating={0}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changePopularRating(d._id, { isPopular: true })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        )}
                       </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Button

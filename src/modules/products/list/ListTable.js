@@ -501,27 +501,6 @@ export default function ProductList() {
               </div>
             </div>
             <br />
-            {/* <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-                gridColumnGap: "10px",
-              }}
-            >
-              <div className="form-item">
-                <label htmlFor="address">Description</label>
-                <br />
-                <Input
-                  name="description"
-                  type="textarea"
-                  rows="8"
-                  placeholder="Product Details"
-                  className="form-field"
-                  required
-                />
-              </div>
-            </div>
-            <br /> */}
           </ModalBody>
           <ModalFooter>
             <Button color="primary">Submit</Button>
