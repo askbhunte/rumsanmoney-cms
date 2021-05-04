@@ -5,7 +5,6 @@ import { Context } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
-import { dateFormatter } from '../../../utils/formatter';
 
 const DetailForm = props => {
 	const Id = props.params.id;
@@ -20,7 +19,7 @@ const DetailForm = props => {
 		const { id, _id, __v, created_at, updated_at, slug, google_doc_id, description, ...rest } = detail;
 		let formData = { ...rest };
 		update(Id, formData).then(d => {
-			Swal.fire('Successful!', 'Career details updated successfully.', 'success')
+			Swal.fire('Successful!', 'Company details updated successfully.', 'success')
 				.then()
 				.catch(err => {
 					addToast('Something went wrong on server!', {
@@ -31,10 +30,10 @@ const DetailForm = props => {
 		});
 	};
 
-	async function delete_career(Id) {
+	async function removeData(Id) {
 		let result = await Swal.fire({
 			title: 'Are you sure?',
-			text: `Career will be deleted!`,
+			text: `This Company will be deleted!`,
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -45,12 +44,12 @@ const DetailForm = props => {
 			try {
 				let d = await remove(Id);
 				if (d) {
-					addToast(`Career deleted successfully.`, {
+					addToast(`Company deleted successfully.`, {
 						appearance: 'success',
 						autoDismiss: true
 					});
 					list();
-					history.push('/careers');
+					history.push('/companies');
 				}
 			} catch {
 				addToast('Something went wrong on server!', {
@@ -61,7 +60,7 @@ const DetailForm = props => {
 		}
 	}
 
-	async function archive_career(Id) {
+	async function archiveData(Id) {
 		let result = await Swal.fire({
 			title: 'Are you sure?',
 			text: `Career will be archived!`,
@@ -80,7 +79,7 @@ const DetailForm = props => {
 						autoDismiss: true
 					});
 					list();
-					history.push('/careers');
+					history.push('/companies');
 				}
 			} catch {
 				addToast('Something went wrong on server!', {
@@ -117,11 +116,11 @@ const DetailForm = props => {
 									<i className="mdi mdi-book mr-2"></i>Insurance Company Detail
 								</Col>
 								<Col md="4" className="text-right">
-									<Button color="warning" className="text-white" onClick={() => archive_career(detail._id)}>
+									<Button color="warning" className="text-white" onClick={() => archiveData(detail._id)}>
 										<i className="mdi mdi-delete mr-2"></i>Archive
 									</Button>
 									&nbsp;
-									<Button color="danger" onClick={() => delete_career(detail._id)}>
+									<Button color="danger" onClick={() => removeData(detail._id)}>
 										<i className="mdi mdi-delete mr-2"></i>Delete
 									</Button>
 								</Col>
@@ -132,51 +131,85 @@ const DetailForm = props => {
 							<Form onSubmit={submitUpdate}>
 								<div className="basic detail">
 													<FormGroup>
-														<Label for="title">Title:</Label>
+														<Label for="title">Name:</Label>
 														<Input
 															type="text"
-															name="title"
-															id="title"
-															value={detail ? detail.title : ''}
+															name="name"
+															value={detail ? detail.name : ''}
 															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter Title"
+															placeholder="Enter Name"
 														/>
 													</FormGroup>
 													<FormGroup>
-														<Label for="sub_title">Subtitle:</Label>
+														<Label for="symbol">Symbol:</Label>
 														<Input
 															type="text"
-															name="sub_title"
-															id="sub_title"
-															value={detail ? detail.sub_title : ''}
+															name="symbol"
+															value={detail ? detail.symbol : ''}
 															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-															placeholder="Enter subtitle"
+															placeholder="Enter symbol"
 														/>
 													</FormGroup>
 													<Row>
-														<Col md="6">
+														<Col md="4">
 															<FormGroup>
-																<Label for="expiryDate">Expiry Date:</Label>
+																<Label for="primary_contact">Primary Contact:</Label>
 																<Input
-																	type="date"
-																	name="expiryDate"
-																	value={detail ? dateFormatter(detail.expiryDate, 'YYYY-MM-DD') : ''}
+																	type="text"
+																	name="primary_contact"
+																	value={detail ? detail.primary_contact : ''}
 																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-																	placeholder="Enter career expiry date"
+																	placeholder="Enter Multiple Primary Contact"
 																/>
 															</FormGroup>
 														</Col>
-														<Col md="6">
+														<Col md="4">
 															<FormGroup>
-																<Label for="vacancies">Vacancies:</Label>
+																<Label for="email">Email:</Label>
 																<Input
 																	type="text"
-																	name="vacancies"
-																	id="vacancies"
-																	value={detail ? detail.vacancies : ''}
+																	name="email"
+																	value={detail ? detail.email : ''}
 																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
-																	placeholder=" Enter vacancies"
+																	placeholder=" Enter email"
 																/>
+															</FormGroup>
+														</Col>
+														<Col md="4">
+															<FormGroup>
+																<Label for="website">Website:</Label>
+																<Input
+																	type="text"
+																	name="website"
+																	value={detail ? detail.website : ''}
+																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
+																	placeholder=" Enter website"
+																/>
+															</FormGroup>
+														</Col>
+													</Row>
+													<Row>
+														<Col md="8">
+															<FormGroup>
+																<Label for="address">Address:</Label>
+																<Input
+																	type="text"
+																	name="address"
+																	value={detail ? detail.address : ''}
+																	onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
+																	placeholder="Enter Address"
+																/>
+															</FormGroup>
+														</Col>
+														<Col md="4">
+															<FormGroup>
+																<Label for="type">Type:</Label>
+																<Input type="select" name="type" value={detail ? detail.type : ''} onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}>
+																	<option value=""> -- Select -- </option>
+																	<option value="Life insurance">Life Insurance</option>
+																	<option value="Life and Non-life insurance">Life and Non-life Insurance</option>
+																	<option value="Non-life insurance">Non-life insurance</option>
+																</Input>
 															</FormGroup>
 														</Col>
 													</Row>
@@ -185,7 +218,7 @@ const DetailForm = props => {
 								<Button color="success" type="submit">
 									Submit
 								</Button>
-								<Link to="/careers" className="btn btn-dark ml-2">
+								<Link to="/companies" className="btn btn-dark ml-2">
 									Cancel
 								</Link>
 							</Form>
