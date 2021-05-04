@@ -6,6 +6,7 @@ import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
 import S3 from 'react-aws-s3';
+import uploading from '../../../assets/images/uploading.gif';
 
 const DetailForm = props => {
 	const Id = props.params.id;
@@ -24,15 +25,22 @@ const DetailForm = props => {
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
 	const [selectedFile, setSelectedFile] = useState('');
+
   const docHandler = async event => {
 		const fileName = event.target.files[0];
 		const regex = / /gi;
     const date = new Date();
     const milliseconds = String(date.getTime());
 		const newFileName = milliseconds.concat("-",fileName.name.replace(regex, '-'));
-		const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
-		const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
-		setSelectedFile(fileURL);
+		setSelectedFile(uploading);
+		try{
+			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
+			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
+			setSelectedFile(fileURL);
+		}catch(e){
+			console.log(e);
+			setSelectedFile('');
+		}
 	};
 
 	const submitUpdate = e => {
@@ -126,6 +134,9 @@ const DetailForm = props => {
 	};
 
 	useEffect(loaddetail, []);
+	useEffect(()=>{
+		if(detail && detail.image) setSelectedFile(detail.image);
+	}, [detail]);
 
 	return (
 		<>
@@ -161,11 +172,11 @@ const DetailForm = props => {
 								<Label for="doc-upload" className="custom-doc-upload text-center">
 									<div>
 										<img
-											src={ detail && detail.image  ? detail.image : selectedFile }
+											src={ selectedFile }
 											className="form-group text-center"
                       onError={(e)=>{e.target.onerror = null; e.target.src="https://9to5wordpress.com/wp-content/uploads/2020/11/ninja-forms-file-upload.png"}}  
-											width="250"
-											height="100"
+											width="260"
+											height="150"
 											alt="new file for uploading"
 										/>
 									</div>

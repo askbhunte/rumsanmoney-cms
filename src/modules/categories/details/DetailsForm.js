@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import Swal from "sweetalert2";
 import 'react-quill/dist/quill.snow.css';
 import S3 from 'react-aws-s3';
-
+import uploading from '../../../assets/images/uploading.gif';
 import {
   Card,
   CardBody,
@@ -71,9 +71,15 @@ export default function DetailsForm(props) {
     const date = new Date();
     const milliseconds = String(date.getTime());
 		const newFileName = milliseconds.concat("-",fileName.name.replace(regex, '-'));
-		const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
-		const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
-		setSelectedFile(fileURL);
+		setSelectedFile(uploading);
+		try{
+			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
+			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
+			setSelectedFile(fileURL);
+		}catch(e){
+			console.log(e);
+			setSelectedFile('');
+		}
 	};
 
   const {
@@ -128,7 +134,9 @@ export default function DetailsForm(props) {
       setExtraContent(extraContent);
   }
   useEffect(loadCategoryDetails, []);
-
+  useEffect(()=>{
+		if(category_details && category_details.image) setSelectedFile(category_details.image);
+	}, [category_details]);
   return (
     <>
       <Row>
@@ -148,11 +156,11 @@ export default function DetailsForm(props) {
 								<Label for="doc-upload" className="custom-doc-upload text-center">
 									<div>
 										<img
-											src={ category_details && category_details.image  ? category_details.image : selectedFile }
+											src={ selectedFile }
 											className="form-group text-center"
                       onError={(e)=>{e.target.onerror = null; e.target.src="https://9to5wordpress.com/wp-content/uploads/2020/11/ninja-forms-file-upload.png"}}  
-											width="250"
-											height="100"
+											width="260"
+											height="150"
 											alt="new file for uploading"
 										/>
 									</div>
