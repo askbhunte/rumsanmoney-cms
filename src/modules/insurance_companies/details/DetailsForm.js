@@ -5,19 +5,41 @@ import { Context } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
+import S3 from 'react-aws-s3';
 
 const DetailForm = props => {
 	const Id = props.params.id;
-
+  const config = {
+		bucketName: process.env.REACT_APP_AWS_BUCKETNAME,
+		dirName: process.env.REACT_APP_AWS_DIRNAME,
+		region: process.env.REACT_APP_AWS_REGION,
+		accessKeyId: process.env.REACT_APP_AWS_ACCESSKEYID,
+		secretAccessKey: process.env.REACT_APP_AWS_SECRETACCESSKEY,
+		s3Url: process.env.REACT_APP_AWS_S3URL
+	};
+	const ReactS3Client = new S3(config);
 	const history = useHistory();
 	const { addToast } = useToasts();
+
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
+	const [selectedFile, setSelectedFile] = useState('');
+  const docHandler = async event => {
+		const fileName = event.target.files[0];
+		const regex = / /gi;
+    const date = new Date();
+    const milliseconds = String(date.getTime());
+		const newFileName = milliseconds.concat("-",fileName.name.replace(regex, '-'));
+		const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
+		const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
+		setSelectedFile(fileURL);
+	};
 
 	const submitUpdate = e => {
 		e.preventDefault();
 		const { id, _id, __v, created_at, updated_at, slug, google_doc_id, description, ...rest } = detail;
 		let formData = { ...rest };
+		formData.image = selectedFile;
 		update(Id, formData).then(d => {
 			Swal.fire('Successful!', 'Company details updated successfully.', 'success')
 				.then()
@@ -130,7 +152,32 @@ const DetailForm = props => {
 						<CardBody>
 							<Form onSubmit={submitUpdate}>
 								<div className="basic detail">
-													<FormGroup>
+									<Row>
+									<Col md="4">
+                  <Col md="4">
+                  <FormGroup>
+                  <Label>Image</Label>
+                  <div className="text-center mb-0">
+								<Label for="doc-upload" className="custom-doc-upload text-center">
+									<div>
+										<img
+											src={ detail && detail.image  ? detail.image : selectedFile }
+											className="form-group text-center"
+                      onError={(e)=>{e.target.onerror = null; e.target.src="https://9to5wordpress.com/wp-content/uploads/2020/11/ninja-forms-file-upload.png"}}  
+											width="250"
+											height="100"
+											alt="new file for uploading"
+										/>
+									</div>
+								</Label>
+								<Input id="doc-upload" type="file" name="image_upload" onChange={e => docHandler(e)} />
+							</div>
+                </FormGroup>
+                </Col>
+                </Col>
+								<Col md="8">
+								<Col md="12">
+									<FormGroup>
 														<Label for="title">Name:</Label>
 														<Input
 															type="text"
@@ -140,6 +187,9 @@ const DetailForm = props => {
 															placeholder="Enter Name"
 														/>
 													</FormGroup>
+								</Col>
+								<Col md='12'>
+									
 													<FormGroup>
 														<Label for="symbol">Symbol:</Label>
 														<Input
@@ -150,6 +200,9 @@ const DetailForm = props => {
 															placeholder="Enter symbol"
 														/>
 													</FormGroup>
+								</Col>
+								</Col>
+									</Row>
 													<Row>
 														<Col md="4">
 															<FormGroup>
