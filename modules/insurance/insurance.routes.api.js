@@ -33,8 +33,8 @@ router.get('/:id', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.get('/slug/:bank/:product', async (q, r, n) => {
-  Controller.findBySlug(q.params.bank, q.params.product)
+router.get('/slug/:insurance/:product', async (q, r, n) => {
+  Controller.findBySlug(q.params.insurance, q.params.product)
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });

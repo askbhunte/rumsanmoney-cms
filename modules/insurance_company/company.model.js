@@ -9,7 +9,7 @@ const Schema = mongoose.Schema(
     secondary_contacts: { type: String },
     primary_contact: { type: String },
     email: { type: String },
-    logo_url: { type: String },
+    image: { type: String },
     desc: { type: String },
     website: { type: String },
     is_active: { type: Boolean, required: true, default: true },

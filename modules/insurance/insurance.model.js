@@ -6,7 +6,7 @@ const Schema = mongoose.Schema(
     name: { type: String, required: true },
     slug: { type: String },
     company: { type: ObjectId, ref: 'InsuranceCompanies' },
-    image_url: { type: String },
+    image: { type: String },
     plink: { type: String },
     subhead: { type: String },
     description: { type: String },
