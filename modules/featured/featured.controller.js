@@ -24,7 +24,7 @@ class Controller {
         from: 'banks',
         localField: 'bank_id',
         foreignField: '_id',
-        as: 'bankinfo',
+        as: 'bankInfo',
       },
     },
     {
