@@ -108,7 +108,6 @@ class Controller {
         },
       });
     }
-    console.log(query);
     return DataUtils.paging({
       start,
       limit,
