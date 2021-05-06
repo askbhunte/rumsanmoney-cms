@@ -7,6 +7,8 @@ import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
 import S3 from 'react-aws-s3';
 import uploading from '../../../assets/images/uploading.gif';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const DetailForm = props => {
 	const Id = props.params.id;
@@ -25,6 +27,16 @@ const DetailForm = props => {
 	const { list, update, archive, remove, getDetail } = useContext(Context);
 	const [detail, setDetail] = useState(null);
 	const [selectedFile, setSelectedFile] = useState('');
+  const [summary, setSummary] = useState("");
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"],
+    ],
+  };
+  const formats = ["bold", "italic", "underline", "list", "bullet"];
 
   const docHandler = async event => {
 		const fileName = event.target.files[0];
@@ -48,6 +60,7 @@ const DetailForm = props => {
 		const { id, _id, __v, created_at, updated_at, slug, google_doc_id, description, ...rest } = detail;
 		let formData = { ...rest };
 		formData.image = selectedFile;
+    formData.summary = summary;
 		update(Id, formData).then(d => {
 			Swal.fire('Successful!', 'Company details updated successfully.', 'success')
 				.then()
@@ -59,7 +72,10 @@ const DetailForm = props => {
 				});
 		});
 	};
-
+	
+	const handleContentChange = async (content) => {
+    setSummary(content);
+  };
 	async function removeData(Id) {
 		let result = await Swal.fire({
 			title: 'Are you sure?',
@@ -124,6 +140,8 @@ const DetailForm = props => {
 		getDetail(Id)
 			.then(d => {
 				setDetail(d);
+        const editorText = d.summary ? d.summary : "";
+        setSummary(editorText);
 			})
 			.catch(() => {
 				addToast('Something went wrong!', {
@@ -277,7 +295,24 @@ const DetailForm = props => {
 															</FormGroup>
 														</Col>
 													</Row>
+													<Row form>
+														<Col md="12">
+															<FormGroup>
+																<Label>Company Summary</Label>
+																<ReactQuill
+																	modules={modules}
+																	formats={formats}
+																	value={summary}
+																	placeholder="Write the company Summary"
+																	theme={"snow"}
+																	style={{ height: "250px" }}
+																	onChange={(e) => handleContentChange(e)}
+																/>
+															</FormGroup>
+														</Col>
+                </Row>
 								</div>
+								<br />
 								<br />
 								<Button color="success" type="submit">
 									Submit
