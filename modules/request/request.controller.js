@@ -1,14 +1,16 @@
-const { ObjectId } = require("mongodb");
-const Model = require("./request.model");
-const { DataUtils } = require("../../utils");
+const { ObjectId } = require('mongodb');
+const Model = require('./request.model');
+const { DataUtils } = require('../../utils');
 
 class Controller {
-  list({ start, limit, name, status, categoryId, tagsId }) {
+  list({
+    start, limit, name, status, categoryId, tagsId,
+  }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, "gi"),
+          name: new RegExp(name, 'gi'),
         },
       });
     }
@@ -22,7 +24,7 @@ class Controller {
     if (categoryId) {
       query.push({
         $unwind: {
-          path: "$category",
+          path: '$category',
         },
         $match: {
           category: ObjectId(categoryId),
@@ -32,7 +34,7 @@ class Controller {
     if (tagsId) {
       query.push({
         $unwind: {
-          path: "$tags",
+          path: '$tags',
         },
         $match: {
           tags: ObjectId(tagsId),
@@ -57,15 +59,7 @@ class Controller {
   }
 
   addFromSite(payload) {
-    let mainPayload = {};
-    mainPayload.name = payload.full_name;
-    mainPayload.phone = payload.phone;
-    mainPayload.email = payload.email;
-    mainPayload.product = payload.product_name;
-    mainPayload.bank = payload.bank_name;
-    mainPayload.extras = payload;
-
-    return Model.create(mainPayload);
+    return Model.create(payload);
   }
 
   update(id, payload) {
