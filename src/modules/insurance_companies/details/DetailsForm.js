@@ -217,8 +217,9 @@ const DetailForm = props => {
 														/>
 													</FormGroup>
 								</Col>
-								<Col md='12'>
-									
+								<Row>
+								<Col md='6'>
+								
 													<FormGroup>
 														<Label for="symbol">Symbol:</Label>
 														<Input
@@ -230,6 +231,19 @@ const DetailForm = props => {
 														/>
 													</FormGroup>
 								</Col>
+								<Col md='6'>
+													<FormGroup>
+														<Label for="longImg">Product Image:</Label>
+														<Input
+															type="text"
+															name="longImg"
+															value={detail ? detail.longImg : ''}
+															onChange={e => setDetail({ ...detail, [e.target.name]: e.target.value })}
+															placeholder="Enter Full Image link"
+														/>
+													</FormGroup>
+								</Col>
+								</Row>
 								</Col>
 									</Row>
 													<Row>
