@@ -18,6 +18,7 @@ import {
   ModalFooter,
   Input,
   CustomInput,
+  FormGroup, Label
 } from "reactstrap";
 import { RequestContext } from "../../../contexts/RequestContext";
 
@@ -270,24 +271,28 @@ export default function RequestList() {
                       <td>{d.bank || "N/A"}</td>
                       <td>{d.product || "N/A"}</td>
                       <td>
-                        <Input
-                          type="checkbox"
-                          checked={d.is_contacted}
-                          onChange={(e) => handleChange(e, d._id)}
-                        />
+                        <FormGroup check className="mb-4">
+                          <Label check>
+                            <Input
+                              type="checkbox"
+                              checked={d.is_contacted}
+                              onChange={(e) => handleChange(e, d._id)}
+                            />
+                          </Label>
+                        </FormGroup>
                       </td>
-                      <td className="blue-grey-text  text-darken-4 font-medium">
+                      <td>
                         <Button
-                          className="btn btn-primary"
+                          className="btn btn-primary mr-2"
                           onClick={(e) => checkState(d._id)}
                         >
-                          Edit
+                          <i className="fa fa-edit"></i>
                         </Button>
                         <Button
-                          className="btn btn-info"
+                          className="btn btn-info mr-2"
                           onClick={(e) => checkExtrasState(d._id)}
                         >
-                          View
+                          <i className="fa fa-eye"></i>
                         </Button>
                         <Button
                           className="btn btn-danger"
@@ -295,7 +300,7 @@ export default function RequestList() {
                             loadDeleteRequest(d._id);
                           }}
                         >
-                          Delete
+                          <i className="fa fa-trash"></i>
                         </Button>
                       </td>
                     </tr>
