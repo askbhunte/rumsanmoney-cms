@@ -22,6 +22,9 @@ import {
 
 import { CategoryContext } from "../../../contexts/CategoryContext";
 import Loading from "../../global/Loading";
+//ckeditor stuff
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default function DetailsForm(props) {
   const history = useHistory();
@@ -38,7 +41,6 @@ export default function DetailsForm(props) {
   const { addToast } = useToasts();
   const [category_details, setCategoryDetails] = useState(null);
   const [content, setContent] = useState('');
-  const [extraContent, setExtraContent] = useState('');
   const modules = {
 			toolbar: [
           [{ 'header': [1, 2, 3, 4, false] }],
@@ -47,23 +49,74 @@ export default function DetailsForm(props) {
 		      ['clean']
 		    ]
     };
-  const freemodules = {
-			toolbar: [
-          [{ 'header': [1, 2, 3, 4, false] }],
-          ['bold', 'italic', 'underline'],
-          [{'list': 'ordered'}, {'list': 'bullet'}, {'color': []}],
-		      ['clean']
-		    ]
-    };
+  
   const formats = [
 		    'bold', 'italic', 'underline',
 		    'list', 'bullet'
       ];
-  const freeformats = [
-		    'header', 'bold', 'italic', 'underline',
-		    'list', 'bullet', 'color'
-      ];
+  //ck editor part
+  const [extraContent, setExtraContent] = useState('');
+  const custom_config = {
+      extraPlugins: [ MyCustomUploadAdapterPlugin ],
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'bold',
+          'italic',
+          'link',
+          'bulletedList',
+          'numberedList',
+          '|',
+          'blockQuote',
+          'insertTable',
+          '|',
+          'imageUpload', 'mediaEmbed', '|',
+          'undo',
+          'redo'
+        ],
+        
+      },
+      table: {
+        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+      },
+      // image: {
+      //       // Configure the available styles.
+      //       styles: [
+      //           'alignLeft', 'alignCenter', 'alignRight'
+      //       ],
+      //       // Configure the available image resize options.
+      //       resizeUnit: "%",
+      //       resizeOptions: [
+      //           {
+      //               name: 'resizeImage:original',
+      //               label: 'Original',
+      //               value: null
+      //           },
+      //           {
+      //               name: 'resizeImage:50',
+      //               label: '50%',
+      //               value: '50'
+      //           },
+      //           {
+      //               name: 'resizeImage:75',
+      //               label: '75%',
+      //               value: '75'
+      //           }
+      //       ],
 
+      //       // You need to configure the image toolbar, too, so it shows the new style
+      //       // buttons as well as the resize buttons.
+      //       toolbar: [
+      //           'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+      //           '|',
+      //           'resizeImage:25', 'resizeImage:50', 'resizeImage:75', 'resizeImage:original',
+      //           '|',
+      //           'imageTextAlternative'
+      //       ]
+      //   }
+    }
+  //ck editor end
 	const [selectedFile, setSelectedFile] = useState('');
   const docHandler = async event => {
 		const fileName = event.target.files[0];
@@ -111,8 +164,8 @@ export default function DetailsForm(props) {
       e.preventDefault();
       let formData = {...category_details};
       formData.required_docs = content;
-      formData.extras = extraContent;
 			formData.image = selectedFile;
+		  formData.extras = extraContent ? extraContent : category_details.extras;
     setLoading();
     updateCategory(categoryId, formData)
       .then(() => {
@@ -130,9 +183,7 @@ export default function DetailsForm(props) {
   const handleContentChange = async (content) => {
       setContent(content);
   }
-  const handleExtraContentChange = async (extraContent) => {
-      setExtraContent(extraContent);
-  }
+
   useEffect(loadCategoryDetails, []);
   useEffect(()=>{
 		if(category_details && category_details.image) setSelectedFile(category_details.image);
@@ -233,14 +284,10 @@ export default function DetailsForm(props) {
                 <Col md="12">
                 <FormGroup>
                   <Label>Extra Information</Label>
-                    <ReactQuill
-                      modules={freemodules}
-			              	formats={freeformats}
-                      value={extraContent}
-                      placeholder="Write extra information in free form"
-                      theme={"snow"}
-                      style={{height: '400px'}}
-                      onChange={e => handleExtraContentChange(e)} />
+                    <CKEditor editor={ ClassicEditor } config={custom_config} data={extraContent}  onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+		                    setExtraContent(data);
+                    } }/>
                 </FormGroup>
                 </Col>
                 </Row>
@@ -265,4 +312,87 @@ export default function DetailsForm(props) {
       </Row>
     </>
   );
+}
+
+
+function MyCustomUploadAdapterPlugin(editor) {
+  editor.plugins.get( 'FileRepository' ).createUploadAdapter = (loader) => {
+    return new MyUploadAdapter(loader)
+  }
+}
+
+class MyUploadAdapter {
+    constructor(props) {
+        // CKEditor 5's FileLoader instance.
+      this.loader = props;
+      // URL where to send files.
+      this.url = `${process.env.REACT_APP_API_SERVER}/api/v1/images`;
+    }
+
+    // Starts the upload process.
+    upload() {
+        return new Promise((resolve, reject) => {
+            this._initRequest();
+            this._initListeners(resolve, reject);
+            this._sendRequest();
+        } );
+    }
+
+    // Aborts the upload process.
+    abort() {
+        if ( this.xhr ) {
+            this.xhr.abort();
+        }
+    }
+
+    // Example implementation using XMLHttpRequest.
+    _initRequest() {
+        const xhr = this.xhr = new XMLHttpRequest();
+
+        xhr.open('POST', this.url, true);
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+        // xhr.setRequestHeader('Authorization', getToken())
+    }
+
+    // Initializes XMLHttpRequest listeners.
+    _initListeners( resolve, reject ) {
+        const xhr = this.xhr;
+        const loader = this.loader;
+        const genericErrorText = 'Could not upload file:' + ` ${ loader.file.name }.`;
+
+        xhr.addEventListener( 'error', () => reject( genericErrorText ) );
+        xhr.addEventListener( 'abort', () => reject() );
+        xhr.addEventListener( 'load', () => {
+            const response = xhr.response;
+            if ( !response || response.error ) {
+                return reject( response && response.error ? response.error.message : genericErrorText );
+            }
+            // If the upload is successful, resolve the upload promise with an object containing
+            // at least the "default" URL, pointing to the image on the server.
+            resolve({
+                default: response.url
+            });
+        } );
+
+        if ( xhr.upload ) {
+            xhr.upload.addEventListener( 'progress', evt => {
+                if ( evt.lengthComputable ) {
+                    loader.uploadTotal = evt.total;
+                    loader.uploaded = evt.loaded;
+                }
+            } );
+        }
+    }
+
+    // Prepares the data and sends the request.
+    _sendRequest() {
+        const data = new FormData();
+        this.loader.file.then(result => {
+          data.append('file', result);
+          this.xhr.send(data);
+          }
+        )
+    }
+
 }
