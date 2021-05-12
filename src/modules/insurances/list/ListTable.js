@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
-import { Row, Col, Card, CardTitle, CardBody, Input, Table } from 'reactstrap';
+import { Row, Col, Card, CardTitle, CardBody, Input, Table, CustomInput } from 'reactstrap';
 import { Context } from '../core/contexts';
 import Paginate from '../../global/Paginate';
 import { properCase } from '../../../utils/formatter';
@@ -28,6 +28,12 @@ const List = () => {
 		let _start = current_page * pagination.limit;
 		setCurrent(current_page);
 		let query = { name: searchText };
+		 if (filter.searchBy === searchOptions.CATEGORY) {
+      query = { category: searchText };
+    }
+    if (filter.searchBy === searchOptions.COMPANYNAME) {
+      query = { companyname: searchText };
+    }
 		return loadList({
 			start: _start,
 			limit: pagination.limit,
@@ -35,11 +41,31 @@ const List = () => {
 		});
 	};
 
-	const handleSearchInputChange = e => {
-		const value = e.target.value;
-		setSearchText(value);
-		fetchList({ start: 0, limit: pagination.limit, name: value });
-	};
+	const handleSearchInputChange = (e) => {
+    const { value } = e.target;
+    setSearchText(value);
+    if (filter.searchBy === searchOptions.COMPANYNAME) {
+      return fetchList({ start: 0, limit: pagination.limit, companyname: value });
+    }
+    if (filter.searchBy === searchOptions.NAME) {
+      return fetchList({ start: 0, limit: pagination.limit, name: value });
+    }
+    if (filter.searchBy === searchOptions.CATEGORY) {
+      return fetchList({ start: 0, limit: pagination.limit, category: value });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
+	const searchOptions = {
+    COMPANYNAME: "companyname",
+    NAME: "name",
+    CATEGORY: "category",
+  };
+
+  const [filter, setFilter] = useState({
+    searchPlaceholder: "Enter name...",
+    searchBy: "name",
+  });
 
 	const loadList = query => {
 		if (!query) query = null;
@@ -53,6 +79,29 @@ const List = () => {
 			});
 	};
 
+	const handleFilterChange = (e) => {
+    let { value } = e.target;
+    if (value === searchOptions.NAME) {
+      setFilter({
+        searchPlaceholder: "Enter name...",
+        searchBy: searchOptions.NAME,
+      });
+    }
+    if (value === searchOptions.COMPANYNAME) {
+      setFilter({
+        searchPlaceholder: "Enter company name...",
+        searchBy: searchOptions.COMPANYNAME,
+      });
+    }
+    if (value === searchOptions.CATEGORY) {
+      setFilter({
+        searchPlaceholder: "Enter product category...",
+        searchBy: searchOptions.CATEGORY,
+      });
+    }
+    fetchList({ start: 0, limit: pagination.limit });
+  };
+
 	useEffect(fetchList, []);
 
 	return (
@@ -60,11 +109,29 @@ const List = () => {
 			<Card>
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
 					<Row>
-						<Col md="7">
+						<Col md="4">
 							<i className="mdi mdi-border-right mr-2"></i>Insurance Product List
 						</Col>
-						<Col md="3">
-							<Input placeholder="Enter name ..." onChange={handleSearchInputChange} />
+						<Col md="6" className="text-right">
+							<CustomInput
+                  type="select"
+                  id="exampleCustomSelect"
+                  name="customSelect"
+                  defaultValue=""
+                  style={{ width: "auto" }}
+                  onChange={handleFilterChange}
+                >
+                  <option value="name">Search By Product Name</option>
+                  <option value="companyname">By Company Name</option>
+                  <option value="category">By Product Category</option>
+                </CustomInput>
+                <div style={{ display: "inline-flex" }}>
+                  <Input
+                    placeholder={filter.searchPlaceholder}
+                    onChange={handleSearchInputChange}
+                    style={{ width: "100%" }}
+                  />
+                </div>
 						</Col>
 						<Col md="2">
 							<Link className="btn btn-primary" to="/newcompany">
