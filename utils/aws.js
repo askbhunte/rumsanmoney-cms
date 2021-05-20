@@ -1,6 +1,6 @@
 const aws = require('aws-sdk');
 const config = require('config');
-const slugify = require('slugify');
+const Hash = require('ipfs-only-hash');
 // Configure client for use with Spaces
 const endpoint = new aws.Endpoint(config.get('services.aws.endpoint'));
 const s3 = new aws.S3({
@@ -40,24 +40,19 @@ class AWS {
   }
 
   // Add a file to a Space
-  sendFiletoAws(payload) {
+  async sendFiletoAws(payload) {
     const folderName = config.get('services.aws.folder');
-    payload.originalname = slugify(payload.originalname, {
-      remove: /[*+~()'"#!:@]/g,
-      replacement: '-',
-      lower: true,
-    });
-    payload.originalname = payload.originalname.replace(/_/g, '-');
+    payload.originalname = await Hash.of(payload.buffer);
     const params = {
       Body: payload.buffer,
       Bucket: config.get('services.aws.bucket'),
-      Key: `${folderName}/${Date.now()}-${payload.originalname}`,
+      Key: `${folderName}/${payload.originalname}`,
     };
     const fileData = {
       Bucket: config.get('services.aws.bucket'),
       name: payload.originalname,
       group: folderName,
-      Key: `${folderName}/${Date.now()}-${payload.originalname}`,
+      Key: `${folderName}/${payload.originalname}`,
     };
     try {
       return new Promise((resolve, reject) => {
