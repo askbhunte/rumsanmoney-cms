@@ -22,6 +22,7 @@ import {
 
 import { CategoryContext } from "../../../contexts/CategoryContext";
 import Loading from "../../global/Loading";
+import Hash from 'ipfs-only-hash';
 //ckeditor stuff
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -119,15 +120,23 @@ export default function DetailsForm(props) {
     }
   //ck editor end
 	const [selectedFile, setSelectedFile] = useState('');
+  
+  const fileToBase64 = async file =>
+		new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = e => reject(e);
+		});
+
   const docHandler = async event => {
+		event.persist();
 		const fileName = event.target.files[0];
-		const regex = / /gi;
-    const date = new Date();
-    const milliseconds = String(date.getTime());
-		const newFileName = milliseconds.concat("-",fileName.name.replace(regex, '-'));
+		const b64file = await fileToBase64(fileName);
+		const fileHash = await Hash.of(b64file);
 		setSelectedFile(uploading);
 		try{
-			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], newFileName);
+			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], fileHash);
 			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
 			setSelectedFile(fileURL);
 		}catch(e){

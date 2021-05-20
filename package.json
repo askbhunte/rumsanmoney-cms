@@ -27,6 +27,7 @@
     "axios": "^0.19.2",
     "feather-icons-react": "^0.4.1",
     "history": "4.7.2",
+    "ipfs-only-hash": "^4.0.0",
     "joi": "^13.7.0",
     "joi-validation-strategy": "^0.3.3",
     "moment": "^2.26.0",
