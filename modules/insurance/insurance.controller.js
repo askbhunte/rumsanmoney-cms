@@ -12,7 +12,6 @@ class Controller {
     companyName,
     type,
     category,
-    baserate,
     sortindesc,
     sortinasc,
   }) {
@@ -97,14 +96,6 @@ class Controller {
       query.push({
         $match: {
           'categoryinfo.name': new RegExp(category, 'gi'),
-        },
-      });
-    }
-    if (baserate) {
-      baserate = Number(baserate);
-      query.push({
-        $match: {
-          base_rate: baserate,
         },
       });
     }

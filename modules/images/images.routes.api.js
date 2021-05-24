@@ -19,6 +19,7 @@ const upload = multer({
   },
 }).single('file');
 
+// TODO Add secure API
 router.post('/', async (req, res, next) => {
   upload(req, res, (err) => {
     if (err instanceof multer.MulterError) {
