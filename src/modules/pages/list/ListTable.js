@@ -215,6 +215,21 @@ export default function PagesList() {
                                 <br />
                                 <Input type="textarea" name="content" required />
                             </div>
+                            <div className="form-item">
+                                <label htmlFor="content">Status</label>
+                                <br />
+                                <Input
+                                    type="select"
+                                    name="status"
+                                    placeholder="Status"
+                                    className="form-field"
+                                    required
+                                >
+                                    <option value="">-- Select Type --</option>
+                                    <option value="PUBLISHED">PUBLISHED</option>
+                                    <option value="DRAFT">DRAFT</option>
+                                </Input>
+                            </div>
                         </div>
                         <br />
                     </ModalBody>

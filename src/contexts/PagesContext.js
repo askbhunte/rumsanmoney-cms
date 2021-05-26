@@ -66,7 +66,8 @@ export const PagesContextProvider = ({ children }) => {
 
         let payload = {
             name: formData.get("name"),
-            desc: content
+            content: formData.get("content"),
+            status: formData.get("status")
         };
         let d = await Service.addPages(payload);
         return d;
