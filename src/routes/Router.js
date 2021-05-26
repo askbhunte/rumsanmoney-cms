@@ -17,6 +17,8 @@ const ProductDetails = lazy(() => import("../modules/products/details"));
 const Requests = lazy(() => import("../modules/requests/list"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
 const Users = lazy(() => import("../modules/users/List"));
+const Pages = lazy(() => import("../modules/pages/list"));
+
 
 var AppRoutes = [
   {
@@ -130,6 +132,13 @@ var AppRoutes = [
     name: "Blog Detail",
     icon: "layers",
     component: BlogsDetails,
+  },
+  {
+    path: "/pages",
+    name: "Pages",
+    icon: "edit",
+    component: Pages,
+    showInSidebar: true,
   },
   {
     collapse: true,

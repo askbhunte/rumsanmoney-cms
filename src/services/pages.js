@@ -6,7 +6,7 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getPageDetails(pagesId) {
+export function getPagesDetails(pagesId) {
     return new Promise((resolve, reject) => {
         axios
             .get(`${API.PAGES}/${pagesId}`)
