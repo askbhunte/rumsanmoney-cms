@@ -6,10 +6,10 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getBankDetails(bankId) {
+export function getPageDetails(pagesId) {
     return new Promise((resolve, reject) => {
         axios
-            .get(`${API.BANK}/${bankId}`)
+            .get(`${API.PAGES}/${pagesId}`)
             .then((res) => {
                 if (res.statusText === "OK") {
                     resolve(res.data);
@@ -22,10 +22,10 @@ export function getBankDetails(bankId) {
     });
 }
 
-export function listBank(query) {
+export function listPages(query) {
     return new Promise((resolve, reject) => {
         axios
-            .get(`${API.BANK}?${qs.stringify(query)}`)
+            .get(`${API.PAGES}?${qs.stringify(query)}`)
             .then((res) => {
                 if (res.statusText === "OK") {
                     resolve(res.data);
@@ -38,10 +38,11 @@ export function listBank(query) {
     });
 }
 
-export function listAllBank(query) {
+
+export function updatePages(PageId, payload) {
     return new Promise((resolve, reject) => {
         axios
-            .get(`${API.BANK}/all`)
+            .put(`${API.PAGES}/${PageId}`, payload)
             .then((res) => {
                 if (res.statusText === "OK") {
                     resolve(res.data);
@@ -54,28 +55,28 @@ export function listAllBank(query) {
     });
 }
 
-export function updateBank(bankId, payload) {
-    return new Promise((resolve, reject) => {
-        axios
-            .put(`${API.BANK}/${bankId}`, payload)
-            .then((res) => {
-                if (res.statusText === "OK") {
-                    resolve(res.data);
-                }
-                reject(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
-}
-
-export async function addBank(body) {
+export async function addPages(body) {
     const res = await axios({
-        url: API.BANK,
+        url: API.PAGES,
         method: "post",
         data: body,
     });
 
     return res.data;
+}
+
+export function deletePages(PageId) {
+    return new Promise((resolve, reject) => {
+        axios
+            .delete(`${API.PAGES}/${PageId}`)
+            .then((res) => {
+                if (res.statusText === "OK") {
+                    resolve(res.data);
+                }
+                reject(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
 }
