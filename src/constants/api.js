@@ -11,4 +11,5 @@ module.exports = {
   USERS: base_url + "/users",
   BLOGS: base_url + "/blogs",
   REQUESTS: base_url + "/requests",
+  PAGES: base_url + "/pages",
 };
