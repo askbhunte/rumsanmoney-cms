@@ -5,11 +5,13 @@ import { Row, Col, Card, CardTitle, CardBody, Input, Table, CustomInput } from '
 import { Context } from '../core/contexts';
 import Paginate from '../../global/Paginate';
 import { properCase } from '../../../utils/formatter';
+import Ratings from "react-ratings-declarative";
+import Swal from "sweetalert2";
 
 const List = () => {
 	const { addToast } = useToasts();
 	const [current, setCurrent] = useState(0);
-	const { data, list, pagination } = useContext(Context);
+	const { data, list, pagination, changeFeatured } = useContext(Context);
 	const [searchText, setSearchText] = useState('');
 
 	const fetchList = query => {
@@ -100,6 +102,41 @@ const List = () => {
       });
     }
     fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const changeRating = async (productId, status) => {
+    const title = status.is_featured
+      ? "Product will be marked as Featured"
+      : "Product will be removed from Featured";
+    const toastTitle = status.is_featured
+      ? "Product has been marked as Featured"
+      : "Product has been removed from Featured";
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changeFeatured(productId, status);
+        if (d) {
+          list();
+          addToast(`${toastTitle}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
   };
 
 	useEffect(fetchList, []);
