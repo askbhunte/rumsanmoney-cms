@@ -147,32 +147,66 @@ const List = () => {
 								<th className="border-0">Name</th>
 								<th className="border-0">Company</th>
 								<th className="border-0">Category</th>
+								<th className="border-0">isPopular?</th>
 								<th className="border-0">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{data.length ? (
-								data.map(d => {
-									return (
-										<tr key={d._id}>
-											<td>
-												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
-											</td>
-											<td>{d.companyInfo && d.companyInfo.name ? properCase(d.companyInfo.name) : '-'}</td>
-											<td>{d.categoryinfo && d.categoryinfo.name ? properCase(d.categoryinfo.name) : '-'}</td>
-											<td className="blue-grey-text text-darken-4 font-medium">
-												<Link className="btn btn-secondary" to={`/insurance/${d._id}`}>
-													Edit
-												</Link>
-											</td>
+								{data.length ? (
+									data.map(d => {
+										return (
+											<tr key={d._id}>
+												<td>
+													<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
+												</td>
+												<td>{d.companyInfo && d.companyInfo.name ? properCase(d.companyInfo.name) : '-'}</td>
+												<td>{d.categoryinfo && d.categoryinfo.name ? properCase(d.categoryinfo.name) : '-'}</td>
+												<td>
+													{d.is_featured ? (
+													<span>
+														<Ratings
+														rating={1}
+														widgetRatedColors="gold"
+														changeRating={() =>
+															changeRating(d._id, { is_featured: false })
+														}
+														>
+														<Ratings.Widget
+															widgetHoverColor="grey"
+															widgetDimension="25px"
+														/>
+														</Ratings>
+													</span>
+													) : (
+													<span>
+														<Ratings
+														rating={0}
+														widgetRatedColors="gold"
+														changeRating={() =>
+															changeRating(d._id, { is_featured: true })
+														}
+														>
+														<Ratings.Widget
+															widgetHoverColor="grey"
+															widgetDimension="25px"
+														/>
+														</Ratings>
+													</span>
+													)}
+												</td>
+												<td className="blue-grey-text text-darken-4 font-medium">
+													<Link className="btn btn-secondary" to={`/insurance/${d._id}`}>
+														Edit
+													</Link>
+												</td>
+											</tr>
+										);
+									})
+									) : (
+										<tr>
+											<td colSpan={4}>No data available.</td>
 										</tr>
-									);
-								})
-							) : (
-								<tr>
-									<td colSpan={4}>No data available.</td>
-								</tr>
-							)}
+									)}
 						</tbody>
 					</Table>
 					<Paginate limit={pagination.limit} total={pagination.total} current={current} onChange={handlePagination} />

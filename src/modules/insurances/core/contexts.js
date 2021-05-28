@@ -112,6 +112,18 @@ export const ContextProvider = ({ children }) => {
 		});
 	}
 
+	function changeFeatured(productId, status) {
+		return new Promise((resolve, reject) => {
+		  Service.changeFeatured(productId, status)
+			.then((res) => {
+			  resolve(res);
+			})
+			.catch((err) => {
+			  reject(err);
+			});
+		});
+	  }
+
 	return (
 		<Context.Provider
 			value={{
@@ -128,7 +140,8 @@ export const ContextProvider = ({ children }) => {
 				getDetail,
 				archive,
 				remove,
-				dispatch
+				dispatch,
+				changeFeatured
 			}}
 		>
 			{children}

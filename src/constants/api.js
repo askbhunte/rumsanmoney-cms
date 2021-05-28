@@ -1,5 +1,6 @@
-const server_url = process.env.REACT_APP_API_SERVER;
+const server_url = 'https://loanman.askbhunte.com';
 const base_url = server_url + "/api/v1";
+
 
 module.exports = {
   AUTH: base_url + "/auth",
