@@ -35,6 +35,14 @@ router.get('/slug/:slug', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
+router.get('/:slug/products', async (q, r, n) => {
+  const limit = q.query.limit || 20;
+  const start = q.query.start || 0;
+  Controller.findProductsByCompany({ slug: q.params.slug, start, limit })
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
 router.post('/', async (q, r, n) => {
   Controller.add(q.body)
     .then((d) => r.json(d))

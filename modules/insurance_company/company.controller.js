@@ -97,6 +97,41 @@ class Controller {
   findByName(name) {
     return Model.findOne({ name: new RegExp(name, 'gi') });
   }
+
+  findProductsByCompany({ slug, start, limit }) {
+    const query = [];
+    query.push(
+      {
+        $match: {
+          slug,
+        },
+      }, {
+        $lookup: {
+          from: 'insurances',
+          localField: '_id',
+          foreignField: 'company',
+          as: 'products',
+        },
+      }, {
+        $project: {
+          products: 1,
+          _id: 0,
+        },
+      }, {
+        $unwind: {
+          path: '$products',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+    );
+    return DataUtils.paging({
+      start,
+      limit,
+      sort: { created_at: 1 },
+      model: Model,
+      query,
+    });
+  }
 }
 
 module.exports = new Controller();
