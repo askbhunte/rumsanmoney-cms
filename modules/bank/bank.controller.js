@@ -107,6 +107,41 @@ class Controller {
   findBook(name) {
     return Model.find({ name: new RegExp(name, 'gi') });
   }
+
+  getProductsByBank({ slug, start, limit }) {
+    const query = [];
+    query.push(
+      {
+        $match: {
+          slug,
+        },
+      }, {
+        $lookup: {
+          from: 'products',
+          localField: '_id',
+          foreignField: 'bank_id',
+          as: 'products',
+        },
+      }, {
+        $project: {
+          products: 1,
+          _id: 0,
+        },
+      }, {
+        $unwind: {
+          path: '$products',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+    );
+    return DataUtils.paging({
+      start,
+      limit,
+      sort: { created_at: 1 },
+      model: Model,
+      query,
+    });
+  }
 }
 
 module.exports = new Controller();
