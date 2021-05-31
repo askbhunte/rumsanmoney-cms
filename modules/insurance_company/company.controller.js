@@ -103,26 +103,39 @@ class Controller {
     query.push(
       {
         $match: {
-          slug,
-        },
+          slug
+        }
       }, {
         $lookup: {
           from: 'insurances',
           localField: '_id',
           foreignField: 'company',
-          as: 'products',
-        },
-      }, {
-        $project: {
-          products: 1,
-          _id: 0,
-        },
+          as: 'products'
+        }
       }, {
         $unwind: {
           path: '$products',
-          preserveNullAndEmptyArrays: false,
-        },
-      },
+          preserveNullAndEmptyArrays: false
+        }
+      }, {
+        $lookup: {
+          from: 'categories',
+          localField: 'products.category',
+          foreignField: '_id',
+          as: 'category'
+        }
+      }, {
+        $project: {
+          category: 1,
+          products: 1,
+          _id: 0
+        }
+      }, {
+        $unwind: {
+          path: '$category',
+          preserveNullAndEmptyArrays: false
+        }
+      }
     );
     return DataUtils.paging({
       start,
