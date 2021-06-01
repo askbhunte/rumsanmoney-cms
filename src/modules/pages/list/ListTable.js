@@ -2,7 +2,10 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 import Paginate from "../../global/Paginate";
-
+//ckeditor stuff
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import MyUploadAdapter from '../../../services/MyUploader';
 import {
     Button,
     Row,
@@ -76,6 +79,75 @@ export default function PagesList() {
         },
         [listPages]
     );
+
+    //ck editor part
+  const [extraContent, setExtraContent] = useState('');
+  const custom_config = {
+      extraPlugins: [ MyCustomUploadAdapterPlugin ],
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'bold',
+          'italic',
+          'link',
+          'bulletedList',
+          'numberedList',
+          '|',
+          'blockQuote',
+          'insertTable',
+          '|',
+          'imageUpload', 'mediaEmbed', '|',
+          'undo',
+          'redo'
+        ],
+        
+      },
+      table: {
+        contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+      },
+      // image: {
+      //       // Configure the available styles.
+      //       styles: [
+      //           'alignLeft', 'alignCenter', 'alignRight'
+      //       ],
+      //       // Configure the available image resize options.
+      //       resizeUnit: "%",
+      //       resizeOptions: [
+      //           {
+      //               name: 'resizeImage:original',
+      //               label: 'Original',
+      //               value: null
+      //           },
+      //           {
+      //               name: 'resizeImage:50',
+      //               label: '50%',
+      //               value: '50'
+      //           },
+      //           {
+      //               name: 'resizeImage:75',
+      //               label: '75%',
+      //               value: '75'
+      //           }
+      //       ],
+
+      //       // You need to configure the image toolbar, too, so it shows the new style
+      //       // buttons as well as the resize buttons.
+      //       toolbar: [
+      //           'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+      //           '|',
+      //           'resizeImage:25', 'resizeImage:50', 'resizeImage:75', 'resizeImage:original',
+      //           '|',
+      //           'imageTextAlternative'
+      //       ]
+      //   }
+    }
+  //ck editor end
+  function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = (loader) => {
+      return new MyUploadAdapter(loader)
+    }
+  }
 
     useEffect(fetchList, []);
     useEffect(loadPagesList, []);
@@ -169,7 +241,7 @@ export default function PagesList() {
                     onSubmit={(e) => {
                         e.preventDefault();
 
-                        addPages(e)
+                        addPages(e,extraContent)
                             .then((d) => {
                                 addToast("Page Added successfully", {
                                     appearance: "success",
@@ -209,12 +281,15 @@ export default function PagesList() {
                                     className="form-field"
                                     required
                                 />
-                            </div>
+                            </div>                            
                             <div className="form-item">
-                                <label htmlFor="content">Content</label>
+                                <label htmlFor="ckcontent">ckContent</label>
                                 <br />
-                                <Input type="textarea" name="content" required />
-                            </div>
+                                <CKEditor editor={ ClassicEditor } config={custom_config} data={extraContent}  onChange={ ( event, editor ) => {
+                                    const data = editor.getData();
+                                        setExtraContent(data);
+                                } }/>
+                            </div>                            
                             <div className="form-item">
                                 <label htmlFor="content">Status</label>
                                 <br />
