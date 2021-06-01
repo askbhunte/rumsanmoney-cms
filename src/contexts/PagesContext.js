@@ -60,14 +60,14 @@ export const PagesContextProvider = ({ children }) => {
         });
     }
 
-    const addPages = async (event, content) => {
+    const addPages = async (event, extraContent) => {
         event.preventDefault();
         const formData = new FormData(event.target);
 
         let payload = {
             name: formData.get("name"),
-            content: formData.get("content"),
-            status: formData.get("status")
+            content: extraContent,           
+            status: formData.get("status")            
         };
         let d = await Service.addPages(payload);
         return d;

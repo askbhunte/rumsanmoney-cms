@@ -1,4 +1,4 @@
-const server_url = 'https://loanman.askbhunte.com';
+const server_url = 'http://localhost:5000';
 const base_url = server_url + "/api/v1";
 
 
