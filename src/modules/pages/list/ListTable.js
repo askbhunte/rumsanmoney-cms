@@ -84,6 +84,7 @@ export default function PagesList() {
     const [extraContent, setExtraContent] = useState('');
     const custom_config = {
         extraPlugins: [MyCustomUploadAdapterPlugin],
+        height: '400px',
         toolbar: {
             items: [
                 'heading',

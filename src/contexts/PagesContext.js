@@ -66,9 +66,20 @@ export const PagesContextProvider = ({ children }) => {
 
         let payload = {
             name: formData.get("name"),
-            content: extraContent,           
-            status: formData.get("status")            
+            content: extraContent,
+            status: formData.get("status")
         };
+        payload.slug = payload.name
+            .toLowerCase()
+            .replace(/\s+/g, '-') // Replace spaces with -
+            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+            .replace(/\-\-+/g, '-') // Replace multiple - with single -
+            .replace(/^-+/, '') // Trim - from start of text
+            .replace(/-+$/, '');
+        let check_slug = await Service.getBySlug(payload.slug);
+        if (check_slug) {
+            throw new Error("This page already exists !!")
+        }
         let d = await Service.addPages(payload);
         return d;
     };

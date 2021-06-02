@@ -38,6 +38,22 @@ export function listPages(query) {
     });
 }
 
+export function getBySlug(slug) {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`${API.PAGES}/slug/${slug}`)
+            .then((res) => {
+                if (res.statusText === "OK") {
+                    resolve(res.data);
+                }
+                reject(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+}
+
 
 export function updatePages(PageId, payload) {
     return new Promise((resolve, reject) => {
