@@ -1,13 +1,13 @@
-import React from 'react';
-import { ContextProvider } from '../core/contexts';
-import Add from './add';
+import React from "react";
+import { PagesContextProvider } from "../../../contexts/PagesContext";
+import Add from "./add";
 
 const List = () => {
-    return (
-        <ContextProvider>
-            <Add />
-        </ContextProvider>
-    );
+  return (
+    <PagesContextProvider>
+      <Add />
+    </PagesContextProvider>
+  );
 };
 
 export default List;
