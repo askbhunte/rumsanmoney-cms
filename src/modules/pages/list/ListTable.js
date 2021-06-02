@@ -188,9 +188,9 @@ export default function PagesList() {
                         </Col>
                         <Col md="2">
                             <div style={{ float: "right" }}>
-                                <Button color="info" onClick={(e) => toggle()}>
+                                <Link className="btn btn-primary" to="/addpages">
                                     Add New Page
-                </Button>
+							</Link>
                             </div>
                         </Col>
                     </Row>
@@ -237,88 +237,7 @@ export default function PagesList() {
                     />
                 </CardBody>
             </Card>
-            <Modal isOpen={model} toggle={toggle} size={size}>
-                <Form
-                    onSubmit={(e) => {
-                        e.preventDefault();
 
-                        addPages(e, extraContent)
-                            .then((d) => {
-                                addToast("Page Added successfully", {
-                                    appearance: "success",
-                                    autoDismiss: true,
-                                });
-                                get();
-                                toggle();
-                            })
-                            .catch((err) =>
-                                addToast(err.message, {
-                                    appearance: "error",
-                                    autoDismiss: true,
-                                })
-                            );
-                    }}
-                >
-                    <ModalHeader toggle={toggle}>
-                        <div>
-                            <h3>Add New page</h3>
-                        </div>
-                    </ModalHeader>
-                    <ModalBody>
-                        <div
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
-                                gridColumnGap: "10px",
-                            }}
-                        >
-                            <div className="form-item">
-                                <label htmlFor="name">Page Name</label>
-                                <br />
-                                <Input
-                                    name="name"
-                                    type="text"
-                                    placeholder="Page Title"
-                                    className="form-field"
-                                    required
-                                />
-                            </div>
-                            <div className="form-item mt-2">
-                                <label htmlFor="content">Content</label>
-                                <br />
-                                <CKEditor editor={ClassicEditor} config={custom_config} data={extraContent} onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    setExtraContent(data);
-                                }} />
-                            </div>
-                            <div className="form-item mt-2">
-                                <label htmlFor="content">Status</label>
-                                <br />
-                                <Input
-                                    type="select"
-                                    name="status"
-                                    placeholder="Status"
-                                    className="form-field"
-                                    required
-                                >
-                                    <option value="">-- Select Type --</option>
-                                    <option value="PUBLISHED">PUBLISHED</option>
-                                    <option value="DRAFT">DRAFT</option>
-                                </Input>
-                            </div>
-                        </div>
-                        <br />
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary">Submit</Button>
-
-                        <Button color="secondary" onClick={toggle}>
-                            Cancel
-            </Button>
-                    </ModalFooter>
-                </Form>
-            </Modal>
-            <br />
         </>
     );
 }

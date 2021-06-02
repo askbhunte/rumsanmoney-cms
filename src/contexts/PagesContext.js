@@ -60,15 +60,7 @@ export const PagesContextProvider = ({ children }) => {
         });
     }
 
-    const addPages = async (event, extraContent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-
-        let payload = {
-            name: formData.get("name"),
-            content: extraContent,
-            status: formData.get("status")
-        };
+    const addPages = async (payload) => {
         payload.slug = payload.name
             .toLowerCase()
             .replace(/\s+/g, '-') // Replace spaces with -
