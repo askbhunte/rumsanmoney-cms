@@ -1,4 +1,4 @@
-const server_url = 'http://localhost:5000';
+const server_url = process.env.REACT_APP_API_SERVER;
 const base_url = server_url + "/api/v1";
 
 
