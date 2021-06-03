@@ -185,21 +185,28 @@ export default function PagesList() {
                         >
                           Edit
                         </Link>
+                        <Link
+                          className="btn btn-secondary ml-3"
+                          onClick={() => window.open(`http://localhost:5500/${d.slug}/preview`, "_blank")}
+                        >
+                          Preview
+                        </Link>
                         <button
                           className="btn btn-danger ml-3"
                           onClick={() => handleDelete(d._id)}
                         >
                           Delete
                         </button>
+
                       </td>
                     </tr>
                   );
                 })
               ) : (
-                <tr>
-                  <td colSpan={4}>No data available.</td>
-                </tr>
-              )}
+                  <tr>
+                    <td colSpan={4}>No data available.</td>
+                  </tr>
+                )}
             </tbody>
           </Table>
           <Paginate
