@@ -5,7 +5,7 @@ import ACTION from "../actions/pages";
 
 const initialState = {
   pages: [],
-  pagination: { total: 0, limit: 20, start: 0, currentPage: 1, totalPages: 0 },
+  pagination: { total: 0, limit: 2, start: 0, currentPage: 1, totalPages: 0 },
   pages_details: null,
   loading: false,
 };

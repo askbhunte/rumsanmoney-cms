@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Paginate from "../../global/Paginate";
 import Swal from "sweetalert2";
 
-import MyUploadAdapter from "../../../services/MyUploader";
 import {
   Button,
   Row,
@@ -22,17 +21,12 @@ import {
   CustomInput,
 } from "reactstrap";
 import { PagesContext } from "../../../contexts/PagesContext";
-import { deletePage } from "../../../services/pages";
-import { nextTick } from "process";
 
 export default function PagesList() {
   const { addToast } = useToasts();
-  const [model, setModel] = useState(false);
   const [current, setCurrent] = useState(0);
 
-  const size = "xl";
-
-  const { listPages, pages, pagination, addPages } = useContext(PagesContext);
+  const { listPages, pages, pagination, deletePage } = useContext(PagesContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
@@ -44,7 +38,6 @@ export default function PagesList() {
       ...query,
     });
   };
-  const toggle = () => setModel(!model);
 
   const handleSearchInputChange = (e) => {
     const { value } = e.target;
@@ -81,77 +74,6 @@ export default function PagesList() {
     [listPages]
   );
 
-  //ck editor part
-  const [extraContent, setExtraContent] = useState("");
-  const custom_config = {
-    extraPlugins: [MyCustomUploadAdapterPlugin],
-    height: "400px",
-    toolbar: {
-      items: [
-        "heading",
-        "|",
-        "bold",
-        "italic",
-        "link",
-        "bulletedList",
-        "numberedList",
-        "|",
-        "blockQuote",
-        "insertTable",
-        "|",
-        "imageUpload",
-        "mediaEmbed",
-        "|",
-        "undo",
-        "redo",
-      ],
-    },
-    table: {
-      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-    },
-    // image: {
-    //       // Configure the available styles.
-    //       styles: [
-    //           'alignLeft', 'alignCenter', 'alignRight'
-    //       ],
-    //       // Configure the available image resize options.
-    //       resizeUnit: "%",
-    //       resizeOptions: [
-    //           {
-    //               name: 'resizeImage:original',
-    //               label: 'Original',
-    //               value: null
-    //           },
-    //           {
-    //               name: 'resizeImage:50',
-    //               label: '50%',
-    //               value: '50'
-    //           },
-    //           {
-    //               name: 'resizeImage:75',
-    //               label: '75%',
-    //               value: '75'
-    //           }
-    //       ],
-
-    //       // You need to configure the image toolbar, too, so it shows the new style
-    //       // buttons as well as the resize buttons.
-    //       toolbar: [
-    //           'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
-    //           '|',
-    //           'resizeImage:25', 'resizeImage:50', 'resizeImage:75', 'resizeImage:original',
-    //           '|',
-    //           'imageTextAlternative'
-    //       ]
-    //   }
-  };
-  //ck editor end
-  function MyCustomUploadAdapterPlugin(editor) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-      return new MyUploadAdapter(loader);
-    };
-  }
-
   async function handleDelete(id) {
     Swal.fire({
       title: "Are you sure?",
@@ -165,6 +87,7 @@ export default function PagesList() {
       if (result.isConfirmed) {
         deletePage(id)
           .then((d) => {
+            fetchList({ total: pagination.total - 1 });
             Swal.fire("Deleted!", `Your file has been deleted.`, "success");
           })
           .catch((e) => {
@@ -179,7 +102,7 @@ export default function PagesList() {
   }
 
   useEffect(fetchList, []);
-  useEffect(loadPagesList, []);
+  /*useEffect(loadPagesList, []);*/
   return (
     <>
       <Card>
@@ -207,7 +130,7 @@ export default function PagesList() {
                 </CustomInput>
                 <div style={{ display: "inline-flex" }}>
                   <Input
-                    placeholder="Enter Author Name ..."
+                    placeholder="Enter Page Name ..."
                     onChange={handleSearchInputChange}
                     style={{ width: "100%" }}
                   />
