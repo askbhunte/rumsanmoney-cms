@@ -74,7 +74,7 @@ export default function PagesList() {
     [listPages]
   );
 
-  async function handleDelete(id) {
+  function handleDelete(id) {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -87,7 +87,21 @@ export default function PagesList() {
       if (result.isConfirmed) {
         deletePage(id)
           .then((d) => {
-            fetchList({ total: pagination.total - 1 });
+            if (
+              pagination.totalPages === pagination.currentPage &&
+              pagination.total === pagination.start + 1 &&
+              pagination.currentPage !== 1
+            ) {
+              setCurrent(pagination.currentPage - 2);
+              fetchList({
+                total: pagination.total - 1,
+                currentPage: pagination.currentPage - 1,
+                start: pagination.start - pagination.limit,
+                totalPages: pagination.totalPages - 1,
+              });
+            } else {
+              fetchList({ total: pagination.total - 1 });
+            }
             Swal.fire("Deleted!", `Your file has been deleted.`, "success");
           })
           .catch((e) => {
