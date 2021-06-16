@@ -13,6 +13,8 @@ const requestApi = require('../modules/request/request.routes.api');
 const rolesApi = require('../modules/roles/roles.routes.api');
 const tagsApi = require('../modules/tags/tags.routes.api');
 const userApi = require('../modules/user/user.routes.api');
+const pageApi = require('../modules/pages/pages.routes.api');
+
 
 router.use('/auth', authApi);
 router.use('/banks', bankApi);
@@ -27,5 +29,7 @@ router.use('/requests', requestApi);
 router.use('/roles', rolesApi);
 router.use('/tags', tagsApi);
 router.use('/users', userApi);
+router.use('/pages', pageApi);
+
 
 module.exports = router;
