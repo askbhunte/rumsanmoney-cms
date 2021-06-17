@@ -14,7 +14,8 @@ const rolesApi = require('../modules/roles/roles.routes.api');
 const tagsApi = require('../modules/tags/tags.routes.api');
 const userApi = require('../modules/user/user.routes.api');
 const pageApi = require('../modules/pages/pages.routes.api');
-
+const cookieApi = require('../modules/cookie/cookie.routes.api');
+const historyApi = require('../modules/history/history.routes.api');
 
 router.use('/auth', authApi);
 router.use('/banks', bankApi);
@@ -30,6 +31,7 @@ router.use('/roles', rolesApi);
 router.use('/tags', tagsApi);
 router.use('/users', userApi);
 router.use('/pages', pageApi);
-
+router.use('/cookies', cookieApi);
+router.use('/histories', historyApi);
 
 module.exports = router;
