@@ -27,13 +27,7 @@ const List = () => {
 	const handlePagination = current_page => {
 		let _start = current_page * pagination.limit;
 		setCurrent(current_page);
-		let query = { name: searchText };
-		if (filter.searchBy === searchOptions.CATEGORY) {
-			query = { category: searchText };
-		}
-		if (filter.searchBy === searchOptions.COMPANYNAME) {
-			query = { companyname: searchText };
-		}
+		let query = { search: searchText };
 		return loadList({
 			start: _start,
 			limit: pagination.limit,
@@ -44,27 +38,19 @@ const List = () => {
 	const handleSearchInputChange = (e) => {
 		const { value } = e.target;
 		setSearchText(value);
-		if (filter.searchBy === searchOptions.COMPANYNAME) {
-			return fetchList({ start: 0, limit: pagination.limit, companyname: value });
-		}
 		if (filter.searchBy === searchOptions.NAME) {
-			return fetchList({ start: 0, limit: pagination.limit, name: value });
-		}
-		if (filter.searchBy === searchOptions.CATEGORY) {
-			return fetchList({ start: 0, limit: pagination.limit, category: value });
+			return fetchList({ start: 0, limit: pagination.limit, search: value });
 		}
 		fetchList({ start: 0, limit: pagination.limit });
 	};
 
 	const searchOptions = {
-		COMPANYNAME: "companyname",
-		NAME: "name",
-		CATEGORY: "category",
+		NAME: "search"
 	};
 
 	const [filter, setFilter] = useState({
 		searchPlaceholder: "Enter name...",
-		searchBy: "name",
+		searchBy: "search",
 	});
 
 	const loadList = query => {
@@ -87,18 +73,7 @@ const List = () => {
 				searchBy: searchOptions.NAME,
 			});
 		}
-		if (value === searchOptions.COMPANYNAME) {
-			setFilter({
-				searchPlaceholder: "Enter company name...",
-				searchBy: searchOptions.COMPANYNAME,
-			});
-		}
-		if (value === searchOptions.CATEGORY) {
-			setFilter({
-				searchPlaceholder: "Enter product category...",
-				searchBy: searchOptions.CATEGORY,
-			});
-		}
+
 		fetchList({ start: 0, limit: pagination.limit });
 	};
 
@@ -110,9 +85,9 @@ const List = () => {
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
 					<Row>
 						<Col md="4">
-							<i className="mdi mdi-border-right mr-2"></i>Insurance Product List
+							<i className="mdi mdi-border-right mr-2"></i>User Analytics
 						</Col>
-						<Col md="6" className="text-right">
+						<Col md="8" className="text-right">
 							<CustomInput
 								type="select"
 								id="exampleCustomSelect"
@@ -121,9 +96,7 @@ const List = () => {
 								style={{ width: "auto" }}
 								onChange={handleFilterChange}
 							>
-								<option value="name">Search By Product Name</option>
-								<option value="companyname">By Company Name</option>
-								<option value="category">By Product Category</option>
+								<option value="search">Search By Device Name</option>
 							</CustomInput>
 							<div style={{ display: "inline-flex" }}>
 								<Input
@@ -133,11 +106,7 @@ const List = () => {
 								/>
 							</div>
 						</Col>
-						<Col md="2">
-							<Link className="btn btn-primary" to="/newcompany">
-								Add
-							</Link>
-						</Col>
+
 					</Row>
 				</CardTitle>
 				<CardBody>
@@ -145,8 +114,8 @@ const List = () => {
 						<thead>
 							<tr className="border-0">
 								<th className="border-0">Name</th>
-								<th className="border-0">Company</th>
-								<th className="border-0">Category</th>
+								<th className="border-0">IP Address</th>
+								<th className="border-0">Device</th>
 								<th className="border-0">Action</th>
 							</tr>
 						</thead>
@@ -158,11 +127,11 @@ const List = () => {
 											<td>
 												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
 											</td>
-											<td>{d.companyInfo && d.companyInfo.name ? properCase(d.companyInfo.name) : '-'}</td>
-											<td>{d.categoryinfo && d.categoryinfo.name ? properCase(d.categoryinfo.name) : '-'}</td>
+											<td>{d && d.ip ? d.ip : '-'}</td>
+											<td>{d && d.device ? properCase(d.device) : '-'}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
-												<Link className="btn btn-secondary" to={`/insurance/${d._id}`}>
-													Edit
+												<Link className="btn btn-secondary" to={`/analytic/${d.name}`}>
+													<i className="fa fa-eye"></i>
 												</Link>
 											</td>
 										</tr>

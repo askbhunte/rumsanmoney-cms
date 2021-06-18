@@ -37,10 +37,7 @@ export function get(id) {
 
 export function listHistory(params) {
 	return new Promise((resolve, reject) => {
-		axios({
-			url: historyUrl,
-			params
-		})
+		axios(`${historyUrl}/${params}`)
 			.then(res => {
 				resolve(res.data);
 			})
