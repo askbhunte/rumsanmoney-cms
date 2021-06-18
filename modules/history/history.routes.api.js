@@ -9,13 +9,9 @@ router.post('/', (q, r, n) => {
 });
 
 router.get('/', (q, r, n) => {
-  Controller.add(q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
-});
-
-router.put('/:id', (q, r, n) => {
-  Controller.addHistory(q.params.id, q.body)
+  const start = q.query.start || 0;
+  const limit = q.query.limit || 20;
+  Controller.list({ start, limit })
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });

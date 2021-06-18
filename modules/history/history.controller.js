@@ -12,17 +12,6 @@ class Controller {
   add(payload) {
     return Model.create(payload);
   }
-
-  addHistory(id, payload) {
-    return Model.updateOne(
-      {
-        cookieId: id,
-      },
-      {
-        $push: { history: payload.data },
-      },
-    );
-  }
 }
 
 module.exports = new Controller();

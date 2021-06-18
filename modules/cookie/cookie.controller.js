@@ -13,8 +13,12 @@ class Controller {
     });
   }
 
-  getById(id) {
-    return Model.findById(id);
+  getByName(name) {
+    return Model.findOne(
+      {
+        name,
+      },
+    );
   }
 }
 

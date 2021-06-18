@@ -4,8 +4,11 @@ const { ObjectId } = mongoose.Schema;
 
 const Schema = mongoose.Schema(
   {
-    cookieId: { type: ObjectId, ref: 'Cookies', required: true },
-    history: [],
+    cookie: { type: ObjectId, ref: 'Cookies' },
+    data: { type: mongoose.Schema.Types.Mixed },
+  },
+  {
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   },
 );
 

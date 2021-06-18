@@ -1,8 +1,14 @@
 const router = require('express').Router();
 const Controller = require('./cookie.controller');
+const { v4: uuidv4 } = require('uuid');
 
-router.post('/', (q, r, n) => {
-  const payload = q.body;
+
+router.post('/', (q, r, n) => {  
+  const payload = q.body; 
+  console.log(q.clientIp);
+  payload.name = uuidv4();  
+  payload.ip = q.clientIp;
+  console.log(payload);
   Controller.add(payload)
     .then((d) => r.json(d))
     .catch((e) => n(e));
@@ -16,8 +22,8 @@ router.get('/', (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.get('/:id', (q, r, n) => {
-  Controller.getById(q.params.id)
+router.get('/:name', (q, r, n) => {
+  Controller.getByName(q.params.name)
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });
