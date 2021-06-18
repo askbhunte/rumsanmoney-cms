@@ -1,14 +1,12 @@
 const router = require('express').Router();
-const Controller = require('./cookie.controller');
 const { v4: uuidv4 } = require('uuid');
+const Controller = require('./cookie.controller');
 
-
-router.post('/', (q, r, n) => {  
-  const payload = q.body; 
-  console.log(q.clientIp);
-  payload.name = uuidv4();  
+router.post('/', (q, r, n) => {
+  const payload = q.body;
+  payload.name = uuidv4();
   payload.ip = q.clientIp;
-  console.log(payload);
+  payload.device = q.headers['user-agent'];
   Controller.add(payload)
     .then((d) => r.json(d))
     .catch((e) => n(e));
