@@ -1,102 +1,110 @@
 import React, { createContext, useReducer } from "react";
-import bankReduce from "../reducers/bankReducer";
-import * as Service from "../services/banks";
-import ACTION from "../actions/bank";
+import pagesReduce from "../reducers/pagesReducer";
+import * as Service from "../services/pages";
+import ACTION from "../actions/pages";
 
 const initialState = {
-    bank: [],
-    pagination: { total: 0, limit: 20, start: 0, currentPage: 1, totalPages: 0 },
-    bank_details: null,
-    loading: false,
+  pages: [],
+  pagination: { total: 0, limit: 2, start: 0, currentPage: 1, totalPages: 0 },
+  pages_details: null,
+  loading: false,
 };
 
-export const BankContext = createContext(initialState);
-export const BankContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(bankReduce, initialState);
+export const PagesContext = createContext(initialState);
+export const PagesContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(pagesReduce, initialState);
 
-    function setLoading() {
-        dispatch({ type: ACTION.SET_LOADING });
-    }
+  function setLoading() {
+    dispatch({ type: ACTION.SET_LOADING });
+  }
 
-    function resetLoading() {
-        dispatch({ type: ACTION.RESET_LOADING });
-    }
+  function resetLoading() {
+    dispatch({ type: ACTION.RESET_LOADING });
+  }
 
-    function getBankDetails(bankId) {
-        return new Promise((resolve, reject) => {
-            Service.getBankDetails(bankId)
-                .then((res) => {
-                    dispatch({ type: ACTION.GET_BANK_SUCCESS, res });
-                    resolve(res);
-                })
-                .catch((err) => {
-                    reject(err);
-                });
+  function getPagesDetails(pagesId) {
+    return new Promise((resolve, reject) => {
+      Service.getPagesDetails(pagesId)
+        .then((res) => {
+          dispatch({ type: ACTION.GET_PAGES_SUCCESS, res });
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
         });
-    }
+    });
+  }
 
-    function listBank(query) {
-        return new Promise((resolve, reject) => {
-            Service.listBank(query)
-                .then((res) => {
-                    dispatch({ type: ACTION.LIST_SUCCESS, res });
-                    resolve(res);
-                })
-                .catch((err) => {
-                    reject(err);
-                });
+  function listPages(query) {
+    return new Promise((resolve, reject) => {
+      Service.listPages(query)
+        .then((res) => {
+          dispatch({ type: ACTION.LIST_SUCCESS, res });
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
         });
-    }
+    });
+  }
 
-    function updateBank(bankId, payload) {
-        return new Promise((resolve, reject) => {
-            Service.updateBank(bankId, payload)
-                .then((res) => {
-                    resolve(res);
-                })
-                .catch((err) => {
-                    reject(err);
-                });
+  function updatePages(pagesId, payload) {
+    return new Promise((resolve, reject) => {
+      Service.updatePages(pagesId, payload)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
         });
+    });
+  }
+
+  const addPages = async (payload) => {
+    payload.slug = payload.name
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, "");
+    let check_slug = await Service.getBySlug(payload.slug);
+    if (check_slug) {
+      throw new Error("This page already exists !!");
     }
+    let d = await Service.addPages(payload);
+    return d;
+  };
 
-    const addBank = async (event, content) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+  const deletePage = async (id) => {
+    return new Promise((resolve, reject) => {
+      Service.deletePage(id)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
 
-        let payload = {
-            name: formData.get("name"),
-            head_office: formData.get("head_office"),
-            primary_contact: formData.get("primary_contact"),
-            secondary_contacts: formData.get("secondary_contacts"),
-            logo_url: formData.get("logo_url"),
-            email: formData.get("email"),
-            address: formData.get("address"),
-            website: formData.get("website"),
-            desc: content,
-            product_url: formData.get("product_url"),
-            base_rate: formData.get("base_rate"),
-        };
-        let d = await Service.addBank(payload);
-        return d;
-    };
-
-    return (
-        <BankContext.Provider
-            value={{
-                bank: state.bank,
-                loading: state.loading,
-                pagination: state.pagination,
-                bank_details: state.bank_details,
-                listBank,
-                setLoading,
-                resetLoading,
-                addBank,
-                updateBank,
-                getBankDetails,
-            }}
-        >
-            {children}
-        </BankContext.Provider>
-    );
+  return (
+    <PagesContext.Provider
+      value={{
+        pages: state.pages,
+        loading: state.loading,
+        pagination: state.pagination,
+        pages_details: state.pages_details,
+        listPages,
+        setLoading,
+        resetLoading,
+        addPages,
+        updatePages,
+        getPagesDetails,
+        deletePage,
+      }}
+    >
+      {children}
+    </PagesContext.Provider>
+  );
 };

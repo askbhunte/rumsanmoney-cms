@@ -6,76 +6,92 @@ import qs from "query-string";
 
 // const access_token = getUserToken();
 
-export function getBankDetails(bankId) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`${API.BANK}/${bankId}`)
-            .then((res) => {
-                if (res.statusText === "OK") {
-                    resolve(res.data);
-                }
-                reject(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
+export function getPagesDetails(pagesId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.PAGES}/${pagesId}`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
-export function listBank(query) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`${API.BANK}?${qs.stringify(query)}`)
-            .then((res) => {
-                if (res.statusText === "OK") {
-                    resolve(res.data);
-                }
-                reject(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
+export function listPages(query) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.PAGES}?${qs.stringify(query)}`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
-export function listAllBank(query) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(`${API.BANK}/all`)
-            .then((res) => {
-                if (res.statusText === "OK") {
-                    resolve(res.data);
-                }
-                reject(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
+export function getBySlug(slug) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API.PAGES}/slug/${slug}`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
-export function updateBank(bankId, payload) {
-    return new Promise((resolve, reject) => {
-        axios
-            .put(`${API.BANK}/${bankId}`, payload)
-            .then((res) => {
-                if (res.statusText === "OK") {
-                    resolve(res.data);
-                }
-                reject(res.data);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
+export function updatePages(PageId, payload) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${API.PAGES}/${PageId}`, payload)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
-export async function addBank(body) {
-    const res = await axios({
-        url: API.BANK,
-        method: "post",
-        data: body,
-    });
+export async function addPages(body) {
+  const res = await axios({
+    url: API.PAGES,
+    method: "post",
+    data: body,
+  });
 
-    return res.data;
+  return res.data;
+}
+
+export function deletePage(PageId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${API.PAGES}/${PageId}`)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }

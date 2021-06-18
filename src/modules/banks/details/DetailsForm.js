@@ -293,15 +293,15 @@ export default function DetailsForm(props) {
                   {loading ? (
                     <Loading />
                   ) : (
-                    <div style={{ marginTop: 20, marginBottom: 10 }}>
-                      <Button type="submit" className="btn btn-success mr-2">
-                        Submit
+                      <div style={{ marginTop: 20, marginBottom: 10 }}>
+                        <Button type="submit" className="btn btn-success mr-2">
+                          Submit
                       </Button>
-                      <Link to="/banks" className="btn btn-dark">
-                        Cancel
+                        <Link to="/banks" className="btn btn-dark">
+                          Cancel
                       </Link>
-                    </div>
-                  )}
+                      </div>
+                    )}
                 </div>
               </Form>
             </CardBody>

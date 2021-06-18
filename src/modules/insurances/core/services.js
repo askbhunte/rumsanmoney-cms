@@ -99,3 +99,22 @@ export function remove(id) {
 			});
 	});
 }
+
+export function changeFeatured(productId, status) {
+	return new Promise((resolve, reject) => {
+	  axios
+		.put(
+		  `${API.INSURANCES}/${productId}/featured`,
+		  status
+		)
+		.then((res) => {
+		  if (res.statusText === "OK") {
+			resolve(res.data);
+		  }
+		  reject(res.data);
+		})
+		.catch((err) => {
+		  reject(err);
+		});
+	});
+  }

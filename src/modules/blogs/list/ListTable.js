@@ -149,10 +149,10 @@ export default function BlogList() {
                   );
                 })
               ) : (
-                <tr>
-                  <td colSpan={4}>No data available.</td>
-                </tr>
-              )}
+                  <tr>
+                    <td colSpan={4}>No data available.</td>
+                  </tr>
+                )}
             </tbody>
           </Table>
           <Paginate

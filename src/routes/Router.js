@@ -13,12 +13,16 @@ const Insurances = lazy(() => import("../modules/insurances/list"));
 const InsuranceDetails = lazy(() => import("../modules/insurances/details"));
 const Companies = lazy(() => import("../modules/insurance_companies/list"));
 const CompanyAdd = lazy(() => import("../modules/insurance_companies/add"));
+const PagesAdd = lazy(() => import("../modules/pages/add"));
+const PageDetails = lazy(() => import("../modules/pages/detail"));
 const CompanyDetails = lazy(() => import("../modules/insurance_companies/details"));
 const Products = lazy(() => import("../modules/products/list"));
 const ProductDetails = lazy(() => import("../modules/products/details"));
 const Requests = lazy(() => import("../modules/requests/list"));
 const Settings = lazy(() => import("../modules/settings/Settings"));
 const Users = lazy(() => import("../modules/users/List"));
+const Pages = lazy(() => import("../modules/pages/list"));
+
 
 var AppRoutes = [
   {
@@ -98,6 +102,17 @@ var AppRoutes = [
     component: CompanyAdd,
   },
   {
+    path: "/addpages",
+    name: "PagesAdd",
+    component: PagesAdd,
+  },
+
+  {
+    path: "/pages/:id",
+    name: "PageDetails",
+    component: PageDetails,
+  },
+  {
     path: "/categories",
     name: "Categories",
     icon: "layers",
@@ -146,6 +161,13 @@ var AppRoutes = [
     name: "Blog Detail",
     icon: "layers",
     component: BlogsDetails,
+  },
+  {
+    path: "/pages",
+    name: "Pages",
+    icon: "edit",
+    component: Pages,
+    showInSidebar: true,
   },
   {
     collapse: true,

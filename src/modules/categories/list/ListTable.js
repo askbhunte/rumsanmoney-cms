@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Paginate from "../../global/Paginate";
 import Swal from "sweetalert2";
 import Ratings from "react-ratings-declarative";
-import {properCase} from '../../../utils/formatter';
+import { properCase } from '../../../utils/formatter';
 import {
   Button,
   Row,
@@ -201,9 +201,8 @@ export default function CategoryList() {
             <thead>
               <tr className="border-0">
                 <th className="border-0">Name</th>
-                <th className="border-0">Preview</th>
-                <th className="border-0">Featured?</th>
-                <th className="border-0">Popular?</th>
+                <th className="border-0 text-center">Add in Homepage Slider?</th>
+                <th className="border-0 text-center">Add in Homepage Explore and Learn Section?</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -212,25 +211,23 @@ export default function CategoryList() {
                 category.map((d) => {
                   return (
                     <tr key={d._id}>
-                      <td>
+                      <td >
                         <div className="text-dark">{d.name ? d.name : 'N/A'}&nbsp;
                             {d.image && d.image.length > 0 ? (
-                              <i className="fas fa-image fa-sm" style={{ color: 'red' }}></i>
-                            ) : (
+                            <i className="fas fa-image fa-sm" style={{ color: 'red' }}></i>
+                          ) : (
                               ''
                             )}</div>
                         <div className="row">
                           <div className="col">
                             <em>
-                              <small>{d && d.sub_head ? properCase(d.sub_head.substring(0,80).concat("...")) : 'N/A'}</small>
+                              <small>{d && d.sub_head ? properCase(d.sub_head.substring(0, 80).concat("...")) : 'N/A'}</small>
                             </em>
                           </div>
                         </div>
                       </td>
-                      <td>
-                        <i className={`${d.icon} fa-lg`}></i>
-                      </td>
-                      <td>
+
+                      <td className="text-center">
                         {d.isFeatured ? (
                           <span>
                             <Ratings
@@ -247,25 +244,25 @@ export default function CategoryList() {
                             </Ratings>
                           </span>
                         ) : (
-                          <span>
-                            <Ratings
-                              rating={0}
-                              widgetRatedColors="gold"
-                              changeRating={() =>
-                                changeFeaturedRating(d._id, { isFeatured: true })
-                              }
-                            >
-                              <Ratings.Widget
-                                widgetHoverColor="grey"
-                                widgetDimension="25px"
-                              />
-                            </Ratings>
-                          </span>
-                        )}
+                            <span>
+                              <Ratings
+                                rating={0}
+                                widgetRatedColors="gold"
+                                changeRating={() =>
+                                  changeFeaturedRating(d._id, { isFeatured: true })
+                                }
+                              >
+                                <Ratings.Widget
+                                  widgetHoverColor="grey"
+                                  widgetDimension="25px"
+                                />
+                              </Ratings>
+                            </span>
+                          )}
                       </td>
                       <td>
                         {d.isPopular ? (
-                          <span>
+                          <span className='d-flex justify-content-center'>
                             <Ratings
                               rating={1}
                               widgetRatedColors="gold"
@@ -280,26 +277,26 @@ export default function CategoryList() {
                             </Ratings>
                           </span>
                         ) : (
-                          <span>
-                            <Ratings
-                              rating={0}
-                              widgetRatedColors="gold"
-                              changeRating={() =>
-                                changePopularRating(d._id, { isPopular: true })
-                              }
-                            >
-                              <Ratings.Widget
-                                widgetHoverColor="grey"
-                                widgetDimension="25px"
-                              />
-                            </Ratings>
-                          </span>
-                        )}
+                            <span className='d-flex justify-content-center'>
+                              <Ratings
+                                rating={0}
+                                widgetRatedColors="gold"
+                                changeRating={() =>
+                                  changePopularRating(d._id, { isPopular: true })
+                                }
+                              >
+                                <Ratings.Widget
+                                  widgetHoverColor="grey"
+                                  widgetDimension="25px"
+                                />
+                              </Ratings>
+                            </span>
+                          )}
                       </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Button
                           className="btn btn-primary"
-                          onClick={()=> history.push(`/category/${d._id}`)}
+                          onClick={() => history.push(`/category/${d._id}`)}
                         >
                           Edit
                         </Button>
@@ -308,10 +305,10 @@ export default function CategoryList() {
                   );
                 })
               ) : (
-                <tr>
-                  <td colSpan={4}>No data available.</td>
-                </tr>
-              )}
+                  <tr>
+                    <td colSpan={4}>No data available.</td>
+                  </tr>
+                )}
             </tbody>
           </Table>
           <Paginate
