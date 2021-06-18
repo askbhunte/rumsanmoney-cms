@@ -6,10 +6,19 @@ class Controller {
     return Model.create(payload);
   }
 
-  list({ start, limit }) {
+  list({ start, limit, search }) {
     const query = [];
+
+    if (search) {
+      query.push({
+        $match: {
+          device: new RegExp(search, 'gi'),
+        },
+      });
+    }
+
     return DataUtils.paging({
-      start, limit, sort: { createdAt: 1 }, model: Model, query,
+      start, limit, sort: { created_at: 1 }, model: Model, query,
     });
   }
 
