@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
 const Dashboard = lazy(() => import("../modules/dashboard/Dashboard"));
+const Analytics = lazy(() => import("../modules/analytics/list"));
 const Banks = lazy(() => import("../modules/banks/list"));
 const BankDetails = lazy(() => import("../modules/banks/details"));
 const Blogs = lazy(() => import("../modules/blogs/list"));
@@ -24,6 +25,13 @@ var AppRoutes = [
     name: "Requests",
     icon: "inbox",
     component: Requests,
+    showInSidebar: true,
+  },
+  {
+    path: "/analytics",
+    name: "Analytics",
+    icon: "layers",
+    component: Analytics,
     showInSidebar: true,
   },
   {
