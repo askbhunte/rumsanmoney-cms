@@ -17,6 +17,10 @@ class Controller {
       start, limit, sort: { created_at: -1 }, query, model: Model,
     });
   }
+
+  add(payload) {
+    return Model.create(payload);
+  }
 }
 
 module.exports = new Controller();
