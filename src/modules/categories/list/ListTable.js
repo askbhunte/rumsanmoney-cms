@@ -237,7 +237,7 @@ export default function CategoryList() {
               <tr className="border-0">
                 <th className="border-0">Name</th>
                 <th className="border-0 text-center">Add in Homepage Slider?</th>
-                <th className="border-0 text-center">Add in Homepage Explore and Learn Section?</th>
+                <th className="border-0 text-center">Add in Homepage Explore &amp; Learn Section?</th>
                 <th className="border-0 text-center">Is Active?</th>
                 <th className="border-0">Action</th>
               </tr>
