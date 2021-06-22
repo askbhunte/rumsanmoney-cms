@@ -84,6 +84,18 @@ export const CategoryContextProvider = ({ children }) => {
     });
   }
 
+  function changeStatus(id,status){
+    return new Promise((resolve,reject) =>{
+      Service.changeStatus(id,status)
+        .then((res)=>{
+          resolve(res);
+        })
+        .catch((err)=>{
+          reject(err);
+        });
+    });
+  }
+
   const addCategory = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -111,6 +123,7 @@ export const CategoryContextProvider = ({ children }) => {
         addCategory,
         changeFeatured,
         changePopular,
+        changeStatus,
         updateCategory,
         getCategoryDetails,
       }}

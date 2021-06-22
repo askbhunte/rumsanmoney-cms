@@ -104,3 +104,22 @@ export function changePopular(id, status) {
       });
   });
 }
+
+export function changeStatus(id, status) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.CATEGORY}/${id}/status`,
+        status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}

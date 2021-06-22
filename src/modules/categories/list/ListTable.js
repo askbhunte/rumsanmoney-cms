@@ -30,7 +30,7 @@ export default function CategoryList() {
   const [current, setCurrent] = useState(0);
   const [iconPrev, setIconPrev] = useState("");
   const size = "sm";
-  const { listCategory, category, pagination, addCategory, changeFeatured, changePopular } = useContext(
+  const { listCategory, category, pagination, addCategory, changeFeatured, changePopular, changeStatus } = useContext(
     CategoryContext
   );
 
@@ -144,6 +144,41 @@ export default function CategoryList() {
     }
   };
 
+  const changeStatusRating = async (id, status) => {
+    const title = status.is_active
+      ? "Category will be marked as active"
+      : "Category will be removed from active List";
+    const toastTitle = status.is_active
+      ? "Category has been marked as active"
+      : "Category has been removed from active list";
+    let result = await Swal.fire({
+      title: "Are you sure?",
+      text: `${title}!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    });
+    if (result.isConfirmed) {
+      try {
+        let d = await changeStatus(id, status);
+        if (d) {
+          listCategory();
+          addToast(`${toastTitle}.`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
+      } catch {
+        addToast("Something went wrong on server!", {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    }
+  };
+
   let get = useCallback(
     (params) => {
       listCategory(params);
@@ -203,6 +238,7 @@ export default function CategoryList() {
                 <th className="border-0">Name</th>
                 <th className="border-0 text-center">Add in Homepage Slider?</th>
                 <th className="border-0 text-center">Add in Homepage Explore and Learn Section?</th>
+                <th className="border-0 text-center">Is Active?</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -292,6 +328,39 @@ export default function CategoryList() {
                               </Ratings>
                             </span>
                           )}
+                      </td>
+                      <td>
+                        {d.is_active ? (
+                          <span className='d-flex justify-content-center'>
+                            <Ratings
+                              rating={1}
+                              widgetRatedColors="gold"
+                              changeRating={() =>
+                                changeStatusRating(d._id, { is_active: false })
+                              }
+                            >
+                              <Ratings.Widget
+                                widgetHoverColor="grey"
+                                widgetDimension="25px"
+                              />
+                            </Ratings>
+                          </span>
+                        ) : (
+                            <span className='d-flex justify-content-center'>
+                              <Ratings
+                                rating={0}
+                                widgetRatedColors="gold"
+                                changeRating={() =>
+                                  changeStatusRating(d._id, { is_active: true })
+                                }
+                              >
+                                <Ratings.Widget
+                                  widgetHoverColor="grey"
+                                  widgetDimension="25px"
+                                />
+                              </Ratings>
+                            </span>
+                          )}                        
                       </td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Button
