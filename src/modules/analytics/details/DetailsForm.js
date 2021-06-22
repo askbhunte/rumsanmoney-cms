@@ -100,7 +100,7 @@ const DetailForm = props => {
 										<tr key={d._id}>
 											<td>{i + 1}</td>
 											<td>{d && d.data ? d.data : '-'}</td>
-											<td>{d && d.created_at ? dateFormatter(d.created_at) : '-'}</td>
+											<td>{d && d.created_at ? dateFormatter(d.created_at, 'lll') : '-'}</td>
 										</tr>
 									);
 								})
