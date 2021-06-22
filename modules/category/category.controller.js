@@ -110,6 +110,10 @@ class Controller {
     return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
   }
 
+  changeStatus(id, status) {
+    return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
+  }
+
   findByName(name) {
     return Model.findOne({ name: new RegExp(name, 'gi') });
   }
