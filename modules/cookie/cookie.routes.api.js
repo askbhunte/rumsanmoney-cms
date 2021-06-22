@@ -5,8 +5,6 @@ const Controller = require('./cookie.controller');
 router.post('/', (q, r, n) => {
   const payload = q.body;
   payload.name = uuidv4();
-  payload.ip = q.clientIp;
-  payload.device = q.headers['user-agent'];
   console.log('q', q, 'q');
   Controller.add(payload)
     .then((d) => r.json(d))
