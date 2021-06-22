@@ -18,7 +18,7 @@ class Controller {
     }
 
     return DataUtils.paging({
-      start, limit, sort: { created_at: 1 }, model: Model, query,
+      start, limit, sort: { created_at: -1 }, model: Model, query,
     });
   }
 
