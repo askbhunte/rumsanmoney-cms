@@ -128,7 +128,7 @@ const List = () => {
 												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
 											</td>
 											<td>{d && d.ip ? d.ip : '-'}</td>
-											<td>{d && d.device ? properCase(d.device) : '-'}</td>
+											<td>{d && d.device ? properCase(d.device).substring(0, 42).concat('','...') : '-'}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
 												<Link className="btn btn-secondary" to={`/analytic/${d.name}`}>
 													<i className="fa fa-eye"></i>

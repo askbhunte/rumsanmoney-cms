@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Card, CardTitle, CardBody, Table } from 'reactstrap';
 import { Context } from '../core/contexts';
 import Loading from '../../global/Loading';
+import { dateFormatter } from '../../../utils/formatter';
 
 
 const DetailForm = props => {
@@ -99,6 +100,7 @@ const DetailForm = props => {
 										<tr key={d._id}>
 											<td>{i + 1}</td>
 											<td>{d && d.data ? d.data : '-'}</td>
+											<td>{d && d.created_at ? dateFormatter(d.data) : '-'}</td>
 										</tr>
 									);
 								})

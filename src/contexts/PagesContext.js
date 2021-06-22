@@ -61,6 +61,7 @@ export const PagesContextProvider = ({ children }) => {
   }
 
   const addPages = async (payload) => {
+    /* eslint-disable */
     payload.slug = payload.name
       .toLowerCase()
       .replace(/\s+/g, "-") // Replace spaces with -
@@ -68,6 +69,7 @@ export const PagesContextProvider = ({ children }) => {
       .replace(/\-\-+/g, "-") // Replace multiple - with single -
       .replace(/^-+/, "") // Trim - from start of text
       .replace(/-+$/, "");
+    /* eslint-enable */
     let check_slug = await Service.getBySlug(payload.slug);
     if (check_slug) {
       throw new Error("This page already exists !!");

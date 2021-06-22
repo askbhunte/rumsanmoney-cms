@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
 import {
-  Row,
-  Col,
   Button,
   Form,
   FormGroup,
@@ -20,7 +18,7 @@ import MyUploadAdapter from "../../../services/MyUploader";
 import { PagesContext } from "../../../contexts/PagesContext";
 
 const Add = () => {
-  const { listPages, pages, pagination, addPages } = useContext(PagesContext);
+  const { addPages } = useContext(PagesContext);
   const [extraContent, setExtraContent] = useState("");
   const custom_config = {
     extraPlugins: [MyCustomUploadAdapterPlugin],

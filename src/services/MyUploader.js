@@ -36,7 +36,7 @@ class MyUploadAdapter {
     _initListeners( resolve, reject ) {
         const xhr = this.xhr;
         const loader = this.loader;
-        const genericErrorText = 'Could not upload file:' + ` ${ loader.file.name }.`;
+        const genericErrorText = `Could not upload file: ${ loader.file.name }.`;
 
         xhr.addEventListener( 'error', () => reject( genericErrorText ) );
         xhr.addEventListener( 'abort', () => reject() );

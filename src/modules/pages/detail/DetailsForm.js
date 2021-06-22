@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import ReactQuill from "react-quill";
 import Swal from "sweetalert2";
 import "react-quill/dist/quill.snow.css";
 //ckeditor stuff
@@ -12,20 +11,15 @@ import MyUploadAdapter from "../../../services/MyUploader";
 import {
   Card,
   CardBody,
-  CardTitle,
   CardHeader,
-  Row,
-  Col,
   Form,
   FormGroup,
   Label,
   Input,
   Button,
-  InputGroup,
 } from "reactstrap";
 
 import { PagesContext } from "../../../contexts/PagesContext";
-import Loading from "../../global/Loading";
 
 export default function DetailsForm(props) {
   const [extraContent, setExtraContent] = useState("");
@@ -65,18 +59,7 @@ export default function DetailsForm(props) {
   const pageId = props.params.id;
   const { addToast } = useToasts();
   const [page_details, setPageDetails] = useState(null);
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, false] }],
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["clean"],
-    ],
-  };
-  const formats = ["bold", "italic", "underline", "list", "bullet"];
-
-  const { loading, setLoading, resetLoading, getPagesDetails, updatePages } =
+  const { setLoading, resetLoading, getPagesDetails, updatePages } =
     useContext(PagesContext);
 
   const loadPageDetails = () => {

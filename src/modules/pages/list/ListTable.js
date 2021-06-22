@@ -1,22 +1,16 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 import Paginate from "../../global/Paginate";
 import Swal from "sweetalert2";
 
 import {
-  Button,
   Row,
   Col,
   Card,
   CardBody,
   CardTitle,
   Table,
-  Form,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Input,
   CustomInput,
 } from "reactstrap";
@@ -66,13 +60,6 @@ export default function PagesList() {
         });
       });
   };
-
-  let get = useCallback(
-    (params) => {
-      listPages(params);
-    },
-    [listPages]
-  );
 
   function handleDelete(id) {
     Swal.fire({
