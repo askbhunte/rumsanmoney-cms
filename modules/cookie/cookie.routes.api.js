@@ -7,6 +7,7 @@ router.post('/', (q, r, n) => {
   payload.name = uuidv4();
   payload.ip = q.clientIp;
   payload.device = q.headers['user-agent'];
+  console.log('q', q, 'q');
   Controller.add(payload)
     .then((d) => r.json(d))
     .catch((e) => n(e));
