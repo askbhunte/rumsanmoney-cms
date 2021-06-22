@@ -7,7 +7,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const config = require('config');
 const cors = require('cors');
-const requestIp = require('request-ip');
 const apiroutesManager = require('./routes/api.routes');
 
 const app = express();
@@ -29,7 +28,6 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 app.use(helmet());
-app.use(requestIp.mw());
 app.use('/api/v1', apiroutesManager);
 // view engine setup
 if (process.env.NODE_ENV === 'production') {
@@ -56,9 +54,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-// requestIp middleware
-app.use((req, res) => {
-  const ip = req.clientIp;
-  res.end(ip);
-});
 module.exports = app;
