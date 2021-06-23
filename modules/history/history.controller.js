@@ -19,6 +19,7 @@ class Controller {
   }
 
   add(payload) {
+    payload.data = JSON.parse(payload.data);
     return Model.create(payload);
   }
 }
