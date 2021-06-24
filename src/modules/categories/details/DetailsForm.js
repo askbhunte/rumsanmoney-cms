@@ -137,8 +137,8 @@ export default function DetailsForm(props) {
 		const fileHash = await Hash.of(b64file);
 		setSelectedFile(uploading);
 		try{
-       if(fileSize > 200){
-     throw new Error('File size must not exceed 200 KB.',)
+      if(fileSize > 200){
+      throw new Error('File size must not exceed 200 KB.')
     }
 			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], fileHash);
 			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
