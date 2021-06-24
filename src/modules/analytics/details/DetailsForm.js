@@ -3,14 +3,39 @@ import { Row, Col, Card, CardTitle, CardBody, Table } from 'reactstrap';
 import { Context } from '../core/contexts';
 import Loading from '../../global/Loading';
 import { dateFormatter } from '../../../utils/formatter';
+import { useToasts } from 'react-toast-notifications';
+import Paginate from '../../global/Paginate';
 
 
 const DetailForm = props => {
 	const Id = props.params.id;
-	const { listHistory, get } = useContext(Context);
+	const { addToast } = useToasts();
+	const { listHistory, get, pagination } = useContext(Context);
 	const [detail, setDetail] = useState(null);
 	const [userHistory, setUserHistory] = useState(null);
+	const [current, setCurrent] = useState(0);	
 
+	const handlePagination = current_page =>{
+		let _start = current_page * pagination.limit;
+		setCurrent(current_page);
+		return loadList({
+			start: _start,
+			limit : pagination.limit,			
+		})
+	}
+
+	const loadList = (query) => {		
+		listHistory(detail._id,query)
+			.then(d=>{
+				setUserHistory(d.data);
+			})
+			.catch(() => {
+				addToast('Something went wrong!', {
+					appearance: 'error',
+					autoDismiss: true
+				});
+			});
+	};
 
 	const loaddetail = () => {
 		get(Id)
@@ -21,6 +46,7 @@ const DetailForm = props => {
 
 			});
 	};
+
 	const userHistoryList = () => {
 		if (detail) {
 			listHistory(detail._id)
@@ -111,6 +137,7 @@ const DetailForm = props => {
 								)}
 						</tbody>
 					</Table>
+					<Paginate limit={pagination.limit} total={pagination.total} current={current} onChange={handlePagination} />
 				</CardBody>
 			</Card>
 		</>
