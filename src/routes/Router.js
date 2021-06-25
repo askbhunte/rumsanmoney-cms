@@ -35,7 +35,7 @@ var AppRoutes = [
   {
     path: "/analytics",
     name: "Analytics",
-    icon: "layers",
+    icon: "bar-chart",
     component: Analytics,
     showInSidebar: true,
   },
