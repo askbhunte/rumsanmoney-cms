@@ -50,17 +50,28 @@ const DetailForm = props => {
   const docHandler = async event => {
 		event.persist();
 		const fileName = event.target.files[0];
-		const b64file = await fileToBase64(fileName);
-		const fileHash = await Hash.of(b64file);
-		setSelectedFile(uploading);
-		try{
-			const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], fileHash);
-			const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
-			setSelectedFile(fileURL);
-		}catch(e){
-			console.log(e);
-			setSelectedFile('');
+		const fileSize = ((event.target.files[0].size/1024)/1024*1024).toFixed(0);
+		if(fileSize > 200){				
+				addToast('File size must not exceed 200 KB.', {
+					appearance: 'error',
+					autoDismiss: true
+				});
 		}
+		else{
+			const b64file = await fileToBase64(fileName);
+			const fileHash = await Hash.of(b64file);
+			setSelectedFile(uploading);
+			try{
+				
+				const awsUrl = await ReactS3Client.uploadFile(event.target.files[0], fileHash);
+				const fileURL = process.env.REACT_APP_AWS_S3URL + awsUrl.key;
+				setSelectedFile(fileURL);
+			}catch(e){
+				console.log(e);
+				setSelectedFile('');
+			}
+		}
+		
 	};
 
 	const submitUpdate = e => {
