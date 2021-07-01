@@ -10,8 +10,8 @@ const initialState = {
 	loading: false
 };
 
-export const Context = createContext(initialState);
-export const ContextProvider = ({ children }) => {
+export const CompanyContext = createContext(initialState);
+export const CompanyContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(Reduce, initialState);
 
 	function setLoading() {
@@ -113,7 +113,7 @@ export const ContextProvider = ({ children }) => {
 	}
 
 	return (
-		<Context.Provider
+		<CompanyContext.Provider
 			value={{
 				data: state.data,
 				loading: state.loading,
@@ -128,10 +128,10 @@ export const ContextProvider = ({ children }) => {
 				getDetail,
 				archive,
 				remove,
-				dispatch
+				dispatch,
 			}}
 		>
 			{children}
-		</Context.Provider>
+		</CompanyContext.Provider>
 	);
 };
