@@ -240,15 +240,13 @@ export default function BankList() {
                         >
                           Edit
                         </Link>
-                      </td>
-                      <td className="blue-grey-text  text-darken-4 font-medium">
-                        <button
-                          className="btn btn-primary"  onClick={()=> updateProducts(`${d.name}`)}              
+                         <button
+                          className="btn btn-primary ml-3"  onClick={()=> updateProducts(`${d.name}`)}              
                         >
-                          Update Products
+                          Update All Products
                         </button>
                       </td>
-                    </tr>
+                     </tr>
                   );
                 })
               ) : (
