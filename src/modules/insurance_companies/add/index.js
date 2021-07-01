@@ -1,12 +1,12 @@
 import React from 'react';
-import { ContextProvider } from '../core/contexts';
+import { CompanyContextProvider } from '../core/contexts';
 import Add from './Add';
 
 const List = () => {
 	return (
-		<ContextProvider>
+		<CompanyContextProvider>
 			<Add />
-		</ContextProvider>
+		</CompanyContextProvider>
 	);
 };
 

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardBody, CardHeader } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
-import { Context } from '../core/contexts';
+import { CompanyContext } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 
 const Add = () => {
 	const { addToast } = useToasts();
-	const { add } = useContext(Context);
+	const { add } = useContext(CompanyContext);
 	const history = useHistory();
 
 	const handleFormSubmit = e => {
