@@ -22,7 +22,7 @@ export function getProductDetails(productId) {
   });
 }
 
-export function listProduct(query) {
+export function listProduct(query) {  
   return new Promise((resolve, reject) => {
     axios
       .get(`${API.PRODUCT}?${qs.stringify(query)}`)
@@ -82,6 +82,24 @@ export function changeFeatured(productId, status) {
       .put(
         `${API.PRODUCT}/${productId}/featured`,
         status
+      )
+      .then((res) => {
+        if (res.statusText === "OK") {
+          resolve(res.data);
+        }
+        reject(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+export function updateDate(productId) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(
+        `${API.PRODUCT}/${productId}/date`       
       )
       .then((res) => {
         if (res.statusText === "OK") {
