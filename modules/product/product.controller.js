@@ -275,6 +275,10 @@ class Controller {
     return Model.findOneAndUpdate({ _id: id }, { $set: status }, { new: true });
   }
 
+  updateDate(id) {
+    return Model.findByIdAndUpdate({ _id: id }, { $set: { updatedAt: new Date() } }, { new: true });
+  }
+
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
