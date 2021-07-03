@@ -63,6 +63,12 @@ router.put('/:id/featured', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
+router.put('/:id/date', async (q, r, n) => {
+  Controller.updateDate(q.params.id)
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
     .then((d) => r.json(d))

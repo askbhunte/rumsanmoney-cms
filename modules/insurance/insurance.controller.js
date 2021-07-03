@@ -238,6 +238,10 @@ class Controller {
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
+
+  updateDate(id) {
+    return Model.findByIdAndUpdate({ _id: id }, { $set: { updatedAt: new Date() } }, { new: true });
+  }
 }
 
 module.exports = new Controller();
