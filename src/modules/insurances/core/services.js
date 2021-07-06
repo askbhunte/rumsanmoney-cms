@@ -118,3 +118,21 @@ export function changeFeatured(productId, status) {
 		});
 	});
   }
+
+  export function updateDate(productId) {
+	return new Promise((resolve, reject) => {
+	  axios
+		.put(
+		  `${API.INSURANCES}/${productId}/date`
+		)
+		.then((res) => {
+		  if (res.statusText === "OK") {
+			resolve(res.data);
+		  }
+		  reject(res.data);
+		})
+		.catch((err) => {
+		  reject(err);
+		});
+	});
+  }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Button, Form, FormGroup, Label, Input, Card, CardTitle, CardBody } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
-import { Context } from '../core/contexts';
+import { CompanyContext } from '../core/contexts';
 import { useToasts } from 'react-toast-notifications';
 import Loading from '../../global/Loading';
 import Swal from 'sweetalert2';
@@ -25,7 +25,7 @@ const DetailForm = props => {
 	const history = useHistory();
 	const { addToast } = useToasts();
 
-	const { list, update, archive, remove, getDetail } = useContext(Context);
+	const { list, update, archive, remove, getDetail } = useContext(CompanyContext);
 	const [detail, setDetail] = useState(null);
 	const [selectedFile, setSelectedFile] = useState('');
   const [summary, setSummary] = useState("");

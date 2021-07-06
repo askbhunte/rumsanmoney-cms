@@ -1,13 +1,13 @@
 import React from 'react';
 
 import DetailsForm from './DetailsForm';
-import { ContextProvider } from '../core/contexts';
+import { CompanyContextProvider } from '../core/contexts';
 
 const Details = props => {
 	return (
-		<ContextProvider>
+		<CompanyContextProvider>
 			<DetailsForm params={props.match.params} />
-		</ContextProvider>
+		</CompanyContextProvider>
 	);
 };
 

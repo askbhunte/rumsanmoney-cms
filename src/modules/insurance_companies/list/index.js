@@ -1,11 +1,14 @@
 import React from 'react';
-import { ContextProvider } from '../core/contexts';
+import { CompanyContextProvider } from '../core/contexts';
+import {ContextProvider} from '../../insurances/core/contexts';
 import ListTable from './ListTable';
 
 const List = () => {
-	return (
+	return (		
 		<ContextProvider>
-			<ListTable />
+			<CompanyContextProvider>
+				<ListTable />
+			</CompanyContextProvider>			
 		</ContextProvider>
 	);
 };

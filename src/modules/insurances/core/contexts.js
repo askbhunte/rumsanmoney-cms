@@ -124,6 +124,18 @@ export const ContextProvider = ({ children }) => {
 		});
 	  }
 
+	function updateDate(productId) {
+	return new Promise((resolve, reject) => {
+		Service.updateDate(productId)
+		.then((res) => {
+			resolve(res);
+		})
+		.catch((err) => {
+			reject(err);
+		});
+	});
+	}
+
 	return (
 		<Context.Provider
 			value={{
@@ -141,7 +153,8 @@ export const ContextProvider = ({ children }) => {
 				archive,
 				remove,
 				dispatch,
-				changeFeatured
+				changeFeatured,
+				updateDate
 			}}
 		>
 			{children}

@@ -2,14 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import { Row, Col, Card, CardTitle, CardBody, Input, Table } from 'reactstrap';
-import { Context } from '../core/contexts';
+import { CompanyContext } from '../core/contexts';
+import { Context} from '../../insurances/core/contexts';
 import Paginate from '../../global/Paginate';
 import { properCase } from '../../../utils/formatter';
+import Swal from "sweetalert2";
 
 const List = () => {
 	const { addToast } = useToasts();
 	const [current, setCurrent] = useState(0);
-	const { data, list, pagination } = useContext(Context);
+	const { data, list, pagination } = useContext(CompanyContext);
+	const { updateDate} = useContext(Context);
+	const listProducts = useContext(Context).list;
 	const [searchText, setSearchText] = useState('');
 
 	const fetchList = query => {
@@ -52,6 +56,42 @@ const List = () => {
 				});
 			});
 	};
+
+	const updateProducts = async (company)=>{
+		let result = await Swal.fire({
+			title: 'Are you sure?',
+			text: `All the products of ${company} will be updated`,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes'
+		});
+		if (result.isConfirmed) {
+			try {		
+		let companyProducts = await listProducts({companyName:company});	      
+		companyProducts.data.forEach(el=>{
+			updateDate(el._id)
+			.then()
+			.catch((e)=>{
+			addToast(e.message, {
+			appearance: "error",
+			autoDismiss: true,
+			});
+			})
+		});
+		addToast("Products Successfully Updated", {
+			appearance: "success",
+			autoDismiss: true,
+		});            
+			} catch(e) {
+				addToast(e.message, {
+					appearance: 'error',
+					autoDismiss: true
+				});
+			}
+		}
+	}
 
 	useEffect(fetchList, []);
 
@@ -97,6 +137,11 @@ const List = () => {
 												<Link className="btn btn-secondary" to={`/company/${d._id}`}>
 													Edit
 												</Link>
+												<button
+													className="btn btn-primary ml-3"  onClick={()=> updateProducts(`${d.name}`)}              
+												>
+													Update All Products
+												</button>
 											</td>
 										</tr>
 									);

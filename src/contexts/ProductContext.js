@@ -98,6 +98,18 @@ export const ProductContextProvider = ({ children }) => {
     });
   }
 
+  function updateDate(productId){
+    return new Promise((resolve,reject)=>{
+      Service.updateDate(productId)
+        .then(res=>{
+          resolve(res);
+        })
+        .catch(err=>{
+          reject(err)
+        })
+    })
+  }
+
   const addProduct = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -131,6 +143,7 @@ export const ProductContextProvider = ({ children }) => {
         updateProduct,
         changeStatus,
         changeFeatured,
+        updateDate,
         getProductDetails,
         getBankDetail,
       }}
