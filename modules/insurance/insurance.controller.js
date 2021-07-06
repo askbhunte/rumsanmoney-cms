@@ -10,6 +10,7 @@ class Controller {
     limit,
     name,
     companyName,
+    categorySlug,
     type,
     category,
     sortindesc,
@@ -89,6 +90,13 @@ class Controller {
       query.push({
         $match: {
           'companyInfo.name': new RegExp(companyName, 'gi'),
+        },
+      });
+    }
+    if (categorySlug) {
+      query.push({
+        $match: {
+          'categoryinfo.slug': categorySlug,
         },
       });
     }
@@ -237,6 +245,10 @@ class Controller {
 
   remove(id) {
     return Model.findByIdAndRemove(id);
+  }
+
+  updateDate(id) {
+    return Model.findByIdAndUpdate({ _id: id }, { $set: { updatedAt: new Date() } }, { new: true });
   }
 }
 

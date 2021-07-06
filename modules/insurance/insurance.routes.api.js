@@ -6,6 +6,7 @@ router.get('/', async (q, r, n) => {
   const start = q.query.start || 0;
   const name = q.query.name || null;
   const companyName = q.query.companyname || null;
+  const categorySlug = q.query.categoryslug || null;
   const baserate = q.query.baserate || null;
   const type = q.query.type || null;
   const category = q.query.category || null;
@@ -17,6 +18,7 @@ router.get('/', async (q, r, n) => {
     start,
     name,
     companyName,
+    categorySlug,
     baserate,
     type,
     category,
@@ -59,6 +61,12 @@ router.put('/:id/status', async (q, r, n) => {
 
 router.put('/:id/featured', async (q, r, n) => {
   Controller.changeFeatured(q.params.id, q.body)
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
+router.put('/:id/date', async (q, r, n) => {
+  Controller.updateDate(q.params.id)
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });
