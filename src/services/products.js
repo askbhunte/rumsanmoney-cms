@@ -25,7 +25,7 @@ export function getProductDetails(productId) {
 export function listProduct(query) {  
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API.PRODUCT}?${qs.stringify(query)}&limit=2000`)
+      .get(`${API.PRODUCT}?${qs.stringify(query)}`)
       .then((res) => {
         if (res.statusText === "OK") {
           resolve(res.data);
