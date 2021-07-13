@@ -144,7 +144,7 @@ export default function BankList() {
 		});
 		if (result.isConfirmed) {
 			try {		
-        let bankProducts = await listProduct({bankname:bank});	      
+        let bankProducts = await listProduct({bankname:bank,limit:2000});	      
         bankProducts.data.forEach(el=>{
           updateDate(el._id)
           .then()

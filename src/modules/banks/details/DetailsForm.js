@@ -20,6 +20,7 @@ import {
 } from "reactstrap";
 
 import { BankContext } from "../../../contexts/BankContext";
+import { ProductContext } from "../../../contexts/ProductContext";
 import Loading from "../../global/Loading";
 
 export default function DetailsForm(props) {
@@ -45,6 +46,8 @@ export default function DetailsForm(props) {
     updateBank,
   } = useContext(BankContext);
 
+  const {listProduct, updateProduct} = useContext(ProductContext);
+
   const loadBankDetails = () => {
     getBankDetails(bankId)
       .then((d) => {
@@ -60,7 +63,7 @@ export default function DetailsForm(props) {
       });
   };
 
-  const submitUpdate = (e) => {
+  const submitUpdate = async (e) => {
     e.preventDefault();
     let formData = { ...bank_details };
     formData.desc = content;
@@ -80,7 +83,29 @@ export default function DetailsForm(props) {
           });
           resetLoading();
         });
-    });
+    });    
+    try {
+      let bankProducts = await listProduct({bankname:bank_details.name,limit:2000});
+      bankProducts.data.forEach((el)=>{
+        updateProduct(el._id,{base_rate: formData.base_rate})
+        .then()
+        .catch(e=>{
+          addToast(e.message, {
+              appearance: "error",
+              autoDismiss: true,
+          });
+        })      
+      });
+      addToast("All Products BaseRate Successfully Updated", {
+          appearance: "success",
+          autoDismiss: true,
+        });      
+    } catch (e) {
+      addToast(e.message, {
+					appearance: 'error',
+					autoDismiss: true
+      });      
+    }  
   };
   const handleContentChange = async (content) => {
     setContent(content);

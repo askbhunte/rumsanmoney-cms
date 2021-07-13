@@ -2,11 +2,14 @@ import React from "react";
 
 import DetailsForm from "./DetailsForm";
 import { BankContextProvider } from "../../../contexts/BankContext";
+import { ProductContextProvider } from "../../../contexts/ProductContext";
 
 const Details = (props) => {
   return (
     <BankContextProvider>
-      <DetailsForm params={props.match.params} />
+      <ProductContextProvider>
+        <DetailsForm params={props.match.params} />
+      </ProductContextProvider>
     </BankContextProvider>
   );
 };
