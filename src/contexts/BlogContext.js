@@ -48,19 +48,7 @@ export const BlogContextProvider = ({ children }) => {
     });
   }
 
-  const addBlogs = async (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-
-    let payload = {
-      name: formData.get("name"),
-      excerpt: formData.get("excerpt"),
-      content: formData.get("content"),
-      slug: formData.get("name"),
-      image_url: formData.get("image_url"),
-    };
-
+  const addBlogs = async (payload) => {
     let d = await Service.addBlog(payload);
     return d;
   };

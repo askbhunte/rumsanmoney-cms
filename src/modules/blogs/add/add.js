@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState} from "react";
+import React, { useContext, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import 'react-quill/dist/quill.snow.css';
 import S3 from 'react-aws-s3';
 import uploading from '../../../assets/images/uploading.gif';
-import Swal from 'sweetalert2';
 import {
   Card,
   CardBody,
@@ -38,7 +37,8 @@ export default function DetailsForm(props) {
 		s3Url: process.env.REACT_APP_AWS_S3URL
 	};
 	const ReactS3Client = new S3(config);
-  const { addToast } = useToasts();
+  const { addToast } = useToasts();  
+  
   //ck editor part
   const [content, setContent] = useState('');
   const custom_config = {
@@ -103,54 +103,43 @@ export default function DetailsForm(props) {
 		}
 	};
 
-  const blogId = props.params.id;  
-  const {   
-   getBlogDetails,
-   updateBlog,
-   loading,
-   resetLoading
+  const {
+   addBlogs,
+   loading
   } = useContext(BlogContext); 
-  const [blogDetails, setBlogDetails] = useState(null);
 
-  const loadBlogDetails = () => {
-  getBlogDetails(blogId)
-    .then((d) => {
-      setBlogDetails(d);             
-      const content = d.content ? d.content : "";
-      setContent(content);
-    })
-    .catch(() => {
-      addToast("Something went wrong!", {
-        appearance: "error",
-        autoDismiss: true,
-      });
-    });
-  };
-
+  let [slug,setSlug] = useState('');
 
   async function submitHandler(e){
     e.preventDefault();
 
-    let payload = {...blogDetails};
-    updateBlog(blogId,payload).then(() => {
-      resetLoading();
-      Swal.fire("Successful!", "Page details updated successfully.", "success")
-        .then((result) => {
-          if (result.value) {
-            window.location.href = "/blogs";
-          }
-        })
-        .catch((err) => {
-          addToast("Something went wrong on server!", {
-            appearance: "error",
-            autoDismiss: true,
-          });
-          resetLoading();
+    const formData = new FormData(e.target);
+
+    let payload = {
+      name: formData.get("name"),
+      excerpt: formData.get("excerpt"),
+      content,
+      slug: formData.get("slug"),
+      image_url: formData.get("image_url"),
+      status: formData.get("status")
+    };
+    addBlogs(payload)
+    .then(() => {
+        addToast("Page added successfully!", {
+          appearance: "success",
+          autoDismiss: true,
         });
-    });
+        history.push("/blogs");
+      })
+      .catch((err) => {
+        addToast(err.message, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      });
   }
 
-  function nameHandler(e){
+  function nameHandler(e){   
     let name = e.target.value;
     let slug =  name
       .toLowerCase()
@@ -159,18 +148,20 @@ export default function DetailsForm(props) {
       .replace(/\-\-+/g, "-") // Replace multiple - with single -
       .replace(/^-+/, "") // Trim - from start of text
       .replace(/-+$/, "");
-    setBlogDetails({...blogDetails, slug});   
+    setSlug(slug);   
   }
 
-  useEffect(loadBlogDetails, []);
-  
+  function slugHandler(e){
+    setSlug(e.target.value);
+  }
+    
   return (
     <>
       <Row>
         <Col md="12">
           <Card>
             <CardTitle className="bg-light border-bottom p-3 mb-0">
-              <i className="mdi mdi-book mr-2"></i>Edit Blog
+              <i className="mdi mdi-book mr-2"></i>Add Blog
             </CardTitle>
             <CardBody>
               <Form onSubmit={submitHandler} >
@@ -205,39 +196,35 @@ export default function DetailsForm(props) {
                     <Input
                       type="text"
                       name="name"  
-                      defaultValue = { blogDetails? blogDetails.name : ''}    
-                      onChange = {nameHandler}               
+                      onChange={e=>nameHandler(e)}                  
                     />
                   </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="12">
-                <FormGroup>
-                  <Label>Slug</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="slug"  
-                      defaultValue = {blogDetails? blogDetails.slug : ''}                                    
-                    />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col md="12">
+                  </FormGroup>
+                  </Col>
+                  <Col md="12">
+                  <FormGroup>
+                    <Label>Slug</Label>
+                    <InputGroup>
+                      <Input
+                        type="text"
+                        name="slug"   
+                        value={slug}
+                        onChange={e=> slugHandler(e)}                   
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  </Col>
+                  <Col md="12">
                     <FormGroup>
                       <Label>Status</Label>
                       <InputGroup>
                         <Input
                           type="select"
                           name="status"
-                          value = {blogDetails? blogDetails.status : ''}  
-                          onChange = { (e)=>{
-                            setBlogDetails({...blogDetails,status:e.target.value})
-                          }}    
                         > 
-                            <option value = 'Published'>Published</option>
-                            <option value = 'Draft'>Draft</option>
-                            <option value = 'Archived'>Archived</option>                            
+                            <option>Published</option>
+                            <option>Draft</option>
+                            <option>Archived</option>                            
                         </Input>
                       </InputGroup>
                     </FormGroup>
@@ -249,8 +236,7 @@ export default function DetailsForm(props) {
                   <InputGroup>
                     <Input
                       type="text"
-                      name="excerpt"
-                      defaultValue={blogDetails? blogDetails.excerpt: ''}
+                      name="excerpt"  
                     />
                   </InputGroup>
                 </FormGroup>

@@ -106,7 +106,7 @@ export default function BlogList() {
                 </CustomInput>
                 <div style={{ display: "inline-flex" }}>
                   <Input
-                    placeholder="Enter Author Name ..."
+                    placeholder="Enter Blog Name ..."
                     onChange={handleSearchInputChange}
                     style={{ width: "100%" }}
                   />
@@ -115,9 +115,9 @@ export default function BlogList() {
             </Col>
             <Col md="2">
               <div style={{ float: "right" }}>
-                <Button color="info" onClick={(e) => toggle()}>
-                  Add Blog
-                </Button>
+                 <Link className="btn btn-primary" to="/addBlogs">
+                  Add Blog  
+                </Link>
               </div>
             </Col>
           </Row>

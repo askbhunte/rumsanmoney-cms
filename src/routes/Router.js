@@ -5,6 +5,7 @@ const Analytics = lazy(() => import("../modules/analytics/list"));
 const AnalyticsDetail = lazy(() => import("../modules/analytics/details"));
 const Banks = lazy(() => import("../modules/banks/list"));
 const BankDetails = lazy(() => import("../modules/banks/details"));
+const BlogsAdd = lazy(() => import("../modules/blogs/add"));
 const Blogs = lazy(() => import("../modules/blogs/list"));
 const BlogsDetails = lazy(() => import("../modules/blogs/details"));
 const Categories = lazy(() => import("../modules/categories/list"));
@@ -106,7 +107,6 @@ var AppRoutes = [
     name: "PagesAdd",
     component: PagesAdd,
   },
-
   {
     path: "/pages/:id",
     name: "PageDetails",
@@ -161,6 +161,11 @@ var AppRoutes = [
     name: "Blog Detail",
     icon: "layers",
     component: BlogsDetails,
+  },
+  {
+    path: "/addBlogs",
+    name: "BlogsAdd",
+    component: BlogsAdd,
   },
   {
     path: "/pages",
