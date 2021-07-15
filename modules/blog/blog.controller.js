@@ -63,12 +63,14 @@ class Controller {
   }
 
   add(payload) {
-    const _slug = slugify(payload.name, {
-      remove: /[*+~.()'"#:@!?,]/g,
-      replacement: '-',
-      lower: true,
-    });
-    payload.slug = _slug;
+    if (!payload.slug || payload.slug.length === 0) {
+      const _slug = slugify(payload.name, {
+        remove: /[*+~.()'"#:@!?,]/g,
+        replacement: '-',
+        lower: true,
+      });
+      payload.slug = _slug;
+    }
     return Model.create(payload);
   }
 
