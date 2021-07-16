@@ -113,7 +113,8 @@ const List = () => {
 					<Table className="no-wrap v-middle" responsive>
 						<thead>
 							<tr className="border-0">
-								<th className="border-0">Name</th>
+								<th className="border-0">Username</th>
+								<th className="border-0">Cookie Name</th>
 								<th className="border-0">IP Address</th>
 								<th className="border-0">Device</th>
 								<th className="border-0">Action</th>
@@ -125,7 +126,10 @@ const List = () => {
 									return (
 										<tr key={d._id}>
 											<td>
-												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
+												<div className="text-dark">{d.user ? d.user : '-'}</div>
+											</td>
+											<td>
+												<div className="text-dark">{d.name ? d.name : '-'}</div>
 											</td>
 											<td>{d && d.ip ? d.ip : '-'}</td>
 											<td>{d && d.device ? properCase(d.device).substring(0, 42).concat('','...') : '-'}</td>

@@ -5,6 +5,7 @@ import Loading from '../../global/Loading';
 import { dateFormatter } from '../../../utils/formatter';
 import { useToasts } from 'react-toast-notifications';
 import Paginate from '../../global/Paginate';
+import { GET_DETAIL_SUCCESS } from '../core/actions';
 
 
 const DetailForm = props => {
@@ -76,23 +77,27 @@ const DetailForm = props => {
 
 						<CardBody>
 							<Row>
-								<Col md="6">
-									<h5>User Name</h5>
-									<div className="mt-2">{detail && detail.name ? detail.name : "-"}</div>
+								<Col md="12">
+									<h5>Name</h5>
+									<div className="mt-2">{detail.user? detail.user : '-' }</div>
+								</Col>
+							</Row>
+							<Row className="mt-5">
+								<Col md="6"><h5>Cookie Name</h5>
+									<div className="mt-2">{detail ? detail.name : "-"}</div>
 								</Col>
 								<Col md="6">
-									<h5>User IP Address</h5>
+									<h5> IP Address</h5>
 									<div className="mt-2">{detail && detail.ip ? detail.ip : "-"}</div>
 								</Col>
-
 							</Row>
 							<Row className="mt-5">
 								<Col md="6">
-									<h5>User Device</h5>
+									<h5>Device</h5>
 									<div className="mt-2">{detail && detail.device ? detail.device : "-"}</div>
 								</Col>
 								<Col md="6">
-									<h5>User Referral</h5>
+									<h5>Referral</h5>
 									<div className="mt-2">{detail && detail.referral ? detail.referral : "-"}</div>
 								</Col>
 							</Row>
