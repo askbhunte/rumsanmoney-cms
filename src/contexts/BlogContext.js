@@ -65,6 +65,18 @@ export const BlogContextProvider = ({ children }) => {
     });
   }
 
+  function deleteBlog(id){
+    return new Promise((resolve, reject) => {
+      Service.deleteBlog(id)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   return (
     <BlogContext.Provider
       value={{
@@ -78,6 +90,7 @@ export const BlogContextProvider = ({ children }) => {
         addBlogs,
         updateBlog,
         getBlogDetails,
+        deleteBlog
       }}
     >
       {children}

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 import Paginate from "../../global/Paginate";
+import Swal from "sweetalert2";
 
 import {
   Button,
@@ -28,7 +29,7 @@ export default function BlogList() {
 
   const size = "sm";
 
-  const { listBlog, blog, pagination, addBlogs } = useContext(BlogContext);
+  const { listBlog, blog, pagination, addBlogs,deleteBlog } = useContext(BlogContext);
 
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
@@ -58,6 +59,7 @@ export default function BlogList() {
         });
       });
   };
+
   const loadBlogList = (query) => {
     if (!query) query = null;
     listBlog(query)
@@ -69,6 +71,47 @@ export default function BlogList() {
         });
       });
   };
+
+  const deleteHandler = (id) => {   
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBlog(id)
+          .then((d) => {
+            if (
+              pagination.totalPages === pagination.currentPage &&
+              pagination.total === pagination.start + 1 &&
+              pagination.currentPage !== 1
+            ) {
+              setCurrent(pagination.currentPage - 2);
+              fetchList({
+                total: pagination.total - 1,
+                currentPage: pagination.currentPage - 1,
+                start: pagination.start - pagination.limit,
+                totalPages: pagination.totalPages - 1,
+              });
+            } else {
+              fetchList({ total: pagination.total - 1 });
+            }
+            Swal.fire("Deleted!", `Your blog has been deleted.`, "success");
+          })
+          .catch((e) => {
+            Swal.fire(
+              "Not Deleted!",
+              "There has been an error.</br>" + e,
+              "error"
+            );
+          });
+      }
+    });
+  }
 
   let get = useCallback(
     (params) => {
@@ -144,6 +187,9 @@ export default function BlogList() {
                         <Link className="btn btn-primary" to={`/blog/${d._id}`}>
                           Edit
                         </Link>
+                         <Button className="btn btn-danger ml-2" onClick={()=> deleteHandler(d._id)}>
+                          Delete
+                        </Button>
                       </td>
                     </tr>
                   );
