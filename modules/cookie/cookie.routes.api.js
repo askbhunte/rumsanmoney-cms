@@ -25,4 +25,10 @@ router.get('/:name', (q, r, n) => {
     .catch((e) => n(e));
 });
 
+router.patch('/:name', (q, r, n) => {
+  Controller.updateCookieUserName(q.params.name, q.body.username)
+    .then((d) => r.json(d))
+    .catch((e) => console.log(e));
+});
+
 module.exports = router;

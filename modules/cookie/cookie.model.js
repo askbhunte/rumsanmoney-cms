@@ -7,6 +7,7 @@ const Schema = mongoose.Schema(
     device: { type: String, required: true },
     is_active: { type: Boolean, default: false },
     referral: { type: String },
+    user: { type: String },
   },
 );
 

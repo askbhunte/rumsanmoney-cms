@@ -29,6 +29,10 @@ class Controller {
       },
     );
   }
+
+  updateCookieUserName(cookieName, username) {
+    return Model.findOneAndUpdate({ name: cookieName }, { user: username });
+  }
 }
 
 module.exports = new Controller();
