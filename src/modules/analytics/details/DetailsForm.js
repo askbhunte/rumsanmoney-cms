@@ -5,9 +5,6 @@ import Loading from '../../global/Loading';
 import { dateFormatter } from '../../../utils/formatter';
 import { useToasts } from 'react-toast-notifications';
 import Paginate from '../../global/Paginate';
-import { GET_DETAIL_SUCCESS } from '../core/actions';
-
-
 const DetailForm = props => {
 	const Id = props.params.id;
 	const { addToast } = useToasts();
