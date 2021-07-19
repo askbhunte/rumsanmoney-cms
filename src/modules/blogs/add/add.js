@@ -123,7 +123,7 @@ export default function DetailsForm(props) {
       image_url: selectedFile,
       status: formData.get("status")
     };
-    if(!payload.image_url.name){
+    if(!payload.image_url){
        addToast('Please upload Image', {
           appearance: "error",
           autoDismiss: true,
