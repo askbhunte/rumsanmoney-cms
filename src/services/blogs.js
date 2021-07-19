@@ -44,7 +44,6 @@ export async function addBlog(body) {
     method: "post",
     data: body,
   });
-
   return res.data;
 }
 

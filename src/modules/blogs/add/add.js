@@ -81,8 +81,8 @@ export default function DetailsForm(props) {
 		event.persist();
 		const fileName = event.target.files[0];  
     let fileSize = ((event.target.files[0].size/1024)/1024*1024).toFixed(0);
-    if(fileSize > 200){				
-				addToast('File size must not exceed 200 KB.', {
+    if(fileSize > 100){				
+				addToast('File size must not exceed 100 KB.', {
 					appearance: 'error',
 					autoDismiss: true
 				});
@@ -120,11 +120,18 @@ export default function DetailsForm(props) {
       excerpt: formData.get("excerpt"),
       content,
       slug: formData.get("slug"),
-      image_url: formData.get("image_url"),
+      image_url: selectedFile,
       status: formData.get("status")
     };
-    addBlogs(payload)
-    .then(() => {
+    if(!payload.image_url.name){
+       addToast('Please upload Image', {
+          appearance: "error",
+          autoDismiss: true,
+        });       
+    }
+    else{
+      addBlogs(payload)
+      .then(() => {
         addToast("Page added successfully!", {
           appearance: "success",
           autoDismiss: true,
@@ -137,6 +144,7 @@ export default function DetailsForm(props) {
           autoDismiss: true,
         });
       });
+    }    
   }
 
   function nameHandler(e){   
@@ -183,7 +191,7 @@ export default function DetailsForm(props) {
 										/>
 									</div>
 								</Label>
-								<Input id="doc-upload" type="file" name="image_upload" onChange={e => docHandler(e)} />
+								<Input id="doc-upload" type="file" name="image_upload" onChange={e => docHandler(e)}/>
 							</div>
                 </FormGroup>
                 </Col>
@@ -196,7 +204,8 @@ export default function DetailsForm(props) {
                     <Input
                       type="text"
                       name="name"  
-                      onChange={e=>nameHandler(e)}                  
+                      onChange={e=>nameHandler(e)}   
+                      required              
                     />
                   </InputGroup>
                   </FormGroup>
@@ -209,7 +218,8 @@ export default function DetailsForm(props) {
                         type="text"
                         name="slug"   
                         value={slug}
-                        onChange={e=> slugHandler(e)}                   
+                        onChange={e=> slugHandler(e)} 
+                        required                  
                       />
                     </InputGroup>
                   </FormGroup>
@@ -237,6 +247,7 @@ export default function DetailsForm(props) {
                     <Input
                       type="text"
                       name="excerpt"  
+                      required
                     />
                   </InputGroup>
                 </FormGroup>

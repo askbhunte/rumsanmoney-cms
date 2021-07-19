@@ -13,3 +13,7 @@ input[type="file"] {
   padding: 0px 10px;
   cursor: pointer;
 }
+
+.hover-pointer{
+  cursor: pointer;
+}

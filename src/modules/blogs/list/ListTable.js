@@ -171,7 +171,6 @@ export default function BlogList() {
               <tr className="border-0">
                 <th className="border-0">Name</th>
                 <th className="border-0">Slug</th>
-                <th className="border-0">Image Url</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -180,9 +179,16 @@ export default function BlogList() {
                 blog.map((d) => {
                   return (
                     <tr key={d._id}>
-                      <td>{d.name || "N/A"}</td>
-                      <td>{d.slug || "N/A"}</td>
-                      <td>{d.image_url || "N/A"}</td>
+                      <td>
+                        <div className="text-dark">{d.name ? d.name : 'N/A'}&nbsp;&nbsp;
+                            {d.image_url && d.image_url.length > 0 ? (
+                            <i onClick={() => window.open(`${d.image_url}`,'_blank')} className="fas fa-image fa-sm hover-pointer" style={{ color: 'red', fontSize:'15px' }}></i>
+                          ) : (
+                              ''
+                            )}
+                        </div>
+                      </td>
+                      <td>{d.slug || "N/A"}</td>                      
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link className="btn btn-primary" to={`/blog/${d._id}`}>
                           Edit
