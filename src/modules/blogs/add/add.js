@@ -120,10 +120,9 @@ export default function DetailsForm(props) {
       excerpt: formData.get("excerpt"),
       content,
       slug: formData.get("slug"),
-      image_url: formData.get("image_upload"),
+      image_url: selectedFile,
       status: formData.get("status")
     };
-    console.log(payload.image_url.name);
     if(!payload.image_url.name){
        addToast('Please upload Image', {
           appearance: "error",
