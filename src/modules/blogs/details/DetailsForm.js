@@ -163,6 +163,9 @@ export default function DetailsForm(props) {
   }
 
   useEffect(loadBlogDetails, []);
+  useEffect(()=>{
+		if(blogDetails && blogDetails.image_url) setSelectedFile(blogDetails.image_url);
+	}, [blogDetails]);
   
   return (
     <>
