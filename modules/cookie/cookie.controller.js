@@ -6,13 +6,22 @@ class Controller {
     return Model.create(payload);
   }
 
-  list({ start, limit, search }) {
+  list({
+    start, limit, user, cookieName,
+  }) {
     const query = [];
 
-    if (search) {
+    if (user) {
       query.push({
         $match: {
-          device: new RegExp(search, 'gi'),
+          user: new RegExp(user, 'gi'),
+        },
+      });
+    }
+    if (cookieName) {
+      query.push({
+        $match: {
+          name: new RegExp(cookieName, 'gi'),
         },
       });
     }

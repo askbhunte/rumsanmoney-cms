@@ -13,8 +13,11 @@ router.post('/', (q, r, n) => {
 router.get('/', (q, r, n) => {
   const start = q.query.start || 0;
   const limit = q.query.limit || 20;
-  const search = q.query.search || null;
-  Controller.list({ start, limit, search })
+  const cookieName = q.query.cookieName || null;
+  const user = q.query.user || null;
+  Controller.list({
+    start, limit, cookieName, user,
+  })
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });
