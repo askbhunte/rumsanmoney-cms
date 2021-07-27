@@ -121,7 +121,8 @@ export default function DetailsForm(props) {
       content,
       slug: formData.get("slug"),
       image_url: selectedFile,
-      status: formData.get("status")
+      status: formData.get("status"),
+      author: formData.get("author")
     };
     if(!payload.image_url){
        addToast('Please upload Image', {
@@ -238,6 +239,10 @@ export default function DetailsForm(props) {
                         </Input>
                       </InputGroup>
                     </FormGroup>
+                    <FormGroup>
+                     <Label>Author</Label>
+                   <Input type="text" name="author"/>
+                  </FormGroup>   
                   </Col>
                 </Col>
                 <Col md="12">

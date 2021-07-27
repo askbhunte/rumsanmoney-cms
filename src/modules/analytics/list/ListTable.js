@@ -11,6 +11,10 @@ const List = () => {
 	const [current, setCurrent] = useState(0);
 	const { data, list, pagination } = useContext(Context);
 	const [searchText, setSearchText] = useState('');
+	const [filter, setFilter] = useState({
+		searchPlaceholder: "Enter name...",
+		searchBy: "user",
+	});
 
 	const fetchList = query => {
 		let params = { ...pagination, ...query };
@@ -27,31 +31,50 @@ const List = () => {
 	const handlePagination = current_page => {
 		let _start = current_page * pagination.limit;
 		setCurrent(current_page);
-		let query = { search: searchText };
+		let query = { user: searchText };
+		if(filter.searchBy === searchOptions.COOKIENAME){
+			query = { cookieName: searchText };
+		}
 		return loadList({
 			start: _start,
 			limit: pagination.limit,
 			...query
 		});
+	};	
+
+	const searchOptions = {
+		USER: "user",
+		COOKIENAME: "cookieName"
+	};	
+
+	const handleFilterChange = (e) => {
+		let { value } = e.target;
+		if (value === searchOptions.USER) {
+			setFilter({
+				searchPlaceholder: "Enter UserName...",
+				searchBy: searchOptions.USER,
+			});
+		}
+		if (value === searchOptions.COOKIENAME) {
+			setFilter({
+				searchPlaceholder: "Enter CookieName...",
+				searchBy: searchOptions.COOKIENAME,
+			});
+		}
+		fetchList({ start: 0, limit: pagination.limit });
 	};
 
 	const handleSearchInputChange = (e) => {
 		const { value } = e.target;
 		setSearchText(value);
-		if (filter.searchBy === searchOptions.NAME) {
-			return fetchList({ start: 0, limit: pagination.limit, search: value });
+		if (filter.searchBy === searchOptions.USER) {
+			return fetchList({ start: 0, limit: pagination.limit, user: value });
+		}
+		if (filter.searchBy === searchOptions.COOKIENAME) {
+			return fetchList({ start: 0, limit: pagination.limit, cookieName: value });
 		}
 		fetchList({ start: 0, limit: pagination.limit });
 	};
-
-	const searchOptions = {
-		NAME: "search"
-	};
-
-	const [filter, setFilter] = useState({
-		searchPlaceholder: "Enter name...",
-		searchBy: "search",
-	});
 
 	const loadList = query => {
 		if (!query) query = null;
@@ -65,17 +88,7 @@ const List = () => {
 			});
 	};
 
-	const handleFilterChange = (e) => {
-		let { value } = e.target;
-		if (value === searchOptions.NAME) {
-			setFilter({
-				searchPlaceholder: "Enter name...",
-				searchBy: searchOptions.NAME,
-			});
-		}
-
-		fetchList({ start: 0, limit: pagination.limit });
-	};
+	
 
 	useEffect(fetchList, []);
 
@@ -96,7 +109,8 @@ const List = () => {
 								style={{ width: "auto" }}
 								onChange={handleFilterChange}
 							>
-								<option value="search">Search By Device Name</option>
+								<option value="user">Search By UserName</option>
+								<option value="cookieName">Search By CookieName</option>
 							</CustomInput>
 							<div style={{ display: "inline-flex" }}>
 								<Input

@@ -131,7 +131,7 @@ export default function DetailsForm(props) {
   async function submitHandler(e){
     e.preventDefault();
 
-    let payload = {...blogDetails};
+    let payload = {...blogDetails, content};
     updateBlog(blogId,payload).then(() => {
       resetLoading();
       Swal.fire("Successful!", "Page details updated successfully.", "success")
@@ -159,7 +159,11 @@ export default function DetailsForm(props) {
       .replace(/\-\-+/g, "-") // Replace multiple - with single -
       .replace(/^-+/, "") // Trim - from start of text
       .replace(/-+$/, "");
-    setBlogDetails({...blogDetails, slug});   
+    setBlogDetails({ ...blogDetails, name, slug });
+  }
+
+  function slugHandler(e){
+    setBlogDetails({ ...blogDetails, slug:e.target.value })
   }
 
   useEffect(loadBlogDetails, []);
@@ -215,16 +219,17 @@ export default function DetailsForm(props) {
                 </FormGroup>
                 </Col>
                 <Col md="12">
-                <FormGroup>
-                  <Label>Slug</Label>
-                  <InputGroup>
-                    <Input
-                      type="text"
-                      name="slug"  
-                      defaultValue = {blogDetails? blogDetails.slug : ''}                                    
-                    />
-                  </InputGroup>
-                </FormGroup>
+                  <FormGroup>
+                    <Label>Slug</Label>
+                    <InputGroup>
+                      <Input
+                        type="text"
+                        name="slug"
+                        value = {blogDetails? blogDetails.slug : ''}   
+                        onChange={ slugHandler }                        
+                      />
+                    </InputGroup>
+                  </FormGroup>
                 </Col>
                 <Col md="12">
                     <FormGroup>
@@ -245,6 +250,19 @@ export default function DetailsForm(props) {
                       </InputGroup>
                     </FormGroup>
                   </Col>
+                  <Col md="12">
+                  <FormGroup>
+                    <Label>Author</Label>
+                    <InputGroup>
+                      <Input
+                        type="text"
+                        name="author"
+                        defaultValue = { blogDetails? blogDetails.author : ''}  
+                        onChange = {(e)=> setBlogDetails({...blogDetails, author: e.target.value})}                      
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                </Col>
                 </Col>
                 <Col md="12">
                   <FormGroup>
@@ -254,6 +272,7 @@ export default function DetailsForm(props) {
                       type="text"
                       name="excerpt"
                       defaultValue={blogDetails? blogDetails.excerpt: ''}
+                      onChange = {(e) => setBlogDetails({...blogDetails, excerpt: e.target.value})}                 
                     />
                   </InputGroup>
                 </FormGroup>
