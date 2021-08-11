@@ -5,6 +5,7 @@ import Paginate from "../../global/Paginate";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 import {
   Button,
@@ -222,6 +223,7 @@ export default function BankList() {
                 <th className="border-0">Name</th>
                 <th className="border-0">Head Office Location</th>
                 <th className="border-0">Contact</th>
+                <th className="border-0">Last Updated At</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -233,6 +235,7 @@ export default function BankList() {
                       <td>{d.name}</td>
                       <td>{d.head_office || "N/A"}</td>
                       <td>{d.primary_contact || "N/A"}</td>
+                      <td>{moment(d.updated_at).format('LL') || "N/A"}</td>
                       <td className="blue-grey-text  text-darken-4 font-medium">
                         <Link
                           className="btn btn-secondary"

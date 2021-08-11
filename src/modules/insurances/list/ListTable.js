@@ -7,6 +7,7 @@ import Paginate from '../../global/Paginate';
 import { properCase } from '../../../utils/formatter';
 import Ratings from "react-ratings-declarative";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 const List = () => {
 	const { addToast } = useToasts();
@@ -183,6 +184,7 @@ const List = () => {
 							<tr className="border-0">
 								<th className="border-0">Name</th>
 								<th className="border-0">Company</th>
+								<th className="border-0">Last Updated At</th>
 								<th className="border-0">Category</th>
 								<th className="border-0 text-center">isPopular?</th>
 								<th className="border-0">Action</th>
@@ -197,6 +199,7 @@ const List = () => {
 												<div className="text-dark">{d.name ? properCase(d.name) : '-'}</div>
 											</td>
 											<td>{d.companyInfo && d.companyInfo.name ? properCase(d.companyInfo.name) : '-'}</td>
+											<td>{moment(d.updated_at).format('LL') || "N/A"}</td>
 											<td>{d.categoryinfo && d.categoryinfo.name ? properCase(d.categoryinfo.name) : '-'}</td>
 											<td className="text-center">
 												{d.is_featured ? (

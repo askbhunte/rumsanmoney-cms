@@ -5,6 +5,7 @@ import Ratings from "react-ratings-declarative";
 import Swal from "sweetalert2";
 import Paginate from "../../global/Paginate";
 import { BankSelector } from "../../banks";
+import moment from 'moment';
 
 import {
   Button,
@@ -277,7 +278,7 @@ export default function ProductList() {
                 <th className="border-0">Name</th>
                 <th className="border-0">Bank</th>
                 <th className="border-0">Product Type</th>
-                <th className="border-0">Base Rate</th>
+                <th className="border-0">Last Updated At</th>
                 <th className="border-0">Interest Rate</th>
                 <th className="border-0">Featured?</th>
                 <th className="border-0">Action</th>
@@ -291,7 +292,7 @@ export default function ProductList() {
                       <td>{d.name}</td>
                       <td>{d.bankinfo.name || "N/A"}</td>
                       <td>{d.loan_type ? d.ptype.toUpperCase() : "N/A"}</td>
-                      <td>{d.base_rate || "N/A"}</td>
+                      <td>{moment(d.updated_at).format('LL') || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
                       <td>
                         {d.is_featured ? (

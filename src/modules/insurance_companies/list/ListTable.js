@@ -7,6 +7,7 @@ import { Context} from '../../insurances/core/contexts';
 import Paginate from '../../global/Paginate';
 import { properCase } from '../../../utils/formatter';
 import Swal from "sweetalert2";
+import moment from "moment";
 
 const List = () => {
 	const { addToast } = useToasts();
@@ -120,6 +121,7 @@ const List = () => {
 								<th className="border-0">Name</th>
 								<th className="border-0">Contact</th>
 								<th className="border-0">Address</th>
+								<th className="border-0">Last Updated At</th>
 								<th className="border-0">Action</th>
 							</tr>
 						</thead>
@@ -133,6 +135,7 @@ const List = () => {
 											</td>
 											<td>{d.primary_contact ? d.primary_contact : '-'}</td>
 											<td>{d.address ? properCase(d.address) : '-'}</td>
+											<td>{moment(d.updated_at).format('LL') || "N/A"}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
 												<Link className="btn btn-secondary" to={`/company/${d._id}`}>
 													Edit
