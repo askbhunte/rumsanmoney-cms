@@ -334,11 +334,20 @@ export default function DetailsForm(props) {
                           defaultValue={
                             product_details
                               ? product_details.interest_rate +
-                                product_details.base_rate
+                              product_details.base_rate
                               : ""
                           }
                         />
                       </InputGroup>
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row form>
+                  <Col md="12">
+                    <FormGroup>
+                      <Label>
+                        Tags
+                      </Label>
                     </FormGroup>
                   </Col>
                 </Row>
