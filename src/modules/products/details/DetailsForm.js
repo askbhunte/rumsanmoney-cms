@@ -4,6 +4,7 @@ import { useToasts } from "react-toast-notifications";
 import ReactQuill from "react-quill";
 import Swal from "sweetalert2";
 import "react-quill/dist/quill.snow.css";
+import { FixedSelector } from '../fixed.selector';
 import {
   Card,
   CardBody,
@@ -27,6 +28,7 @@ export default function DetailsForm(props) {
   const { addToast } = useToasts();
   const [product_details, setProductDetails] = useState(null);
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState([]);
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -345,9 +347,8 @@ export default function DetailsForm(props) {
                 <Row form>
                   <Col md="12">
                     <FormGroup>
-                      <Label>
-                        Tags
-                      </Label>
+                      <Label for="tags">Tags:</Label>
+                      <FixedSelector category={category} onChange={e => setCategory(e)} />
                     </FormGroup>
                   </Col>
                 </Row>
