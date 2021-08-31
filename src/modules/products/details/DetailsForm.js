@@ -4,6 +4,8 @@ import { useToasts } from "react-toast-notifications";
 import ReactQuill from "react-quill";
 import Swal from "sweetalert2";
 import "react-quill/dist/quill.snow.css";
+import Select from '../tags.select'
+
 import {
   Card,
   CardBody,
@@ -35,6 +37,7 @@ export default function DetailsForm(props) {
       ["clean"],
     ],
   };
+
   const formats = ["bold", "italic", "underline", "list", "bullet"];
   const {
     loading,
@@ -342,7 +345,16 @@ export default function DetailsForm(props) {
                     </FormGroup>
                   </Col>
                 </Row>
-
+                <Row form>
+                  <Col md={12}>
+                    <FormGroup>
+                      <Label>
+                        Tags
+                      </Label>
+                      <Select />
+                    </FormGroup>
+                  </Col>
+                </Row>
                 <Row form>
                   <Col md="12">
                     <FormGroup>
