@@ -29,6 +29,8 @@ export default function DetailsForm(props) {
   const { addToast } = useToasts();
   const [product_details, setProductDetails] = useState(null);
   const [content, setContent] = useState("");
+  const [tags, setTags] = useState([]);
+  console.log(tags, "sssssssssss");
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -351,7 +353,7 @@ export default function DetailsForm(props) {
                       <Label>
                         Tags
                       </Label>
-                      <Select />
+                      <Select onChange={e => setTags(e)} />
                     </FormGroup>
                   </Col>
                 </Row>
