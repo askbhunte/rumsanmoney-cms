@@ -353,7 +353,7 @@ export default function DetailsForm(props) {
                       <Label>
                         Tags
                       </Label>
-                      <Select onChange={e => setTags(e)} />
+                      <Select existingTags={product_details ? product_details.tags : ""} onChange={e => setTags(e)} />
                     </FormGroup>
                   </Col>
                 </Row>
