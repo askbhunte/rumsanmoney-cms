@@ -30,7 +30,6 @@ export default function DetailsForm(props) {
   const [product_details, setProductDetails] = useState(null);
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
-  console.log(tags, "sssssssssss");
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -69,6 +68,7 @@ export default function DetailsForm(props) {
     e.preventDefault();
     let formData = { ...product_details };
     formData.description = content;
+    formData.preference = tags;
     setLoading();
     updateProduct(productId, formData).then(() => {
       resetLoading();
