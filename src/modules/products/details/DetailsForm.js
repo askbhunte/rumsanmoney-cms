@@ -68,7 +68,7 @@ export default function DetailsForm(props) {
     e.preventDefault();
     let formData = { ...product_details };
     formData.description = content;
-    formData.preference = tags;
+    formData.tags = tags;
     setLoading();
     updateProduct(productId, formData).then(() => {
       resetLoading();
