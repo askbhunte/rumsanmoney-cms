@@ -11,20 +11,20 @@ const DetailForm = props => {
 	const { listHistory, get, pagination } = useContext(Context);
 	const [detail, setDetail] = useState(null);
 	const [userHistory, setUserHistory] = useState(null);
-	const [current, setCurrent] = useState(0);	
+	const [current, setCurrent] = useState(0);
 
-	const handlePagination = current_page =>{
+	const handlePagination = current_page => {
 		let _start = current_page * pagination.limit;
 		setCurrent(current_page);
 		return loadList({
 			start: _start,
-			limit : pagination.limit,			
+			limit: pagination.limit,
 		})
 	}
 
-	const loadList = (query) => {		
-		listHistory(detail._id,query)
-			.then(d=>{
+	const loadList = (query) => {
+		listHistory(detail._id, query)
+			.then(d => {
 				setUserHistory(d.data);
 			})
 			.catch(() => {
@@ -76,7 +76,7 @@ const DetailForm = props => {
 							<Row>
 								<Col md="12">
 									<h5>Name</h5>
-									<div className="mt-2">{detail.user? detail.user : '-' }</div>
+									<div className="mt-2">{detail.user ? detail.user : '-'}</div>
 								</Col>
 							</Row>
 							<Row className="mt-5">
@@ -103,13 +103,66 @@ const DetailForm = props => {
 				</div>
 
 			) : (
-					<Loading />
-				)}
+				<Loading />
+			)}
+			<Card>
+				<CardTitle className="mb-0 p-3 border-bottom bg-light">
+					<Row>
+						<Col md="8">
+							<i className="mdi mdi-account mr-2"></i>User Preference Detail
+						</Col>
+					</Row>
+				</CardTitle>
+
+				<CardBody>
+					<Row>
+						<Col md="4">
+							<h5>Name</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5>Email</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5>Phone Number</h5>
+							<div className="mt-2"></div>
+						</Col>
+					</Row>
+					<Row className="mt-5">
+						<Col md="4"><h5>Age Group</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5> Occupation</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5> Foreign employment?</h5>
+							<div className="mt-2"></div>
+						</Col>
+					</Row>
+					<Row className="mt-5">
+						<Col md="4">
+							<h5>Annual Income</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5>Location</h5>
+							<div className="mt-2"></div>
+						</Col>
+						<Col md="4">
+							<h5>Gender</h5>
+							<div className="mt-2"></div>
+						</Col>
+					</Row>
+				</CardBody>
+			</Card>
 			<Card>
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
 					<Row>
 						<Col md="4">
-							<i className="mdi mdi-border-right mr-2"></i>User Analytics
+							<i className="mdi mdi-chart-line mr-2"></i>User Analytics
 						</Col>
 					</Row>
 				</CardTitle>
@@ -133,10 +186,10 @@ const DetailForm = props => {
 									);
 								})
 							) : (
-									<tr>
-										<td colSpan={4}>No data available.</td>
-									</tr>
-								)}
+								<tr>
+									<td colSpan={4}>No data available.</td>
+								</tr>
+							)}
 						</tbody>
 					</Table>
 					<Paginate limit={pagination.limit} total={pagination.total} current={current} onChange={handlePagination} />
