@@ -7,7 +7,11 @@ export default function ({ existingTags, onChange }) {
         const tags = e.map(
             d => d.value
         )
+        const tagss = e.map(
+            d => d
+        )
         onChange(tags);
+        setSelectedTags(tagss)
     }
     useEffect(() => {
         if (existingTags) {
@@ -21,7 +25,7 @@ export default function ({ existingTags, onChange }) {
     return (
         <Select isMulti
             options={options}
-            // value={selectedTags}
+            value={selectedTags}
             onChange={e => handleSelect(e)}
             placeholder="Select tags" />
     )
