@@ -21,7 +21,7 @@ export default function ({ existingTags, onChange }) {
     return (
         <Select isMulti
             options={options}
-            value={selectedTags}
+            // value={selectedTags}
             onChange={e => handleSelect(e)}
             placeholder="Select tags" />
     )
