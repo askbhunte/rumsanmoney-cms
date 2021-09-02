@@ -4,7 +4,6 @@ import { useToasts } from "react-toast-notifications";
 import ReactQuill from "react-quill";
 import Swal from "sweetalert2";
 import "react-quill/dist/quill.snow.css";
-import Select from '../tags.select'
 
 import {
   Card,
@@ -29,7 +28,6 @@ export default function DetailsForm(props) {
   const { addToast } = useToasts();
   const [product_details, setProductDetails] = useState(null);
   const [content, setContent] = useState("");
-  const [tags, setTags] = useState([]);
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -68,7 +66,6 @@ export default function DetailsForm(props) {
     e.preventDefault();
     let formData = { ...product_details };
     formData.description = content;
-    formData.tags = tags;
     setLoading();
     updateProduct(productId, formData).then(() => {
       resetLoading();
@@ -347,16 +344,7 @@ export default function DetailsForm(props) {
                     </FormGroup>
                   </Col>
                 </Row>
-                <Row form>
-                  <Col md={12}>
-                    <FormGroup>
-                      <Label>
-                        Tags
-                      </Label>
-                      <Select existingTags={product_details ? product_details.tags : ""} onChange={e => setTags(e)} />
-                    </FormGroup>
-                  </Col>
-                </Row>
+
                 <Row form>
                   <Col md="12">
                     <FormGroup>
