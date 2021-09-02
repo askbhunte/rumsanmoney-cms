@@ -8,6 +8,7 @@ const Schema = mongoose.Schema(
     slug: { type: String },
     icon: { type: String, required: true },
     sub_head: { type: String },
+    tags: [],
     image: { type: String },
     description: { type: String },
     required_docs: { type: String },
