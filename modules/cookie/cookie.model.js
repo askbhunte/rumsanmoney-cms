@@ -8,6 +8,17 @@ const Schema = mongoose.Schema(
     is_active: { type: Boolean, default: false },
     referral: { type: String },
     user: { type: String },
+    preference: {
+      name: String,
+      email: String,
+      phone: String,
+      age: String,
+      occupation: String,
+      foreign_employment: Boolean,
+      annual_income: String,
+      location: String,
+      gender: String,
+    },
   },
 );
 
