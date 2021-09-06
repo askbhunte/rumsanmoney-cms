@@ -44,7 +44,7 @@ class Controller {
   }
 
   websitelist({
-    start, limit,
+    start, limit, name,
   }) {
     const query = [];
     query.push(
@@ -57,6 +57,13 @@ class Controller {
         },
       },
     );
+    if (name) {
+      query.push({
+        $match: {
+          name: new RegExp(name, 'gi'),
+        },
+      });
+    }
     return DataUtils.paging({
       start,
       limit,

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { query } = require('express');
 const { v4: uuidv4 } = require('uuid');
 const Controller = require('./cookie.controller');
 
@@ -25,9 +26,11 @@ router.get('/', (q, r, n) => {
 router.get('/website', async (q, r, n) => {
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
+  const name = q.query.name || null;
   Controller.websitelist({
     limit,
     start,
+    name,
   })
     .then((d) => r.json(d))
     .catch((e) => n(e));
