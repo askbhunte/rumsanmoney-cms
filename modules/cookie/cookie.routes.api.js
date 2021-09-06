@@ -23,19 +23,6 @@ router.get('/', (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.get('/website', async (q, r, n) => {
-  const limit = q.query.limit || 20;
-  const start = q.query.start || 0;
-  const name = q.query.name || null;
-  Controller.websitelist({
-    limit,
-    start,
-    name,
-  })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
-});
-
 router.get('/:name', (q, r, n) => {
   Controller.getByName(q.params.name)
     .then((d) => r.json(d))

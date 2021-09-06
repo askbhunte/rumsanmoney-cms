@@ -42,36 +42,6 @@ class Controller {
   updateCookieUserName(cookieName, username) {
     return Model.findOneAndUpdate({ name: cookieName }, { user: username });
   }
-
-  websitelist({
-    start, limit, name,
-  }) {
-    const query = [];
-    query.push(
-      {
-        $lookup: {
-          from: 'categories',
-          localField: 'preference',
-          foreignField: 'tags',
-          as: 'Preffered_category',
-        },
-      },
-    );
-    if (name) {
-      query.push({
-        $match: {
-          name: new RegExp(name, 'gi'),
-        },
-      });
-    }
-    return DataUtils.paging({
-      start,
-      limit,
-      sort: { created_at: 1 },
-      query,
-      model: Model,
-    });
-  }
 }
 
 module.exports = new Controller();
