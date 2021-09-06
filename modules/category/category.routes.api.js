@@ -33,21 +33,6 @@ router.get('/web', async (q, r, n) => {
     .catch((e) => n(e));
 });
 
-router.get('/website', async (q, r, n) => {
-  const limit = q.query.limit || 20;
-  const start = q.query.start || 0;
-  const name = q.query.name || null;
-  const status = q.query.status || null;
-  Controller.websitelist({
-    limit,
-    start,
-    status,
-    name,
-  })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
-});
-
 router.get('/:id', async (q, r, n) => {
   Controller.findById(q.params.id)
     .then((d) => r.json(d))

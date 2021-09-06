@@ -8,18 +8,20 @@ const Schema = mongoose.Schema(
     is_active: { type: Boolean, default: false },
     referral: { type: String },
     user: { type: String },
-    preference: {
-      name: String,
-      email: String,
-      phone: String,
-      age: String,
-      occupation: String,
-      foreign_employment: String,
-      annual_income: String,
-      location: String,
-      gender: String,
-    },
+    preference: [],
   },
 );
 
 module.exports = mongoose.model('Cookies', Schema);
+
+// {
+//   name: String,
+//   email: String,
+//   phone: String,
+//   age: String,
+//   occupation: String,
+//   foreign_employment: String,
+//   annual_income: String,
+//   location: String,
+//   gender: String,
+// }
