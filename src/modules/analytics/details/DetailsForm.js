@@ -133,7 +133,7 @@ const DetailForm = props => {
 								</Col>
 								<Col md="4">
 									<h5> Foreign employment?</h5>
-									<div className="mt-2">{(detail.preference.foreign_employment === true) ? "yes" : "no"}</div>
+									<div className="mt-2">{detail ? detail.preference.foreign_employment : "-"}</div>
 								</Col>
 							</Row>
 							<Row className="mt-5">
