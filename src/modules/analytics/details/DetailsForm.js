@@ -112,42 +112,42 @@ const DetailForm = props => {
 							<Row>
 								<Col md="4">
 									<h5>Name</h5>
-									<div className="mt-2">{detail ? detail.preference.name : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[0] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5>Email</h5>
-									<div className="mt-2">{detail ? detail.preference.email : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[1] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5>Phone Number</h5>
-									<div className="mt-2">{detail ? detail.preference.phone : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[2] : "-"}</div>
 								</Col>
 							</Row>
 							<Row className="mt-5">
 								<Col md="4"><h5>Age Group</h5>
-									<div className="mt-2">{detail ? detail.preference.age : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[3] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5> Occupation</h5>
-									<div className="mt-2">{detail ? detail.preference.occupation : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[4] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5> Foreign employment?</h5>
-									<div className="mt-2">{detail ? detail.preference.foreign_employment : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[5] : "-"}</div>
 								</Col>
 							</Row>
 							<Row className="mt-5">
 								<Col md="4">
 									<h5>Annual Income</h5>
-									<div className="mt-2">{detail ? detail.preference.annual_income : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[6] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5>Location</h5>
-									<div className="mt-2">{detail ? detail.preference.location : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[7] : "-"}</div>
 								</Col>
 								<Col md="4">
 									<h5>Gender</h5>
-									<div className="mt-2">{detail ? detail.preference.gender : "-"}</div>
+									<div className="mt-2">{detail ? detail.preference[8] : "-"}</div>
 								</Col>
 							</Row>
 						</CardBody>
