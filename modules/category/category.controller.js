@@ -1,28 +1,26 @@
-const mongoose = require('mongoose');
-const Model = require('./category.model');
-const { DataUtils } = require('../../utils');
+const mongoose = require("mongoose");
+const Model = require("./category.model");
+const { DataUtils } = require("../../utils");
 
 class Controller {
-  list({
-    start, limit, name, status, type,
-  }) {
+  list({ start, limit, name, status, type }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
+          name: new RegExp(name, "gi"),
         },
       });
     }
     if (status) {
-      status = status === 'true';
+      status = status === "true";
       query.push({
         $match: {
           is_active: status,
         },
       });
     }
-    if (type === 'featured') {
+    if (type === "featured") {
       const isFeatured = true;
       query.push({
         $match: {
@@ -30,7 +28,7 @@ class Controller {
         },
       });
     }
-    if (type === 'popular') {
+    if (type === "popular") {
       const isPopular = true;
       query.push({
         $match: {
@@ -47,24 +45,24 @@ class Controller {
     });
   }
 
-  weblist({
-    start, limit, name, status,
-  }) {
-    const query = [{
-      $project: {
-        required_docs: 0,
-        extras: 0,
+  weblist({ start, limit, name, status }) {
+    const query = [
+      {
+        $project: {
+          required_docs: 0,
+          extras: 0,
+        },
       },
-    }];
+    ];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
+          name: new RegExp(name, "gi"),
         },
       });
     }
     if (status) {
-      status = status === 'true';
+      status = status === "true";
       query.push({
         $match: {
           is_active: status,
@@ -80,37 +78,15 @@ class Controller {
     });
   }
 
-  categoryByPreference({
-    start, limit, name, status,
-  }) {
-    const query = [{
-      $project: {
-        required_docs: 0,
-        extras: 0,
-      },
-    }];
-    if (name) {
-      query.push({
-        $match: {
-          name: new RegExp(name, 'gi'),
-        },
-      });
-    }
-    if (status) {
-      status = status === 'true';
-      query.push({
-        $match: {
-          is_active: status,
-        },
-      });
-    }
-    return DataUtils.paging({
-      start,
-      limit,
-      sort: { created_at: 1 },
-      query,
-      model: Model,
+  categoryByPreference(data) {
+    const preferenceModel = Object.values(data);
+    const rawCategory = Model.find({
+      is_active: true,
+      tags: { $in: preferenceModel },
     });
+    // TODO order the category data as per bibek
+    const orderedData = rawCategory.sort({});
+    return orderedData;
   }
 
   findById(id) {
@@ -118,12 +94,13 @@ class Controller {
   }
 
   add(payload) {
-    payload.slug = payload.name.toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, '');
+    payload.slug = payload.name
+      .toLowerCase()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+      .replace(/\-\-+/g, "-") // Replace multiple - with single -
+      .replace(/^-+/, "") // Trim - from start of text
+      .replace(/-+$/, "");
     return Model.create(payload);
   }
 
@@ -148,7 +125,7 @@ class Controller {
   }
 
   findByName(name) {
-    return Model.findOne({ name: new RegExp(name, 'gi') });
+    return Model.findOne({ name: new RegExp(name, "gi") });
   }
 }
 
