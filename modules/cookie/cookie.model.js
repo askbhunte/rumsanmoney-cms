@@ -14,7 +14,7 @@ const Schema = mongoose.Schema(
       phone: String,
       age: String,
       occupation: String,
-      foreign_employment: Boolean,
+      foreign_employment: String,
       annual_income: String,
       location: String,
       gender: String,

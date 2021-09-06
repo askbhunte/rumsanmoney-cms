@@ -80,6 +80,25 @@ class Controller {
     });
   }
 
+  websitelist({
+    start, limit, name, status,
+  }) {
+    const query = [{
+      $project: {
+        required_docs: 0,
+        extras: 0,
+      },
+    }];
+
+    return DataUtils.paging({
+      start,
+      limit,
+      sort: { created_at: 1 },
+      query,
+      model: Model,
+    });
+  }
+
   findById(id) {
     return Model.findById(id);
   }
