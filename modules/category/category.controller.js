@@ -1,26 +1,28 @@
-const mongoose = require("mongoose");
-const Model = require("./category.model");
-const { DataUtils } = require("../../utils");
+const mongoose = require('mongoose');
+const Model = require('./category.model');
+const { DataUtils } = require('../../utils');
 
 class Controller {
-  list({ start, limit, name, status, type }) {
+  list({
+    start, limit, name, status, type,
+  }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, "gi"),
+          name: new RegExp(name, 'gi'),
         },
       });
     }
     if (status) {
-      status = status === "true";
+      status = status === 'true';
       query.push({
         $match: {
           is_active: status,
         },
       });
     }
-    if (type === "featured") {
+    if (type === 'featured') {
       const isFeatured = true;
       query.push({
         $match: {
@@ -28,7 +30,7 @@ class Controller {
         },
       });
     }
-    if (type === "popular") {
+    if (type === 'popular') {
       const isPopular = true;
       query.push({
         $match: {
@@ -45,7 +47,9 @@ class Controller {
     });
   }
 
-  weblist({ start, limit, name, status }) {
+  weblist({
+    start, limit, name, status,
+  }) {
     const query = [
       {
         $project: {
@@ -57,12 +61,12 @@ class Controller {
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, "gi"),
+          name: new RegExp(name, 'gi'),
         },
       });
     }
     if (status) {
-      status = status === "true";
+      status = status === 'true';
       query.push({
         $match: {
           is_active: status,
@@ -85,7 +89,7 @@ class Controller {
       tags: { $in: preferenceModel },
     });
     // TODO order the category data as per bibek
-    const orderedData = rawCategory.sort({});
+    const orderedData = rawCategory.map((d) => d.sort());
     return orderedData;
   }
 
@@ -96,11 +100,11 @@ class Controller {
   add(payload) {
     payload.slug = payload.name
       .toLowerCase()
-      .replace(/\s+/g, "-") // Replace spaces with -
-      .replace(/[^\w\-]+/g, "") // Remove all non-word chars
-      .replace(/\-\-+/g, "-") // Replace multiple - with single -
-      .replace(/^-+/, "") // Trim - from start of text
-      .replace(/-+$/, "");
+      .replace(/\s+/g, '-') // Replace spaces with -
+      .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+      .replace(/\-\-+/g, '-') // Replace multiple - with single -
+      .replace(/^-+/, '') // Trim - from start of text
+      .replace(/-+$/, '');
     return Model.create(payload);
   }
 
@@ -125,7 +129,7 @@ class Controller {
   }
 
   findByName(name) {
-    return Model.findOne({ name: new RegExp(name, "gi") });
+    return Model.findOne({ name: new RegExp(name, 'gi') });
   }
 }
 
