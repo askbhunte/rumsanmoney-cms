@@ -82,15 +82,15 @@ class Controller {
     });
   }
 
-  categoryByPreference(data) {
+  async categoryByPreference(data) {
     const preferenceModel = Object.values(data);
-    const rawCategory = Model.find({
+    const rawCategory = await Model.find({
       is_active: true,
       tags: { $in: preferenceModel },
     });
     // TODO order the category data as per bibek
-    const orderedData = rawCategory.map((d) => d.sort());
-    return orderedData;
+    const sortedCategory = rawCategory.sort((a, b) => (a.type === b.type ? 0 : a.type === 'loan' ? 1 : -1));
+    return sortedCategory.reverse();
   }
 
   findById(id) {
