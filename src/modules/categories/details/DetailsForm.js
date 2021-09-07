@@ -246,32 +246,52 @@ export default function DetailsForm(props) {
                     </Col>
                   </Col>
                   <Col md="8">
-                    <Col md="12">
-                      <FormGroup>
-                        <Label>Name</Label>
-                        <InputGroup>
+                    <Row>
+
+
+                      <Col md="12">
+                        <FormGroup>
+                          <Label>Name</Label>
+                          <InputGroup>
+                            <Input
+                              type="text"
+                              name="name"
+                              defaultValue={category_details ? category_details.name : ""}
+                              onChange={e => setCategoryDetails({ ...category_details, name: e.target.value })}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label>Category Icon</Label>
+                          <InputGroup>
+                            <Input
+                              type="text"
+                              name="icon"
+                              defaultValue={category_details ? category_details.icon : ""}
+                              onChange={e => setCategoryDetails({ ...category_details, icon: e.target.value })}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label>Type of Category</Label>
                           <Input
-                            type="text"
-                            name="name"
-                            defaultValue={category_details ? category_details.name : ""}
-                            onChange={e => setCategoryDetails({ ...category_details, name: e.target.value })}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col md="12">
-                      <FormGroup>
-                        <Label>Category Icon</Label>
-                        <InputGroup>
-                          <Input
-                            type="text"
-                            name="icon"
-                            defaultValue={category_details ? category_details.icon : ""}
-                            onChange={e => setCategoryDetails({ ...category_details, icon: e.target.value })}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
+                            type="select"
+                            name="type"
+                            value={category_details ? category_details.type : ""}
+                            onChange={e => setCategoryDetails({ ...category_details, type: e.target.value })}
+                          >
+                            <option value="">-- Select Type --</option>
+                            <option value="Loan">Loan</option>
+                            <option value="Savings">Savings</option>
+                            <option value="Insurance">Insurance</option>
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
                   </Col>
                   <Col md="12">
                     <FormGroup>
