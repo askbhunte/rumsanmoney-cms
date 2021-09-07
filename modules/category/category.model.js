@@ -12,7 +12,7 @@ const Schema = mongoose.Schema(
     image: { type: String },
     description: { type: String },
     required_docs: { type: String },
-    type: { type: String, enum: ['Loan', 'Savings', 'Insurance'] },
+    type: { type: String, enum: ['loan', 'savings', 'insurance'] },
     extras: { type: String },
     isFeatured: { type: Boolean, required: true, default: false },
     isPopular: { type: Boolean, required: true, default: false },
