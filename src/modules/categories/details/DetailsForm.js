@@ -285,9 +285,9 @@ export default function DetailsForm(props) {
                             onChange={e => setCategoryDetails({ ...category_details, type: e.target.value })}
                             required>
                             <option value="" disabled>-- Select Type --</option>
-                            <option value="Loan">Loan</option>
-                            <option value="Savings">Savings</option>
-                            <option value="Insurance">Insurance</option>
+                            <option value="loan">Loan</option>
+                            <option value="savings">Savings</option>
+                            <option value="insurance">Insurance</option>
                           </Input>
                         </FormGroup>
                       </Col>
