@@ -89,8 +89,8 @@ class Controller {
       tags: { $in: preferenceModel },
     });
     // TODO order the category data as per bibek
-    const sortedCategory = rawCategory.sort((a, b) => (a.type === b.type ? 0 : a.type === 'loan' ? 1 : -1));
-    return sortedCategory.reverse();
+    const sortedCategory = rawCategory.sort((a, b) => (a.type === b.type ? 0 : a.type === 'loan' ? -1 : 1));
+    return sortedCategory;
   }
 
   findById(id) {
