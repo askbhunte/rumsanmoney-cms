@@ -99,18 +99,24 @@ const DetailForm = props => {
 							</Row>
 						</CardBody>
 					</Card>
+					<Card>
+						<CardTitle className="mb-0 p-3 border-bottom bg-light">
+							<Row>
+								<Col md="8">
+									<i className="mdi mdi-account-star-variant mr-2"></i>User Preference Detail
+								</Col>
+							</Row>
+						</CardTitle>
+						{detail.preference.map(d => {
+							return (
+								<CardBody key={d.full_name} >
 
-					{detail.preference.map(d => {
-						return (
-							<Card key={d.full_name}>
-								<CardTitle className="mb-0 p-3 border-bottom bg-light">
-									<Row>
-										<Col md="8">
-											<i className="mdi mdi-account-star-variant mr-2"></i>User Preference Detail
+									<Row className="mb-4">
+										<Col md={12} >
+											<h5>Created at:<span> {d.created_at ? d.created_at : "-"}</span></h5>
+
 										</Col>
 									</Row>
-								</CardTitle>
-								<CardBody >
 									<Row>
 										<Col md="4">
 											<h5>Name</h5>
@@ -151,18 +157,28 @@ const DetailForm = props => {
 											<h5>Gender</h5>
 											<div className="mt-2">{d.gender ? d.gender : "-"}</div>
 										</Col>
+
+									</Row>
+
+									<Row>
+										<Col md={12}>
+											<hr className="mt-5"></hr>
+										</Col>
 									</Row>
 								</CardBody>
-							</Card>
-						)
-					})
-					}
+
+							)
+						})
+
+						}
+					</Card>
 
 				</div>
 
 			) : (
 				<Loading />
-			)}
+			)
+			}
 
 			<Card>
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
