@@ -99,59 +99,65 @@ const DetailForm = props => {
 							</Row>
 						</CardBody>
 					</Card>
-					<Card>
-						<CardTitle className="mb-0 p-3 border-bottom bg-light">
-							<Row>
-								<Col md="8">
-									<i className="mdi mdi-account-star-variant mr-2"></i>User Preference Detail
-								</Col>
-							</Row>
-						</CardTitle>
 
-						<CardBody>
-							<Row>
-								<Col md="4">
-									<h5>Name</h5>
-									<div className="mt-2">{detail ? detail.preference[0] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5>Email</h5>
-									<div className="mt-2">{detail ? detail.preference[1] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5>Phone Number</h5>
-									<div className="mt-2">{detail ? detail.preference[2] : "-"}</div>
-								</Col>
-							</Row>
-							<Row className="mt-5">
-								<Col md="4"><h5>Age Group</h5>
-									<div className="mt-2">{detail ? detail.preference[3] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5> Occupation</h5>
-									<div className="mt-2">{detail ? detail.preference[4] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5> Foreign employment?</h5>
-									<div className="mt-2">{detail ? detail.preference[5] : "-"}</div>
-								</Col>
-							</Row>
-							<Row className="mt-5">
-								<Col md="4">
-									<h5>Annual Income</h5>
-									<div className="mt-2">{detail ? detail.preference[6] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5>Location</h5>
-									<div className="mt-2">{detail ? detail.preference[7] : "-"}</div>
-								</Col>
-								<Col md="4">
-									<h5>Gender</h5>
-									<div className="mt-2">{detail ? detail.preference[8] : "-"}</div>
-								</Col>
-							</Row>
-						</CardBody>
-					</Card>
+					{detail.preference.map(d => {
+						return (
+							<Card key={d.full_name}>
+								<CardTitle className="mb-0 p-3 border-bottom bg-light">
+									<Row>
+										<Col md="8">
+											<i className="mdi mdi-account-star-variant mr-2"></i>User Preference Detail
+										</Col>
+									</Row>
+								</CardTitle>
+								<CardBody >
+									<Row>
+										<Col md="4">
+											<h5>Name</h5>
+											<div className="mt-2">{d.full_name ? d.full_name : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5>Email</h5>
+											<div className="mt-2">{d.email ? d.email : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5>Phone Number</h5>
+											<div className="mt-2">{d.phone ? d.phone : "-"}</div>
+										</Col>
+									</Row>
+									<Row className="mt-5">
+										<Col md="4"><h5>Age Group</h5>
+											<div className="mt-2">{d.age_group ? d.age_group : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5> Occupation</h5>
+											<div className="mt-2">{d.occupation ? d.occupation : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5> Foreign employment?</h5>
+											<div className="mt-2">{d.foreign_employment ? d.foreign_employment : "-"}</div>
+										</Col>
+									</Row>
+									<Row className="mt-5">
+										<Col md="4">
+											<h5>Annual Income</h5>
+											<div className="mt-2">{d.annual_income ? d.annual_income : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5>Location</h5>
+											<div className="mt-2">{d.location ? d.location : "-"}</div>
+										</Col>
+										<Col md="4">
+											<h5>Gender</h5>
+											<div className="mt-2">{d.gender ? d.gender : "-"}</div>
+										</Col>
+									</Row>
+								</CardBody>
+							</Card>
+						)
+					})
+					}
+
 				</div>
 
 			) : (
