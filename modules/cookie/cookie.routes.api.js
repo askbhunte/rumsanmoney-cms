@@ -36,8 +36,7 @@ router.patch('/:name', (q, r, n) => {
 });
 
 router.put('/:name', async (q, r, n) => {
-  const preference = { name: 'raktim' };
-  Controller.updatePreference(q.params.name, preference)
+  Controller.updatePreference(q.params.name, q.body)
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });
