@@ -34,7 +34,7 @@ router.get('/web', async (q, r, n) => {
 });
 
 router.get('/preference', async (q, r, n) => {
-  const data = q.body || {};
+  const data = q.body.data || {};
   Controller.categoryByPreference(data)
     .then((d) => {
       r.json(d);
