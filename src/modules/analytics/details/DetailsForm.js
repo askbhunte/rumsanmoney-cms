@@ -107,7 +107,7 @@ const DetailForm = props => {
 								</Col>
 							</Row>
 						</CardTitle>
-						{detail.preference.map(d => {
+						{detail.preference.reverse().map(d => {
 							return (
 								<CardBody key={d.full_name} >
 
