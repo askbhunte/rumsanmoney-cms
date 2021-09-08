@@ -36,7 +36,7 @@ router.patch('/:name', (q, r, n) => {
 });
 
 router.post('/:name', async (q, r, n) => {
-  Controller.updatePreference(q.params.name, q.body)
+  Controller.updatePreference(q.params.name, q.body.data)
     .then((d) => r.json(d))
     .catch((e) => n(e));
 });
