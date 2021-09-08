@@ -42,6 +42,10 @@ class Controller {
   updateCookieUserName(cookieName, username) {
     return Model.findOneAndUpdate({ name: cookieName }, { user: username });
   }
+
+  updatePreference(cookieName, preferenceNew) {
+    return Model.findOneAndUpdate({ name: cookieName }, { $set: { preference: preferenceNew } }, { new: true });
+  }
 }
 
 module.exports = new Controller();

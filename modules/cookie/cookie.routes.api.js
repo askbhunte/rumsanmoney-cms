@@ -35,4 +35,11 @@ router.patch('/:name', (q, r, n) => {
     .catch((e) => console.log(e));
 });
 
+router.put('/:name', async (q, r, n) => {
+  const preference = { name: 'raktim' };
+  Controller.updatePreference(q.params.name, preference)
+    .then((d) => r.json(d))
+    .catch((e) => n(e));
+});
+
 module.exports = router;
