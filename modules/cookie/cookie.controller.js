@@ -44,7 +44,7 @@ class Controller {
   }
 
   updatePreference(cookieName, preferenceNew) {
-    return Model.findOneAndUpdate({ name: cookieName }, { $set: { preference: preferenceNew } }, { new: true });
+    return Model.findOneAndUpdate({ name: cookieName }, { $push: { preference: preferenceNew } }, { new: true });
   }
 }
 

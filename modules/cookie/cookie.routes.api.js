@@ -35,7 +35,7 @@ router.patch('/:name', (q, r, n) => {
     .catch((e) => console.log(e));
 });
 
-router.put('/:name', async (q, r, n) => {
+router.post('/:name', async (q, r, n) => {
   Controller.updatePreference(q.params.name, q.body)
     .then((d) => r.json(d))
     .catch((e) => n(e));
