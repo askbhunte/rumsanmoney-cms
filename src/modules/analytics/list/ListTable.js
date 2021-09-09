@@ -32,7 +32,7 @@ const List = () => {
 		let _start = current_page * pagination.limit;
 		setCurrent(current_page);
 		let query = { user: searchText };
-		if(filter.searchBy === searchOptions.COOKIENAME){
+		if (filter.searchBy === searchOptions.COOKIENAME) {
 			query = { cookieName: searchText };
 		}
 		return loadList({
@@ -40,12 +40,12 @@ const List = () => {
 			limit: pagination.limit,
 			...query
 		});
-	};	
+	};
 
 	const searchOptions = {
 		USER: "user",
 		COOKIENAME: "cookieName"
-	};	
+	};
 
 	const handleFilterChange = (e) => {
 		let { value } = e.target;
@@ -88,7 +88,7 @@ const List = () => {
 			});
 	};
 
-	
+
 
 	useEffect(fetchList, []);
 
@@ -136,7 +136,7 @@ const List = () => {
 						</thead>
 						<tbody>
 							{data.length ? (
-								data.map(d => {
+								data.reverse().map(d => {
 									return (
 										<tr key={d._id}>
 											<td>
@@ -146,7 +146,7 @@ const List = () => {
 												<div className="text-dark">{d.name ? d.name : '-'}</div>
 											</td>
 											<td>{d && d.ip ? d.ip : '-'}</td>
-											<td>{d && d.device ? properCase(d.device).substring(0, 42).concat('','...') : '-'}</td>
+											<td>{d && d.device ? properCase(d.device).substring(0, 42).concat('', '...') : '-'}</td>
 											<td className="blue-grey-text text-darken-4 font-medium">
 												<Link className="btn btn-secondary" to={`/analytic/${d.name}`}>
 													<i className="fa fa-eye"></i>
@@ -156,10 +156,10 @@ const List = () => {
 									);
 								})
 							) : (
-									<tr>
-										<td colSpan={4}>No data available.</td>
-									</tr>
-								)}
+								<tr>
+									<td colSpan={4}>No data available.</td>
+								</tr>
+							)}
 						</tbody>
 					</Table>
 					<Paginate limit={pagination.limit} total={pagination.total} current={current} onChange={handlePagination} />
