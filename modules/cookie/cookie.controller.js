@@ -7,7 +7,7 @@ class Controller {
   }
 
   list({
-    start, limit, user, cookieName,
+    start, limit, user, cookieName, filterPreferenceUser, filterCookieUsers,
   }) {
     const query = [];
 
@@ -22,6 +22,13 @@ class Controller {
       query.push({
         $match: {
           name: new RegExp(cookieName, 'gi'),
+        },
+      });
+    }
+    if (filterPreferenceUser) {
+      query.push({
+        $match: {
+          preference: { $exists: true, $not: { $size: 0 } },
         },
       });
     }

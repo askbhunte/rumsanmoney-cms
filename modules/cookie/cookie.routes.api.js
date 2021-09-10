@@ -16,10 +16,12 @@ router.get('/', (q, r, n) => {
   const limit = q.query.limit || 20;
   const cookieName = q.query.cookieName || null;
   const user = q.query.user || null;
+  const filterPreferenceUser = !!(q.query && q.query.preferenceCheck === 'userPreference');
+  const filterCookieUsers = !!(q.query && q.query.preferenceCheck === 'userHistory');
   Controller.list({
-    start, limit, cookieName, user,
+    start, limit, cookieName, user, filterPreferenceUser, filterCookieUsers,
   })
-    .then((d) => r.json(d))
+    .then((d) => { console.log(d.data.length); r.json(d); })
     .catch((e) => n(e));
 });
 
