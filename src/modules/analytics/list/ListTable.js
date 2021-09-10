@@ -47,6 +47,10 @@ const List = () => {
 		COOKIENAME: "cookieName"
 	};
 
+	const handleSortChange = (e) => {
+		let { value } = e.target;
+		return fetchList({ start: 0, limit: pagination.limit, preferenceCheck: value });
+	};
 	const handleFilterChange = (e) => {
 		let { value } = e.target;
 		if (value === searchOptions.USER) {
@@ -97,10 +101,17 @@ const List = () => {
 			<Card>
 				<CardTitle className="mb-0 p-3 border-bottom bg-light">
 					<Row>
-						<Col md="4">
+						<Col md="6">
 							<i className="mdi mdi-border-right mr-2"></i>User Analytics
 						</Col>
-						<Col md="8" className="text-right">
+						<Col md="2">
+							<CustomInput id="sortCookie" type="select" name="customSelect" onChange={handleSortChange}>
+								<option value="">Filter Cookies by</option>
+								<option value="userPreference">Preference exists?</option>
+								<option value="userHistory">History</option>
+							</CustomInput>
+						</Col>
+						<Col md="4" >
 							<CustomInput
 								type="select"
 								id="exampleCustomSelect"

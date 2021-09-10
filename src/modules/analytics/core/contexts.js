@@ -49,9 +49,9 @@ export const ContextProvider = ({ children }) => {
 		});
 	}
 
-	function listHistory(id,query) {
+	function listHistory(id, query) {
 		return new Promise((resolve, reject) => {
-			Service.listHistory(id,query)
+			Service.listHistory(id, query)
 				.then(res => {
 					dispatch({ type: ACTION.LIST_SUCCESS, res });
 					resolve(res);
