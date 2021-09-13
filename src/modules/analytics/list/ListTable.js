@@ -108,7 +108,7 @@ const List = () => {
 							<CustomInput id="sortCookie" type="select" name="customSelect" onChange={handleSortChange}>
 								<option value="">Filter Cookies by</option>
 								<option value="userPreference">Preference exists?</option>
-								<option value="userHistory">History</option>
+								<option value="userHistory">History exists?</option>
 							</CustomInput>
 						</Col>
 						<Col md="4" >
