@@ -12,10 +12,10 @@ router.get('/', async (q, r, n) => {
     start,
     status,
     name,
-    type,
+    type
   })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/web', async (q, r, n) => {
@@ -27,61 +27,61 @@ router.get('/web', async (q, r, n) => {
     limit,
     start,
     status,
-    name,
+    name
   })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/preference', async (q, r, n) => {
   const data = q.body.data || {};
   Controller.categoryByPreference(data)
-    .then((d) => {
+    .then(d => {
       r.json(d);
     })
-    .catch((e) => n(e));
+    .catch(e => n(e));
 });
 
 router.get('/:id', async (q, r, n) => {
   Controller.findById(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.post('/', async (q, r, n) => {
   Controller.add(q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id', async (q, r, n) => {
   Controller.update(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/featured', async (q, r, n) => {
   Controller.changeFeatured(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/popular', async (q, r, n) => {
   Controller.changePopular(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/status', async (q, r, n) => {
   Controller.changeStatus(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 module.exports = router;

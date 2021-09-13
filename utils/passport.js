@@ -26,23 +26,23 @@ if (config.has('services.facebook')) {
           'displayName',
           'gender',
           'birthday',
-          'picture.type(large)',
-        ],
+          'picture.type(large)'
+        ]
       },
-      ((req, token, refreshToken, profile, done) => {
+      (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
           const pData = profile._json;
           const data = {
             service: 'facebook',
             service_id: pData.id,
             extras: Object.assign(pData, {
-              imageUrl: pData.picture.data.url,
-            }),
+              imageUrl: pData.picture.data.url
+            })
           };
-          UserController.loginExternal(data).then((d) => done(null, d));
+          UserController.loginExternal(data).then(d => done(null, d));
         });
-      }),
-    ),
+      }
+    )
   );
 }
 
@@ -53,9 +53,9 @@ if (config.has('services.google')) {
         clientID: config.get('services.google.key'),
         clientSecret: config.get('services.google.secret'),
         callbackURL: config.get('app.url') + config.get('services.google.callback'),
-        passReqToCallback: true,
+        passReqToCallback: true
       },
-      ((req, token, refreshToken, profile, done) => {
+      (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
           const pData = profile._json;
           const data = {
@@ -64,8 +64,8 @@ if (config.has('services.google')) {
             extras: Object.assign(pData, {
               name: pData.name,
               gender: pData.gender,
-              imageUrl: pData.picture,
-            }),
+              imageUrl: pData.picture
+            })
           };
 
           // if (
@@ -79,10 +79,10 @@ if (config.has('services.google')) {
           //   });
 
           UserController.loginExternal(data)
-            .then((d) => done(null, d))
-            .catch((e) => done(null, false, { message: e.message }));
+            .then(d => done(null, d))
+            .catch(e => done(null, false, { message: e.message }));
         });
-      }),
-    ),
+      }
+    )
   );
 }

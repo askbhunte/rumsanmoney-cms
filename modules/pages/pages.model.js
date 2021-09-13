@@ -12,22 +12,22 @@ const PagesSchema = mongoose.Schema(
       type: String,
       required: true,
       default: 'DRAFT',
-      enum: ['DRAFT', 'PUBLISHED'],
-    },
+      enum: ['DRAFT', 'PUBLISHED']
+    }
   },
   {
     collection: 'pages',
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: 'updated_at'
     },
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     toJson: {
-      virtuals: true,
-    },
-  },
+      virtuals: true
+    }
+  }
 );
 
 module.exports = mongoose.model('Pages', PagesSchema);

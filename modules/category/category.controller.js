@@ -3,39 +3,37 @@ const Model = require('./category.model');
 const { DataUtils } = require('../../utils');
 
 class Controller {
-  list({
-    start, limit, name, status, type,
-  }) {
+  list({ start, limit, name, status, type }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (status) {
       status = status === 'true';
       query.push({
         $match: {
-          is_active: status,
-        },
+          is_active: status
+        }
       });
     }
     if (type === 'featured') {
       const isFeatured = true;
       query.push({
         $match: {
-          isFeatured,
-        },
+          isFeatured
+        }
       });
     }
     if (type === 'popular') {
       const isPopular = true;
       query.push({
         $match: {
-          isPopular,
-        },
+          isPopular
+        }
       });
     }
     return DataUtils.paging({
@@ -43,34 +41,32 @@ class Controller {
       limit,
       sort: { created_at: 1 },
       query,
-      model: Model,
+      model: Model
     });
   }
 
-  weblist({
-    start, limit, name, status,
-  }) {
+  weblist({ start, limit, name, status }) {
     const query = [
       {
         $project: {
           required_docs: 0,
-          extras: 0,
-        },
-      },
+          extras: 0
+        }
+      }
     ];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (status) {
       status = status === 'true';
       query.push({
         $match: {
-          is_active: status,
-        },
+          is_active: status
+        }
       });
     }
     return DataUtils.paging({
@@ -78,7 +74,7 @@ class Controller {
       limit,
       sort: { created_at: 1 },
       query,
-      model: Model,
+      model: Model
     });
   }
 
@@ -86,10 +82,11 @@ class Controller {
     const preferenceModel = Object.values(data);
     const rawCategory = await Model.find({
       is_active: true,
-      tags: { $in: preferenceModel },
+      tags: { $in: preferenceModel }
     });
-    // TODO order the category data as per bibek
-    const sortedCategory = rawCategory.sort((a, b) => (a.type === b.type ? 0 : a.type === 'loan' ? -1 : 1));
+    const sortedCategory = rawCategory.sort((a, b) =>
+      a.type === b.type ? 0 : a.type === 'loan' ? -1 : 1
+    );
     return sortedCategory;
   }
 

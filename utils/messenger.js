@@ -12,18 +12,18 @@ const Templates = {
   create_user: {
     from: '"Rumsan" <no-reply@rumsan.com>',
     subject: 'Welcome to the App',
-    html: `${__dirname}/../public/email_templates/create_user.html`,
+    html: `${__dirname}/../public/email_templates/create_user.html`
   },
   forgot: {
     from: '"Rumsan" <no-reply@rumsan.com>',
     subject: 'Recover Forgot Password',
-    html: `${__dirname}/../public/email_templates/forgot.html`,
+    html: `${__dirname}/../public/email_templates/forgot.html`
   },
   reset_password: {
     from: '"Rumsan" <no-reply@rumsan.com>',
     subject: 'Reset Password',
-    html: `${__dirname}/../public/email_templates/reset_password.html`,
-  },
+    html: `${__dirname}/../public/email_templates/reset_password.html`
+  }
 };
 
 class Messenger {
@@ -56,7 +56,7 @@ class Messenger {
       from: template.from,
       subject: template.subject,
       to: payload.to,
-      html: me.getHtmlBody(payload.template, payload.data),
+      html: me.getHtmlBody(payload.template, payload.data)
     });
   }
 }

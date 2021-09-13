@@ -12,21 +12,21 @@ const Schema = mongoose.Schema(
     status: { type: String, enum: ['Published', 'Draft', 'Archived'] },
     category: [{ type: ObjectId, ref: 'Categories' }],
     tags: [{ type: ObjectId, ref: 'Tags' }],
-    author: { type: String },
+    author: { type: String }
   },
   {
     collection: 'blogs',
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: 'updated_at'
     },
     toJson: {
-      virtuals: true,
-    },
-  },
+      virtuals: true
+    }
+  }
 );
 
 module.exports = mongoose.model('Blogs', Schema);

@@ -1,19 +1,29 @@
 module.exports = {
   env: {
     browser: true,
-    commonjs: true,
-    es2020: true,
+    es2021: true
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base', 'prettier'],
   parserOptions: {
-    ecmaVersion: 11,
+    ecmaVersion: 12,
+    sourceType: 'module'
   },
+  plugins: ['prettier'],
   rules: {
-    'linebreak-style': 0,
     'class-methods-use-this': 0,
-    'no-param-reassign': 0,
-    'no-underscore-dangle': 0,
-  },
+    quotes: [2, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        parser: 'flow',
+        semi: true,
+        trailingComma: 'none',
+        endOfLine: 'auto'
+      }
+    ],
+    camelcase: 'off',
+    'arrow-body-style': 'off',
+    'prefer-arrow-callback': 'off'
+  }
 };

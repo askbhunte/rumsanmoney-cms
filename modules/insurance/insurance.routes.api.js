@@ -23,58 +23,58 @@ router.get('/', async (q, r, n) => {
     type,
     category,
     sortinasc,
-    sortindesc,
+    sortindesc
   })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/:id', async (q, r, n) => {
   Controller.findById(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/slug/:insurance/:product', async (q, r, n) => {
   Controller.findBySlug(q.params.insurance, q.params.product)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.post('/', async (q, r, n) => {
   Controller.add(q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id', async (q, r, n) => {
   Controller.update(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/status', async (q, r, n) => {
   Controller.changeStatus(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/featured', async (q, r, n) => {
   Controller.changeFeatured(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id/date', async (q, r, n) => {
   Controller.updateDate(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 module.exports = router;

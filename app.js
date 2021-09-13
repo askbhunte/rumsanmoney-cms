@@ -16,7 +16,7 @@ mongoose.connect(config.get('app.db'), {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-  useCreateIndex: true,
+  useCreateIndex: true
 });
 
 app.set('view engine', 'ejs');

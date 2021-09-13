@@ -7,8 +7,8 @@ router.post('/', (q, r, n) => {
   const payload = q.body;
   payload.name = uuidv4();
   Controller.add(payload)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/', (q, r, n) => {
@@ -17,30 +17,35 @@ router.get('/', (q, r, n) => {
   const cookieName = q.query.cookieName || null;
   const user = q.query.user || null;
   const filterPreferenceUser = !!(q.query && q.query.preferenceCheck === 'userPreference');
-  const filterCookieUsers = !!(q.query && q.query.preferenceCheck === 'userHistory');
   Controller.list({
-    start, limit, cookieName, user, filterPreferenceUser, filterCookieUsers,
+    start,
+    limit,
+    cookieName,
+    user,
+    filterPreferenceUser
   })
-    .then((d) => { r.json(d); })
-    .catch((e) => n(e));
+    .then(d => {
+      r.json(d);
+    })
+    .catch(e => n(e));
 });
 
 router.get('/:name', (q, r, n) => {
   Controller.getByName(q.params.name)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.patch('/:name', (q, r, n) => {
   Controller.updateCookieUserName(q.params.name, q.body.username)
-    .then((d) => r.json(d))
-    .catch((e) => console.log(e));
+    .then(d => r.json(d))
+    .catch(e => console.log(e));
 });
 
 router.post('/:name', async (q, r, n) => {
   Controller.updatePreference(q.params.name, q.body.data)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 module.exports = router;

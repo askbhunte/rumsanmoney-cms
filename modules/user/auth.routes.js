@@ -1,14 +1,14 @@
-const router = require("express").Router();
-const UserController = require("./user.controller");
+const router = require('express').Router();
+const UserController = require('./user.controller');
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     // return;
     UserController.login(req.body)
-      .then((d) => {
+      .then(d => {
         res.json(d);
       })
-      .catch((e) => {
+      .catch(e => {
         next(e);
       });
   } catch (e) {
