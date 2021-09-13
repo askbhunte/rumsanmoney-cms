@@ -16,7 +16,7 @@ class Controller {
     category,
     baserate,
     sortindesc,
-    sortinasc,
+    sortinasc
   }) {
     const query = [];
     const sort = {};
@@ -34,108 +34,108 @@ class Controller {
           from: 'banks',
           localField: 'bank_id',
           foreignField: '_id',
-          as: 'bankinfo',
-        },
+          as: 'bankinfo'
+        }
       },
       {
         $unwind: {
           path: '$bankinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $lookup: {
           from: 'categories',
           localField: 'category',
           foreignField: '_id',
-          as: 'categoryinfo',
-        },
+          as: 'categoryinfo'
+        }
       },
       {
         $unwind: {
           path: '$categoryinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $addFields: {
           total_interest: {
-            $add: ['$base_rate', '$interest_rate'],
-          },
-        },
-      },
+            $add: ['$base_rate', '$interest_rate']
+          }
+        }
+      }
     );
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (type === 'featured') {
       const isfeatured = true;
       query.push({
         $match: {
-          is_featured: isfeatured,
-        },
+          is_featured: isfeatured
+        }
       });
     }
     if (type === 'popular') {
       const ispopular = true;
       query.push({
         $match: {
-          ispopular,
-        },
+          ispopular
+        }
       });
     }
     if (type === 'loan') {
       query.push({
         $match: {
-          loan_type: 'loan',
-        },
+          loan_type: 'loan'
+        }
       });
     }
     if (type === 'saving') {
       query.push({
         $match: {
-          loan_type: 'saving',
-        },
+          loan_type: 'saving'
+        }
       });
     }
     if (bankId) {
       query.push({
         $match: {
-          bank_id: ObjectId(bankId),
-        },
+          bank_id: ObjectId(bankId)
+        }
       });
     }
     if (bankname) {
       query.push({
         $match: {
-          'bankinfo.name': new RegExp(bankname, 'gi'),
-        },
+          'bankinfo.name': new RegExp(bankname, 'gi')
+        }
       });
     }
     if (category) {
       query.push({
         $match: {
-          'categoryinfo.name': new RegExp(category, 'gi'),
-        },
+          'categoryinfo.name': new RegExp(category, 'gi')
+        }
       });
     }
     if (baserate) {
       baserate = Number(baserate);
       query.push({
         $match: {
-          base_rate: baserate,
-        },
+          base_rate: baserate
+        }
       });
     }
     if (producttype) {
       query.push({
         $match: {
-          ptype: new RegExp(producttype, 'gi'),
-        },
+          ptype: new RegExp(producttype, 'gi')
+        }
       });
     }
 
@@ -144,7 +144,7 @@ class Controller {
       limit,
       query,
       model: Model,
-      sort,
+      sort
     });
   }
 
@@ -153,49 +153,49 @@ class Controller {
     query.push(
       {
         $match: {
-          _id: new ObjectId(id),
-        },
+          _id: new ObjectId(id)
+        }
       },
       {
         $lookup: {
           from: 'banks',
           localField: 'bank_id',
           foreignField: '_id',
-          as: 'bankinfo',
-        },
+          as: 'bankinfo'
+        }
       },
       {
         $unwind: {
           path: '$bankinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $lookup: {
           from: 'categories',
           localField: 'category',
           foreignField: '_id',
-          as: 'categoryinfo',
-        },
+          as: 'categoryinfo'
+        }
       },
       {
         $unwind: {
           path: '$categoryinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $addFields: {
           total_interest: {
             $round: [
               {
-                $add: ['$base_rate', '$interest_rate'],
+                $add: ['$base_rate', '$interest_rate']
               },
-              2,
-            ],
-          },
-        },
-      },
+              2
+            ]
+          }
+        }
+      }
     );
     const resp = await Model.aggregate(query);
     return resp[0];
@@ -209,44 +209,44 @@ class Controller {
           from: 'banks',
           localField: 'bank_id',
           foreignField: '_id',
-          as: 'bankinfo',
-        },
+          as: 'bankinfo'
+        }
       },
       {
         $unwind: {
           path: '$bankinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $lookup: {
           from: 'categories',
           localField: 'category',
           foreignField: '_id',
-          as: 'categoryinfo',
-        },
+          as: 'categoryinfo'
+        }
       },
       {
         $unwind: {
           path: '$categoryinfo',
-          preserveNullAndEmptyArrays: false,
-        },
+          preserveNullAndEmptyArrays: false
+        }
       },
       {
         $addFields: {
           total_interest: {
             $round: [
               {
-                $add: ['$base_rate', '$interest_rate'],
+                $add: ['$base_rate', '$interest_rate']
               },
-              2,
-            ],
-          },
-        },
+              2
+            ]
+          }
+        }
       },
       {
-        $match: { $and: [{ 'bankinfo.slug': bank }, { slug: product }] },
-      },
+        $match: { $and: [{ 'bankinfo.slug': bank }, { slug: product }] }
+      }
     );
     const resp = await Model.aggregate(query);
     return resp[0];

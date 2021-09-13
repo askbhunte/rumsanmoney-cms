@@ -2,22 +2,20 @@ const Model = require('./company.model');
 const { DataUtils } = require('../../utils');
 
 class Controller {
-  async list({
-    start, limit, name, address,
-  }) {
+  async list({ start, limit, name, address }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, 'gi'),
-        },
+          address: new RegExp(address, 'gi')
+        }
       });
     }
 
@@ -26,40 +24,38 @@ class Controller {
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
   }
 
-  listnoDesc({
-    start, limit, name, address,
-  }) {
+  listnoDesc({ start, limit, name, address }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (address) {
       query.push({
         $match: {
-          address: new RegExp(address, 'gi'),
-        },
+          address: new RegExp(address, 'gi')
+        }
       });
     }
     query.push({
       $project: {
         desc: 0,
-        information: 0,
-      },
+        information: 0
+      }
     });
     return DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
   }
 
@@ -105,32 +101,37 @@ class Controller {
         $match: {
           slug
         }
-      }, {
+      },
+      {
         $lookup: {
           from: 'insurances',
           localField: '_id',
           foreignField: 'company',
           as: 'products'
         }
-      }, {
+      },
+      {
         $unwind: {
           path: '$products',
           preserveNullAndEmptyArrays: false
         }
-      }, {
+      },
+      {
         $lookup: {
           from: 'categories',
           localField: 'products.category',
           foreignField: '_id',
           as: 'category'
         }
-      }, {
+      },
+      {
         $project: {
           category: 1,
           products: 1,
           _id: 0
         }
-      }, {
+      },
+      {
         $unwind: {
           path: '$category',
           preserveNullAndEmptyArrays: false
@@ -142,7 +143,7 @@ class Controller {
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
   }
 }

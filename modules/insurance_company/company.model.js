@@ -15,21 +15,21 @@ const Schema = mongoose.Schema(
     website: { type: String },
     is_active: { type: Boolean, required: true, default: true },
     type: String,
-    symbol: String,
+    symbol: String
   },
   {
     collection: 'insurances_companies',
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: 'updated_at'
     },
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     toJson: {
-      virtuals: true,
-    },
-  },
+      virtuals: true
+    }
+  }
 );
 
 module.exports = mongoose.model('InsuranceCompanies', Schema);

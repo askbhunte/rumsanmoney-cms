@@ -16,21 +16,21 @@ const Schema = mongoose.Schema(
     extras: { type: String },
     isFeatured: { type: Boolean, required: true, default: false },
     isPopular: { type: Boolean, required: true, default: false },
-    is_active: { type: Boolean, required: true, default: true },
+    is_active: { type: Boolean, required: true, default: true }
   },
   {
     collection: 'categories',
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: 'updated_at'
     },
     toJson: {
-      virtuals: true,
-    },
-  },
+      virtuals: true
+    }
+  }
 );
 
 module.exports = mongoose.model('Categories', Schema);

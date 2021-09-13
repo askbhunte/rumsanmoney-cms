@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { ObjectId } = mongoose.Schema;
 
@@ -11,21 +11,21 @@ const Schema = mongoose.Schema(
     product_detail: String,
     bank: String,
     is_contacted: { type: Boolean, required: true, default: false },
-    extras: { type: Object },
+    extras: { type: Object }
   },
   {
-    collection: "requests",
+    collection: 'requests',
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     timestamps: {
-      createdAt: "created_at",
-      updatedAt: "updated_at",
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
     },
     toJson: {
-      virtuals: true,
-    },
+      virtuals: true
+    }
   }
 );
 
-module.exports = mongoose.model("Requests", Schema);
+module.exports = mongoose.model('Requests', Schema);

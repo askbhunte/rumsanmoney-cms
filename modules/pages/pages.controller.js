@@ -1,35 +1,32 @@
 const Model = require('./pages.model');
 const { DataUtils } = require('../../utils');
-const slugify = require("slugify");
+const slugify = require('slugify');
 
 class Controller {
-  async list({
-    start, limit, name,
-  }) {
+  async list({ start, limit, name }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
-
 
     return DataUtils.paging({
       start,
       limit,
       sort: { created_at: 1 },
       model: Model,
-      query,
+      query
     });
   }
 
   add(payload) {
     let _slug = slugify(payload.name, {
       remove: /[*+~.()'"#:@!?,]/g,
-      replacement: "-",
-      lower: true,
+      replacement: '-',
+      lower: true
     });
     payload.slug = _slug;
     return Model.create(payload);
@@ -60,7 +57,6 @@ class Controller {
   remove(id) {
     return Model.findByIdAndRemove(id);
   }
-
 }
 
 module.exports = new Controller();

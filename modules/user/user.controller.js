@@ -12,30 +12,28 @@ class UserController extends UserManager {
     return { loginData };
   }
 
-  list({
-    start, limit, isEmployee, name,
-  }) {
+  list({ start, limit, isEmployee, name }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          'name.first': new RegExp(name, 'gi'),
-        },
+          'name.first': new RegExp(name, 'gi')
+        }
       });
     }
     query.push(
       {
         $match: {
-          is_active: true,
-        },
+          is_active: true
+        }
       },
       {
         $lookup: {
           from: 'users_comm',
           localField: 'comms',
           foreignField: '_id',
-          as: 'comms',
-        },
+          as: 'comms'
+        }
       },
       {
         $project: {
@@ -47,23 +45,23 @@ class UserController extends UserManager {
               input: '$comms',
               as: 'item',
               cond: {
-                $eq: ['$$item.is_primary', true],
-              },
-            },
+                $eq: ['$$item.is_primary', true]
+              }
+            }
           },
           organization: 1,
           is_approved: 1,
           is_active: 1,
           created_at: 1,
-          updated_at: 1,
-        },
-      },
+          updated_at: 1
+        }
+      }
     );
     if (isEmployee) {
       query.push({
         $match: {
-          is_employee: isEmployee,
-        },
+          is_employee: isEmployee
+        }
       });
     }
 
@@ -72,7 +70,7 @@ class UserController extends UserManager {
       limit,
       sort: { 'name.first': 1 },
       model: this.models.UserModel,
-      query,
+      query
     });
   }
 
@@ -83,5 +81,5 @@ class UserController extends UserManager {
 
 module.exports = new UserController({
   mongoose,
-  appSecret: config.get('app.secret'),
+  appSecret: config.get('app.secret')
 });

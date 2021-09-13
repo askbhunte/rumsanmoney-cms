@@ -16,34 +16,34 @@ router.get('/', async (q, r, n) => {
     status,
     categoryId,
     tagId,
-    slug,
+    slug
   })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/:id', async (q, r, n) => {
   Controller.findById(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.post('/', async (q, r, n) => {
   Controller.add(q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id', async (q, r, n) => {
   Controller.update(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 module.exports = router;

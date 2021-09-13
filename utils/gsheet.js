@@ -15,7 +15,7 @@ class GSheet {
     await sheet.loadHeaderRow();
     const rows = await sheet.getRows();
     const data = [];
-    rows.map((el) => {
+    rows.map(el => {
       const objData = {};
       objData.name = el.Bank ? el.Bank : null;
       objData.head_office = el['Head Office'] ? el['Head Office'] : null;
@@ -32,7 +32,7 @@ class GSheet {
     await sheet.loadHeaderRow();
     const rows = await sheet.getRows();
     const data = [];
-    rows.forEach((el) => {
+    rows.forEach(el => {
       const objData = {};
       objData.name = el['Product Name'] ? el['Product Name'] : null;
       objData.bank_id = el.Bank ? el.Bank : null;
@@ -54,7 +54,7 @@ class GSheet {
     await sheet.loadHeaderRow();
     const rows = await sheet.getRows();
     const data = [];
-    rows.forEach((el) => {
+    rows.forEach(el => {
       const objData = {};
       objData.name = el['Account type'] ? el['Account type'] : ' ';
       objData.icon = el.icons ? el.icons : ' ';
@@ -70,7 +70,7 @@ class GSheet {
       await sheet.loadHeaderRow();
       const rows = await sheet.getRows();
       const data = [];
-      rows.forEach((el) => {
+      rows.forEach(el => {
         const objData = {};
         objData.name = el['Name of Insurance Companies'];
         objData.symbol = el['Symbol Name'];
@@ -95,7 +95,7 @@ class GSheet {
       const rows = await sheet.getRows();
       const data = [];
 
-      rows.forEach((el) => {
+      rows.forEach(el => {
         const objData = {};
         if (el['Policy Type']) {
           objData.name = el['Policy Type'];
@@ -117,7 +117,7 @@ class GSheet {
       const rows = await sheet.getRows();
       const data = [];
 
-      rows.forEach((el) => {
+      rows.forEach(el => {
         const objData = {};
         if (el['Policy Type']) {
           objData.name = el['Policy Name'];

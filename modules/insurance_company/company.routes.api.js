@@ -11,54 +11,54 @@ router.get('/', async (q, r, n) => {
     limit,
     start,
     name,
-    address,
+    address
   })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/all', async (q, r, n) => {
   Controller.listAll()
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/:id', async (q, r, n) => {
   Controller.findById(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/slug/:slug', async (q, r, n) => {
   Controller.findBySlug(q.params.slug)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.get('/:slug/products', async (q, r, n) => {
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
   Controller.findProductsByCompany({ slug: q.params.slug, start, limit })
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.post('/', async (q, r, n) => {
   Controller.add(q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.put('/:id', async (q, r, n) => {
   Controller.update(q.params.id, q.body)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 router.delete('/:id', async (q, r, n) => {
   Controller.remove(q.params.id)
-    .then((d) => r.json(d))
-    .catch((e) => n(e));
+    .then(d => r.json(d))
+    .catch(e => n(e));
 });
 
 module.exports = router;

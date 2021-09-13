@@ -10,21 +10,21 @@ const Schema = mongoose.Schema(
     description: { type: String },
     image_url: { type: String },
     status: { type: String, enum: ['Published', 'Draft', 'Archived'] },
-    category: [{ type: ObjectId, ref: 'Categories' }],
+    category: [{ type: ObjectId, ref: 'Categories' }]
   },
   {
     collection: 'tags',
     toObject: {
-      virtuals: true,
+      virtuals: true
     },
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: 'updated_at'
     },
     toJson: {
-      virtuals: true,
-    },
-  },
+      virtuals: true
+    }
+  }
 );
 
 module.exports = mongoose.model('Tags', Schema);

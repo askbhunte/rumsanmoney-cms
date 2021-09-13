@@ -3,42 +3,40 @@ const Model = require('./request.model');
 const { DataUtils } = require('../../utils');
 
 class Controller {
-  list({
-    start, limit, name, status, categoryId, tagsId,
-  }) {
+  list({ start, limit, name, status, categoryId, tagsId }) {
     const query = [];
     if (name) {
       query.push({
         $match: {
-          name: new RegExp(name, 'gi'),
-        },
+          name: new RegExp(name, 'gi')
+        }
       });
     }
     if (status) {
       query.push({
         $match: {
-          is_active: status,
-        },
+          is_active: status
+        }
       });
     }
     if (categoryId) {
       query.push({
         $unwind: {
-          path: '$category',
+          path: '$category'
         },
         $match: {
-          category: ObjectId(categoryId),
-        },
+          category: ObjectId(categoryId)
+        }
       });
     }
     if (tagsId) {
       query.push({
         $unwind: {
-          path: '$tags',
+          path: '$tags'
         },
         $match: {
-          tags: ObjectId(tagsId),
-        },
+          tags: ObjectId(tagsId)
+        }
       });
     }
     return DataUtils.paging({
@@ -46,7 +44,7 @@ class Controller {
       limit,
       query,
       model: Model,
-      sort: { created_at: 1 },
+      sort: { created_at: 1 }
     });
   }
 
