@@ -21,7 +21,7 @@ router.get('/', (q, r, n) => {
   Controller.list({
     start, limit, cookieName, user, filterPreferenceUser, filterCookieUsers,
   })
-    .then((d) => { console.log(d.data); r.json(d); })
+    .then((d) => { r.json(d); })
     .catch((e) => n(e));
 });
 
