@@ -32,6 +32,21 @@ class Controller {
         },
       });
     }
+    if (filterCookieUsers) {
+      query.push({
+        $lookup: {
+          from: 'histories',
+          localField: '_id',
+          foreignField: 'cookie',
+          as: 'analytics',
+        },
+      });
+      query.push({
+        $match: {
+          analytics: { $exists: true, $not: { $size: 0 } },
+        },
+      });
+    }
 
     return DataUtils.paging({
       start, limit, sort: { created_at: -1 }, model: Model, query,
