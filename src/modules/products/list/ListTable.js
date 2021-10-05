@@ -5,7 +5,7 @@ import Ratings from "react-ratings-declarative";
 import Swal from "sweetalert2";
 import Paginate from "../../global/Paginate";
 import { BankSelector } from "../../banks";
-import moment from 'moment';
+import moment from "moment";
 
 import {
   Button,
@@ -292,7 +292,7 @@ export default function ProductList() {
                       <td>{d.name}</td>
                       <td>{d.bankinfo.name || "N/A"}</td>
                       <td>{d.loan_type ? d.ptype.toUpperCase() : "N/A"}</td>
-                      <td>{moment(d.updated_at).format('LL') || "N/A"}</td>
+                      <td>{moment(d.updated_at).format("LL") || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
                       <td>
                         {d.is_featured ? (
@@ -484,8 +484,8 @@ export default function ProductList() {
                   type="Number"
                   defaultValue={baseRate ? baseRate : ""}
                   placeholder="Base Rate"
+                  step="any"
                   className="form-field"
-                  required
                 />
               </div>
 
@@ -497,6 +497,7 @@ export default function ProductList() {
                   type="Number"
                   placeholder="Interest Rate"
                   className="form-field"
+                  step="any"
                   required
                 />
               </div>
