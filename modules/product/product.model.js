@@ -17,7 +17,7 @@ const Schema = mongoose.Schema(
     is_featured: { type: Boolean, default: false, required: true },
     ispopular: { type: Boolean, default: false, required: true },
     interestId: { type: ObjectId, ref: 'Interests' },
-    base_rate: { type: Number },
+    base_rate: { type: Number, required: true },
     is_active: { type: Boolean, required: true, default: true }
   },
   {
