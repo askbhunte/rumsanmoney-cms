@@ -98,19 +98,19 @@ export const ProductContextProvider = ({ children }) => {
     });
   }
 
-  function updateDate(productId){
-    return new Promise((resolve,reject)=>{
+  function updateDate(productId) {
+    return new Promise((resolve, reject) => {
       Service.updateDate(productId)
-        .then(res=>{
+        .then((res) => {
           resolve(res);
         })
-        .catch(err=>{
-          reject(err)
-        })
-    })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
-  const addProduct = async (event) => {
+  const addProduct = async (event, newCategory) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
@@ -122,6 +122,7 @@ export const ProductContextProvider = ({ children }) => {
       description: formData.get("description"),
       loan_type: formData.get("loan_type"),
       ptype: formData.get("ptype"),
+      category: newCategory,
       base_rate: formData.get("base_rate"),
       interest_rate: formData.get("interest_rate"),
     };

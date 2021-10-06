@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Paginate from "../../global/Paginate";
 import { BankSelector } from "../../banks";
 import moment from "moment";
+import CategorySelector from "../../categories/category.selector";
 
 import {
   Button,
@@ -31,6 +32,7 @@ export default function ProductList() {
   const [current, setCurrent] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [baseRate, setBaseRate] = useState(null);
+  const [newCategory, setNewCategory] = useState(null);
   const size = "xl";
   const {
     listProduct,
@@ -107,6 +109,24 @@ export default function ProductList() {
       });
     }
     fetchList({ start: 0, limit: pagination.limit });
+  };
+
+  const addNewProduct = (e) => {
+    addProduct(e, newCategory)
+      .then((d) => {
+        addToast("Product Added successfully", {
+          appearance: "success",
+          autoDismiss: true,
+        });
+        get();
+        toggle();
+      })
+      .catch((err) =>
+        addToast(err.message, {
+          appearance: "error",
+          autoDismiss: true,
+        })
+      );
   };
 
   const handleSearchInputChange = (e) => {
@@ -289,10 +309,16 @@ export default function ProductList() {
                 product.map((d) => {
                   return (
                     <tr key={d._id}>
-                      <td>{d.name}</td>
+                      <td>
+                        {d && d.name ? d.name.substring(0, 30) + "..." : "-"}
+                      </td>
                       <td>{d.bankinfo.name || "N/A"}</td>
-                      <td>{d.loan_type ? d.ptype.toUpperCase() : "N/A"}</td>
-                      <td>{moment(d.updated_at).format("LL") || "N/A"}</td>
+                      <td>
+                        {d && d.categoryinfo
+                          ? d.categoryinfo.name.toUpperCase()
+                          : "N/A"}
+                      </td>
+                      <td>{moment(d.updated_at).format("ll") || "N/A"}</td>
                       <td>{d.interest_rate || "N/A"}</td>
                       <td>
                         {d.is_featured ? (
@@ -357,22 +383,7 @@ export default function ProductList() {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-
-            addProduct(e)
-              .then((d) => {
-                addToast("Product Added successfully", {
-                  appearance: "success",
-                  autoDismiss: true,
-                });
-                get();
-                toggle();
-              })
-              .catch((err) =>
-                addToast(err.message, {
-                  appearance: "error",
-                  autoDismiss: true,
-                })
-              );
+            addNewProduct(e);
           }}
         >
           <ModalHeader toggle={toggle}>
@@ -459,13 +470,7 @@ export default function ProductList() {
               <div className="form-item">
                 <label htmlFor="logo_url">Product Type</label>
                 <br />
-                <Input
-                  name="ptype"
-                  type="text"
-                  placeholder="Product Type"
-                  className="form-field"
-                  required
-                />
+                <CategorySelector onChange={(d) => setNewCategory(d)} />
               </div>
             </div>
             <br />

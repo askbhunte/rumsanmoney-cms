@@ -39,7 +39,6 @@ export const ContextProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       Service.list(query)
         .then((res) => {
-          console.log(res);
           dispatch({ type: ACTION.LIST_SUCCESS, res });
           resolve(res);
         })
