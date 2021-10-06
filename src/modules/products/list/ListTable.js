@@ -42,7 +42,6 @@ export default function ProductList() {
     changeFeatured,
     getBankDetail,
   } = useContext(ProductContext);
-
   const handlePagination = (current_page) => {
     let _start = current_page * pagination.limit;
     setCurrent(current_page);
@@ -491,6 +490,7 @@ export default function ProductList() {
                   placeholder="Base Rate"
                   step="any"
                   className="form-field"
+                  readOnly
                 />
               </div>
 
