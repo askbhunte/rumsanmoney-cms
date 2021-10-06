@@ -5,7 +5,7 @@ router.get('/', async (q, r, n) => {
   const limit = q.query.limit || 20;
   const start = q.query.start || 0;
   const name = q.query.name || null;
-  const producttype = q.query.ptype || null;
+  const producttype = q.query.type || null;
   const bankname = q.query.bankname || null;
   const baserate = q.query.baserate || null;
   const bankId = q.query.bankId || null;
@@ -13,7 +13,6 @@ router.get('/', async (q, r, n) => {
   const category = q.query.category || null;
   const sortinasc = q.query.sortinasc || null;
   const sortindesc = q.query.sortindesc || null;
-
   Controller.list({
     limit,
     start,
