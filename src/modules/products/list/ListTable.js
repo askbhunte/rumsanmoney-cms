@@ -46,8 +46,8 @@ export default function ProductList() {
     let _start = current_page * pagination.limit;
     setCurrent(current_page);
     let query = { name: searchText };
-    if (filter.searchBy === searchOptions.TYPE) {
-      query = { type: searchText };
+    if (filter.searchBy === searchOptions.PTYPE) {
+      query = { ptype: searchText };
     }
     if (filter.searchBy === searchOptions.BASERATE) {
       query = { baserate: searchText };
@@ -67,7 +67,7 @@ export default function ProductList() {
     BANKNAME: "bankname",
     NAME: "name",
     BASERATE: "baserate",
-    TYPE: "type",
+    PTYPE: "ptype",
   };
 
   const [filter, setFilter] = useState({
@@ -101,10 +101,10 @@ export default function ProductList() {
         searchBy: searchOptions.BASERATE,
       });
     }
-    if (value === searchOptions.TYPE) {
+    if (value === searchOptions.PTYPE) {
       setFilter({
         searchPlaceholder: "Enter product type...",
-        searchBy: searchOptions.TYPE,
+        searchBy: searchOptions.PTYPE,
       });
     }
     fetchList({ start: 0, limit: pagination.limit });
@@ -137,8 +137,8 @@ export default function ProductList() {
     if (filter.searchBy === searchOptions.NAME) {
       return fetchList({ start: 0, limit: pagination.limit, name: value });
     }
-    if (filter.searchBy === searchOptions.TYPE) {
-      return fetchList({ start: 0, limit: pagination.limit, type: value });
+    if (filter.searchBy === searchOptions.PTYPE) {
+      return fetchList({ start: 0, limit: pagination.limit, ptype: value });
     }
     if (filter.searchBy === searchOptions.BASERATE) {
       return fetchList({ start: 0, limit: pagination.limit, baserate: value });
@@ -269,7 +269,7 @@ export default function ProductList() {
                 >
                   <option value="name">Search By Product Name</option>
                   <option value="bankname">By Bank Name</option>
-                  <option value="type">By Product Type</option>
+                  <option value="ptype">By Product Type</option>
                   <option value="baserate">By Base Rate</option>
                 </CustomInput>
                 <div style={{ display: "inline-flex" }}>
