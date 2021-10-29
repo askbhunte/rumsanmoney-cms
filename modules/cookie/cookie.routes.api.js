@@ -17,48 +17,25 @@ router.get('/', (q, r, n) => {
   const limit = q.query.limit || 20;
   const cookieName = q.query.cookieName || null;
   const user = q.query.user || null;
-  const filterPreferenceUser = !!(q.query && q.query.preferenceCheck === 'userPreference');
-
-  if (q.query.preferenceCheck === 'userHistory') {
-    Controller.list({
-      start,
-      limit: 900000,
-      cookieName,
-      user
-    })
-      .then(async d => {
-        const hasHistoryArr = [];
-        d.data.forEach(async el => {
-          const dd = await HistoryController.list({ start: 0, limit: 20, cookie: el._id });
-          if (dd.data.length > 0) {
-            hasHistoryArr.push(el);
-          }
-        });
-        setTimeout(async () => {
-          const ddata = {
-            data: hasHistoryArr,
-            total: hasHistoryArr.length,
-            limit: '10000',
-            start: '0',
-            page: 1
-          };
-          r.json(ddata);
-        }, 50);
-      })
-      .catch(e => n(e));
-  } else {
-    Controller.list({
-      start,
-      limit,
-      cookieName,
-      user,
-      filterPreferenceUser
-    })
-      .then(d => {
-        r.json(d);
-      })
-      .catch(e => n(e));
+  // const filterPreferenceUser = !!(q.query && q.query.preferenceCheck === 'userPreference');
+  let filter;
+  if (q.query && q.query.preferenceCheck === 'userHistory') {
+    filter = 'userHistory';
+  } else if (q.query && q.query.preferenceCheck === 'userPreference') {
+    filter = 'userPreference';
   }
+
+  Controller.list({
+    start,
+    limit,
+    cookieName,
+    user,
+    filter
+  })
+    .then(d => {
+      r.json(d);
+    })
+    .catch(e => n(e));
 });
 
 router.get('/:name', (q, r, n) => {

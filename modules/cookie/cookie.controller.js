@@ -7,7 +7,7 @@ class Controller {
     return Model.create(payload);
   }
 
-  async list({ start, limit, user, cookieName, filterPreferenceUser }) {
+  async list({ start, limit, user, cookieName, filter }) {
     const query = [];
     if (user) {
       query.push({
@@ -23,12 +23,35 @@ class Controller {
         }
       });
     }
-    if (filterPreferenceUser) {
+    if (filter === 'userPreference') {
       query.push({
         $match: {
           preference: { $exists: true, $not: { $size: 0 } }
         }
       });
+    } else if (filter === 'userHistory') {
+      query.push(
+        {
+          $lookup: {
+            from: 'histories',
+            localField: '_id',
+            foreignField: 'cookie',
+            as: 'history'
+          }
+        },
+        {
+          $match: {
+            $expr: {
+              $gt: [
+                {
+                  $size: '$history'
+                },
+                0
+              ]
+            }
+          }
+        }
+      );
     }
     // if (filterCookieUsers) {
     //   query.push(
