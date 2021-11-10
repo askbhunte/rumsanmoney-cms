@@ -7,7 +7,8 @@ const Schema = mongoose.Schema({
   is_active: { type: Boolean, default: false },
   referral: { type: String },
   user: { type: String },
-  preference: [{ type: Object }]
+  preference: [{ type: Object }],
+  has_history: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Cookies', Schema);
