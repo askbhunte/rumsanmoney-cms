@@ -44,6 +44,18 @@ router.get('/:name', (q, r, n) => {
     .catch(e => n(e));
 });
 
+router.get('/id/:id', (q, r, n) => {
+  Controller.getById(q.params.id)
+    .then(d => r.json(d))
+    .catch(e => n(e));
+});
+
+router.put('/id/:id', (q, r, n) => {
+  Controller.getByIdAndUpdate(q.params.id, q.body)
+    .then(d => r.json(d))
+    .catch(e => n(e));
+});
+
 router.patch('/:name', (q, r, n) => {
   Controller.updateCookieUserName(q.params.name, q.body.username)
     .then(d => r.json(d))
