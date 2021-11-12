@@ -7,7 +7,7 @@ class Controller {
     return Model.create(payload);
   }
 
-  async list({ start, limit, user, cookieName, filterPreferenceUser }) {
+  async list({ start, limit, user, cookieName, filter }) {
     const query = [];
     if (user) {
       query.push({
@@ -23,40 +23,19 @@ class Controller {
         }
       });
     }
-    if (filterPreferenceUser) {
+    if (filter === 'userPreference') {
       query.push({
         $match: {
           preference: { $exists: true, $not: { $size: 0 } }
         }
       });
+    } else if (filter === 'userHistory') {
+      query.push({
+        $match: {
+          has_history: true
+        }
+      });
     }
-    // if (filterCookieUsers) {
-    //   query.push(
-    //     {
-    //       $lookup: {
-    //         from: 'histories',
-    //         localField: '_id',
-    //         foreignField: 'cookie',
-    //         as: 'analytics'
-    //       }
-    //     },
-    //     {
-    //       $match: {
-    //         analytics: {
-    //           $exists: true,
-    //           $not: {
-    //             $size: 0
-    //           }
-    //         }
-    //       }
-    //     },
-    //     {
-    //       $project: {
-    //         analytics: 0
-    //       }
-    //     }
-    //   );
-    // }
     return DataUtils.paging({
       start,
       limit,
@@ -66,10 +45,16 @@ class Controller {
     });
   }
 
+  getById(id) {
+    return Model.findOne({ _id: id });
+  }
+
+  getByIdAndUpdate(id, payload) {
+    return Model.findByIdAndUpdate(id, payload);
+  }
+
   getByName(name) {
-    return Model.findOne({
-      name
-    });
+    return Model.findOne({ name });
   }
 
   updateCookieUserName(cookieName, username) {
