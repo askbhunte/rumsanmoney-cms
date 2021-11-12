@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const Controller = require('./history.controller');
 const CookieController = require('../cookie/cookie.controller');
 
@@ -13,8 +12,8 @@ router.get('/:id', (q, r, n) => {
 });
 
 router.post('/', async (q, r, n) => {
-  const cookieDetail = await CookieController.getById(q.body.cookie);
-  if (cookieDetail.has_history === false) {
+  const { has_history } = await CookieController.getById(q.body.cookie);
+  if (!has_history) {
     await CookieController.getByIdAndUpdate(q.body.cookie, { has_history: true });
   }
   Controller.add(q.body)
