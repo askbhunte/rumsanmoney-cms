@@ -170,7 +170,7 @@ export default function BlogList() {
             <thead>
               <tr className="border-0">
                 <th className="border-0">Name</th>
-                <th className="border-0">Slug</th>
+                <th className="border-0">Author</th>
                 <th className="border-0">Action</th>
               </tr>
             </thead>
@@ -187,13 +187,21 @@ export default function BlogList() {
                               ''
                             )}
                         </div>
+                        <small>
+                          <em>
+                          {d && d.excerpt ? d.excerpt.slice(0, 70).concat('...') : ''}
+                          </em>
+                        </small>
                       </td>
-                      <td>{d.slug || "N/A"}</td>                      
-                      <td className="blue-grey-text  text-darken-4 font-medium">
+                      <td>{d.author || "-"}</td>                      
+                      <td className="blue-grey-text text-darken-4 font-medium">
+                        <Button className="btn btn-secondary mr-2" onClick={() => window.open("https://rumsanmoney.com/blogs/"+d.slug, '_blank')}>
+                          <i className="fas fa-eye"></i>
+                        </Button>
                         <Link className="btn btn-primary" to={`/blog/${d._id}`}>
                           Edit
                         </Link>
-                         <Button className="btn btn-danger ml-2" onClick={()=> deleteHandler(d._id)}>
+                        <Button className="btn btn-danger ml-2" onClick={()=> deleteHandler(d._id)}>
                           Delete
                         </Button>
                       </td>
