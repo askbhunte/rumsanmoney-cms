@@ -44,7 +44,7 @@ class Controller {
       limit,
       query,
       model: Model,
-      sort: { created_at: 1 }
+      sort: { created_at: -1 }
     });
   }
 
