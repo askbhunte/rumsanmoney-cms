@@ -28,7 +28,7 @@
     "multer": "^1.4.2",
     "nodemailer": "^6.4.10",
     "path": "^0.12.7",
-    "rs-user": "git+ssh://git@lab.rumsan.net:rs/user.git",
+    "rs-user": "rumsan/user",
     "slugify": "^1.4.6",
     "uuid": "^3.3.2"
   },
